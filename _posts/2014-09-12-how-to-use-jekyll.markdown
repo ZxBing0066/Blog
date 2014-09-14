@@ -13,7 +13,7 @@ tags: github jekyll
 
 * 安装Ruby DevKit [Ruby DevKit下载地址](http://rubyinstaller.org/downloads/) 到 `C:\RubyDevKit\` (建议)
 
-``` shell
+```
 cd C:\RubyDevKit
 ruby dk.rb init
 ruby dk.rb install

@@ -10,5 +10,4 @@ github_username:  ZxBingGitHub
 
 # Build settings
 markdown: kramdown
-highlighter: rouge
-encoding: utf-8
+highlighter: pygments

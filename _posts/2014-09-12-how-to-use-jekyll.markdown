@@ -13,7 +13,7 @@ tags: github jekyll
 
 * 安装Ruby DevKit [Ruby DevKit下载地址](http://rubyinstaller.org/downloads/) 到 `C:\RubyDevKit\` (建议)
 
-```
+<pre class="prettyprint linenums Lang-bash">
 cd C:\RubyDevKit
 ruby dk.rb init
 ruby dk.rb install
@@ -26,13 +26,13 @@ of the installed Rubies you want enhanced by the DevKit.
 C:\RubyDevKit> ruby dk.rb install
 [INFO] Updating convenience notice gem override for 'C:/Ruby200-x64'
 [INFO] Installing 'C:/Ruby200-x64/lib/ruby/site_ruby/devkit.rb'
-```
+</pre>
 
 * 安装Jekyll Gem
 
-```
+<pre class="prettyprint Lang-bash">
 gem install jekyll
-```
+</pre>
 
 * 安装python [python下载地址](https://www.python.org/download/releases/2.7.8/)
 

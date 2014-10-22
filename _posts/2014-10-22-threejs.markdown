@@ -1,0 +1,51 @@
+---
+layout: post
+title: "threejs学习"
+date: 2014-10-13 14:30:45
+categories: threejs
+tags: threejs
+---
+
+# threejs学习 #
+
+## Createing the scene ##
+
+<pre class="prettyprint linenums Lang-javascript">
+var scene = new THREE.Scene();
+var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+
+var renderer = new THREE.WebGLRenderer();
+renderer.setSize( window.innerWidth, window.innerHeight );
+document.body.appendChild( renderer.domElement );
+</pre>
+
+## Createing a cube ##
+
+<pre class="prettyprint linenums Lang-javascript">
+var geometry = new THREE.BoxGeometry(1,1,1);
+var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+var cube = new THREE.Mesh( geometry, material );
+scene.add( cube );
+
+camera.position.z = 5;
+</pre>
+
+## Rendering the scene ##
+
+<pre class="prettyprint linenums Lang-javascript">
+function render() {
+    requestAnimationFrame(render);
+    renderer.render(scene, camera);
+}
+render();
+</pre>
+
+## Animating the cube ##
+
+
+<pre class="prettyprint linenums Lang-javascript">
+cube.rotation.x += 0.1;
+cube.rotation.y += 0.1;
+</pre>
+
+<iframe width="100%" height="300" src="http://jsfiddle.net/wbb123yu/Lr9eh7dh/embedded/result,js" allowfullscreen="allowfullscreen" frameborder="0"></iframe>

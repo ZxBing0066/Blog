@@ -1,14 +1,14 @@
 ---
 layout: post
-title: "threejs学习"
+title: "threejs学习-0"
 date: 2014-10-13 14:30:45
 categories: threejs
 tags: threejs
 ---
 
-# threejs学习 #
+# threejs学习-0 #
 
-## Createing the scene ##
+### Createing the scene ###
 
 <pre class="prettyprint linenums Lang-javascript">
 var scene = new THREE.Scene();
@@ -19,7 +19,7 @@ renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 </pre>
 
-## Createing a cube ##
+### Createing a cube ###
 
 <pre class="prettyprint linenums Lang-javascript">
 var geometry = new THREE.BoxGeometry(1,1,1);
@@ -30,7 +30,7 @@ scene.add( cube );
 camera.position.z = 5;
 </pre>
 
-## Rendering the scene ##
+### Rendering the scene ###
 
 <pre class="prettyprint linenums Lang-javascript">
 function render() {
@@ -40,7 +40,7 @@ function render() {
 render();
 </pre>
 
-## Animating the cube ##
+### Animating the cube ###
 
 
 <pre class="prettyprint linenums Lang-javascript">

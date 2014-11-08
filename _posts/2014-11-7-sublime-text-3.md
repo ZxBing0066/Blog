@@ -18,9 +18,11 @@ tags: SublimeText SublimeText3
 
 >使用`ST Console`安装
 >使用`` Ctrl+` ``快捷键或`View->Show Console`来打开`Console`,输入如下代码:
-```python
+
+
+<pre class="prettyprint linenums Lang-python">
 import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)
-```
+</pre>
 
 >下载后直接安装
 >点击`Preferences > Browse Packages`菜单,进入打开的目录的上层目录,然后再进入`Installed Packages/`目录,下载[Package Control.sublime-package](https://packagecontrol.io/Package%20Control.sublime-package)并复制到`Installed Packages/`目录即可.
@@ -75,6 +77,13 @@ import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330
 >#####[`PlainTasks`](https://github.com/aziz/PlainTasks)
 >把`Sublime Text`打造成`Task`管理工具,好叼的样子~
 >![插图](http://zxspace.qiniudn.com/2014-11-7-img-1.jpg)
+
+(2014年11月8日, AM 07:06:35修改)
+>#####`Gist`
+>可在`Sublime Text`上使用和编辑`Gist`的插件
+(2014年11月8日, AM 07:06:35修改)
+
+
 
 
 

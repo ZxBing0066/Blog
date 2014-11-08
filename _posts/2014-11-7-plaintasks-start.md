@@ -2,6 +2,8 @@
 layout: post
 title: "PlainTasks使用教程"
 date: 2014-11-7 21:23:43
+author: ZxBing
+blogid: 20141107001
 categories: SublimeText
 tags: SublimeText plaintasks
 ---

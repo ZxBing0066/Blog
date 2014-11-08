@@ -2,6 +2,8 @@
 layout: post
 title:  "Welcome to Jekyll!"
 date:   2014-09-11 10:19:57
+author: ZxBing
+blogid: 20140911003
 categories: jekyll
 tags: jekyll github blog
 ---

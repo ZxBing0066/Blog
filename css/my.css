@@ -1,0 +1,29 @@
+.tag_container {
+    height: 35px;
+
+    line-height: 35px;
+}
+.tag_container:before {
+	content: "标签：";
+	color: #666;
+}
+.tag_container .tag {
+    display: inline-block;
+
+    padding: 5px 10px;
+    line-height: 25px;
+    background: #999;
+    border-radius: 3px;
+}
+.tag_container .tag .name {
+    color: #FFF;
+
+    margin-right: 5px;
+}
+.tag_container .tag .count {
+    color: #282525;
+
+}
+li {
+	list-style-type: none;
+}

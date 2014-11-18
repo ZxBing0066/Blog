@@ -4,8 +4,8 @@ title: "Jekyll on Windows安装"
 date: 2014-9-12 22:02:12
 author: ZxBing
 blogid: 20140912001
-categories: github
-tags: github jekyll
+categories: jekyll
+tags: github jekyll blog
 ---
 [Jekyll on Windows英文教程](http://jekyll-windows.juthilo.com/ "Jekyll on Windows")
 

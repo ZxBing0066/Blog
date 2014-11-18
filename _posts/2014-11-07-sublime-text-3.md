@@ -4,8 +4,8 @@ title: "Sublime Text3 安装&配置"
 date: 2014-11-7 10:16:43
 author: ZxBing
 blogid: 20141107002
-categories: SublimeText
-tags: SublimeText SublimeText3
+categories: sublimetext
+tags: sublimetext
 ---
 
 ##`Sublime Text3`安装&配置

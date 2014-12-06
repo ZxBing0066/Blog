@@ -52,6 +52,7 @@ $ cd node_modules/shadowsocks
 </pre>
 
 使用`git`下载源码(请先安装`git`哦):
+
 <pre class="prettyprint linenums Lang-shell">
 $ git clone git://github.com/clowwindy/shadowsocks-nodejs.git
 $ cd shadowsocks-nodejs

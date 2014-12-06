@@ -68,7 +68,7 @@ import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330
 
 >#####[`BracketHighlighter`](https://sublime.wbond.net/packages/BracketHighlighter)
 >这个插件可以显示出当前光标所在的开合部分
->![插图](http://zxspace.qiniudn.com/2014-11-7-img-0.jpg)
+>![插图](http://zxspace.qiniudn.com/blog/2014-11-7-img-0.jpg)
 
 >#####[`Sublimall`](https://sublimall.org/)
 >这个插件能在你注册帐号后将你的`Sublime Text`所有配置同步,略吊~
@@ -78,7 +78,7 @@ import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330
 
 >#####[`PlainTasks`](https://github.com/aziz/PlainTasks)
 >把`Sublime Text`打造成`Task`管理工具,好叼的样子~
->![插图](http://zxspace.qiniudn.com/2014-11-7-img-1.jpg)
+>![插图](http://zxspace.qiniudn.com/blog/2014-11-7-img-1.jpg)
 
 (2014年11月8日, AM 07:06:35修改)
 >#####`Gist`
@@ -96,19 +96,19 @@ import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330
 #####[colorsublime,一个主题提供站点](http://colorsublime.com/)
 
 >#####[`SpaceGray`](http://kkga.github.io/spacegray/)
->![主题图片](http://zxspace.qiniudn.com/2014-11-7-img-2.jpg)
+>![主题图片](http://zxspace.qiniudn.com/blog/2014-11-7-img-2.jpg)
 
 >#####[`Centurion`](https://github.com/allanhortle/Centurion)
->![主题图片](http://zxspace.qiniudn.com/2014-11-7-img-3.jpg)
+>![主题图片](http://zxspace.qiniudn.com/blog/2014-11-7-img-3.jpg)
 
 >#####[`flatland`](https://github.com/thinkpixellab/flatland)
->![主题图片](http://zxspace.qiniudn.com/2014-11-7-img-4.jpg)
+>![主题图片](http://zxspace.qiniudn.com/blog/2014-11-7-img-4.jpg)
 
 >#####[`predawn`](https://github.com/jamiewilson/predawn)
->![主题图片](http://zxspace.qiniudn.com/2014-11-7-img-5.jpg)
+>![主题图片](http://zxspace.qiniudn.com/blog/2014-11-7-img-5.jpg)
 
 >#####[`itg.​flat`](https://sublime.wbond.net/packages/Theme%20-%20itg.flat)
->![主题图片](http://zxspace.qiniudn.com/2014-11-7-img-6.jpg)
+>![主题图片](http://zxspace.qiniudn.com/blog/2014-11-7-img-6.jpg)
 
 
 

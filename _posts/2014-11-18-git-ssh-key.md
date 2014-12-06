@@ -17,16 +17,16 @@ tags: git
 ##生成`ssh key`公钥
 
 首先检查一下是否已经生成:
-```shell
+<pre class="prettyprint linenums Lang-shell">
 $ cd ~/.ssh
 $ ls
-```
+</pre>
 关键是看有没有用`something`和`something.pub`来命名的一对文件，这个`something`通常就是`id_dsa`或`id_rsa`。有`.pub `后缀的文件就是公钥，另一个文件则是密钥。假如没有这些文件，或者干脆连`.ssh`目录都没有，可以用`ssh-keygen`来创建。该程序在`Linux/Mac`系统上由`SSH`包提供，而在`Windows`上则包含在`MSysGit`包里.若是已经生成可直接进入下一步.
 
 创建`ssh key`:
-```shell
-ssh-keygen -t rsa -C "your_email@example.com"
-```
+<pre class="prettyprint linenums Lang-shell">
+$ ssh-keygen -t rsa -C "your_email@example.com"
+</pre>
 然后便会提示输入密码,直接`Enter`跳过吧..
 然后便会提示已经生成到`~/.ssh`下面,Ok,可以进入下一步了
 
@@ -37,13 +37,13 @@ ssh-keygen -t rsa -C "your_email@example.com"
 ##将`https`协议`clone`的仓库修改为`git`协议
 
 查看当前`remote url`:
-```shell
+<pre class="prettyprint linenums Lang-shell">
 $ git remote -v
-```
+</pre>
 
 修改`remote url`:
-```shell
-git remote set-url origin git@github.com:someaccount/someproject.git
-```
+<pre class="prettyprint linenums Lang-shell">
+$ git remote set-url origin git@github.com:someaccount/someproject.git
+</pre>
 
 OK就这么多了~搞定收工

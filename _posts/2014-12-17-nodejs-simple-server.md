@@ -16,23 +16,23 @@ tags: nodejs
 
 既然是`nodejs`服务器,第一步当然是安装`nodejs`啦.
 
-{% highlight shell %}
+<pre class="prettyprint linenums Lang-shell">
 $ sudo apt-get install nodejs
-{% endhightlight %}
+</pre>
 
 然后`Ubuntu`下的`node`命令默认被其它应用占用了,所以需要再装个`nodejs-legacy`.
 
-{% highlight shell %}
+<pre class="prettyprint linenums Lang-shell">
 $ sudo apt-get install nodejs-legacy
-{% endhightlight %}
+</pre>
 
 ##安装`npm`
 
 `npm`是`nodejs`的模块管理器,安装不多说,就一行命令
 
-{% highlight shell %}
+<pre class="prettyprint linenums Lang-shell">
 $ sudo apt-get install npm
-{% endhightlight %}
+</pre>
 
 好了,下面就可以使用`npm`来安装模块了
 
@@ -40,18 +40,18 @@ $ sudo apt-get install npm
 
 `express`是一个`nodejs`的`web`程序框架,使用`npm`安装一下吧(`-g`参数的意思是安装为全局模块,而不是直接安装到当前文件夹下的`node_modules`里,但是可能需要配置环境变量,不想配置直接装到项目文件夹就行)
 
-{% highlight shell %}
+<pre class="prettyprint linenums Lang-shell">
 $ sudo npm install express -g
-{% endhightlight %}
+</pre>
 
 ##创建文件并启动
 
 在项目文件夹中创建入口文件,然后直接启动
 
-{% highlight shell %}
+<pre class="prettyprint linenums Lang-shell">
 $ touch app.js
 $ vim app.js
-{% endhightlight %}
+</pre>
 
 `app.js`的文件内容如下(代码含义见注释):
 
@@ -67,13 +67,13 @@ app.get('/', function(req, res){
 
 // app监听端口启动
 app.listen(APP_PORT);
-{% endhightlight %}
+{% endhighlight %}
 
 下面直接使用`nodejs`来启动吧
 
-{% highlight shell %}
+<pre class="prettyprint linenums Lang-shell">
 $ node app.js
-{% endhightlight %}
+</pre>
 
 若是有报错可能需要注意下端口是否被占用,就这么点代码应该没啥别的问题~
 
@@ -85,7 +85,7 @@ $ node app.js
 
 {% highlight javascript %}
 app.use('/static', express.static(__dirname + '/public'));
-{% endhightlight %}
+{% endhighlight %}
 
 添加一行代码就可以将项目文件夹下的目录下的文件映射为静态文件
 

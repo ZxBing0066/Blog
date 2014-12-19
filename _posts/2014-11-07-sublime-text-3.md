@@ -34,12 +34,24 @@ import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330
 ####`Package Control`使用
 
 >`Ctrl+Shift+P`打开面板,输入`Package Control`可看到所有可使用的命令.
+
 #####常用命令
 *  `Install Package`安装插件的命令,执行后将会列出所有可用的插件列表,然后选择插件便可直接安装
 *  `Remove Package`删除已安装的插件
 *  `List Packages`列出所有已安装的插件
 *  `Disable Package`暂停使用某插件
 *  `Enable Package`启用某插件
+
+####手动安装插件
+(2014.12.19 更新)
+
+因为国内的X比较高,所以可能经常连不上插件库,这时候就需要手动安装了,还好`Github`没被XX了
+
+直接到插件的页面去下载插件,也可以在上面的`Package Control`官网中直接搜索下载,一般插件都是托管在`Github`上,所以直接到`Github`上搜索当然也是可行的.
+
+下载时可以看下插件的介绍,一般都写有安装方法,一种是使用`Package Control`,另一种就是`Manual Installation`了.一般都是直接`clone`整个项目,然后点击`Preferences`-->`Browse Packages...`打开`Packages`文件夹,把项目复制进去就可以了.不过也有的可以直接下载`.sublime-package`文件,这个文件需要放到`Packages`上级目录下的`Installed Packages`文件夹下.
+
+放入文件夹后可能需要重启才能生效
 
 ####插件推荐
 

@@ -93,12 +93,20 @@ import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330
 >![插图](http://zxspace.qiniudn.com/blog/2014-11-7-img-1.jpg)
 
 (2014年11月8日, AM 07:06:35修改)
+
 >#####`Gist`
 >可在`Sublime Text`上使用和编辑`Gist`的插件
-(2014年11月8日, AM 07:06:35修改)
 
+(2015年1月30日, PM 5:57:00修改)
 
+>#####`JsFormat`
+>看名字就知道是用于格式化`JS`的了,不废话
 
+>#####`CSS Format`
+>看名字就知道是用于格式化`CSS`的了,同样不废话
+
+>#####`Tag`
+>一款格式化组件,个人用于格式化`HTML`
 
 
 

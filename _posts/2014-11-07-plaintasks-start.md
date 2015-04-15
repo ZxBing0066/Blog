@@ -2,7 +2,7 @@
 layout: post
 title: "PlainTasks使用教程"
 date: 2014-11-7 21:23:43
-author: ZxBing
+author: ZxBing0066
 blogid: 20141107001
 categories: sublimetext
 tags: sublimetext plaintasks

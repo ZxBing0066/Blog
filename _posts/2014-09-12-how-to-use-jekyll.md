@@ -2,7 +2,7 @@
 layout: post
 title: "Jekyll on Windows安装"
 date: 2014-9-12 22:02:12
-author: ZxBing
+author: ZxBing0066
 blogid: 20140912001
 categories: jekyll
 tags: github jekyll blog

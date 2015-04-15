@@ -2,7 +2,7 @@
 layout: post
 title: "git中使用ssh key"
 date: 2014-11-12 12:07:43
-author: ZxBing
+author: ZxBing0066
 blogid: 20141112001
 categories: git
 tags: git

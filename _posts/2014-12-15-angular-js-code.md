@@ -2,7 +2,7 @@
 layout: post
 title: "angular.js 源码 1"
 date: 2014-12-15 15:25:00
-author: ZxBing
+author: ZxBing0066
 blogid: 20141215001
 categories: js-framework angular-js
 tags: angularjs 扒源码攒姿势

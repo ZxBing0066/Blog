@@ -36,6 +36,13 @@ C:\RubyDevKit> ruby dk.rb install
 gem install jekyll
 </pre>
 
+如果出现连接错误请修改`gem`源,万恶的`XXX`,具体可看[ruby.taobao](http://ruby.taobao.org/)
+
+<pre class="prettyprint Lang-bash">
+gem sources --remove https://rubygems.org/
+gem sources -a https://ruby.taobao.org/
+</pre>
+
 * 安装python [python下载地址](https://www.python.org/download/releases/2.7.8/)
 
 * 设置python环境变量

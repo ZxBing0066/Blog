@@ -138,3 +138,6 @@ a:visited {
 }
 
 /* common.css end */
+.post-content h3 {
+    font-size: 20px;
+}

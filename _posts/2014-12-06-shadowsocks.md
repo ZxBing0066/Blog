@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "shadowsocks搭建"
+title: "Shadowsocks搭建"
 date: 2014-12-6 12:10:23
 author: ZxBing0066
 blogid: 20141206001
@@ -10,7 +10,7 @@ tags: shadowsocks ss proxy 翻墙
 
 {% include proxy_tips.html %}
 
->这两天疯狂的找翻X工具,各种插件、VPN等,最终决定搭个shadowsocks.(主要是朋友搞了半年的免费`Microsoft Azure`帐号)
+> 这两天疯狂的找翻X工具,各种插件、VPN等,最终决定搭个shadowsocks.(主要是朋友搞了半年的免费`Microsoft Azure`帐号)
 
 ## 搭建环境
 
@@ -22,47 +22,47 @@ tags: shadowsocks ss proxy 翻墙
 
 使用`apt-get`安装:
 
-<pre class="prettyprint linenums Lang-shell">
+```bash
 $ sudo apt-get install nodejs
-</pre>
+```
 
 或自己下载源码安装:
 
-<pre class="prettyprint linenums Lang-shell">
+```bash
 $ wget http://nodejs.org/dist/vXXX/node-vXXX.tar.gz
 $ tar xf node-vXXX.tar.gz
 $ cd node-vXXX/
 $ ./configure
 $ make -j2 && sudo make install
-</pre>
+```
 
 安装`npm`模块管理器:
-<pre class="prettyprint linenums Lang-shell">
-$ sudo apt-get install npm
-</pre>
 
+```bash
+$ sudo apt-get install npm
+```
 
 ## 安装`shadowsocks`
 
 使用`npm`安装:
 
-<pre class="prettyprint linenums Lang-shell">
+```bash
 $ npm install shadowsocks
 $ cd node_modules/shadowsocks
-</pre>
+```
 
 使用`git`下载源码(请先安装`git`哦):
 
-<pre class="prettyprint linenums Lang-shell">
+```bash
 $ git clone git://github.com/clowwindy/shadowsocks-nodejs.git
 $ cd shadowsocks-nodejs
-</pre>
+```
 
 ## 配置`config`文件
 
 使用`vim`或其它编辑工具修改`cnfig.json`文件:
 
-<pre class="prettyprint linenums Lang-json">
+```bash
 {
     "server":"my_server_ip", //服务器地址
     "server_port":8388, //服务器接口
@@ -71,7 +71,7 @@ $ cd shadowsocks-nodejs
     "timeout":600, //超时时常
     "method":"table" //加密方式
 }
-</pre>
+```
 
 然后遇到一个奇葩问题,将`server`设置为公网地址时不知道为什么会报错,所以之后改为了`0.0.0.0`才搞定了.
 
@@ -81,9 +81,9 @@ $ cd shadowsocks-nodejs
 
 使用`nodejs`启动`shadowsocks`:
 
-<pre class="prettyprint linenums Lang-shell">
+```bash
 $ nohup node bin/ssserver &
-</pre>
+```
 
 若是没有问题,OK,基本可以算是大功告成,可以进入下一步了~
 也可以将`shadowsocks`加入到开机自启,没咋玩`linux`,也就没高兴研究~
@@ -102,18 +102,18 @@ $ nohup node bin/ssserver &
 `shadowsocks-nodejs client`:
 下载还是和上面的`git`下载`shadowsocks`一样:
 
-<pre class="prettyprint linenums Lang-shell">
+```bash
 $ npm install shadowsocks
 $ cd node_modules/shadowsocks
-</pre>
+```
 
 然后修改`cnfig`文件,一样同上
 
 最后启动客户端:
 
-<pre class="prettyprint linenums Lang-shell">
+```bash
 $ node bin/sslocal
-</pre>
+```
 
 ## 配置`PAC File`
 
@@ -126,4 +126,4 @@ $ node bin/sslocal
 `shadowsocks`总体来说还是比较容易搭建的,效果也很不错,速度嗖嗖的,不过不知道为什么感觉不稳定,偶尔会连不上,而且客户端隔一段时间需要重启一下才能正常~也不知道是不是由于我自己机器网络不太稳定的缘故,反正玩玩还是很好的~
 
 
-附上[shadowsocks github地址:https://github.com/clowwindy/shadowsocks](https://github.com/clowwindy/shadowsocks)
+[shadowsocks github地址](https://github.com/clowwindy/shadowsocks)

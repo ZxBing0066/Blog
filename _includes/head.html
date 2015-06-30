@@ -6,10 +6,10 @@
 	<title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
 	<meta name="description" content="{{ site.description }}">
 	<link rel="stylesheet" href="{{ "/css/pure-min.css" | prepend: site.baseurl }}">
-	<link rel="stylesheet" href="{{ "/css/prettify.css" | prepend: site.baseurl }}">
 	<link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}">
 	<link rel="stylesheet" href="{{ "/css/my.css" | prepend: site.baseurl }}">
-	<link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
-	<script src="{{ "/js/prettify.js" | prepend: site.baseurl }}"></script>
 	<script src="{{ "/js/my.js" | prepend: site.baseurl }}"></script>
+	<link rel="stylesheet" href="{{ "/css/monokai_sublime.min.css" | prepend: site.baseurl }}">
+	<script src="{{ "/js/highlight.min.js" | prepend: site.baseurl }}"></script>
+	<link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
 </head>

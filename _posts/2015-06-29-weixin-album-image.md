@@ -45,5 +45,4 @@ tags: 微信 图片上传 图片压缩 图片预览 图片多选
 参考的Blog和文章有:
 
 * [http://blog.csdn.net/ouyangtianhan/article/details/29825885](http://blog.csdn.net/ouyangtianhan/article/details/29825885)
-
 * [https://github.com/xiangpaopao/blog/issues/7](https://github.com/xiangpaopao/blog/issues/7)

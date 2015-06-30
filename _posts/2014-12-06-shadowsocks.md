@@ -12,11 +12,11 @@ tags: shadowsocks ss proxy 翻墙
 
 >这两天疯狂的找翻X工具,各种插件、VPN等,最终决定搭个shadowsocks.(主要是朋友搞了半年的免费`Microsoft Azure`帐号)
 
-###搭建环境
+## 搭建环境
 
 `Microsoft Azure`平台上的`Ubuntu Server 14.10`虚拟机
 
-###安装`nodejs`环境
+## 安装`nodejs`环境
 
 由于使用的是`shadowsocks-nodejs`,所以首先当然是要安装`nodejs`环境啦.
 
@@ -42,7 +42,7 @@ $ sudo apt-get install npm
 </pre>
 
 
-###安装`shadowsocks`
+## 安装`shadowsocks`
 
 使用`npm`安装:
 
@@ -58,7 +58,7 @@ $ git clone git://github.com/clowwindy/shadowsocks-nodejs.git
 $ cd shadowsocks-nodejs
 </pre>
 
-###配置`config`文件
+## 配置`config`文件
 
 使用`vim`或其它编辑工具修改`cnfig.json`文件:
 
@@ -77,7 +77,7 @@ $ cd shadowsocks-nodejs
 
 在`Azure`中端口需要自己添加,有些其他的云平台应该也是,所以需要注意端口问题
 
-###启动`shadowsocks`
+## 启动`shadowsocks`
 
 使用`nodejs`启动`shadowsocks`:
 
@@ -88,7 +88,7 @@ $ nohup node bin/ssserver &
 若是没有问题,OK,基本可以算是大功告成,可以进入下一步了~
 也可以将`shadowsocks`加入到开机自启,没咋玩`linux`,也就没高兴研究~
 
-###本地客户端,准备开始翻X吧
+## 本地客户端,准备开始翻X吧
 
 客户端可选择使用刚刚`clone`的`shadowsocks-nodejs`,也可使用其它的客户端
 
@@ -115,13 +115,13 @@ $ cd node_modules/shadowsocks
 $ node bin/sslocal
 </pre>
 
-###配置`PAC File`
+## 配置`PAC File`
 
 右键`shadowsocks-gui`小图标,选择`Edit PAC File`然后会看到一段`javascript`代码(应该是...),然后就把你想要代理的网站添加到上面的列表里吧,比如`,"google.com":1`
 
 `nodejs`客户端没找到这功能在哪~(基本用的`gui`,懒得找,嘿嘿)
 
-###总结
+## 总结
 
 `shadowsocks`总体来说还是比较容易搭建的,效果也很不错,速度嗖嗖的,不过不知道为什么感觉不稳定,偶尔会连不上,而且客户端隔一段时间需要重启一下才能正常~也不知道是不是由于我自己机器网络不太稳定的缘故,反正玩玩还是很好的~
 

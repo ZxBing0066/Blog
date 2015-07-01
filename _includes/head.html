@@ -2,14 +2,13 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width initial-scale=1" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<base href="/Blog/"></base>
 	<title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
 	<meta name="description" content="{{ site.description }}">
-	<link rel="stylesheet" href="{{ "/css/pure-min.css" | prepend: site.baseurl }}">
-	<link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}">
-	<link rel="stylesheet" href="{{ "/css/my.css" | prepend: site.baseurl }}">
-	<script src="{{ "/js/my.js" | prepend: site.baseurl }}"></script>
-	<link rel="stylesheet" href="{{ "/css/monokai_sublime.min.css" | prepend: site.baseurl }}">
-	<script src="{{ "/js/highlight.min.js" | prepend: site.baseurl }}"></script>
+	<link rel="stylesheet" href="{{ "./css/pure-min.css" | prepend: site.baseurl }}">
+	<link rel="stylesheet" href="{{ "./css/main.css" | prepend: site.baseurl }}">
+	<link rel="stylesheet" href="{{ "./css/my.css" | prepend: site.baseurl }}">
+	<script src="{{ "./js/my.js" | prepend: site.baseurl }}"></script>
+	<link rel="stylesheet" href="{{ "./css/monokai_sublime.min.css" | prepend: site.baseurl }}">
+	<script src="{{ "./js/highlight.min.js" | prepend: site.baseurl }}"></script>
 	<link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
 </head>

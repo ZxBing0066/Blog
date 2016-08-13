@@ -2,7 +2,7 @@
 title: ZxBlog
 email: ZxBing0066@gmail.com
 description: > # this means to ignore newlines until "baseurl"
-  ZxBing的github Blog 小站
+    ZxBing的github Blog 小站
 baseurl: "//www.ZxBing0066.com" # the subpath of your site, e.g. /blog/
 url: "http://www.ZxBing0066.com" # the base hostname & protocol for your site
 # twitter_username: jekyllrb
@@ -12,4 +12,4 @@ github_username:  ZxBing0066
 markdown: kramdown
 
 kramdown:
-  input: GFM
+    input: GFM

@@ -8,7 +8,6 @@ layout: default
             <li>
                 <h2>
                 <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-                <a href="{{ post.url | prepend: site.baseurl }}#disqus_thread"></a>
                 </h2>
                 <span class="post-meta"><!-- {{ post.date | date: "%b %-d, %Y" }} -->{{ post.date | date: "%Y年%m月%d日" }}</span>
                 {% assign tagsize = post.tags | size %}
@@ -55,6 +54,5 @@ layout: default
     })();
     </script>
     <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    <script id="dsq-count-scr" src="//zxbing0066.disqus.com/count.js" async></script>
     <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
 </div>

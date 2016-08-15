@@ -25,6 +25,10 @@ layout: default
         s.src = '//zxbing0066-blog.disqus.com/embed.js';
         s.setAttribute('data-timestamp', +new Date());
         (d.head || d.body).appendChild(s);
+        s.onerror = function() {
+            var dom = document.getElementById('disqus_thread');
+            dom.innerHTML = '<p>加载disqus失败,可能是因为您的网络没有FQ,需要FQ可参考<a href="http://blog.zxbing0066.com/proxy/2014/12/06/shadowsocks.html">翻个跟头</a></p>';
+        }
     })();
     </script>
     <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>

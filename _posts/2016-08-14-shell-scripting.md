@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Shell脚本--初尝试"
-date: 2016-08-14
+title: "Shell--Shell脚本初尝试"
+date: 2016-08-14 14:57:47
 author: ZxBing0066
 blogid: 2016081401
 categories: shell
@@ -75,8 +75,10 @@ echo "---\nlayout: post\ntitle:\ndate: ${date2}\nauthor: ZxBing0066\nblogid: ${p
 "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" ${fullFileName}
 ```
 
------------
 <br/>
+
+-----------
+
 <br/>
 
 ## Trouble Shooting

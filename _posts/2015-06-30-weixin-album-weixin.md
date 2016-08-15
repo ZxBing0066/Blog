@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "微信在线相册制作-微信篇"
+title: "Practice--微信在线相册制作-微信篇"
 date: 2015-06-30 12:46:00
 author: ZxBing0066
-blogid: 20150630001
+blogid: 2015063001
 categories: weixin
 tags: 微信 微信开发 微信JS-SDK
 ---

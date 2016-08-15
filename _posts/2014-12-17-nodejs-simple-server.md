@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "NodeJS搭建简易网站"
+title: "NodeJS--NodeJS搭建简易网站"
 date: 2014-12-17 15:29:00
 author: ZxBing0066
-blogid: 20141217001
+blogid: 2014121701
 categories: nodejs
 tags: nodejs
 ---

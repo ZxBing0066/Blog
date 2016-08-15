@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "Git中使用ssh key"
+title: "Git--Git中使用ssh key"
 date: 2014-11-12 12:07:43
 author: ZxBing0066
-blogid: 20141112001
+blogid: 2014111201
 categories: git
 tags: git
 ---

@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "Sublime Text3 安装&配置"
+title: "SublimeText--SublimeText3安装&配置"
 date: 2014-11-7 10:16:43
 author: ZxBing0066
-blogid: 20141107002
+blogid: 2014110702
 categories: sublimetext
 tags: sublimetext
 ---

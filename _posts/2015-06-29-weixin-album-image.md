@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "微信在线相册制作-图片篇"
+title: "Practice--微信在线相册制作-图片篇"
 date: 2015-06-29 17:47:00
 author: ZxBing0066
-blogid: 20150629001
+blogid: 2015062901
 categories: weixin
 tags: 微信 图片上传 图片压缩 图片预览 图片多选
 ---

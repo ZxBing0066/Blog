@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "Shadowsocks搭建"
+title: "Proxy--Shadowsocks搭建"
 date: 2014-12-6 12:10:23
 author: ZxBing0066
-blogid: 20141206001
+blogid: 2014120601
 categories: proxy
 tags: shadowsocks ss proxy 翻墙
 ---

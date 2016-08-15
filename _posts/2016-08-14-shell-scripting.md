@@ -82,23 +82,3 @@ echo "---\nlayout: post\ntitle:\ndate: ${date2}\nauthor: ZxBing0066\nblogid: ${p
 ## Trouble Shooting
 
 * 生成文件模板中的`date`为当前的本地时间,但是使用`jekyll`生成的时候`jekyll`好像会检测时间,时间在当前时间往后的会不生成,所以导致创建的时候无法生成,应该是检测的时候使用的是世界标准时间,而本地是北京时间超前8小时,所以可以稍微做点`hack`去躲掉这一点,比如`date`只使用年月日,不包含具体时间,当然如果你是在早上8点前创建的话就另当别论了...
-
-## 环境
-
-```sh
-jekyll (3.2.1)
-jekyll-coffeescript (1.0.1)
-jekyll-feed (0.6.0)
-jekyll-gist (1.4.0)
-jekyll-github-metadata (2.0.2)
-jekyll-mentions (1.1.3)
-jekyll-paginate (1.1.0)
-jekyll-redirect-from (0.11.0)
-jekyll-sass-converter (1.4.0)
-jekyll-seo-tag (2.0.0)
-jekyll-sitemap (0.11.0)
-jekyll-watch (1.5.0)
-github-pages (91)
-github-pages-health-check (1.2.0)
-kramdown (1.11.1)
-```

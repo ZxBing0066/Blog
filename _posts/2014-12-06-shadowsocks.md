@@ -88,6 +88,7 @@ $ nohup node bin/ssserver &
 若是没有问题,OK,基本可以算是大功告成,可以进入下一步了~
 也可以将`shadowsocks`加入到开机自启,没咋玩`linux`,也就没高兴研究~
 
+
 ## 本地客户端,准备开始翻X吧
 
 客户端可选择使用刚刚`clone`的`shadowsocks-nodejs`,也可使用其它的客户端
@@ -127,3 +128,14 @@ $ node bin/sslocal
 
 
 [shadowsocks github地址](https://github.com/clowwindy/shadowsocks)
+
+
+## Trouble Shooting
+
+使用`zsh`时需注意使用`nohup node bin/ssserver &`然后`exit`退出时zsh会检测当前的`jobs`然后将其退出,所以使用`zsh`启动需要注意`disown`一下,具体的有三种方式(!和|好像是zsh特有的方式):
+
+```bash
+$ nohup node bin/ssserver &!
+$ nohup node bin/ssserver &|
+$ nohup node bin/ssserver & disown
+```

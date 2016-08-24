@@ -140,4 +140,8 @@ $ nohup node bin/ssserver &|
 $ nohup node bin/ssserver & disown
 ```
 
+[stackoverflow 地址](http://stackoverflow.com/questions/19302913/exit-zsh-but-leave-running-jobs-open)
+
 `centos`默认防火墙可能会导致端口无法访问,可以修改`iptables`规则,或者直接清除规则,清除使用`iptables -F`,然后`iptables -A INPUT -p tcp --dport 8388 -j ACCEPT`添加端口到`iptables`
+
+[issuse 地址](https://github.com/shadowsocks/shadowsocks/issues/133)

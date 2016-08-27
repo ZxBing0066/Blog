@@ -7,9 +7,6 @@
 .clear {
     clear: both;
 }
-li {
-    list-style-type: none;
-}
 html,
 body {
     background: #F2F2F2;
@@ -140,4 +137,11 @@ a:visited {
 /* common.css end */
 .post-content h3 {
     font-size: 20px;
+}
+
+th, td {
+    background-color: #fff;
+    border-top: 1px solid #ccc;
+    padding: 6px 13px;
+    border: 1px solid #ddd;
 }

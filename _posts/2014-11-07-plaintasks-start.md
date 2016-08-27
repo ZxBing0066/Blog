@@ -5,7 +5,7 @@ date: 2014-11-7 21:23:43
 author: ZxBing0066
 blogid: 2014110701
 categories: sublimetext
-tags: sublimetext plaintasks
+tags: sublimetext
 ---
 
 ## `PlainTasks`使用教程(所有快捷键为`win`下的快捷键,`mac`需要自行替换)

@@ -29,8 +29,8 @@ layout: default
         {% for category in site.categories %}
             <li>
                 <a href="./category.html#{{category[0]}}">
-                    <span class="name">{{ category[0] }}</span>
-                    <span class="count">{{ category | size }}</span>
+                    <span class="name">{{ category[0] | capitalize }}</span>
+                    <span class="count">{{ category[1].size }}</span>
                 </a>
             </li>
         {% endfor %}

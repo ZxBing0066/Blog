@@ -159,3 +159,7 @@ function myFunction() {
 ### 注意事项
 
 "use strict"必须在脚本或者函数的最上方定义,不然浏览器将不会解析为严格模式.
+
+### 参考文献地址
+
+[w3schools](http://www.w3schools.com/js/js_strict.asp)

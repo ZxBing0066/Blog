@@ -30,6 +30,6 @@ else
 fi
 
 # echo the template to the new post file
-echo "---\nlayout: post\ntitle: ""\ndate: ${date2}\nauthor: ZxBing0066\nblogid: ${postId}\ncategories: \ntags: \n---" > ${fullFileName}
+echo "---\nlayout: post\ntitle: \"\"\ndate: ${date2}\nauthor: ZxBing0066\nblogid: ${postId}\ncategories: \ntags: \n---" > ${fullFileName}
 # edit the post file
 "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" ${fullFileName}

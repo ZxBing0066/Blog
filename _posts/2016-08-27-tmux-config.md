@@ -44,6 +44,15 @@ tags: terminal tmux
   配置后可以使用鼠标来完成window,pane的切换,拖拽选择内容,修改pane大小等功能.
   上面是`tmux2.1`后的配置,`2.1`之前如何配置可以看参考文献中的地址或者自行搜索.
 
+* 关闭自动重命名窗口
+
+  ```conf
+  # don't rename windows automatically
+  set-option -g allow-rename off
+  ```
+
+  配置后可以防止窗口在执行命令是被自动重命名
+
 * 样式修改
 
   ```conf

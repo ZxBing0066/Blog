@@ -29,7 +29,9 @@ a:visited {
     color: #4481DD;
     background: rgba(0, 82, 156, 1);
 }
-
+.hidden {
+    display: none;
+}
 /* tag.css */
 .tag_container {
     line-height: 35px;

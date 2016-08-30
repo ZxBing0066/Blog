@@ -145,3 +145,26 @@ $ nohup node bin/ssserver & disown
 `centos`默认防火墙可能会导致端口无法访问,可以修改`iptables`规则,或者直接清除规则,清除使用`iptables -F`,然后`iptables -A INPUT -p tcp --dport 8388 -j ACCEPT`添加端口到`iptables`
 
 [issuse 地址](https://github.com/shadowsocks/shadowsocks/issues/133)
+
+
+## Else
+
+<div class="hidden">
+  <h3>锐速XX版</h3>
+  <ul>
+    <li>
+      <h4>获取</h4>
+      {% highlight shell %}
+        wget -q -O- http://file.idc.wiki/get.php?serverSpeeder | bash -
+      {% endhighlight %}
+    </li>
+    <li>
+      <h4>安装</h4>
+      {% highlight shell %}
+        bash serverSpeeder_setup.sh
+      {% endhighlight %}
+    </li>
+  </ul>
+  <a href="https://www.233.wiki/2016/02/21/124.html">原Blog地址</a>
+</div>
+

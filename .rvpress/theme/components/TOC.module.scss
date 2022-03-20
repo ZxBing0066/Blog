@@ -1,0 +1,38 @@
+.toc {
+    display: flex;
+    flex-direction: column;
+    width: 20em;
+    box-sizing: border-box;
+    background-color: var(--color-background-assist);
+    border-top: 4px solid var(--color-border-assist);
+    padding: 1.5em 0;
+    margin: 2em 0 2em 2em;
+    position: sticky;
+    top: 6rem;
+
+    :global {
+        .title,
+        .title a {
+            color: var(--color-text);
+        }
+        .title {
+            white-space: nowrap;
+            overflow: hidden;
+            line-height: 2;
+            padding: 0 1.5em;
+
+            &:hover {
+                background-color: var(--color-background-assist-light);
+            }
+
+            a {
+                display: block;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                &:hover {
+                    border-bottom: none;
+                }
+            }
+        }
+    }
+}

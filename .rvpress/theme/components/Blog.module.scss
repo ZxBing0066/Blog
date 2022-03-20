@@ -1,0 +1,27 @@
+.blog {
+    padding: 0 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    line-height: 1.8;
+
+    :global {
+        .content {
+            overflow: auto;
+            h1:first-of-type {
+                text-align: center;
+                margin-bottom: 1em;
+                .header-anchor {
+                    display: none;
+                }
+            }
+        }
+        .reading-area {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+        }
+        .content {
+            flex: 1;
+        }
+    }
+}

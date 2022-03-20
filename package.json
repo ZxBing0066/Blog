@@ -1,0 +1,27 @@
+{
+  "name": "blog",
+  "version": "0.0.0",
+  "description": "ZxBing0066's Blog",
+  "private": true,
+  "scripts": {
+    "dev": "rvpress dev ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZxBing0066/Blog.git"
+  },
+  "keywords": [
+    "blog"
+  ],
+  "author": "ZxBing0066",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ZxBing0066/Blog/issues"
+  },
+  "homepage": "https://github.com/ZxBing0066/Blog#readme",
+  "devDependencies": {
+    "@rvpress/theme-blog": "^0.1.0",
+    "@types/react": "^17.0.40",
+    "rvpress": "^0.1.3"
+  }
+}

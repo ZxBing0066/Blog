@@ -1,0 +1,87 @@
+html,
+body {
+    background-color: var(--color-background);
+    color: var(--color-text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans',
+        'Droid Sans', 'Helvetica Neue', sans-serif, Weibei SC, STXingkai, KaiTi SC, STKaiTi, Xingkai SC, 黑体;
+}
+
+body {
+    overflow-y: scroll;
+}
+
+a {
+    text-decoration: none;
+    will-change: border;
+    font-weight: 500;
+    &,
+    &:hover,
+    &:active,
+    &:focus,
+    &:visited {
+        color: var(--color-text-primary);
+    }
+    &:hover {
+        border-bottom: 2px solid var(--color-border-primary);
+    }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    line-height: 1.25;
+    text-transform: capitalize;
+    .header-anchor {
+        color: var(--color-text-primary);
+        font-size: 0.8em;
+        line-height: 1.5625;
+        width: 0.8em;
+        float: left;
+        margin-left: -0.8em;
+        opacity: 0;
+        will-change: opacity;
+        transition: opacity 0.1s;
+        &:hover {
+            border-bottom: none;
+        }
+    }
+    &:hover {
+        .header-anchor {
+            opacity: 1;
+        }
+    }
+    &:target {
+        border: 1px solid var(--color-border-active);
+    }
+}
+
+p {
+    margin-bottom: 2em;
+    font-size: 1rem;
+}
+
+blockquote {
+    margin-left: 0;
+    margin-right: 0;
+    padding: 0.5rem 1rem;
+    border-left: 0.25rem solid #ccc;
+    color: #666;
+
+    > *:first-of-type {
+        margin-top: 0;
+    }
+    > *:last-of-type {
+        margin-bottom: 0;
+    }
+}
+
+img {
+    max-width: 100%;
+}
+
+.icon {
+    width: 1em;
+}

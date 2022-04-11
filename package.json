@@ -26,6 +26,7 @@
     "rvpress": "^0.1.6"
   },
   "dependencies": {
-    "css-doodle": "^0.26.3"
+    "css-doodle": "^0.26.3",
+    "firebase": "^9.6.10"
   }
 }

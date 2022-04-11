@@ -1,3 +1,4 @@
+import './firebase';
 import './styles/base.scss';
 import './styles/normalize.css';
 import './styles/vars.scss';

@@ -1,3 +1,5 @@
+import { PageData } from 'rvpress';
+
 interface ObjectClassnames {
     [className: string]: boolean | string | 1 | 0;
 }
@@ -19,4 +21,8 @@ export const classnames = (...names: (ObjectClassnames | string | boolean | numb
     };
 
     return names.map(resolve).join(' ');
+};
+
+export const getPageCreateTime = (page: PageData) => {
+    return page.frontmatter.date ? +new Date(page.frontmatter.date) : page.createTime || +new Date();
 };

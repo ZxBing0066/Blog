@@ -9,8 +9,7 @@ tags: [github, jekyll, blog]
 
 ## 安装 ruby
 
-[ruby 下载地址](http://rubyinstaller.org/downloads/) (注意勾选 `Add Ruby executables to your PATH` 将 Ruby 添加到环境变
-量)
+[ruby 下载地址](http://rubyinstaller.org/downloads/) (注意勾选 `Add Ruby executables to your PATH` 将 Ruby 添加到环境变量)
 
 ## 安装 Ruby DevKit
 

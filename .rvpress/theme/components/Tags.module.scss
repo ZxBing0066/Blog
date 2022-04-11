@@ -1,0 +1,29 @@
+.tags {
+    :global {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 0;
+        font-size: 12px;
+        .tag {
+            border-radius: 0.25em;
+            text-decoration: none;
+            text-transform: uppercase;
+            line-height: 1.5em;
+            padding: 4px 1em;
+            background-color: var(--color-border);
+            color: var(--color-text);
+            opacity: 0.7;
+            will-change: background, color, opacity;
+            transition: background 0.3s, color 0.3s, opacity 0.3s;
+            margin: 0 0.5rem 0 0;
+            &:hover {
+                background-color: var(--color-primary);
+                color: white;
+                opacity: 1;
+            }
+            &:last-of-type {
+                margin-right: 0;
+            }
+        }
+    }
+}

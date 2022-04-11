@@ -1,14 +1,18 @@
 lockfileVersion: 5.3
 
 specifiers:
-  '@rvpress/theme-blog': ^0.1.0
+  '@rvpress/theme-blog': ^0.1.2
   '@types/react': ^17.0.40
-  rvpress: ^0.1.3
+  css-doodle: ^0.26.3
+  rvpress: ^0.1.6
+
+dependencies:
+  css-doodle: 0.26.3
 
 devDependencies:
-  '@rvpress/theme-blog': 0.1.0_rvpress@0.1.3
-  '@types/react': 17.0.40
-  rvpress: 0.1.3_@types+react@17.0.40
+  '@rvpress/theme-blog': 0.1.2_rvpress@0.1.6
+  '@types/react': 17.0.41
+  rvpress: 0.1.6_@types+react@17.0.41
 
 packages:
 
@@ -394,10 +398,10 @@ packages:
     resolution: {integrity: sha512-1kkV7tkAsiuEd0shunYRByKJe3xQDG2q7wYg24SOw1nV9/2lwEd4WrUYRJC/ukGTl2/kHeFxsaUvtiOy0y6fFA==}
     dev: true
 
-  /@docsearch/js/3.0.0_f456dfc349ace84b0ea11d9e6e4ef3ab:
+  /@docsearch/js/3.0.0_4211ed8b26069fec1bc8ff4659f40efc:
     resolution: {integrity: sha512-j3tUJWlgW3slYqzGB8fm7y05kh2qqrIK1dZOXHeMUm/5gdKE85fiz/ltfCPMDFb/MXF+bLZChJXSMzqY0Ck30Q==}
     dependencies:
-      '@docsearch/react': 3.0.0_f456dfc349ace84b0ea11d9e6e4ef3ab
+      '@docsearch/react': 3.0.0_4211ed8b26069fec1bc8ff4659f40efc
       preact: 10.6.6
     transitivePeerDependencies:
       - '@algolia/client-search'
@@ -406,7 +410,7 @@ packages:
       - react-dom
     dev: true
 
-  /@docsearch/react/3.0.0_f456dfc349ace84b0ea11d9e6e4ef3ab:
+  /@docsearch/react/3.0.0_4211ed8b26069fec1bc8ff4659f40efc:
     resolution: {integrity: sha512-yhMacqS6TVQYoBh/o603zszIb5Bl8MIXuOc6Vy617I74pirisDzzcNh0NEaYQt50fVVR3khUbeEhUEWEWipESg==}
     peerDependencies:
       '@types/react': '>= 16.8.0 < 18.0.0'
@@ -416,7 +420,7 @@ packages:
       '@algolia/autocomplete-core': 1.5.2
       '@algolia/autocomplete-preset-algolia': 1.5.2_algoliasearch@4.12.2
       '@docsearch/css': 3.0.0
-      '@types/react': 17.0.40
+      '@types/react': 17.0.41
       algoliasearch: 4.12.2
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
@@ -448,20 +452,20 @@ packages:
       picomatch: 2.3.1
     dev: true
 
-  /@rvpress/theme-blog/0.1.0_rvpress@0.1.3:
-    resolution: {integrity: sha512-0AszwO8MZ77eeniLfYD4BiVyz2Nf/uw7yZgk7lHtNNTK/U2xi7CPxjN/cRsjYZClOfMcQa6K45FTlZ6RslxhKQ==}
+  /@rvpress/theme-blog/0.1.2_rvpress@0.1.6:
+    resolution: {integrity: sha512-cyNwbOG9MoQGuXLNiZmleM99vrx0tJ5S6jEjGj6f30QRGfwzhw5tB0TVxRrxH1yy31jG3HkAogJu8OMYIUvPlw==}
     peerDependencies:
-      rvpress: 0.1.2
+      rvpress: 0.1.5
     dependencies:
-      rvpress: 0.1.3_@types+react@17.0.40
+      rvpress: 0.1.6_@types+react@17.0.41
     dev: true
 
   /@types/prop-types/15.7.4:
     resolution: {integrity: sha512-rZ5drC/jWjrArrS8BR6SIr4cWpW09RNTYt9AMZo3Jwwif+iacXAqgVjm0B0Bv/S1jhDXKHqRVNCbACkJ89RAnQ==}
     dev: true
 
-  /@types/react/17.0.40:
-    resolution: {integrity: sha512-UrXhD/JyLH+W70nNSufXqMZNuUD2cXHu6UjCllC6pmOQgBX4SGXOH8fjRka0O0Ee0HrFxapDD8Bwn81Kmiz6jQ==}
+  /@types/react/17.0.41:
+    resolution: {integrity: sha512-chYZ9ogWUodyC7VUTRBfblysKLjnohhFY9bGLwvnUFFy48+vB9DikmB3lW0qTFmBcKSzmdglcvkHK71IioOlDA==}
     dependencies:
       '@types/prop-types': 15.7.4
       '@types/scheduler': 0.16.2
@@ -589,6 +593,10 @@ packages:
     dependencies:
       safe-buffer: 5.1.2
     dev: true
+
+  /css-doodle/0.26.3:
+    resolution: {integrity: sha512-gHLGiADwj0nWwv47tIsr8ln8TRTJgj/u+HHkxXXNK/3LfEzCSrv6GP45KHrwRMcPVXLaE0D/Dr9IB9F8lsKeCA==}
+    dev: false
 
   /csstype/3.0.11:
     resolution: {integrity: sha512-sa6P2wJ+CAbgyy4KFssIb/JNMLxFvKF1pCYCSXS8ZMuqZnMsrxqI2E5sPyoTpxoPU/gVZMzr2zjOfg8GIZOMsw==}
@@ -1036,14 +1044,14 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /rvpress/0.1.3_@types+react@17.0.40:
-    resolution: {integrity: sha512-u+4YtPDs213q9wUzBgFxTzD41eRrMTiRLXcprTtrsmqPtlsUWU7dg1uMbP2lKMH8PZ7dCQln+25DeCi3AsU8rA==}
+  /rvpress/0.1.6_@types+react@17.0.41:
+    resolution: {integrity: sha512-OwbfHch4UtFZ3eNxx5twdUyOMnFmdxXiyDfCLl8uBcguQedcjBVIyIcgNcF7aSqV0sYLSMFuLS1Ush6U5eSweg==}
     engines: {node: '>=12.0.0'}
     hasBin: true
     dependencies:
       '@docsearch/css': 3.0.0
-      '@docsearch/js': 3.0.0_f456dfc349ace84b0ea11d9e6e4ef3ab
-      '@docsearch/react': 3.0.0_f456dfc349ace84b0ea11d9e6e4ef3ab
+      '@docsearch/js': 3.0.0_4211ed8b26069fec1bc8ff4659f40efc
+      '@docsearch/react': 3.0.0_4211ed8b26069fec1bc8ff4659f40efc
       '@vitejs/plugin-react': 1.2.0
       prismjs: 1.27.0
       react: 17.0.2

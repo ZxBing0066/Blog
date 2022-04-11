@@ -1,10 +1,10 @@
 .toc {
     display: flex;
     flex-direction: column;
-    width: 20em;
+    width: 15em;
     box-sizing: border-box;
     background-color: var(--color-background-assist);
-    border-top: 4px solid var(--color-border-assist);
+    border-top: 4px solid var(--color-border-primary);
     padding: 1.5em 0;
     margin: 2em 0 2em 2em;
     position: sticky;
@@ -32,6 +32,23 @@
                 &:hover {
                     border-bottom: none;
                 }
+            }
+
+            &.level-3,
+            &.level-4,
+            &.level-5,
+            &.level-6 {
+                padding-left: 2.5rem;
+                font-size: 0.9em;
+            }
+            &.level-4 {
+                padding-left: 3.5rem;
+            }
+            &.level-5 {
+                padding-left: 4.5rem;
+            }
+            &.level-6 {
+                padding-left: 5.5rem;
             }
         }
     }

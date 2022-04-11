@@ -5,6 +5,7 @@ import Header from './components/Header';
 // import SideBar from './components/SideBar';
 import Blog from './components/Blog';
 import List from './components/List';
+import Home from './components/Home';
 import Footer from './components/Footer';
 import './Layout.scss';
 
@@ -25,9 +26,9 @@ const MainContent = () => {
     if (page.frontmatter.customLayout) {
         return <Content />;
     }
-    // if (frontmatter.enableHome) {
-    //     return <HomeView />;
-    // }
+    if (page.frontmatter.home) {
+        return <Home />;
+    }
     if (page.frontmatter.list) {
         return <List />;
     }
@@ -42,9 +43,9 @@ const Layout = () => {
         return true;
     })();
     return (
-        <div className="theme">
+        <div className='theme'>
             {showNavbar && <Header />}
-            <div className="main">
+            <div className='main'>
                 <MainContent />
             </div>
             <Footer />

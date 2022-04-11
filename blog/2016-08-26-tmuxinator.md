@@ -5,12 +5,11 @@ tags: [terminal, tmux]
 
 # tmuxinator 使用
 
-> tmuxinator 是一个 tmux 的管理工具,使用它可以很方便的创建和管理 tmux.
-> [github 地址](https://github.com/tmuxinator/tmuxinator)
+> tmuxinator 是一个 tmux 的管理工具,使用它可以很方便的创建和管理 tmux. [github 地址](https://github.com/tmuxinator/tmuxinator)
 
 ### 安装
 
-```sh
+```bash
 gem install tmuxinator
 ```
 
@@ -18,13 +17,13 @@ gem install tmuxinator
 
 tmuxinator 某些操作(如创建项目后打开)会需要调用默认编辑器,可以执行以下命令查看默认编辑器:
 
-```sh
+```bash
 echo $EDITOR
 ```
 
 若是没有设置可以将以下代码添加到你的默认 shell 配置文件中:
 
-```sh
+```bash
 export EDITOR='vim'
 ```
 
@@ -40,19 +39,19 @@ source ~/.bin/tmuxinator.zsh
 
 -   创建一个项目
 
-    ```sh
+    ```bash
     tmuxinator new [project]
     ```
 
 -   编辑项目
 
-    ```sh
+    ```bash
     tmuxinator open [project]
     ```
 
 -   打开一个 session
 
-    ```sh
+    ```bash
     tmuxinator start [project] [alias]
     ```
 
@@ -62,49 +61,49 @@ source ~/.bin/tmuxinator.zsh
 
 -   复制一个已有的项目
 
-    ```sh
+    ```bash
     tmuxinator copy [existing] [new]
     ```
 
 -   列出所有项目
 
-    ```sh
+    ```bash
     tmuxinator list
     ```
 
 -   删除项目
 
-    ```sh
+    ```bash
     tmuxinator delete [project]
     ```
 
 -   清空所有配置项
 
-    ```sh
+    ```bash
     tmuxinator implode
     ```
 
 -   检查环境配置文件等
 
-    ```sh
+    ```bash
     tmuxinator doctor
     ```
 
 -   显示帮助
 
-    ```sh
+    ```bash
     tmuxinator help
     ```
 
 -   显示项目执行的 shell 命令
 
-    ```sh
+    ```bash
     tmuxinator debug [project]
     ```
 
 -   显示版本号
 
-    ```sh
+    ```bash
     tmuxinator version
     ```
 

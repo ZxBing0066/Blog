@@ -4,7 +4,8 @@
   "description": "ZxBing0066's Blog",
   "private": true,
   "scripts": {
-    "dev": "rvpress dev ."
+    "dev": "rvpress dev .",
+    "build": "rvpress build ."
   },
   "repository": {
     "type": "git",
@@ -20,8 +21,11 @@
   },
   "homepage": "https://github.com/ZxBing0066/Blog#readme",
   "devDependencies": {
-    "@rvpress/theme-blog": "^0.1.0",
+    "@rvpress/theme-blog": "^0.1.2",
     "@types/react": "^17.0.40",
-    "rvpress": "^0.1.3"
+    "rvpress": "^0.1.6"
+  },
+  "dependencies": {
+    "css-doodle": "^0.26.3"
   }
 }

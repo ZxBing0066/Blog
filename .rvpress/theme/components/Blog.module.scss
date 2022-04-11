@@ -5,7 +5,20 @@
     line-height: 1.8;
 
     :global {
+        .meta {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .tags {
+                margin-left: 2em;
+            }
+        }
+        .content-wrap {
+            flex: 1;
+            overflow: auto;
+        }
         .content {
+            flex: 1;
             overflow: auto;
             h1:first-of-type {
                 text-align: center;
@@ -14,14 +27,31 @@
                     display: none;
                 }
             }
+            a {
+                text-decoration: none;
+                will-change: border;
+                font-weight: 500;
+                &,
+                &:hover,
+                &:active,
+                &:focus,
+                &:visited {
+                    color: var(--color-text-primary);
+                }
+                &:hover {
+                    border-bottom: 2px solid var(--color-border-primary);
+                }
+            }
         }
         .reading-area {
             display: flex;
             flex-direction: row;
             align-items: flex-start;
-        }
-        .content {
-            flex: 1;
+            a {
+                img {
+                    height: 1.3em;
+                }
+            }
         }
     }
 }

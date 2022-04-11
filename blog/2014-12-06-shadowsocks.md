@@ -109,22 +109,19 @@ $ node bin/sslocal
 
 ## 配置`PAC File`
 
-右键`shadowsocks-gui`小图标,选择`Edit PAC File`然后会看到一段`javascript`代码(应该是...),然后就把你想要代理的网站添加到
-上面的列表里吧,比如`,"google.com":1`
+右键`shadowsocks-gui`小图标,选择`Edit PAC File`然后会看到一段`javascript`代码(应该是...),然后就把你想要代理的网站添加到上面的列表里吧,比如`,"google.com":1`
 
 `nodejs`客户端没找到这功能在哪~(基本用的`gui`,懒得找,嘿嘿)
 
 ## 总结
 
-`shadowsocks`总体来说还是比较容易搭建的,效果也很不错,速度嗖嗖的,不过不知道为什么感觉不稳定,偶尔会连不上,而且客户端隔一段
-时间需要重启一下才能正常~也不知道是不是由于我自己机器网络不太稳定的缘故,反正玩玩还是很好的~
+`shadowsocks`总体来说还是比较容易搭建的,效果也很不错,速度嗖嗖的,不过不知道为什么感觉不稳定,偶尔会连不上,而且客户端隔一段时间需要重启一下才能正常~也不知道是不是由于我自己机器网络不太稳定的缘故,反正玩玩还是很好的~
 
 [shadowsocks github 地址](https://github.com/clowwindy/shadowsocks)
 
 ## Trouble Shooting
 
-使用`zsh`时需注意使用`nohup node bin/ssserver &`然后`exit`退出时 zsh 会检测当前的`jobs`然后将其退出,所以使用`zsh`启动需
-要注意`disown`一下,具体的有三种方式(!和\|好像是 zsh 特有的方式):
+使用`zsh`时需注意使用`nohup node bin/ssserver &`然后`exit`退出时 zsh 会检测当前的`jobs`然后将其退出,所以使用`zsh`启动需要注意`disown`一下,具体的有三种方式(!和\|好像是 zsh 特有的方式):
 
 ```bash
 $ nohup node bin/ssserver &!
@@ -134,8 +131,7 @@ $ nohup node bin/ssserver & disown
 
 [stackoverflow 地址](http://stackoverflow.com/questions/19302913/exit-zsh-but-leave-running-jobs-open)
 
-`centos`默认防火墙可能会导致端口无法访问,可以修改`iptables`规则,或者直接清除规则,清除使用`iptables -F`,然
-后`iptables -A INPUT -p tcp --dport 8388 -j ACCEPT`添加端口到`iptables`
+`centos`默认防火墙可能会导致端口无法访问,可以修改`iptables`规则,或者直接清除规则,清除使用`iptables -F`,然后`iptables -A INPUT -p tcp --dport 8388 -j ACCEPT`添加端口到`iptables`
 
 [issuse 地址](https://github.com/shadowsocks/shadowsocks/issues/133)
 

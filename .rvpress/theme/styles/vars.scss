@@ -1,9 +1,9 @@
-$color-text: #0a0c10;
-$color-primary: #1677b3;
+$color-text: #030D17;
+$color-primary: #1661AB;
 $color-secondary: #b0d5df;
 $color-border: #dcdcdc;
-$color-background: #f1f1f1;
-$color-assist: desaturate($color-primary, 40%);
+$color-background: #fff;
+$color-assist: #FBDA41;
 
 $color-warning: #f4ce69;
 $color-danger: #f19790;
@@ -12,6 +12,8 @@ $color-tip: #8fb2c9;
 :root {
     /* Generate by https://chinese-colors.heyfe.org/ */
     /* Brand color: #1677b3, colorAsTextColor: true, type: mix */
+    --color-primary: #{$color-primary};
+    --color-secondary: #{$color-secondary};
     --color-text: #{$color-text};
     --color-text-active: #{$color-primary};
     --color-text-primary: #{$color-primary};
@@ -37,7 +39,7 @@ $color-tip: #8fb2c9;
     --color-background-info: #{lighten($color-secondary, 10%)};
 
     --color-text-assist: #{darken($color-secondary, 50%)};
-    --color-border-assist: #{darken($color-secondary, 30%)};
+    --color-border-primary: #{darken($color-secondary, 30%)};
     --color-background-assist: #{lighten($color-secondary, 10%)};
     --color-background-assist-light: #{desaturate($color-secondary, 10%)};
 

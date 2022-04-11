@@ -33,8 +33,7 @@ $ sudo apt-get install npm
 
 ## 安装`express`
 
-`express`是一个`nodejs`的`web`程序框架,使用`npm`安装一下吧(`-g`参数的意思是安装为全局模块,而不是直接安装到当前文件夹下
-的`node_modules`里,但是可能需要配置环境变量,不想配置直接装到项目文件夹就行)
+`express`是一个`nodejs`的`web`程序框架,使用`npm`安装一下吧(`-g`参数的意思是安装为全局模块,而不是直接安装到当前文件夹下的`node_modules`里,但是可能需要配置环境变量,不想配置直接装到项目文件夹就行)
 
 ```bash
 $ sudo npm install express -g

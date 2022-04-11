@@ -1,10 +1,10 @@
-import { Theme } from 'rvpress';
-
-import './styles/vars.scss';
-import './styles/normalize.css';
 import './styles/base.scss';
+import './styles/normalize.css';
+import './styles/vars.scss';
 import './styles/code.scss';
 import './styles/custom-blocks.scss';
+
+import { Theme } from 'rvpress';
 
 import Layout from './Layout';
 import NotFound from './NotFound';

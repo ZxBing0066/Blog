@@ -4,7 +4,7 @@ import { Content, useData } from 'rvpress';
 import cls from './Blog.module.scss';
 import BlogTime from './BlogTime';
 import Tags from './Tags';
-import Toc from './Toc';
+import TOC from './TOC';
 
 const Blog = () => {
     const { page } = useData();
@@ -19,7 +19,7 @@ const Blog = () => {
                         </div>
                         <Content className='content' />
                     </div>
-                    <Toc />
+                    <TOC />
                 </div>
             </div>
         </main>

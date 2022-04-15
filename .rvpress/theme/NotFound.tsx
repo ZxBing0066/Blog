@@ -32,22 +32,22 @@ const NotFount = () => {
 
     return (
         <div className={'not-found ' + cls['not-found']}>
-            <h1 className="tip">404</h1>
+            <h1 className='tip'>404</h1>
 
-            <div className="ghost-box">
-                <div className="symbol"></div>
-                <div className="symbol"></div>
-                <div className="symbol"></div>
-                <div className="symbol"></div>
-                <div className="symbol"></div>
-                <div className="symbol"></div>
+            <div className='ghost-box'>
+                <div className='symbol'></div>
+                <div className='symbol'></div>
+                <div className='symbol'></div>
+                <div className='symbol'></div>
+                <div className='symbol'></div>
+                <div className='symbol'></div>
 
-                <div className="ghost">
-                    <div className="ghost-eyes" data-ghost-eyes>
-                        <div className="eye-left"></div>
-                        <div className="eye-right"></div>
+                <div className='ghost'>
+                    <div className='ghost-eyes' data-ghost-eyes>
+                        <div className='eye-left'></div>
+                        <div className='eye-right'></div>
                     </div>
-                    <div className="ghost-footer">
+                    <div className='ghost-footer'>
                         <div></div>
                         <div></div>
                         <div></div>
@@ -55,14 +55,14 @@ const NotFount = () => {
                         <div></div>
                     </div>
                 </div>
-                <div className="ghost-shadow"></div>
+                <div className='ghost-shadow'></div>
             </div>
 
-            <a className="home-link" href={site.base} aria-label="go to home">
+            <a className='home-link' href={site.base} aria-label='go to home'>
                 Go Home
             </a>
         </div>
     );
 };
 
-export default React.memo(NotFount);
+export default typeof window === 'undefined' ? () => null : React.memo(NotFount);

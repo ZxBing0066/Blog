@@ -1,67 +1,69 @@
 import { useEffect } from 'react';
 
-export default () => {
-    let rootActiveLink: HTMLAnchorElement | null = null;
-    let activeLink: HTMLAnchorElement | null = null;
+export default typeof window === 'undefined'
+    ? () => {}
+    : () => {
+          let rootActiveLink: HTMLAnchorElement | null = null;
+          let activeLink: HTMLAnchorElement | null = null;
 
-    const onScroll = throttleAndDebounce(setActiveLink, 300);
+          const onScroll = throttleAndDebounce(setActiveLink, 300);
 
-    function setActiveLink(): void {
-        const sidebarLinks = getSidebarLinks();
-        const anchors = getAnchors(sidebarLinks);
+          function setActiveLink(): void {
+              const sidebarLinks = getSidebarLinks();
+              const anchors = getAnchors(sidebarLinks);
 
-        for (let i = 0; i < anchors.length; i++) {
-            const anchor = anchors[i];
-            const nextAnchor = anchors[i + 1];
+              for (let i = 0; i < anchors.length; i++) {
+                  const anchor = anchors[i];
+                  const nextAnchor = anchors[i + 1];
 
-            const [isActive, hash] = isAnchorActive(i, anchor, nextAnchor);
+                  const [isActive, hash] = isAnchorActive(i, anchor, nextAnchor);
 
-            if (isActive) {
-                history.replaceState(null, document.title, hash ? hash : ' ');
-                activateLink(hash);
-                return;
-            }
-        }
-    }
+                  if (isActive) {
+                      history.replaceState(null, document.title, hash ? hash : ' ');
+                      activateLink(hash);
+                      return;
+                  }
+              }
+          }
 
-    function activateLink(hash: string | null): void {
-        deactiveLink(activeLink);
-        deactiveLink(rootActiveLink);
+          function activateLink(hash: string | null): void {
+              deactiveLink(activeLink);
+              deactiveLink(rootActiveLink);
 
-        activeLink = document.querySelector(`.sidebar a[href="${hash}"]`);
+              activeLink = document.querySelector(`.sidebar a[href="${hash}"]`);
 
-        if (!activeLink) {
-            return;
-        }
+              if (!activeLink) {
+                  return;
+              }
 
-        activeLink.classList.add('active');
+              activeLink.classList.add('active');
 
-        // also add active class to parent h2 anchors
-        const rootLi = activeLink.closest('.sidebar-links > ul > li');
+              // also add active class to parent h2 anchors
+              const rootLi = activeLink.closest('.sidebar-links > ul > li');
 
-        if (rootLi && rootLi !== activeLink.parentElement) {
-            rootActiveLink = rootLi.querySelector('a');
-            rootActiveLink && rootActiveLink.classList.add('active');
-        } else {
-            rootActiveLink = null;
-        }
-    }
+              if (rootLi && rootLi !== activeLink.parentElement) {
+                  rootActiveLink = rootLi.querySelector('a');
+                  rootActiveLink && rootActiveLink.classList.add('active');
+              } else {
+                  rootActiveLink = null;
+              }
+          }
 
-    function deactiveLink(link: HTMLAnchorElement | null): void {
-        link && link.classList.remove('active');
-    }
+          function deactiveLink(link: HTMLAnchorElement | null): void {
+              link && link.classList.remove('active');
+          }
 
-    useEffect(() => {
-        setActiveLink();
-        window.addEventListener('scroll', onScroll);
-        return () => window.removeEventListener('scroll', onScroll);
-    }, []);
+          useEffect(() => {
+              setActiveLink();
+              window.addEventListener('scroll', onScroll);
+              return () => window.removeEventListener('scroll', onScroll);
+          }, []);
 
-    useEffect(() => {
-        // sidebar update means a route change
-        activateLink(decodeURIComponent(location.hash));
-    }, []);
-};
+          useEffect(() => {
+              // sidebar update means a route change
+              activateLink(decodeURIComponent(location.hash));
+          }, []);
+      };
 
 function getSidebarLinks(): HTMLAnchorElement[] {
     return [].slice.call(document.querySelectorAll('.sidebar a.sidebar-link-item'));

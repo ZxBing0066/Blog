@@ -1,0 +1,4 @@
+import"./app.d36d7bad.js";const e='{"title":"Git \u601D\u7EF4\u5BFC\u56FE","description":"","frontmatter":{"date":"2014-09-11T12:12:12.000Z","tags":["git"]},"headers":[],"relativePath":"blog/2014-09-11-git.md","createTime":1649686573000,"lastUpdated":1647786576000}';var a=()=>`<h1 id="git-\u601D\u7EF4\u5BFC\u56FE" tabindex="-1">Git \u601D\u7EF4\u5BFC\u56FE <a class="header-anchor" href="#git-\u601D\u7EF4\u5BFC\u56FE" aria-hidden="true">#</a></h1>
+<p><img src="/image/git-api.png" alt="git\u601D\u7EF4\u5BFC\u56FE" title="git\u601D\u7EF4\u5BFC\u56FE"></p>
+<p><a href="http://www.heiniuhaha.com/lessons/2012/08/09/use-jekyll-build-blog/" title="git\u601D\u7EF4\u5BFC\u56FE\u539F\u56FE\u5730\u5740" target="_blank" rel="noopener noreferrer">\u539F\u56FE\u5730\u5740</a></p>
+`;export{e as __pageData,a as default};

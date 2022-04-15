@@ -1,0 +1,96 @@
+import"./app.d36d7bad.js";const a='{"title":"GitHub Pages \u5982\u4F55\u5B9E\u73B0 SPA","description":"","frontmatter":{"tags":["github"],"date":"2019-11-05T00:00:00.000Z"},"headers":[{"level":2,"title":"\u524D\u56E0","slug":"\u524D\u56E0"},{"level":2,"title":"404","slug":"_404"},{"level":2,"title":"\u521D\u6B21\u65B9\u6848","slug":"\u521D\u6B21\u65B9\u6848"},{"level":2,"title":"\u8FDB\u9636\u65B9\u6848","slug":"\u8FDB\u9636\u65B9\u6848"},{"level":2,"title":"\u6700\u7EC8\u6548\u679C","slug":"\u6700\u7EC8\u6548\u679C"},{"level":2,"title":"\u6CE8\u610F\u4E8B\u9879","slug":"\u6CE8\u610F\u4E8B\u9879"},{"level":2,"title":"\u53C2\u8003","slug":"\u53C2\u8003"}],"relativePath":"blog/2019-github-pages-spa.md","createTime":1650038339000,"lastUpdated":1649686573000}';var s=()=>`<h1 id="github-pages-\u5982\u4F55\u5B9E\u73B0-spa" tabindex="-1">GitHub Pages \u5982\u4F55\u5B9E\u73B0 SPA <a class="header-anchor" href="#github-pages-\u5982\u4F55\u5B9E\u73B0-spa" aria-hidden="true">#</a></h1>
+<h2 id="\u524D\u56E0" tabindex="-1">\u524D\u56E0 <a class="header-anchor" href="#\u524D\u56E0" aria-hidden="true">#</a></h2>
+<p>\u8FD9\u4E24\u5929\u5728 GitHub Pages \u91CC\u9762\u6258\u7BA1\u4E86\u4E00\u4E2A\u5C0F DEMO\uFF0C\u4F46\u662F DEMO \u662F SPA \u7684\uFF0C\u7136\u800C <strong>GitHub Pages \u662F\u65E0\u6CD5\u652F\u6301 SPA \u914D\u7F6E\u7684</strong>\uFF0C\u8FD9\u91CC\u8BB0\u5F55\u4E00\u4E0B\u89E3\u51B3\u65B9\u6848\u3002</p>
+<h2 id="_404" tabindex="-1">404 <a class="header-anchor" href="#_404" aria-hidden="true">#</a></h2>
+<p>GitHub Pages \u867D\u7136\u4E0D\u652F\u6301 SPA\uFF0C\u4F46\u662F\u652F\u6301\u81EA\u5B9A\u4E49 404 \u9875\u9762\u3002\u53C2\u8003\uFF1A<a href="https://help.github.com/en/github/working-with-github-pages/creating-a-custom-404-page-for-your-github-pages-site" target="_blank" rel="noopener noreferrer">GitHub Pages 404</a>\u3002</p>
+<blockquote>
+<p>You can display a custom 404 error page when people try to access nonexistent pages on your site.</p>
+</blockquote>
+<p>\u901A\u8FC7\u521B\u5EFA\u4E00\u4E2A 404.html\uFF08\u6216\u8005 <a href="http://404.md" target="_blank" rel="noopener noreferrer">404.md</a>\uFF0C\u4E0D\u8FC7\u9700\u8981\u505A\u4E00\u4E9B\u914D\u7F6E\uFF0C\u5177\u4F53\u53EF\u67E5\u770B\u4E0A\u65B9\u94FE\u63A5\uFF09\uFF0C\u8BBF\u95EE\u4E0D\u5B58\u5728\u7684\u9875\u9762\u90FD\u4F1A\u8DF3\u8F6C\u5230 404 \u7684\u9875\u9762\u3002</p>
+<h2 id="\u521D\u6B21\u65B9\u6848" tabindex="-1">\u521D\u6B21\u65B9\u6848 <a class="header-anchor" href="#\u521D\u6B21\u65B9\u6848" aria-hidden="true">#</a></h2>
+<p>\u65E2\u7136\u53EF\u4EE5\u4F7F\u7528 404 \u9875\u9762\u6355\u83B7\u4E0D\u5B58\u5728\u7684\u9875\u9762\u8BF7\u6C42\uFF0C\u90A3\u4E48\u5C31\u53EF\u4EE5 <strong>\u501F\u52A9 404 \u9875\u9762\u8FDB\u884C\u8DF3\u8F6C</strong>\u3002</p>
+<div class="language-html"><pre><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>UTF-8<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>404<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script"><span class="token language-javascript">
+            <span class="token comment">// \u6216\u8005\u7279\u5B9A\u7684\u8DEF\u5F84</span>
+            location<span class="token punctuation">.</span>href <span class="token operator">=</span> location<span class="token punctuation">.</span>origin<span class="token punctuation">;</span>
+        </span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
+</code></pre>
+</div><p>\u501F\u52A9 404 \u9875\u9762\uFF0C\u53EF\u4EE5\u8BA9\u6240\u6709\u9875\u9762\u8DF3\u8F6C\u5230 index \u4E2D\uFF0C\u7B97\u662F\u7B80\u5355\u7684\u5B9E\u73B0\u4E86 SPA\u3002</p>
+<h2 id="\u8FDB\u9636\u65B9\u6848" tabindex="-1">\u8FDB\u9636\u65B9\u6848 <a class="header-anchor" href="#\u8FDB\u9636\u65B9\u6848" aria-hidden="true">#</a></h2>
+<p>\u867D\u7136\u5B9E\u73B0\u4E86 404 \u5230 index \u7684\u8DF3\u8F6C\uFF0C\u4F46\u662F\u79BB\u771F\u6B63\u7684 SPA \u4F53\u9A8C\u8FD8\u662F\u5DEE\u4E86\uFF0C\u6BCF\u6B21\u8FDB\u5165\u9875\u9762\u53EA\u80FD\u8DF3\u8F6C\u5230\u9996\u9875\u3002</p>
+<p>\u5DEE\u7684\u5C31\u662F <strong>\u8DF3\u5230 index \u4F46\u662F\u8DEF\u7531\u4FE1\u606F\u5374\u4E22\u5931\u4E86</strong>\uFF0C\u8FD9\u65F6\u5019\u53EF\u4EE5\u60F3\u5230\u60F3\u529E\u6CD5\u4FDD\u5B58\u4E0B\u8DF3\u8F6C\u524D\u7684\u8DEF\u7531\u4FE1\u606F\uFF0C\u7136\u540E\u8DF3\u8F6C\u540E\u8FD8\u539F\u5C31\u53EF\u4EE5\u4E86\u3002\u5927\u6982\u6B65\u9AA4\u5982\u4E0B\uFF1A</p>
+<ol>
+<li>
+<p>\u5728 404 \u9875\u9762\uFF0C\u5C06\u5F53\u524D\u7684\u8DEF\u7531\u4FE1\u606F\u8BB0\u5F55\u4E0B\u6765</p>
+</li>
+<li>
+<p>\u643A\u5E26\u8DEF\u7531\u4FE1\u606F\u8DF3\u8F6C\u5230 index</p>
+</li>
+<li>
+<p>\u8FDB\u5165 index \u540E\u68C0\u67E5\u8DEF\u7531\u4FE1\u606F\uFF0C\u8FDB\u884C\u8FD8\u539F</p>
+<p>404.html</p>
+</li>
+</ol>
+<div class="language-html"><pre><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>UTF-8<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>404<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script"><span class="token language-javascript">
+            location<span class="token punctuation">.</span>href <span class="token operator">=</span>
+                location<span class="token punctuation">.</span>origin <span class="token operator">+</span> <span class="token string">'/?page='</span> <span class="token operator">+</span> <span class="token function">encodeURIComponent</span><span class="token punctuation">(</span>location<span class="token punctuation">.</span>href<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span>location<span class="token punctuation">.</span>origin<span class="token punctuation">,</span> <span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        </span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
+</code></pre>
+</div><p>index.html</p>
+<div class="language-html"><pre><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>UTF-8<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>index<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script"><span class="token language-javascript">
+            <span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>location<span class="token punctuation">.</span>search<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">var</span> params <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+                    location<span class="token punctuation">.</span>search
+                        <span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^\\?</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span> <span class="token string">''</span><span class="token punctuation">)</span>
+                        <span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">'&amp;'</span><span class="token punctuation">)</span>
+                        <span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token parameter">s</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+                            <span class="token keyword">var</span> v <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">'='</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                            params<span class="token punctuation">[</span>v<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> v<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+                        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span>params<span class="token punctuation">.</span>page<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        history<span class="token punctuation">.</span><span class="token function">replaceState</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token function">decodeURIComponent</span><span class="token punctuation">(</span>params<span class="token punctuation">.</span>page<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        </span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text/javascript<span class="token punctuation">"</span></span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>main.min.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
+</code></pre>
+</div><p>\u901A\u8FC7\u4E0A\u8FF0\u6B65\u9AA4\u53EF\u4EE5\u5C06\u8DEF\u7531\u4FE1\u606F\u5B8C\u6574\u7684\u5E26\u5230 index \u4E2D\u8FD8\u539F\uFF0C\u4ECE\u800C\u5B9E\u73B0 SPA \u7684\u6548\u679C\uFF0C\u5F53\u7136\uFF0C\u4F1A\u770B\u5230\u6D4F\u89C8\u5668\u5730\u5740\u680F\u4E2D\u8DEF\u7531\u7684\u8DF3\u8F6C\uFF0C\u4F53\u9A8C\u4E0A\u7A0D\u5FAE\u5DEE\u4E86\u70B9\uFF0C\u4E0D\u8FC7\u529F\u80FD\u4E0A\u5DF2\u7ECF\u57FA\u672C\u65E0\u5F02\u3002</p>
+<h2 id="\u6700\u7EC8\u6548\u679C" tabindex="-1">\u6700\u7EC8\u6548\u679C <a class="header-anchor" href="#\u6700\u7EC8\u6548\u679C" aria-hidden="true">#</a></h2>
+<p>\u53EF\u4EE5\u770B\u4E0B\u6548\u679C\uFF1A <img src="/image/2019-github-pages-spa.gif" alt="github-spa.gif"></p>
+<p>\u7F51\u7AD9\u5730\u5740\uFF1A<a href="https://rapiop.github.io/vue/" target="_blank" rel="noopener noreferrer">https://rapiop.github.io/vue/</a></p>
+<p>GitHub \u5730\u5740\uFF1A<a href="https://github.com/rapiop/rapiop.github.io" target="_blank" rel="noopener noreferrer">https://github.com/rapiop/rapiop.github.io</a></p>
+<h2 id="\u6CE8\u610F\u4E8B\u9879" tabindex="-1">\u6CE8\u610F\u4E8B\u9879 <a class="header-anchor" href="#\u6CE8\u610F\u4E8B\u9879" aria-hidden="true">#</a></h2>
+<ul>
+<li>\u5927\u90E8\u5206 GitHub Pages \u6709\u81EA\u5DF1\u7684\u9879\u76EE\u8DEF\u5F84\uFF0C\u5982 <code>test.github.io/test/</code>\uFF0C\u8FD9\u65F6\u5019\u9700\u8981\u5BF9\u4E0A\u8FF0\u903B\u8F91\u505A\u4E00\u4E9B\u5904\u7406\uFF0C\u4E0D\u80FD\u76F4\u63A5\u5957\u7528\u3002</li>
+<li>URL \u53C2\u6570\u4E2D\u7684 page \u53EF\u4EE5\u81EA\u5B9A\u4E49\uFF0C\u6CE8\u610F\u4E0D\u8981\u548C\u5DF2\u6709\u8DEF\u7531\u4FE1\u606F\u51B2\u7A81\u3002</li>
+<li>\u9664\u4E86 URL \u4F20\u53C2\uFF0C\u4E5F\u53EF\u4EE5\u901A\u8FC7 localStorage \u4E4B\u7C7B\u7684\u624B\u6BB5\u4F20\u9012\u8DEF\u7531\uFF0C\u4E0D\u8FC7\u6781\u5C0F\u6982\u7387\u4F1A\u6709\u95EE\u9898\uFF0C\u6BD4\u5982 404 \u9875\u9762\u8FD8\u6CA1\u8DF3\u8F6C\u65F6\u5173\u95ED\u4E86\u9875\u9762\uFF0C\u4E0B\u4E00\u6B21\u5230\u9996\u9875\u6253\u5F00\u53EF\u80FD\u4F1A\u8DF3\u5230\u4E4B\u524D\u5B58\u50A8\u7684\u8DEF\u7531\u4E2D\u53BB\u4E4B\u7C7B\u7684\u3002</li>
+</ul>
+<h2 id="\u53C2\u8003" tabindex="-1">\u53C2\u8003 <a class="header-anchor" href="#\u53C2\u8003" aria-hidden="true">#</a></h2>
+<ul>
+<li><a href="https://help.github.com/en/github/working-with-github-pages/creating-a-custom-404-page-for-your-github-pages-site" target="_blank" rel="noopener noreferrer">GitHub Pages 404</a></li>
+<li><a href="https://github.com/rafrex/spa-github-pages" target="_blank" rel="noopener noreferrer">spa-github-pages</a></li>
+</ul>
+`;export{a as __pageData,s as default};

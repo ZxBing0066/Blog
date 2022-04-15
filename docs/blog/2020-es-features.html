@@ -1,0 +1,1708 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>是时候学习/推广一波可选链（Optional chaining）和空值合并（Nullish coalescing ）了 | HeyFE</title>
+        <meta name="description" content="HeyFE's Blog">
+        <link rel="stylesheet" href="/assets/style.da157549.css">
+        <link rel="modulepreload" href="/assets/app.d36d7bad.js">
+    <link rel="modulepreload" href="/assets/blog_2020-es-features.md.bbb01e09.lean.js">
+        
+        <script src="https://cdn.jsdelivr.net/npm/pace-js@latest/pace.min.js"></script>
+  <meta name="twitter:title" content="是时候学习/推广一波可选链（Optional chaining）和空值合并（Nullish coalescing ）了 | HeyFE">
+  <meta property="og:title" content="是时候学习/推广一波可选链（Optional chaining）和空值合并（Nullish coalescing ）了 | HeyFE">
+    </head>
+    <body>
+        <div id="app"><div class="theme"><header class="header _header_1smd2_9"><div class="wrap"><a href="/"><span class="logo">HeyFE&#x27;s Blog</span></a><ul class="nav"><li class="nav-item"><a class="nav-link" href="/">Blog</a></li></ul></div></header><div class="main"><main class="blog _blog_2756q_1"><div class="container"><div class="reading-area"><div class="content-wrap"><div class="meta"><span class="_create-time_1hpiz_1 create-time">2020年7月4日</span><div class="tags _tags_xzcda_1"><a class="tag" href="/blog/?tag=javascript">javascript</a></div></div><div style="position:relative" class="content"><div><h1 id="是时候学习-推广一波可选链（optional-chaining）和空值合并（nullish-coalescing-）了" tabindex="-1">是时候学习/推广一波可选链（Optional chaining）和空值合并（Nullish coalescing ）了 <a class="header-anchor" href="#是时候学习-推广一波可选链（optional-chaining）和空值合并（nullish-coalescing-）了" aria-hidden="true">#</a></h1>
+<blockquote>
+<p>最近工作中发现团队有些同学不太了解 <code>Optional chaining</code> 和 <code>Nullish coalescing</code> 两个新的操作符，正好推广一波。</p>
+</blockquote>
+<h2 id="背景" tabindex="-1">背景 <a class="header-anchor" href="#背景" aria-hidden="true">#</a></h2>
+<p><code>Optional chaining</code> 和 <code>Nullish coalescing</code> 目前都已经纳入 <code>ECMA-262</code> 标准中，不过兼容性还差得远，如下： <img src="/image/blog-2020-es-features-92.png" alt="MDN 兼容表"> 两个操作符的兼容几乎一致，不过现在有了 <code>babel</code>，兼容都不是问题。不过还是要注意使用前一定要确认项目是否支持这俩操作符，切勿只顾一时爽，至于如何兼容可以看下方。</p>
+<h2 id="optional-chaining-介绍" tabindex="-1"><code>Optional chaining</code> 介绍 <a class="header-anchor" href="#optional-chaining-介绍" aria-hidden="true">#</a></h2>
+<p><code>Optional chaining</code> 是为了解决程序中铺天盖地的 <code>Cannot read property 'foo' of undefined</code> 错误或者是满屏幕的 <code>a &amp;&amp; a.b &amp;&amp; a.b.c &amp;&amp; a.b.c.d</code> 逻辑与运算符或者是三元操作符。有了 <code>Optional chaining</code>，我们可以十分优雅的去获取某些可能不存在的数据。</p>
+<p><code>Optional chaining</code> 操作符的定义是：当左操作数为空值时（<code>null</code>、<code>undefined</code>）中断取值操作并返回 <code>undefined</code>。（方法调用为方法为空值时中断调用并返回 <code>undefined</code>）。</p>
+<div class="language-js"><pre><code><span class="token keyword">const</span> foo <span class="token operator">=</span> a<span class="token operator">?.</span>b<span class="token operator">?.</span>c<span class="token operator">?.</span>d<span class="token punctuation">;</span>
+</code></pre>
+</div><p>比起一长串的逻辑与运算符，不但优雅美观，而且方便、可读性更高，逻辑与有时候会偷懒不写，不过自从用了 <code>Optional chaining</code>，再也不用偷懒了，属性取值如此简单稳定，再也不怕属性找不到了。</p>
+<p><code>Optional chaining</code> 有三种标准语法：</p>
+<div class="language-js"><pre><code><span class="token comment">// 静态属性</span>
+a<span class="token operator">?.</span>b<span class="token operator">?.</span>c<span class="token punctuation">.</span>d<span class="token punctuation">;</span>
+<span class="token comment">// 动态属性</span>
+a<span class="token operator">?.</span><span class="token punctuation">[</span>b<span class="token punctuation">]</span><span class="token operator">?.</span>c<span class="token punctuation">.</span>d<span class="token punctuation">;</span>
+<span class="token comment">// 方法调用</span>
+a<span class="token operator">?.</span>b<span class="token operator">?.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+</div><p>不过也需要注意 <code>Optional chaining</code> 后不能跟数字，因为存在语法上的重合。</p>
+<div class="language-js"><pre><code>a <span class="token operator">?</span> <span class="token number">0.3</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+a<span class="token operator">?.</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+</code></pre>
+</div><p>所以需要接数字时记得使用 <code>[]</code>。</p>
+<p>同时 <code>Optional chaining</code> 也支持 <code>delete</code>:</p>
+<div class="language-js"><pre><code><span class="token keyword">delete</span> a<span class="token operator">?.</span>b<span class="token operator">?.</span>c<span class="token punctuation">;</span>
+</code></pre>
+</div><p>注意上述操作无论 <code>a.b</code> 的值只会删除 <code>a.b.c</code> 不会删除 <code>a.b</code>。</p>
+<h2 id="nullish-coalescing-介绍" tabindex="-1"><code>Nullish coalescing</code> 介绍 <a class="header-anchor" href="#nullish-coalescing-介绍" aria-hidden="true">#</a></h2>
+<p>再来看看 <code>Nullish coalescing</code>，<code>Nullish coalescing</code> 和 <code>Optional chaining</code> 算是一对好基友，主要用来做一些默认值的设置。</p>
+<p><code>Nullish coalescing</code> 操作符的定义是：当左操作数为空值时（<code>null</code>、<code>undefined</code>）返回右操作数，否则返回左操作数。</p>
+<div class="language-js"><pre><code><span class="token keyword">const</span> foo <span class="token operator">=</span> a<span class="token operator">?.</span>b<span class="token operator">?.</span>c<span class="token operator">?.</span>d <span class="token operator">??</span> <span class="token string">'bar'</span><span class="token punctuation">;</span>
+</code></pre>
+</div><p>有的同学可能好奇这不是和逻辑或一样吗？</p>
+<div class="language-js"><pre><code><span class="token keyword">const</span> foo <span class="token operator">=</span> a<span class="token operator">?.</span>b<span class="token operator">?.</span>c<span class="token operator">?.</span>d <span class="token operator">||</span> <span class="token string">'bar'</span><span class="token punctuation">;</span>
+</code></pre>
+</div><p>其实还是不一样的 <code>Nullish coalescing</code> 从名字可以看出来：空值合并，也就是只有左操作数为空值时才会应用右操作数，而逻辑或使用的是假值进行判断，在一些边界情况下如左操作数为 <code>0</code>、<code>''</code> 空字符串时 <code>Nullish coalescing</code> 会更合理，可以减少一些边界值的判断。</p>
+<div class="language-js"><pre><code><span class="token keyword">null</span> <span class="token operator">??</span> <span class="token string">'foo'</span><span class="token punctuation">;</span> <span class="token comment">// 'foo'</span>
+<span class="token keyword">undefined</span> <span class="token operator">??</span> <span class="token string">'foo'</span><span class="token punctuation">;</span> <span class="token comment">// 'foo'</span>
+<span class="token number">0</span> <span class="token operator">??</span> <span class="token string">'foo'</span><span class="token punctuation">;</span> <span class="token comment">// 0</span>
+<span class="token string">''</span> <span class="token operator">??</span> <span class="token string">'foo'</span><span class="token punctuation">;</span> <span class="token comment">// ''</span>
+
+<span class="token keyword">null</span> <span class="token operator">||</span> <span class="token string">'foo'</span><span class="token punctuation">;</span> <span class="token comment">// 'foo'</span>
+<span class="token keyword">undefined</span> <span class="token operator">||</span> <span class="token string">'foo'</span><span class="token punctuation">;</span> <span class="token comment">// 'foo'</span>
+<span class="token number">0</span> <span class="token operator">||</span> <span class="token string">'foo'</span><span class="token punctuation">;</span> <span class="token comment">// 'foo'</span>
+<span class="token string">''</span> <span class="token operator">||</span> <span class="token string">'foo'</span><span class="token punctuation">;</span> <span class="token comment">// 'foo'</span>
+</code></pre>
+</div><h2 id="如何使用" tabindex="-1">如何使用 <a class="header-anchor" href="#如何使用" aria-hidden="true">#</a></h2>
+<p>这两个新的操作符其实现在已经包含在新版的 <code>preset-env</code> 中，如果你的项目 <code>preset-env</code> 较新的化，那恭喜 🎉，你不需要做什么额外的操作就可以用上了。</p>
+<p>不过如果是较旧版的 <code>preset-env</code>，那么需要安装上相应的插件来进行启用：</p>
+<div class="language-shell"><pre><code><span class="token function">yarn</span> <span class="token function">add</span> @babel/plugin-proposal-optional-chaining @babel/plugin-proposal-nullish-coalescing-operator --dev
+</code></pre>
+</div><p>安装完成后不要忘记在 <code>babel</code> 配置中启用：</p>
+<div class="language-json"><pre><code><span class="token punctuation">{</span>
+    <span class="token property">"plugins"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"@babel/plugin-proposal-optional-chaining"</span><span class="token punctuation">,</span> <span class="token string">"@babel/plugin-proposal-nullish-coalescing-operator"</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</div><h2 id="babel-转义" tabindex="-1">Babel 转义 <a class="header-anchor" href="#babel-转义" aria-hidden="true">#</a></h2>
+<p>顺便看一下 <code>babel</code> 是如何转义 <code>Optional chaining</code> 和 <code>Nullish coalescing</code> 的。</p>
+<p><code>Optional chaining</code> 的转义</p>
+<div class="language-js"><pre><code>a<span class="token operator">?.</span>b<span class="token operator">?.</span><span class="token punctuation">[</span>c<span class="token punctuation">]</span><span class="token operator">?.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">delete</span> a<span class="token operator">?.</span>b<span class="token operator">?.</span>c<span class="token punctuation">;</span>
+<span class="token comment">// babel 转义后 =====></span>
+<span class="token punctuation">(</span><span class="token string">'use strict'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> _a<span class="token punctuation">,</span> _a$b<span class="token punctuation">,</span> _a$b$c<span class="token punctuation">,</span> _a2<span class="token punctuation">,</span> _a2$b<span class="token punctuation">;</span>
+<span class="token punctuation">(</span>_a <span class="token operator">=</span> a<span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token keyword">null</span> <span class="token operator">||</span> _a <span class="token operator">===</span> <span class="token keyword">void</span> <span class="token number">0</span>
+    <span class="token operator">?</span> <span class="token keyword">void</span> <span class="token number">0</span>
+    <span class="token operator">:</span> <span class="token punctuation">(</span>_a$b <span class="token operator">=</span> _a<span class="token punctuation">.</span>b<span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token keyword">null</span> <span class="token operator">||</span> _a$b <span class="token operator">===</span> <span class="token keyword">void</span> <span class="token number">0</span>
+    <span class="token operator">?</span> <span class="token keyword">void</span> <span class="token number">0</span>
+    <span class="token operator">:</span> <span class="token punctuation">(</span>_a$b$c <span class="token operator">=</span> _a$b<span class="token punctuation">[</span>c<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token keyword">null</span> <span class="token operator">||</span> _a$b$c <span class="token operator">===</span> <span class="token keyword">void</span> <span class="token number">0</span>
+    <span class="token operator">?</span> <span class="token keyword">void</span> <span class="token number">0</span>
+    <span class="token operator">:</span> <span class="token function">_a$b$c</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>_a$b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">(</span>_a2 <span class="token operator">=</span> a<span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token keyword">null</span> <span class="token operator">||</span> _a2 <span class="token operator">===</span> <span class="token keyword">void</span> <span class="token number">0</span> <span class="token operator">?</span> <span class="token boolean">true</span> <span class="token operator">:</span> <span class="token punctuation">(</span>_a2$b <span class="token operator">=</span> _a2<span class="token punctuation">.</span>b<span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token keyword">null</span> <span class="token operator">||</span> _a2$b <span class="token operator">===</span> <span class="token keyword">void</span> <span class="token number">0</span> <span class="token operator">?</span> <span class="token boolean">true</span> <span class="token operator">:</span> <span class="token keyword">delete</span> _a2$b<span class="token punctuation">.</span>c<span class="token punctuation">;</span>
+</code></pre>
+</div><p>细心的同学可以发现有几个比较值得注意的点。</p>
+<h3 id="注意点" tabindex="-1">注意点 <a class="header-anchor" href="#注意点" aria-hidden="true">#</a></h3>
+<ol>
+<li><code>babel</code> 会在每次属性取值时将属性值进行缓存而不是像平时代码中常写的直接 <code>a &amp;&amp; a.b &amp;&amp; a.b.c</code>，这是为了保证和原生实现的一致性，保证每个属性取值只会取一次，避免在一些 getter 属性获取时造成取值次数不一致差异性。</li>
+<li><code>babel</code> 在判断值是否为空时并没有直接使用 <code>== null</code> 而是使用了比较繁琐的 <code>=== null || === void 0</code>，这个主要是为了兼容 <code>document.all</code>，关于 <code>document.all</code> 写在后面。</li>
+</ol>
+<p><code>Nullish coalescing</code> 的转义</p>
+<div class="language-js"><pre><code>a <span class="token operator">??</span> b<span class="token punctuation">;</span>
+<span class="token comment">// babel 转义后 =====></span>
+<span class="token punctuation">(</span><span class="token string">'use strict'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> _a<span class="token punctuation">;</span>
+<span class="token punctuation">(</span>_a <span class="token operator">=</span> a<span class="token punctuation">)</span> <span class="token operator">!==</span> <span class="token keyword">null</span> <span class="token operator">&amp;&amp;</span> _a <span class="token operator">!==</span> <span class="token keyword">void</span> <span class="token number">0</span> <span class="token operator">?</span> _a <span class="token operator">:</span> b<span class="token punctuation">;</span>
+</code></pre>
+</div><p>可以注意到同样是为了兼容 <code>document.all</code>，<code>Nullish coalescing</code> 也使用了 <code>=== null || === void 0</code> 来进行判断。</p>
+<h3 id="document-all" tabindex="-1"><code>document.all</code> <a class="header-anchor" href="#document-all" aria-hidden="true">#</a></h3>
+<p><code>document.all</code> 是一个比较奇怪的值，它是 <code>document</code> 中所有元素的集合，但是它是一个假值，并且是一个特殊的空值。</p>
+<div class="language-js"><pre><code>document<span class="token punctuation">.</span>all <span class="token operator">||</span> <span class="token number">1</span><span class="token punctuation">;</span> <span class="token comment">// 1</span>
+document<span class="token punctuation">.</span>all <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">;</span> <span class="token comment">// true</span>
+document<span class="token punctuation">.</span>all <span class="token operator">===</span> <span class="token keyword">null</span><span class="token punctuation">;</span> <span class="token comment">// false</span>
+document<span class="token punctuation">.</span>all <span class="token operator">===</span> <span class="token keyword">undefined</span><span class="token punctuation">;</span> <span class="token comment">// false</span>
+</code></pre>
+</div><p><code>document.all</code> 是一个残留的属性，这些特性也是为了一些以前的兼容考虑。HTML5 中已经将它废弃，可以不做过多了解。有兴趣的可以看下 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/all" target="_blank" rel="noopener noreferrer">MDN Document.all</a> 的文档。</p>
+<h3 id="loose" tabindex="-1"><code>loose</code> <a class="header-anchor" href="#loose" aria-hidden="true">#</a></h3>
+<p>由于 <code>document.all</code> 是一个废弃的属性，现实开发中其实不会遇到使用的场景，既然如此我们就没必要因为一个废弃的属性而导致 babel 转义出大量无意义代码。我们可以通过启用插件的 <code>loose</code> 属性来实现：</p>
+<div class="language-json"><pre><code><span class="token punctuation">{</span>
+    <span class="token property">"plugins"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">[</span><span class="token string">"@babel/plugin-proposal-optional-chaining"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token property">"loose"</span><span class="token operator">:</span> <span class="token boolean">false</span> <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token punctuation">[</span><span class="token string">"@babel/plugin-proposal-nullish-coalescing-operator"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token property">"loose"</span><span class="token operator">:</span> <span class="token boolean">false</span> <span class="token punctuation">}</span><span class="token punctuation">]</span>
+    <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</div><p>如果是 <code>preset-env</code> 中集成的更简单，直接将 <code>preset-env</code> 中的 <code>loose</code> 设为 <code>true</code> 就行了。</p>
+<p>再看下编译的代码：</p>
+<div class="language-js"><pre><code>a<span class="token operator">?.</span>b<span class="token operator">?.</span><span class="token punctuation">[</span>c<span class="token punctuation">]</span><span class="token operator">?.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// babel 转义后 =====></span>
+<span class="token punctuation">(</span><span class="token string">'use strict'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> _a<span class="token punctuation">,</span> _a$b<span class="token punctuation">,</span> _a$b$c<span class="token punctuation">;</span>
+<span class="token punctuation">(</span>_a <span class="token operator">=</span> a<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token keyword">null</span> <span class="token operator">?</span> <span class="token keyword">void</span> <span class="token number">0</span> <span class="token operator">:</span> <span class="token punctuation">(</span>_a$b <span class="token operator">=</span> _a<span class="token punctuation">.</span>b<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token keyword">null</span> <span class="token operator">?</span> <span class="token keyword">void</span> <span class="token number">0</span> <span class="token operator">:</span> <span class="token punctuation">(</span>_a$b$c <span class="token operator">=</span> _a$b<span class="token punctuation">[</span>c<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token keyword">null</span> <span class="token operator">?</span> <span class="token keyword">void</span> <span class="token number">0</span> <span class="token operator">:</span> <span class="token function">_a$b$c</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>_a$b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+</div><div class="language-js"><pre><code>a <span class="token operator">??</span> b<span class="token punctuation">;</span>
+<span class="token comment">// babel 转义后 =====></span>
+<span class="token punctuation">(</span><span class="token string">'use strict'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> _a<span class="token punctuation">;</span>
+<span class="token punctuation">(</span>_a <span class="token operator">=</span> a<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token keyword">null</span> <span class="token operator">?</span> _a <span class="token operator">:</span> b<span class="token punctuation">;</span>
+</code></pre>
+</div><p>代码瞬间简洁了许多。如果当心团队有同学误用 <code>document.all</code> 也可以在 <code>eslint</code> 中添加告警。</p>
+<h2 id="总结" tabindex="-1">总结 <a class="header-anchor" href="#总结" aria-hidden="true">#</a></h2>
+<p><code>Optional chaining</code> 和 <code>Nullish coalescing</code> 已经纳入标准一段时间了，使用后可以大大增加属性获取、默认值设置等代码的优雅、可读性，减少各种 <code>Cannot read property 'foo' of undefined</code> 的错误情况。等什么，赶紧用起来吧。</p>
+<blockquote>
+<p>如果觉得本文有用，请不要吝啬您的赞 👍</p>
+</blockquote>
+</div></div></div><div class="toc _toc_1ezzn_1"><div class="title level-2"><a href="#背景">背景</a></div><div class="title level-2"><a href="#optional-chaining-介绍">Optional chaining 介绍</a></div><div class="title level-2"><a href="#nullish-coalescing-介绍">Nullish coalescing 介绍</a></div><div class="title level-2"><a href="#如何使用">如何使用</a></div><div class="title level-2"><a href="#babel-转义">Babel 转义</a></div><div class="title level-3"><a href="#注意点">注意点</a></div><div class="title level-3"><a href="#document-all">document.all</a></div><div class="title level-3"><a href="#loose">loose</a></div><div class="title level-2"><a href="#总结">总结</a></div></div></div></div></main></div><footer class="footer _footer_16r70_1"><div class="container"><p class="powered">Powered by<!-- --> <a href="https://github.com/ZxBing0066/rvpress" target="_blank">RVPress</a></p></div></footer><div class="_debug_2dl0w_1 debug "><p class="title">Debug</p><pre class="block">{
+    &quot;site&quot;: {
+        &quot;lang&quot;: &quot;zh-CN&quot;,
+        &quot;title&quot;: &quot;HeyFE&quot;,
+        &quot;description&quot;: &quot;HeyFE&#x27;s Blog&quot;,
+        &quot;base&quot;: &quot;/&quot;,
+        &quot;head&quot;: [],
+        &quot;themeConfig&quot;: {
+            &quot;lastUpdated&quot;: &quot;Last Updated&quot;,
+            &quot;nav&quot;: [
+                {
+                    &quot;text&quot;: &quot;Blog&quot;,
+                    &quot;link&quot;: &quot;/&quot;,
+                    &quot;activeMatch&quot;: &quot;^/blog/&quot;
+                }
+            ],
+            &quot;locales&quot;: {}
+        },
+        &quot;locales&quot;: {},
+        &quot;langs&quot;: {}
+    },
+    &quot;pageList&quot;: [
+        {
+            &quot;title&quot;: &quot;Git 思维导图&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;date&quot;: &quot;2014-09-11T12:12:12.000Z&quot;,
+                &quot;tags&quot;: [
+                    &quot;git&quot;
+                ]
+            },
+            &quot;headers&quot;: [],
+            &quot;relativePath&quot;: &quot;blog/2014-09-11-git.md&quot;,
+            &quot;createTime&quot;: 1649686573000,
+            &quot;lastUpdated&quot;: 1647786576000
+        },
+        {
+            &quot;title&quot;: &quot;Jekyll on Windows 安装&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;date&quot;: &quot;2014-09-12T22:02:12.000Z&quot;,
+                &quot;tags&quot;: [
+                    &quot;github&quot;,
+                    &quot;jekyll&quot;,
+                    &quot;blog&quot;
+                ]
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;安装 ruby&quot;,
+                    &quot;slug&quot;: &quot;安装-ruby&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;安装 Ruby DevKit&quot;,
+                    &quot;slug&quot;: &quot;安装-ruby-devkit&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;安装 Jekyll Gem&quot;,
+                    &quot;slug&quot;: &quot;安装-jekyll-gem&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;安装 python&quot;,
+                    &quot;slug&quot;: &quot;安装-python&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;代码高亮&quot;,
+                    &quot;slug&quot;: &quot;代码高亮&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2014-09-12-how-to-use-jekyll.md&quot;,
+            &quot;createTime&quot;: 1649686573000,
+            &quot;lastUpdated&quot;: 1647786576000
+        },
+        {
+            &quot;title&quot;: &quot;SublimeText PlainTasks 使用教程&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;date&quot;: &quot;2014-11-07T21:23:43.000Z&quot;,
+                &quot;tags&quot;: [
+                    &quot;sublime-text&quot;
+                ]
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;PlainTasks使用教程(所有快捷键为win下的快捷键,mac需要自行替换)&quot;,
+                    &quot;slug&quot;: &quot;plaintasks使用教程-所有快捷键为win下的快捷键-mac需要自行替换&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2014-11-07-plaintasks-start.md&quot;,
+            &quot;createTime&quot;: 1649686573000,
+            &quot;lastUpdated&quot;: 1647786576000
+        },
+        {
+            &quot;title&quot;: &quot;SublimeText3 安装&amp;配置&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;date&quot;: &quot;2014-11-07T10:16:43.000Z&quot;,
+                &quot;tags&quot;: [
+                    &quot;sublime-text&quot;
+                ]
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;下载&quot;,
+                    &quot;slug&quot;: &quot;下载&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;安装Package Control&quot;,
+                    &quot;slug&quot;: &quot;安装package-control&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;下载后直接安装&quot;,
+                    &quot;slug&quot;: &quot;下载后直接安装&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;Package Control使用&quot;,
+                    &quot;slug&quot;: &quot;package-control使用&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;常用命令&quot;,
+                    &quot;slug&quot;: &quot;常用命令&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;手动安装插件&quot;,
+                    &quot;slug&quot;: &quot;手动安装插件&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;插件推荐&quot;,
+                    &quot;slug&quot;: &quot;插件推荐&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;主题推荐&quot;,
+                    &quot;slug&quot;: &quot;主题推荐&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2014-11-07-sublime-text-3.md&quot;,
+            &quot;createTime&quot;: 1649686573000,
+            &quot;lastUpdated&quot;: 1647786576000
+        },
+        {
+            &quot;title&quot;: &quot;在 SublimeText 中使用 Gist&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;date&quot;: &quot;2014-11-08T12:07:43.000Z&quot;,
+                &quot;tags&quot;: [
+                    &quot;sublime-text&quot;,
+                    &quot;gist&quot;
+                ]
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;首先使用Package Control安装Gist插件&quot;,
+                    &quot;slug&quot;: &quot;首先使用package-control安装gist插件&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;在Github中创建Token&quot;,
+                    &quot;slug&quot;: &quot;在github中创建token&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;修改Gist插件配置&quot;,
+                    &quot;slug&quot;: &quot;修改gist插件配置&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;其它配置项含义&quot;,
+                    &quot;slug&quot;: &quot;其它配置项含义&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;快捷键&amp;功能&quot;,
+                    &quot;slug&quot;: &quot;快捷键-功能&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;创建Gist&quot;,
+                    &quot;slug&quot;: &quot;创建gist&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;添加文件到Gist&quot;,
+                    &quot;slug&quot;: &quot;添加文件到gist&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;使用Gist&quot;,
+                    &quot;slug&quot;: &quot;使用gist&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;打开Gist&quot;,
+                    &quot;slug&quot;: &quot;打开gist&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;编辑删除Gist&quot;,
+                    &quot;slug&quot;: &quot;编辑删除gist&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;页面脚本引用&quot;,
+                    &quot;slug&quot;: &quot;页面脚本引用&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2014-11-08-gist.md&quot;,
+            &quot;createTime&quot;: 1649686573000,
+            &quot;lastUpdated&quot;: 1647786576000
+        },
+        {
+            &quot;title&quot;: &quot;在 Github Pages 中使用 Disqus&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;date&quot;: &quot;2014-11-12T12:07:43.000Z&quot;,
+                &quot;tags&quot;: [
+                    &quot;blog&quot;,
+                    &quot;disqus&quot;
+                ]
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;Github Pages由于是一堆静态页面,导致无法写评论和留言,所有这里就用到Disqus了,在页面中引入后便可以实现评论等各种吐槽交互的功能,简直狂拽吊炸天~&quot;,
+                    &quot;slug&quot;: &quot;github-pages由于是一堆静态页面-导致无法写评论和留言-所有这里就用到disqus了-在页面中引入后便可以实现评论等各种吐槽交互的功能-简直狂拽吊炸天&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;注册Disqus&quot;,
+                    &quot;slug&quot;: &quot;注册disqus&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;新建实例&quot;,
+                    &quot;slug&quot;: &quot;新建实例&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;添加Disqus 到页面&quot;,
+                    &quot;slug&quot;: &quot;添加disqus-到页面&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;搞定收工&quot;,
+                    &quot;slug&quot;: &quot;搞定收工&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2014-11-12-disqus.md&quot;,
+            &quot;createTime&quot;: 1649686573000,
+            &quot;lastUpdated&quot;: 1647786576000
+        },
+        {
+            &quot;title&quot;: &quot;Git 中使用 ssh key&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;date&quot;: &quot;2014-11-12T12:07:43.000Z&quot;,
+                &quot;tags&quot;: [
+                    &quot;git&quot;
+                ]
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;生成ssh key公钥&quot;,
+                    &quot;slug&quot;: &quot;生成ssh-key公钥&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;创建ssh key:&quot;,
+                    &quot;slug&quot;: &quot;创建ssh-key&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;将公钥添加到Github&quot;,
+                    &quot;slug&quot;: &quot;将公钥添加到github&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;将https协议clone的仓库修改为git协议&quot;,
+                    &quot;slug&quot;: &quot;将https协议clone的仓库修改为git协议&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2014-11-18-git-ssh-key.md&quot;,
+            &quot;createTime&quot;: 1649686573000,
+            &quot;lastUpdated&quot;: 1647786576000
+        },
+        {
+            &quot;title&quot;: &quot;Goagent 搭建&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;date&quot;: &quot;2014-12-06T21:10:23.000Z&quot;,
+                &quot;tags&quot;: [
+                    &quot;goagent&quot;,
+                    &quot;proxy&quot;
+                ]
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;下载goagent&quot;,
+                    &quot;slug&quot;: &quot;下载goagent&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;注册google帐号&quot;,
+                    &quot;slug&quot;: &quot;注册google帐号&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;申请Google App Engine&quot;,
+                    &quot;slug&quot;: &quot;申请google-app-engine&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;上传goagent&quot;,
+                    &quot;slug&quot;: &quot;上传goagent&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;修改本地配置&quot;,
+                    &quot;slug&quot;: &quot;修改本地配置&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;翻滚吧&quot;,
+                    &quot;slug&quot;: &quot;翻滚吧&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;总结&quot;,
+                    &quot;slug&quot;: &quot;总结&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2014-12-06-goagent.md&quot;,
+            &quot;createTime&quot;: 1649686573000,
+            &quot;lastUpdated&quot;: 1647786576000
+        },
+        {
+            &quot;title&quot;: &quot;Shadowsocks 搭建&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;date&quot;: &quot;2014-12-06T12:10:23.000Z&quot;,
+                &quot;tags&quot;: [
+                    &quot;shadowsocks&quot;,
+                    &quot;proxy&quot;
+                ]
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;搭建环境&quot;,
+                    &quot;slug&quot;: &quot;搭建环境&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;安装nodejs环境&quot;,
+                    &quot;slug&quot;: &quot;安装nodejs环境&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;安装shadowsocks&quot;,
+                    &quot;slug&quot;: &quot;安装shadowsocks&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;配置config文件&quot;,
+                    &quot;slug&quot;: &quot;配置config文件&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;启动shadowsocks&quot;,
+                    &quot;slug&quot;: &quot;启动shadowsocks&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;本地客户端,准备开始翻 X 吧&quot;,
+                    &quot;slug&quot;: &quot;本地客户端-准备开始翻-x-吧&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;配置PAC File&quot;,
+                    &quot;slug&quot;: &quot;配置pac-file&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;总结&quot;,
+                    &quot;slug&quot;: &quot;总结&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;Trouble Shooting&quot;,
+                    &quot;slug&quot;: &quot;trouble-shooting&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;Else&quot;,
+                    &quot;slug&quot;: &quot;else&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2014-12-06-shadowsocks.md&quot;,
+            &quot;createTime&quot;: 1649686573000,
+            &quot;lastUpdated&quot;: 1647786576000
+        },
+        {
+            &quot;title&quot;: &quot;NodeJS 搭建简易网站&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;date&quot;: &quot;2014-12-17T15:29:00.000Z&quot;,
+                &quot;tags&quot;: [
+                    &quot;nodejs&quot;
+                ]
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;安装nodejs&quot;,
+                    &quot;slug&quot;: &quot;安装nodejs&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;安装npm&quot;,
+                    &quot;slug&quot;: &quot;安装npm&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;安装express&quot;,
+                    &quot;slug&quot;: &quot;安装express&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;创建文件并启动&quot;,
+                    &quot;slug&quot;: &quot;创建文件并启动&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;静态文件服务器&quot;,
+                    &quot;slug&quot;: &quot;静态文件服务器&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;打完收工&quot;,
+                    &quot;slug&quot;: &quot;打完收工&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2014-12-17-nodejs-simple-server.md&quot;,
+            &quot;createTime&quot;: 1649686573000,
+            &quot;lastUpdated&quot;: 1647786576000
+        },
+        {
+            &quot;title&quot;: &quot;微信在线相册制作 - 图片篇&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;date&quot;: &quot;2015-06-29T17:47:00.000Z&quot;,
+                &quot;tags&quot;: [
+                    &quot;微信&quot;
+                ]
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;图片选择&quot;,
+                    &quot;slug&quot;: &quot;图片选择&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;图片上传&quot;,
+                    &quot;slug&quot;: &quot;图片上传&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;图片预览&quot;,
+                    &quot;slug&quot;: &quot;图片预览&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;图片压缩&quot;,
+                    &quot;slug&quot;: &quot;图片压缩&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;图片方向&quot;,
+                    &quot;slug&quot;: &quot;图片方向&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;canvasResize&quot;,
+                    &quot;slug&quot;: &quot;canvasresize&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2015-06-29-weixin-album-image.md&quot;,
+            &quot;createTime&quot;: 1649686573000,
+            &quot;lastUpdated&quot;: 1647786576000
+        },
+        {
+            &quot;title&quot;: &quot;Weinre&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;date&quot;: &quot;2015-06-30T14:20:00.000Z&quot;,
+                &quot;tags&quot;: [
+                    &quot;调试&quot;,
+                    &quot;移动端&quot;
+                ]
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;安装&quot;,
+                    &quot;slug&quot;: &quot;安装&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;结构&quot;,
+                    &quot;slug&quot;: &quot;结构&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;原理&quot;,
+                    &quot;slug&quot;: &quot;原理&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;配置&quot;,
+                    &quot;slug&quot;: &quot;配置&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;运行&quot;,
+                    &quot;slug&quot;: &quot;运行&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;脚本&quot;,
+                    &quot;slug&quot;: &quot;脚本&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;调试&quot;,
+                    &quot;slug&quot;: &quot;调试&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;面板&quot;,
+                    &quot;slug&quot;: &quot;面板&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2015-06-30-weinre.md&quot;,
+            &quot;createTime&quot;: 1649686573000,
+            &quot;lastUpdated&quot;: 1647786576000
+        },
+        {
+            &quot;title&quot;: &quot;微信在线相册制作 - 微信篇&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;date&quot;: &quot;2015-06-30T12:46:00.000Z&quot;,
+                &quot;tags&quot;: [
+                    &quot;微信&quot;
+                ]
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;wx.ready&quot;,
+                    &quot;slug&quot;: &quot;wx-ready&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;wx.chooseImage&quot;,
+                    &quot;slug&quot;: &quot;wx-chooseimage&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;css 冲突&quot;,
+                    &quot;slug&quot;: &quot;css-冲突&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;dom 属性获取错误&quot;,
+                    &quot;slug&quot;: &quot;dom-属性获取错误&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2015-06-30-weixin-album-weixin.md&quot;,
+            &quot;createTime&quot;: 1649686573000,
+            &quot;lastUpdated&quot;: 1647786576000
+        },
+        {
+            &quot;title&quot;: &quot;Shell 脚本初尝试&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;date&quot;: &quot;2016-08-14T14:57:47.000Z&quot;,
+                &quot;tags&quot;: [
+                    &quot;shell&quot;
+                ]
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;Trouble Shooting&quot;,
+                    &quot;slug&quot;: &quot;trouble-shooting&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2016-08-14-shell-scripting.md&quot;,
+            &quot;createTime&quot;: 1649686573000,
+            &quot;lastUpdated&quot;: 1647786576000
+        },
+        {
+            &quot;title&quot;: &quot;Tmux 配置详解&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;date&quot;: &quot;2016-08-15T06:57:47.000Z&quot;,
+                &quot;tags&quot;: [
+                    &quot;terminal&quot;,
+                    &quot;tmux&quot;
+                ]
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;安装&quot;,
+                    &quot;slug&quot;: &quot;安装&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;panes 的默认布局方式&quot;,
+                    &quot;slug&quot;: &quot;panes-的默认布局方式&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;CLIENTS 和 SESSIONS&quot;,
+                    &quot;slug&quot;: &quot;clients-和-sessions&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;WINDOWS 和 PANES&quot;,
+                    &quot;slug&quot;: &quot;windows-和-panes&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;快捷键&quot;,
+                    &quot;slug&quot;: &quot;快捷键&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;Trouble Shooting&quot;,
+                    &quot;slug&quot;: &quot;trouble-shooting&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2016-08-15-tmux.md&quot;,
+            &quot;createTime&quot;: 1649686573000,
+            &quot;lastUpdated&quot;: 1647786576000
+        },
+        {
+            &quot;title&quot;: &quot;Javascript 严格模式&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;date&quot;: &quot;2016-08-26T18:08:18.000Z&quot;,
+                &quot;tags&quot;: [
+                    &quot;javascript&quot;
+                ]
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;兼容版本&quot;,
+                    &quot;slug&quot;: &quot;兼容版本&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;宣告严格模式&quot;,
+                    &quot;slug&quot;: &quot;宣告严格模式&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;严格模式中不允许的代码&quot;,
+                    &quot;slug&quot;: &quot;严格模式中不允许的代码&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;注意事项&quot;,
+                    &quot;slug&quot;: &quot;注意事项&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;参考文献地址&quot;,
+                    &quot;slug&quot;: &quot;参考文献地址&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2016-08-26-strict-mode.md&quot;,
+            &quot;createTime&quot;: 1649686573000,
+            &quot;lastUpdated&quot;: 1647786576000
+        },
+        {
+            &quot;title&quot;: &quot;tmuxinator 使用&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;date&quot;: &quot;2016-08-26T06:03:27.000Z&quot;,
+                &quot;tags&quot;: [
+                    &quot;terminal&quot;,
+                    &quot;tmux&quot;
+                ]
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;安装&quot;,
+                    &quot;slug&quot;: &quot;安装&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;设置默认编辑器&quot;,
+                    &quot;slug&quot;: &quot;设置默认编辑器&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;自动补全&quot;,
+                    &quot;slug&quot;: &quot;自动补全&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;使用&quot;,
+                    &quot;slug&quot;: &quot;使用&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;其他命令&quot;,
+                    &quot;slug&quot;: &quot;其他命令&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;项目文件详解&quot;,
+                    &quot;slug&quot;: &quot;项目文件详解&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2016-08-26-tmuxinator.md&quot;,
+            &quot;createTime&quot;: 1649686573000,
+            &quot;lastUpdated&quot;: 1647786576000
+        },
+        {
+            &quot;title&quot;: &quot;Tmux 配置&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;date&quot;: &quot;2016-08-27T05:45:43.000Z&quot;,
+                &quot;tags&quot;: [
+                    &quot;terminal&quot;,
+                    &quot;tmux&quot;
+                ]
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;配置文件&quot;,
+                    &quot;slug&quot;: &quot;配置文件&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;配置文件修改&quot;,
+                    &quot;slug&quot;: &quot;配置文件修改&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;参考文献&quot;,
+                    &quot;slug&quot;: &quot;参考文献&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2016-08-27-tmux-config.md&quot;,
+            &quot;createTime&quot;: 1649686573000,
+            &quot;lastUpdated&quot;: 1647786576000
+        },
+        {
+            &quot;title&quot;: &quot;观察者模式&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;date&quot;: &quot;2016-09-12T05:53:02.000Z&quot;,
+                &quot;tags&quot;: [
+                    &quot;设计模式&quot;
+                ]
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;介绍&quot;,
+                    &quot;slug&quot;: &quot;介绍&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;代码示例&quot;,
+                    &quot;slug&quot;: &quot;代码示例&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;代码解析&quot;,
+                    &quot;slug&quot;: &quot;代码解析&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;优势&quot;,
+                    &quot;slug&quot;: &quot;优势&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;缺点&quot;,
+                    &quot;slug&quot;: &quot;缺点&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;注意事项&quot;,
+                    &quot;slug&quot;: &quot;注意事项&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;观察者模式和发布/订阅模式&quot;,
+                    &quot;slug&quot;: &quot;观察者模式和发布-订阅模式&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;参考文献&quot;,
+                    &quot;slug&quot;: &quot;参考文献&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2016-09-12-observer-pattern.md&quot;,
+            &quot;createTime&quot;: 1649686573000,
+            &quot;lastUpdated&quot;: 1647786576000
+        },
+        {
+            &quot;title&quot;: &quot;RxJS&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;date&quot;: &quot;2016-09-12T11:05:28.000Z&quot;,
+                &quot;ignoreInList&quot;: true
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;介绍&quot;,
+                    &quot;slug&quot;: &quot;介绍&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;例子&quot;,
+                    &quot;slug&quot;: &quot;例子&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;参考文献&quot;,
+                    &quot;slug&quot;: &quot;参考文献&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2016-09-12-rxjs.md&quot;,
+            &quot;createTime&quot;: 1649686573000,
+            &quot;lastUpdated&quot;: 1647786576000
+        },
+        {
+            &quot;title&quot;: &quot;JavaScript 代码性能优化 - 从排查到处理&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;tags&quot;: [
+                    &quot;javascript&quot;,
+                    &quot;performance&quot;
+                ],
+                &quot;date&quot;: &quot;2019-11-14T00:00:00.000Z&quot;
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;性能问题排查与收集&quot;,
+                    &quot;slug&quot;: &quot;性能问题排查与收集&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;Performance&quot;,
+                    &quot;slug&quot;: &quot;performance&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;JavaScript Profiler&quot;,
+                    &quot;slug&quot;: &quot;javascript-profiler&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;console.time&quot;,
+                    &quot;slug&quot;: &quot;console-time&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;性能问题整理和优化&quot;,
+                    &quot;slug&quot;: &quot;性能问题整理和优化&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;拆分循环中的任务&quot;,
+                    &quot;slug&quot;: &quot;拆分循环中的任务&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;理清逻辑&quot;,
+                    &quot;slug&quot;: &quot;理清逻辑&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;善用位运算&quot;,
+                    &quot;slug&quot;: &quot;善用位运算&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;减少重复任务&quot;,
+                    &quot;slug&quot;: &quot;减少重复任务&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;尽早退出&quot;,
+                    &quot;slug&quot;: &quot;尽早退出&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;善用 lazy&quot;,
+                    &quot;slug&quot;: &quot;善用-lazy&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;成果&quot;,
+                    &quot;slug&quot;: &quot;成果&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;总结&quot;,
+                    &quot;slug&quot;: &quot;总结&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2019-console-performance.md&quot;,
+            &quot;createTime&quot;: 1650038339000,
+            &quot;lastUpdated&quot;: 1650038339000
+        },
+        {
+            &quot;title&quot;: &quot;如何方便的为团队所有项目统一 ESLint 配置&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;tags&quot;: [
+                    &quot;eslint&quot;,
+                    &quot;team&quot;
+                ],
+                &quot;date&quot;: &quot;2019-11-18T00:00:00.000Z&quot;
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;前言&quot;,
+                    &quot;slug&quot;: &quot;前言&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;统一配置处理&quot;,
+                    &quot;slug&quot;: &quot;统一配置处理&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;ESLint extends&quot;,
+                    &quot;slug&quot;: &quot;eslint-extends&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;Package eslintConfig&quot;,
+                    &quot;slug&quot;: &quot;package-eslintconfig&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;依赖包&quot;,
+                    &quot;slug&quot;: &quot;依赖包&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;参考&quot;,
+                    &quot;slug&quot;: &quot;参考&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;保证配置不被篡改&quot;,
+                    &quot;slug&quot;: &quot;保证配置不被篡改&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;CLI&quot;,
+                    &quot;slug&quot;: &quot;cli&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;commit hook&quot;,
+                    &quot;slug&quot;: &quot;commit-hook&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;CI/CD&quot;,
+                    &quot;slug&quot;: &quot;ci-cd&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;发布系统发布时做校验&quot;,
+                    &quot;slug&quot;: &quot;发布系统发布时做校验&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;后续升级&quot;,
+                    &quot;slug&quot;: &quot;后续升级&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;总结&quot;,
+                    &quot;slug&quot;: &quot;总结&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2019-eslint-config-team.md&quot;,
+            &quot;createTime&quot;: 1650038339000,
+            &quot;lastUpdated&quot;: 1650038339000
+        },
+        {
+            &quot;title&quot;: &quot;GitHub Pages 如何实现 SPA&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;tags&quot;: [
+                    &quot;github&quot;
+                ],
+                &quot;date&quot;: &quot;2019-11-05T00:00:00.000Z&quot;
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;前因&quot;,
+                    &quot;slug&quot;: &quot;前因&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;404&quot;,
+                    &quot;slug&quot;: &quot;_404&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;初次方案&quot;,
+                    &quot;slug&quot;: &quot;初次方案&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;进阶方案&quot;,
+                    &quot;slug&quot;: &quot;进阶方案&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;最终效果&quot;,
+                    &quot;slug&quot;: &quot;最终效果&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;注意事项&quot;,
+                    &quot;slug&quot;: &quot;注意事项&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;参考&quot;,
+                    &quot;slug&quot;: &quot;参考&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2019-github-pages-spa.md&quot;,
+            &quot;createTime&quot;: 1650038339000,
+            &quot;lastUpdated&quot;: 1649686573000
+        },
+        {
+            &quot;title&quot;: &quot;动手实现一个 JavaScript 沙箱&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;tags&quot;: [
+                    &quot;javascript&quot;,
+                    &quot;sandbox&quot;
+                ],
+                &quot;date&quot;: &quot;2019-10-25T00:00:00.000Z&quot;
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;前言&quot;,
+                    &quot;slug&quot;: &quot;前言&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;动手&quot;,
+                    &quot;slug&quot;: &quot;动手&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;代码执行&quot;,
+                    &quot;slug&quot;: &quot;代码执行&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;初版实现&quot;,
+                    &quot;slug&quot;: &quot;初版实现&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;进阶实现&quot;,
+                    &quot;slug&quot;: &quot;进阶实现&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;最终实现&quot;,
+                    &quot;slug&quot;: &quot;最终实现&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;使用场景&quot;,
+                    &quot;slug&quot;: &quot;使用场景&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;举个 🌰&quot;,
+                    &quot;slug&quot;: &quot;举个-🌰&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;局限性&quot;,
+                    &quot;slug&quot;: &quot;局限性&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;扩展阅读&quot;,
+                    &quot;slug&quot;: &quot;扩展阅读&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;参考文献&quot;,
+                    &quot;slug&quot;: &quot;参考文献&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2019-javascript-sandbox.md&quot;,
+            &quot;createTime&quot;: 1650038339000,
+            &quot;lastUpdated&quot;: 1649686573000
+        },
+        {
+            &quot;title&quot;: &quot;IDE AI 自动补全插件 TabNine&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;tags&quot;: [
+                    &quot;生产力&quot;
+                ],
+                &quot;date&quot;: &quot;2019-11-06T00:00:00.000Z&quot;
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;介绍&quot;,
+                    &quot;slug&quot;: &quot;介绍&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;支持&quot;,
+                    &quot;slug&quot;: &quot;支持&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;使用感受&quot;,
+                    &quot;slug&quot;: &quot;使用感受&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;指令&quot;,
+                    &quot;slug&quot;: &quot;指令&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;配置面板&quot;,
+                    &quot;slug&quot;: &quot;配置面板&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;上车&quot;,
+                    &quot;slug&quot;: &quot;上车&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;链接&quot;,
+                    &quot;slug&quot;: &quot;链接&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2019-tab-nine.md&quot;,
+            &quot;createTime&quot;: 1650038339000,
+            &quot;lastUpdated&quot;: 1650038339000
+        },
+        {
+            &quot;title&quot;: &quot;是时候学习/推广一波可选链（Optional chaining）和空值合并（Nullish coalescing ）了&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;tags&quot;: [
+                    &quot;javascript&quot;
+                ],
+                &quot;date&quot;: &quot;2020-07-04T00:00:00.000Z&quot;
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;背景&quot;,
+                    &quot;slug&quot;: &quot;背景&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;Optional chaining 介绍&quot;,
+                    &quot;slug&quot;: &quot;optional-chaining-介绍&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;Nullish coalescing 介绍&quot;,
+                    &quot;slug&quot;: &quot;nullish-coalescing-介绍&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;如何使用&quot;,
+                    &quot;slug&quot;: &quot;如何使用&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;Babel 转义&quot;,
+                    &quot;slug&quot;: &quot;babel-转义&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;注意点&quot;,
+                    &quot;slug&quot;: &quot;注意点&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;document.all&quot;,
+                    &quot;slug&quot;: &quot;document-all&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;loose&quot;,
+                    &quot;slug&quot;: &quot;loose&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;总结&quot;,
+                    &quot;slug&quot;: &quot;总结&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2020-es-features.md&quot;,
+            &quot;createTime&quot;: 1650038339000,
+            &quot;lastUpdated&quot;: 1650038339000
+        },
+        {
+            &quot;title&quot;: &quot;前端模块简史 - CJS &amp; *MD &amp; ES Modules &amp; SystemJS &amp; Webpack&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;tags&quot;: [
+                    &quot;javascript&quot;,
+                    &quot;module&quot;
+                ],
+                &quot;date&quot;: &quot;2020-06-18T00:00:00.000Z&quot;
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;文件模块&quot;,
+                    &quot;slug&quot;: &quot;文件模块&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;全局变量&quot;,
+                    &quot;slug&quot;: &quot;全局变量&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;命名空间&quot;,
+                    &quot;slug&quot;: &quot;命名空间&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;IIFE 包裹&quot;,
+                    &quot;slug&quot;: &quot;iife-包裹&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;模块系统&quot;,
+                    &quot;slug&quot;: &quot;模块系统&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;CommonJS（以下称 CJS）&quot;,
+                    &quot;slug&quot;: &quot;commonjs（以下称-cjs）&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;AMD&quot;,
+                    &quot;slug&quot;: &quot;amd&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;CMD&quot;,
+                    &quot;slug&quot;: &quot;cmd&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;UMD&quot;,
+                    &quot;slug&quot;: &quot;umd&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;ES Modules&quot;,
+                    &quot;slug&quot;: &quot;es-modules&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;SystemJS&quot;,
+                    &quot;slug&quot;: &quot;systemjs&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;模块打包&quot;,
+                    &quot;slug&quot;: &quot;模块打包&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;webpack&quot;,
+                    &quot;slug&quot;: &quot;webpack&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;总结&quot;,
+                    &quot;slug&quot;: &quot;总结&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;最后&quot;,
+                    &quot;slug&quot;: &quot;最后&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2020-modules.md&quot;,
+            &quot;createTime&quot;: 1650038339000,
+            &quot;lastUpdated&quot;: 1650038339000
+        },
+        {
+            &quot;title&quot;: &quot;大型 SPA 项目架构设计与重构&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;tags&quot;: [
+                    &quot;architecture&quot;
+                ],
+                &quot;date&quot;: &quot;2021-08-27T00:00:00.000Z&quot;
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;老架构介绍&quot;,
+                    &quot;slug&quot;: &quot;老架构介绍&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;老架构存在的问题&quot;,
+                    &quot;slug&quot;: &quot;老架构存在的问题&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;新架构&quot;,
+                    &quot;slug&quot;: &quot;新架构&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;启动器&quot;,
+                    &quot;slug&quot;: &quot;启动器&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;公共模块&quot;,
+                    &quot;slug&quot;: &quot;公共模块&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;业务模块&quot;,
+                    &quot;slug&quot;: &quot;业务模块&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;优化后&quot;,
+                    &quot;slug&quot;: &quot;优化后&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;运行流程&quot;,
+                    &quot;slug&quot;: &quot;运行流程&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;开发&quot;,
+                    &quot;slug&quot;: &quot;开发&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;现状&quot;,
+                    &quot;slug&quot;: &quot;现状&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2021-console-architecture.md&quot;,
+            &quot;createTime&quot;: 1650038339000,
+            &quot;lastUpdated&quot;: 1650038339000
+        },
+        {
+            &quot;title&quot;: &quot;Elements&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;tags&quot;: [
+                    &quot;blog&quot;
+                ]
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;H2 Heading&quot;,
+                    &quot;slug&quot;: &quot;h2-heading&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;H3 Heading&quot;,
+                    &quot;slug&quot;: &quot;h3-heading&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;List&quot;,
+                    &quot;slug&quot;: &quot;list&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;Table&quot;,
+                    &quot;slug&quot;: &quot;table&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;Quotes&quot;,
+                    &quot;slug&quot;: &quot;quotes&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;Syntax Highlighter&quot;,
+                    &quot;slug&quot;: &quot;syntax-highlighter&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;Images&quot;,
+                    &quot;slug&quot;: &quot;images&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;iframe 嵌入&quot;,
+                    &quot;slug&quot;: &quot;iframe-嵌入&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;elements.md&quot;,
+            &quot;createTime&quot;: 1649686573000,
+            &quot;lastUpdated&quot;: 1649686573000
+        },
+        {
+            &quot;title&quot;: &quot;&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;list&quot;: true
+            },
+            &quot;headers&quot;: [],
+            &quot;relativePath&quot;: &quot;index.md&quot;,
+            &quot;createTime&quot;: 1649686573000,
+            &quot;lastUpdated&quot;: 1649686573000
+        }
+    ],
+    &quot;theme&quot;: {
+        &quot;lastUpdated&quot;: &quot;Last Updated&quot;,
+        &quot;nav&quot;: [
+            {
+                &quot;text&quot;: &quot;Blog&quot;,
+                &quot;link&quot;: &quot;/&quot;,
+                &quot;activeMatch&quot;: &quot;^/blog/&quot;
+            }
+        ],
+        &quot;locales&quot;: {}
+    },
+    &quot;page&quot;: {
+        &quot;title&quot;: &quot;是时候学习/推广一波可选链（Optional chaining）和空值合并（Nullish coalescing ）了&quot;,
+        &quot;description&quot;: &quot;&quot;,
+        &quot;frontmatter&quot;: {
+            &quot;tags&quot;: [
+                &quot;javascript&quot;
+            ],
+            &quot;date&quot;: &quot;2020-07-04T00:00:00.000Z&quot;
+        },
+        &quot;headers&quot;: [
+            {
+                &quot;level&quot;: 2,
+                &quot;title&quot;: &quot;背景&quot;,
+                &quot;slug&quot;: &quot;背景&quot;
+            },
+            {
+                &quot;level&quot;: 2,
+                &quot;title&quot;: &quot;Optional chaining 介绍&quot;,
+                &quot;slug&quot;: &quot;optional-chaining-介绍&quot;
+            },
+            {
+                &quot;level&quot;: 2,
+                &quot;title&quot;: &quot;Nullish coalescing 介绍&quot;,
+                &quot;slug&quot;: &quot;nullish-coalescing-介绍&quot;
+            },
+            {
+                &quot;level&quot;: 2,
+                &quot;title&quot;: &quot;如何使用&quot;,
+                &quot;slug&quot;: &quot;如何使用&quot;
+            },
+            {
+                &quot;level&quot;: 2,
+                &quot;title&quot;: &quot;Babel 转义&quot;,
+                &quot;slug&quot;: &quot;babel-转义&quot;
+            },
+            {
+                &quot;level&quot;: 3,
+                &quot;title&quot;: &quot;注意点&quot;,
+                &quot;slug&quot;: &quot;注意点&quot;
+            },
+            {
+                &quot;level&quot;: 3,
+                &quot;title&quot;: &quot;document.all&quot;,
+                &quot;slug&quot;: &quot;document-all&quot;
+            },
+            {
+                &quot;level&quot;: 3,
+                &quot;title&quot;: &quot;loose&quot;,
+                &quot;slug&quot;: &quot;loose&quot;
+            },
+            {
+                &quot;level&quot;: 2,
+                &quot;title&quot;: &quot;总结&quot;,
+                &quot;slug&quot;: &quot;总结&quot;
+            }
+        ],
+        &quot;relativePath&quot;: &quot;blog/2020-es-features.md&quot;,
+        &quot;createTime&quot;: 1650038339000,
+        &quot;lastUpdated&quot;: 1650038339000
+    },
+    &quot;frontmatter&quot;: {
+        &quot;tags&quot;: [
+            &quot;javascript&quot;
+        ],
+        &quot;date&quot;: &quot;2020-07-04T00:00:00.000Z&quot;
+    },
+    &quot;lang&quot;: &quot;zh-CN&quot;,
+    &quot;title&quot;: &quot;是时候学习/推广一波可选链（Optional chaining）和空值合并（Nullish coalescing ）了 | HeyFE&quot;,
+    &quot;description&quot;: &quot;HeyFE&#x27;s Blog&quot;,
+    &quot;localePath&quot;: &quot;/&quot;
+}</pre></div></div></div>
+        <script>__RVP_HASH_MAP__ = JSON.parse("{\"blog_2014-09-11-git.md\":\"7aeefd49\",\"blog_2014-09-12-how-to-use-jekyll.md\":\"cace8279\",\"blog_2014-11-07-plaintasks-start.md\":\"bce96d48\",\"blog_2014-11-07-sublime-text-3.md\":\"37dd30e3\",\"blog_2014-11-08-gist.md\":\"2a0cd9d5\",\"blog_2014-11-12-disqus.md\":\"ea92519b\",\"blog_2014-11-18-git-ssh-key.md\":\"931606bb\",\"blog_2014-12-06-goagent.md\":\"57e223cf\",\"blog_2014-12-06-shadowsocks.md\":\"9d09b264\",\"blog_2014-12-17-nodejs-simple-server.md\":\"18bd75ee\",\"blog_2015-06-29-weixin-album-image.md\":\"7ed1ef0a\",\"blog_2015-06-30-weinre.md\":\"4be7a6d8\",\"blog_2015-06-30-weixin-album-weixin.md\":\"00238d22\",\"blog_2016-08-14-shell-scripting.md\":\"e7e0b013\",\"blog_2016-08-15-tmux.md\":\"ed94400f\",\"blog_2016-08-26-strict-mode.md\":\"0fc09ebe\",\"blog_2016-08-26-tmuxinator.md\":\"007b22fa\",\"blog_2016-08-27-tmux-config.md\":\"928b54fb\",\"blog_2016-09-12-observer-pattern.md\":\"cf90a287\",\"blog_2016-09-12-rxjs.md\":\"90092117\",\"blog_2019-console-performance.md\":\"2cc5e7c3\",\"blog_2019-eslint-config-team.md\":\"573c8a09\",\"blog_2019-github-pages-spa.md\":\"a526948f\",\"blog_2019-javascript-sandbox.md\":\"eb6a0008\",\"blog_2019-tab-nine.md\":\"5e3fd988\",\"blog_2020-es-features.md\":\"bbb01e09\",\"blog_2020-modules.md\":\"e77bcabf\",\"blog_2021-console-architecture.md\":\"d111ac7f\",\"elements.md\":\"1caa520e\",\"index.md\":\"e4d4d337\"}")</script>
+        <script type="module" async src="/assets/app.d36d7bad.js"></script>
+        
+    </body>
+</html>

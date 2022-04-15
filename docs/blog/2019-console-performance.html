@@ -1,0 +1,2096 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>JavaScript 代码性能优化 - 从排查到处理 | HeyFE</title>
+        <meta name="description" content="HeyFE's Blog">
+        <link rel="stylesheet" href="/assets/style.da157549.css">
+        <link rel="modulepreload" href="/assets/app.d36d7bad.js">
+    <link rel="modulepreload" href="/assets/blog_2019-console-performance.md.2cc5e7c3.lean.js">
+        
+        <script src="https://cdn.jsdelivr.net/npm/pace-js@latest/pace.min.js"></script>
+  <meta name="twitter:title" content="JavaScript 代码性能优化 - 从排查到处理 | HeyFE">
+  <meta property="og:title" content="JavaScript 代码性能优化 - 从排查到处理 | HeyFE">
+    </head>
+    <body>
+        <div id="app"><div class="theme"><header class="header _header_1smd2_9"><div class="wrap"><a href="/"><span class="logo">HeyFE&#x27;s Blog</span></a><ul class="nav"><li class="nav-item"><a class="nav-link" href="/">Blog</a></li></ul></div></header><div class="main"><main class="blog _blog_2756q_1"><div class="container"><div class="reading-area"><div class="content-wrap"><div class="meta"><span class="_create-time_1hpiz_1 create-time">2019年11月14日</span><div class="tags _tags_xzcda_1"><a class="tag" href="/blog/?tag=javascript">javascript</a><a class="tag" href="/blog/?tag=performance">performance</a></div></div><div style="position:relative" class="content"><div><h1 id="javascript-代码性能优化-从排查到处理" tabindex="-1">JavaScript 代码性能优化 - 从排查到处理 <a class="header-anchor" href="#javascript-代码性能优化-从排查到处理" aria-hidden="true">#</a></h1>
+<p>近期在对我们的控制台做性能优化，这次记录下代码执行方面的性能排查与优化（纯 JS 上的不包含 DOM 操作等优化）。其它的优化点以后有机会再分享。</p>
+<p>控制台地址：<a href="https://console.ucloud.cn/" target="_blank" rel="noopener noreferrer">https://console.ucloud.cn/</a></p>
+<h2 id="性能问题排查与收集" tabindex="-1">性能问题排查与收集 <a class="header-anchor" href="#性能问题排查与收集" aria-hidden="true">#</a></h2>
+<p>首先需要排查出需要优化的点，这个我们可以借助 Chrome 的 DevTool 来排查网站中的性能问题。</p>
+<blockquote>
+<p>最好在隐身模式下收集信息，避免一些插件的影响。</p>
+</blockquote>
+<h3 id="performance" tabindex="-1">Performance <a class="header-anchor" href="#performance" aria-hidden="true">#</a></h3>
+<p>第一种方式可以借助 Performance 面板来采集信息，展开 Main 面板，可以看到代码运行的信息。不过 Performance 面板中内容较多，还包含了渲染、网络、内存等其它的信息，视觉干扰比较严重。虽然很强大但是做纯 JS 性能排查时不推荐使用，今天主要介绍另一种方式。</p>
+<p><img src="/image/blog-2019-console-performance-85.png" alt="picture 5"></p>
+<h3 id="javascript-profiler" tabindex="-1">JavaScript Profiler <a class="header-anchor" href="#javascript-profiler" aria-hidden="true">#</a></h3>
+<p>还有一种方式是借助 JavaScript Profiler，JavaScript Profiler 默认是隐藏的，需要在 DevTool 右上角的更多按钮（三个点的按钮） =&gt; More tools 中打开。</p>
+<p><img src="/image/blog-2019-console-performance-83.png" alt="picture 6"></p>
+<p>可以看到 JavaScript Profiler 面板较 Performance 面板比起来简单多了，左侧最上方一排按钮可以收集、删除、垃圾回收（可能是用来强制执行 GC 的，不太确定），可以收集多次 Profiler 进行比对。</p>
+<p>右侧是 Profiler 的展示区域，上方可以切换展示模式，包括 Chart、Heavy、Tree 三种模式，这里推荐 Chart，最直观，也是最易懂的。</p>
+<p>Chart 面板上方为图表，纵轴为 CPU 的使用率，横轴是时间轴，纵轴是调用栈深度。下方为代码执行的时间片段信息，长度较长的时间片段会在页面中造成明显的卡顿，需要重点排查。</p>
+<p>在 Chart 面板中，上下滚动会将图形进行放大缩小，左右滚动为滚动时间轴，也可以在图表中进行鼠标圈选和拖动。CMD + f 可以进行搜索，在想要查找对应代码性能的时候比较方便。</p>
+<p>通过 JavaScript Profiler 面板可以很方面的排查出性能异常的代码。</p>
+<p><img src="/image/blog-2019-console-performance-4.png" alt="picture 7"></p>
+<p>比如图中的 n.bootstrap，执行时间为 354.3ms，显然会造成比较严重的卡顿。</p>
+<p><img src="/image/blog-2019-console-performance-71.png" alt="picture 9"></p>
+<p>还可以顺着时间片段往下深究到底是哪个步骤耗时较长，从上面可以看到其中 l.initState 耗时 173ms，下面是几个 forEach，显然是这里的循环性能消耗比较大，点击时间片段会跳转到 source 面板的对应代码中，排查起来非常方便。</p>
+<p>借助 JavaScript Profiler，我们可以将所有时间较长、可能有性能问题的代码全部整理出来，放到代办列表中，等待进一步排查。</p>
+<h3 id="console-time" tabindex="-1">console.time <a class="header-anchor" href="#console-time" aria-hidden="true">#</a></h3>
+<p>借助 Profiler 进行问题代码整理很方便，但是在实际调优过程中却有点麻烦，因为每次调试都需要执行一次收集，收集完了还需要找到当前调试的点，无形中会浪费很多时间，所以实际调优过程中我们会选择其他的方式，比如计算出时间戳差值然后 log 出来，不过其实有更方便的方式 - console.time。</p>
+<div class="language-js"><pre><code><span class="token keyword">const</span> <span class="token function-variable function">doSomething</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Array</span><span class="token punctuation">(</span><span class="token punctuation">(</span>Math<span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">100000</span><span class="token punctuation">)</span> <span class="token operator">|</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">fill</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">v<span class="token punctuation">,</span> i</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> i <span class="token operator">*</span> i<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token comment">// start a time log</span>
+console<span class="token punctuation">.</span><span class="token function">time</span><span class="token punctuation">(</span><span class="token string">'time log name'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">doSomething</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// log time</span>
+console<span class="token punctuation">.</span><span class="token function">timeLog</span><span class="token punctuation">(</span><span class="token string">'time log name'</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">doSomething</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// log time</span>
+console<span class="token punctuation">.</span><span class="token function">timeLog</span><span class="token punctuation">(</span><span class="token string">'time log name'</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">doSomething</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// log time and end timer</span>
+console<span class="token punctuation">.</span><span class="token function">timeEnd</span><span class="token punctuation">(</span><span class="token string">'time log name'</span><span class="token punctuation">,</span> <span class="token string">'end'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+</div><p>console.time 目前大部分浏览器已经支持，通过 console.time 可以很方便的打印出一段代码的执行时间。</p>
+<ul>
+<li>console.time 接收一个参数标识并开启一个 timer，随后可使用这个 timer 的标识来执行 timeLog 和 timeEnd</li>
+<li>timeLog 接收 1-n 个参数，第一个为 timer 标识，其后的为可选参数，执行后会打印出当前 timer 的差时，以及传入的其它可选参数</li>
+<li>timeEnd 和 timeLog 类似，不同的是不会接受多余可选参数并会在执行后关闭这个 timer</li>
+<li>不能同时启用多个同样标识的 timer</li>
+<li>一个 timer 结束后，可以再次开启一个同名 timer</li>
+</ul>
+<p><img src="/image/blog-2019-console-performance-64.png" alt="picture 10"></p>
+<p>通过 console.time 我们可以直观的看到一段代码的执行时长，每次改动后页面刷新就能看到 log，从而看到改动后的影响。</p>
+<h2 id="性能问题整理和优化" tabindex="-1">性能问题整理和优化 <a class="header-anchor" href="#性能问题整理和优化" aria-hidden="true">#</a></h2>
+<p>借助 JavaScript Profiler，从控制台中排查出多处性能优化点。（以下时间为本地调试并开着 DevTool 时的数据，比实际情况较高）</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>位置</th>
+<th>单次耗时</th>
+<th>首次执行次数</th>
+<th>切换执行次数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>initState</td>
+<td>route.extend.js:148</td>
+<td>200ms - 400ms</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>initRegionHash</td>
+<td>s_region.js:217</td>
+<td>50ms - 110ms</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>getMenu</td>
+<td>s_top_menu.js:53</td>
+<td>0 - 40ms</td>
+<td>4</td>
+<td>3</td>
+</tr>
+<tr>
+<td>initRegion</td>
+<td>s_region.js:105, QuickMenuWrapper/index.jsx:72</td>
+<td>70ms - 200ms</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>getProducts</td>
+<td>s_globalAction.js:73</td>
+<td>40ms - 80ms</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr>
+<td>getNav</td>
+<td>s_userinfo:58</td>
+<td>40ms - 200ms</td>
+<td>2</td>
+<td>0</td>
+</tr>
+<tr>
+<td>extendProductTrans</td>
+<td>s_translateLoader.js:114</td>
+<td>40ms - 120ms</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>filterStorageMenu</td>
+<td>QuickMenu.jsx:198</td>
+<td>4ms - 10ms</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>filterTopNavShow</td>
+<td>EditPanel.jsx:224</td>
+<td>0 - 20ms</td>
+<td>7</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<p>根据列出的排查的点，具体排除性能问题。下面列一些比较典型的问题点。</p>
+<h3 id="拆分循环中的任务" tabindex="-1">拆分循环中的任务 <a class="header-anchor" href="#拆分循环中的任务" aria-hidden="true">#</a></h3>
+<div class="language-js"><pre><code><span class="token keyword">var</span> <span class="token function-variable function">localeFilesHandle</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">files</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> result <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> reg <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">[^\/\\\:\*\"\&lt;\>\|\?\.]+(?=\.json)</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+    _<span class="token punctuation">.</span><span class="token function">each</span><span class="token punctuation">(</span>files<span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">file<span class="token punctuation">,</span> i</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// some code</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> <span class="token function-variable function">loadFilesHandle</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">files</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> result <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> reg <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">[^\/\\\:\*\"\&lt;\>\|\?\.]+(?=\.json)</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+    _<span class="token punctuation">.</span><span class="token function">each</span><span class="token punctuation">(</span>files<span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">file<span class="token punctuation">,</span> i</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// some code</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+self<span class="token punctuation">.</span><span class="token function-variable function">initState</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">data<span class="token punctuation">,</span> common</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">time</span><span class="token punctuation">(</span><span class="token string">'initState'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// some code</span>
+    _<span class="token punctuation">.</span><span class="token function">each</span><span class="token punctuation">(</span>filterDatas<span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">state<span class="token punctuation">,</span> name</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">var</span> route <span class="token operator">=</span> _<span class="token punctuation">.</span><span class="token function">extend</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> common<span class="token punctuation">,</span> state<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">var</span> loadFiles <span class="token operator">=</span> <span class="token function">loadFilesHandle</span><span class="token punctuation">(</span>route<span class="token punctuation">[</span><span class="token string">'files'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">var</span> localeFiles <span class="token operator">=</span> <span class="token function">localeFilesHandle</span><span class="token punctuation">(</span>route<span class="token punctuation">[</span><span class="token string">'files'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        route<span class="token punctuation">[</span><span class="token string">'loadfiles'</span><span class="token punctuation">]</span> <span class="token operator">=</span> _<span class="token punctuation">.</span><span class="token function">union</span><span class="token punctuation">(</span>route<span class="token punctuation">[</span><span class="token string">'common_files'</span><span class="token punctuation">]</span> <span class="token operator">||</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> loadFiles<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        route<span class="token punctuation">[</span><span class="token string">'localeFiles'</span><span class="token punctuation">]</span> <span class="token operator">=</span> localeFiles<span class="token punctuation">;</span>
+        routes<span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token operator">=</span> route<span class="token punctuation">;</span>
+        $stateProvider<span class="token punctuation">.</span><span class="token function">state</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span> route<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// some code</span>
+    console<span class="token punctuation">.</span><span class="token function">timeEnd</span><span class="token punctuation">(</span><span class="token string">'initState'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+</div><p>initState 中，filterDatas 为一个近 1000 个 key 的路由 map，初始化是需要去 ui-router 中注册路由信息，$stateProvider.state 是没办法省略了，但是 两个 files 可以延后化处理，在拉取文件时再去获取文件列表。</p>
+<div class="language-js"><pre><code>self<span class="token punctuation">.</span><span class="token function-variable function">initState</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">data<span class="token punctuation">,</span> common</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">time</span><span class="token punctuation">(</span><span class="token string">'initState'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// some code</span>
+    <span class="token comment">//添加路由到state</span>
+    _<span class="token punctuation">.</span><span class="token function">each</span><span class="token punctuation">(</span>filterDatas<span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">state<span class="token punctuation">,</span> name</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">var</span> route <span class="token operator">=</span> _<span class="token punctuation">.</span><span class="token function">extend</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> common<span class="token punctuation">,</span> state<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        routes<span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token operator">=</span> route<span class="token punctuation">;</span>
+        $stateProvider<span class="token punctuation">.</span><span class="token function">state</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span> route<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// some code</span>
+    console<span class="token punctuation">.</span><span class="token function">timeEnd</span><span class="token punctuation">(</span><span class="token string">'initState'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token comment">// when load files</span>
+<span class="token operator">!</span>toState<span class="token punctuation">.</span>loadfiles <span class="token operator">&amp;&amp;</span>
+    <span class="token punctuation">(</span>toState<span class="token punctuation">.</span>loadfiles <span class="token operator">=</span> _<span class="token punctuation">.</span><span class="token function">union</span><span class="token punctuation">(</span>toState<span class="token punctuation">[</span><span class="token string">'common_files'</span><span class="token punctuation">]</span> <span class="token operator">||</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> $UStateExtend<span class="token punctuation">.</span><span class="token function">loadFilesHandle</span><span class="token punctuation">(</span>toState<span class="token punctuation">[</span><span class="token string">'files'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">!</span>toState<span class="token punctuation">.</span>localeFiles <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span>toState<span class="token punctuation">.</span>localeFiles <span class="token operator">=</span> $UStateExtend<span class="token punctuation">.</span><span class="token function">localeFilesHandle</span><span class="token punctuation">(</span>toState<span class="token punctuation">[</span><span class="token string">'files'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+</div><p>经过减少迭代中的任务，initState 速度提升了 30% - 40%。</p>
+<h3 id="理清逻辑" tabindex="-1">理清逻辑 <a class="header-anchor" href="#理清逻辑" aria-hidden="true">#</a></h3>
+<div class="language-js"><pre><code><span class="token keyword">var</span> bitMaps <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token comment">// map info</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">function</span> <span class="token function">getUserRights</span><span class="token punctuation">(</span><span class="token parameter">bits<span class="token punctuation">,</span> key</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> map <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+    _<span class="token punctuation">.</span><span class="token function">each</span><span class="token punctuation">(</span>bitMaps<span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">val<span class="token punctuation">,</span> key</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        map<span class="token punctuation">[</span>key<span class="token punctuation">.</span><span class="token function">toUpperCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">=</span> val<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> map <span class="token operator">&amp;&amp;</span> map<span class="token punctuation">[</span><span class="token punctuation">(</span>key <span class="token operator">||</span> <span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toUpperCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">!=</span> <span class="token keyword">null</span> <span class="token operator">?</span> <span class="token operator">!</span><span class="token operator">!</span><span class="token operator">+</span>bits<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>map<span class="token punctuation">[</span><span class="token punctuation">(</span>key <span class="token operator">||</span> <span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toUpperCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</div><p>getUserRights 中可以看到每次都会去对 bitMaps 做一次遍历，而 bitMaps 本身不会有任何变化，所以这里其实只需要在初始化时做一次遍历就可以了，或者在初次遍历后做好缓存。</p>
+<div class="language-js"><pre><code><span class="token keyword">var</span> _bitMaps <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token comment">// map info</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> bitMaps <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+_<span class="token punctuation">.</span><span class="token function">each</span><span class="token punctuation">(</span>_bitMaps<span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">value<span class="token punctuation">,</span> key</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    bitMaps<span class="token punctuation">[</span>key<span class="token punctuation">.</span><span class="token function">toUpperCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">=</span> value<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">function</span> <span class="token function">getUserRights</span><span class="token punctuation">(</span><span class="token parameter">bits<span class="token punctuation">,</span> key</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    key <span class="token operator">=</span> <span class="token punctuation">(</span>key <span class="token operator">||</span> <span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toUpperCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> bitMaps<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">!=</span> <span class="token keyword">null</span> <span class="token operator">?</span> <span class="token operator">!</span><span class="token operator">!</span><span class="token operator">+</span>bits<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>bitMaps<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</div><p>经过上述改动，getUserRights 的效率提升了 90+%，而上述很多性能问题点中都多次调用了 getUserRights，所以这点改动就能带来明显的性能提升。</p>
+<h3 id="善用位运算" tabindex="-1">善用位运算 <a class="header-anchor" href="#善用位运算" aria-hidden="true">#</a></h3>
+<div class="language-js"><pre><code><span class="token keyword">var</span> <span class="token function-variable function">buildRegionBitMaps</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">bit<span class="token punctuation">,</span> rBit</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> result<span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>bit <span class="token operator">||</span> <span class="token operator">!</span>rBit<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">''</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">var</span> zoneBit <span class="token operator">=</span> <span class="token punctuation">(</span>bit <span class="token operator">+</span> <span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> regionBit <span class="token operator">=</span> <span class="token punctuation">(</span>rBit <span class="token operator">+</span> <span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> forList <span class="token operator">=</span> zoneBit<span class="token punctuation">.</span>length <span class="token operator">></span> regionBit<span class="token punctuation">.</span>length <span class="token operator">?</span> zoneBit <span class="token operator">:</span> regionBit<span class="token punctuation">;</span>
+    <span class="token keyword">var</span> diffList <span class="token operator">=</span> zoneBit<span class="token punctuation">.</span>length <span class="token operator">></span> regionBit<span class="token punctuation">.</span>length <span class="token operator">?</span> regionBit <span class="token operator">:</span> zoneBit<span class="token punctuation">;</span>
+    <span class="token keyword">var</span> resultList <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    _<span class="token punctuation">.</span><span class="token function">each</span><span class="token punctuation">(</span>forList<span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">v<span class="token punctuation">,</span> i</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        resultList<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token function">parseInt</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token function">parseInt</span><span class="token punctuation">(</span>diffList<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">||</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    result <span class="token operator">=</span> resultList<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> <span class="token function-variable function">initRegionsHash</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">data</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// some code</span>
+    _<span class="token punctuation">.</span><span class="token function">each</span><span class="token punctuation">(</span>data<span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">o</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>regionsHash<span class="token punctuation">[</span>o<span class="token punctuation">[</span><span class="token string">'Region'</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            regionsHash<span class="token punctuation">[</span>o<span class="token punctuation">[</span><span class="token string">'Region'</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+            regionsHash<span class="token punctuation">[</span><span class="token string">'regionBits'</span><span class="token punctuation">]</span><span class="token punctuation">[</span>o<span class="token punctuation">[</span><span class="token string">'Region'</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> o<span class="token punctuation">[</span><span class="token string">'BitMaps'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+            regionsList<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>o<span class="token punctuation">[</span><span class="token string">'Region'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        regionsHash<span class="token punctuation">[</span><span class="token string">'regionBits'</span><span class="token punctuation">]</span><span class="token punctuation">[</span>o<span class="token punctuation">[</span><span class="token string">'Region'</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">buildRegionBitMaps</span><span class="token punctuation">(</span>
+            o<span class="token punctuation">[</span><span class="token string">'BitMaps'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            regionsHash<span class="token punctuation">[</span><span class="token string">'regionBits'</span><span class="token punctuation">]</span><span class="token punctuation">[</span>o<span class="token punctuation">[</span><span class="token string">'Region'</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+        regionsHash<span class="token punctuation">[</span>o<span class="token punctuation">[</span><span class="token string">'Region'</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>o<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// some code</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+</div><p>buildRegionBitMaps 是将两个 512 位长（看当前代码，长度未必固定）的权限位二进制字符串进行合并，计算出实际的权限，目前的代码将二进制字符串拆解为数组，然后遍历去计算出每一位的权限，效率较低。initRegionsHash 中会调用多次 buildRegionBitMaps，导致这里的性能问题被放大。</p>
+<p>这里可以使用位运算来方便的计算出权限，效率会比数组遍历高很多。</p>
+<div class="language-js"><pre><code><span class="token keyword">var</span> <span class="token function-variable function">buildRegionBitMaps</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">bit<span class="token punctuation">,</span> rBit</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>bit <span class="token operator">||</span> <span class="token operator">!</span>rBit<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">''</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">var</span> result <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> longBit<span class="token punctuation">,</span> shortBit<span class="token punctuation">,</span> shortBitLength<span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>bit<span class="token punctuation">.</span>length <span class="token operator">></span> rBit<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        longBit <span class="token operator">=</span> bit<span class="token punctuation">;</span>
+        shortBit <span class="token operator">=</span> rBit<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        longBit <span class="token operator">=</span> rBit<span class="token punctuation">;</span>
+        shortBit <span class="token operator">=</span> bit<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    shortBitLength <span class="token operator">=</span> shortBit<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+    <span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> limit <span class="token operator">=</span> <span class="token number">30</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> remainder <span class="token operator">=</span> shortBitLength <span class="token operator">%</span> <span class="token number">30</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> mergeLength <span class="token operator">=</span> shortBitLength <span class="token operator">-</span> remainder<span class="token punctuation">;</span>
+    <span class="token keyword">var</span> <span class="token function-variable function">mergeString</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">s<span class="token punctuation">,</span> e</span><span class="token punctuation">)</span> <span class="token operator">=></span>
+        <span class="token punctuation">(</span><span class="token function">parseInt</span><span class="token punctuation">(</span><span class="token string">'1'</span> <span class="token operator">+</span> longBit<span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span>s<span class="token punctuation">,</span> e<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">|</span> <span class="token function">parseInt</span><span class="token punctuation">(</span><span class="token string">'1'</span> <span class="token operator">+</span> shortBit<span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span>s<span class="token punctuation">,</span> e<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> mergeLength<span class="token punctuation">;</span> <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">var</span> n <span class="token operator">=</span> i <span class="token operator">+</span> limit<span class="token punctuation">;</span>
+        result <span class="token operator">+=</span> <span class="token function">mergeString</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        i <span class="token operator">=</span> n<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>remainder<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        result <span class="token operator">+=</span> <span class="token function">mergeString</span><span class="token punctuation">(</span>mergeLength<span class="token punctuation">,</span> shortBitLength<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> result <span class="token operator">+</span> longBit<span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span>shortBitLength<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+</div><p>通过上述改动，initRegionHash 运行时间被优化到 2ms - 8ms，提升 90+%。注意 JavaScript 中位运算基于 32 位，超过 32 位溢出，所以上面拆解为 30 位的字符串进行合并。</p>
+<h3 id="减少重复任务" tabindex="-1">减少重复任务 <a class="header-anchor" href="#减少重复任务" aria-hidden="true">#</a></h3>
+<div class="language-js"><pre><code><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    currentTrans <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+    angular<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>products<span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">product<span class="token punctuation">,</span> index</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">setLoaded</span><span class="token punctuation">(</span>product<span class="token punctuation">[</span><span class="token string">'name'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>options<span class="token punctuation">.</span>key<span class="token punctuation">,</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        currentTrans <span class="token operator">=</span> <span class="token function">extendProduct</span><span class="token punctuation">(</span>product<span class="token punctuation">[</span><span class="token string">'name'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>options<span class="token punctuation">.</span>key<span class="token punctuation">,</span> CNlan<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    currentTrans <span class="token operator">=</span> <span class="token function">extendProduct</span><span class="token punctuation">(</span>Loader<span class="token punctuation">.</span>cname<span class="token operator">||</span><span class="token string">'common'</span><span class="token punctuation">,</span>options<span class="token punctuation">.</span>key<span class="token punctuation">,</span> CNlan<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>$rootScope<span class="token punctuation">.</span>reviseTrans<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        currentTrans <span class="token operator">=</span> Loader<span class="token punctuation">.</span><span class="token function">changeTrans</span><span class="token punctuation">(</span>$rootScope<span class="token punctuation">.</span>reviseNoticeSet<span class="token punctuation">,</span>currentTrans<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    deferred<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>currentTrans<span class="token punctuation">[</span>options<span class="token punctuation">.</span>key<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</div><p>上述代码被用来进行产品语言的合并，products 中是路由对应的产品名，会有重复，其中 common 的语言较大，有 1W 多个 key，所以合并时耗时较为严重。</p>
+<div class="language-js"><pre><code><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">time</span><span class="token punctuation">(</span><span class="token string">'extendTrans'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    currentTrans <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> productNameList <span class="token operator">=</span> _<span class="token punctuation">.</span><span class="token function">union</span><span class="token punctuation">(</span>_<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>products<span class="token punctuation">,</span> <span class="token parameter">product</span> <span class="token operator">=></span> product<span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> cname <span class="token operator">=</span> Loader<span class="token punctuation">.</span>cname <span class="token operator">||</span> <span class="token string">'common'</span><span class="token punctuation">;</span>
+    angular<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>productNameList<span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">productName<span class="token punctuation">,</span> index</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">setLoaded</span><span class="token punctuation">(</span>productName<span class="token punctuation">,</span> options<span class="token punctuation">.</span>key<span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>productName <span class="token operator">===</span> cname <span class="token operator">||</span> productName <span class="token operator">===</span> <span class="token string">'common'</span><span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+        <span class="token function">extendProduct</span><span class="token punctuation">(</span>productName<span class="token punctuation">,</span> options<span class="token punctuation">.</span>key<span class="token punctuation">,</span> CNlan<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">extendProduct</span><span class="token punctuation">(</span><span class="token string">'common'</span><span class="token punctuation">,</span> options<span class="token punctuation">.</span>key<span class="token punctuation">,</span> CNlan<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    cname <span class="token operator">!==</span> <span class="token string">'common'</span> <span class="token operator">&amp;&amp;</span> <span class="token function">extendProduct</span><span class="token punctuation">(</span>cname<span class="token punctuation">,</span> options<span class="token punctuation">.</span>key<span class="token punctuation">,</span> CNlan<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>$rootScope<span class="token punctuation">.</span>reviseTrans<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        currentTrans <span class="token operator">=</span> Loader<span class="token punctuation">.</span><span class="token function">changeTrans</span><span class="token punctuation">(</span>$rootScope<span class="token punctuation">.</span>reviseNoticeSet<span class="token punctuation">,</span> currentTrans<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    deferred<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>currentTrans<span class="token punctuation">[</span>options<span class="token punctuation">.</span>key<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    console<span class="token punctuation">.</span><span class="token function">timeEnd</span><span class="token punctuation">(</span><span class="token string">'extendTrans'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</div><p>这边将 product 中的产品名去重减少合并次数，然后将 common 和 cname 对应的语言合并从遍历中剔除，在最后做合并来减少合并次数，减少前期合并的数据量。经过改动后 extendTrans 速度提高了 70+%。</p>
+<h3 id="尽早退出" tabindex="-1">尽早退出 <a class="header-anchor" href="#尽早退出" aria-hidden="true">#</a></h3>
+<div class="language-js"><pre><code>user<span class="token punctuation">.</span><span class="token function-variable function">getNav</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> result <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>_<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span>$rootScope<span class="token punctuation">.</span><span class="token constant">USER</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    _<span class="token punctuation">.</span><span class="token function">each</span><span class="token punctuation">(</span>modules<span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">list</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">var</span> show <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>list<span class="token punctuation">.</span>isAdmin <span class="token operator">===</span> <span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            show <span class="token operator">=</span> $rootScope<span class="token punctuation">.</span><span class="token constant">USER</span><span class="token punctuation">.</span>Admin <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">var</span> authBitKey <span class="token operator">=</span> list<span class="token punctuation">.</span>bitKey <span class="token operator">?</span> regionService<span class="token punctuation">.</span><span class="token function">getUserRights</span><span class="token punctuation">(</span>list<span class="token punctuation">.</span>bitKey<span class="token punctuation">.</span><span class="token function">toUpperCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">:</span> show<span class="token punctuation">;</span>
+        <span class="token keyword">var</span> item <span class="token operator">=</span> _<span class="token punctuation">.</span><span class="token function">extend</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> list<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+            <span class="token literal-property property">show</span><span class="token operator">:</span> show<span class="token punctuation">,</span>
+            <span class="token literal-property property">authBitKey</span><span class="token operator">:</span> authBitKey
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>item<span class="token punctuation">.</span>isUserNav <span class="token operator">===</span> <span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            result<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+</div><p>getNav 中的 modules 为路由，上面也提到过，路由较多有近千，而在这里的遍历中调用了 getUseRights，导致性能损失严重，并且又一个非常严重的问题是，大部分的数据会被 isUserNav 筛除掉。</p>
+<div class="language-js"><pre><code>user<span class="token punctuation">.</span><span class="token function-variable function">getNav</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> result <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>_<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span>$rootScope<span class="token punctuation">.</span><span class="token constant">USER</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    console<span class="token punctuation">.</span><span class="token function">time</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">getNav</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    _<span class="token punctuation">.</span><span class="token function">each</span><span class="token punctuation">(</span>modules<span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">list</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>list<span class="token punctuation">.</span>isUserNav <span class="token operator">!==</span> <span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">var</span> show <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>list<span class="token punctuation">.</span>isAdmin <span class="token operator">===</span> <span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            show <span class="token operator">=</span> $rootScope<span class="token punctuation">.</span><span class="token constant">USER</span><span class="token punctuation">.</span>Admin <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">var</span> authBitKey <span class="token operator">=</span> list<span class="token punctuation">.</span>bitKey <span class="token operator">?</span> regionService<span class="token punctuation">.</span><span class="token function">getUserRights</span><span class="token punctuation">(</span>list<span class="token punctuation">.</span>bitKey<span class="token punctuation">.</span><span class="token function">toUpperCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">:</span> show<span class="token punctuation">;</span>
+        <span class="token keyword">var</span> item <span class="token operator">=</span> _<span class="token punctuation">.</span><span class="token function">extend</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> list<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+            <span class="token literal-property property">show</span><span class="token operator">:</span> show<span class="token punctuation">,</span>
+            <span class="token literal-property property">authBitKey</span><span class="token operator">:</span> authBitKey
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        result<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    console<span class="token punctuation">.</span><span class="token function">timeEnd</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">getNav</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+</div><p>通过将判断提前，尽早结束无意义的代码，和之前对 getUserRights 所做的优化，getNav 的速度提高了 99%。</p>
+<h3 id="善用-lazy" tabindex="-1">善用 lazy <a class="header-anchor" href="#善用-lazy" aria-hidden="true">#</a></h3>
+<div class="language-js"><pre><code><span class="token function-variable function">renderMenuList</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> <span class="token punctuation">{</span> translateLoadingSuccess<span class="token punctuation">,</span> topMenu <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">;</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>translateLoadingSuccess<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">return</span> topMenu
+        <span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span><span class="token parameter">item</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span> filterTopNavShow <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">$filter</span><span class="token punctuation">(</span><span class="token string">'filterTopNavShow'</span><span class="token punctuation">)</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> filterTopNavShow <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">item <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> i</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span> title <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">INDEX_TOP_</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token punctuation">(</span>item<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">||</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span>type<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">.</span><span class="token function">toUpperCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> <span class="token punctuation">(</span>
+                <span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token string">'uc-nav__edit-panel-item'</span> key<span class="token operator">=</span><span class="token punctuation">{</span>i<span class="token punctuation">}</span><span class="token operator">></span>
+                    <span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token string">'uc-nav__edit-panel-item-title'</span><span class="token operator">></span><span class="token punctuation">{</span><span class="token function">formatMessage</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token literal-property property">id</span><span class="token operator">:</span> title <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token string">'uc-nav__edit-panel-item-content'</span><span class="token operator">></span>
+                        <span class="token operator">&lt;</span>Row gutter<span class="token operator">=</span><span class="token punctuation">{</span><span class="token number">12</span><span class="token punctuation">}</span><span class="token operator">></span><span class="token punctuation">{</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">renderMenuProdList</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>Row<span class="token operator">></span>
+                    <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+                <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+            <span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+</div><p>上述代码在控制台的一个菜单编辑面板中，这个面板只有用户点击了编辑才会出现，但是现有逻辑导致这块数据会经常，一进页面会执行 7 次 filterTopNavShow，并且还会重新渲染。</p>
+<div class="language-js"><pre><code><span class="token function-variable function">renderMenuList</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> <span class="token punctuation">{</span> translateLoadingSuccess<span class="token punctuation">,</span> topMenu<span class="token punctuation">,</span> mode <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">;</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>translateLoadingSuccess<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>mode <span class="token operator">!==</span> <span class="token string">'edit'</span> <span class="token operator">&amp;&amp;</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_lazyRender<span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>_lazyRender <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">const</span> menuList <span class="token operator">=</span> topMenu
+        <span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span><span class="token parameter">item</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span> filterTopNavShow <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">$filter</span><span class="token punctuation">(</span><span class="token string">'filterTopNavShow'</span><span class="token punctuation">)</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> filterTopNavShow <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">item <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> i</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span> title <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">INDEX_TOP_</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token punctuation">(</span>item<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">||</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span>type<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">.</span><span class="token function">toUpperCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> <span class="token punctuation">(</span>
+                <span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token string">'uc-nav__edit-panel-item'</span> key<span class="token operator">=</span><span class="token punctuation">{</span>i<span class="token punctuation">}</span><span class="token operator">></span>
+                    <span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token string">'uc-nav__edit-panel-item-title'</span><span class="token operator">></span><span class="token punctuation">{</span><span class="token function">formatMessage</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token literal-property property">id</span><span class="token operator">:</span> title <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>div className<span class="token operator">=</span><span class="token string">'uc-nav__edit-panel-item-content'</span><span class="token operator">></span>
+                        <span class="token operator">&lt;</span>Row gutter<span class="token operator">=</span><span class="token punctuation">{</span><span class="token number">12</span><span class="token punctuation">}</span><span class="token operator">></span><span class="token punctuation">{</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">renderMenuProdList</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>Row<span class="token operator">></span>
+                    <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+                <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+            <span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> menuList<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+</div><p>这边简单的通过添加一个 _lazyRender 字段，将渲染和计算延迟到初次打开时再去做，避免了页面初始化时的不必要操作。</p>
+<h2 id="成果" tabindex="-1">成果 <a class="header-anchor" href="#成果" aria-hidden="true">#</a></h2>
+<p>先看下改造前后的时间对比</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>单次耗时</th>
+<th>优化效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>initState</td>
+<td>200ms - 400ms</td>
+<td>120ms - 300ms，减少 30%-40%</td>
+</tr>
+<tr>
+<td>initRegionHash</td>
+<td>50ms - 110ms</td>
+<td>2ms - 8ms，减少 90%</td>
+</tr>
+<tr>
+<td>getMenu</td>
+<td>0 - 40ms</td>
+<td>0ms - 8ms，减少 80%</td>
+</tr>
+<tr>
+<td>initRegion</td>
+<td>70ms - 200ms</td>
+<td>3ms - 10ms，减少 90%</td>
+</tr>
+<tr>
+<td>getProducts</td>
+<td>40ms - 80ms</td>
+<td>3ms - 10ms，减少 90%</td>
+</tr>
+<tr>
+<td>getNav</td>
+<td>40ms - 200ms</td>
+<td>0ms - 2ms，减少 99%</td>
+</tr>
+<tr>
+<td>extendProductTrans</td>
+<td>40ms - 120ms</td>
+<td>10ms - 40ms 减少 70%</td>
+</tr>
+<tr>
+<td>filterStorageMenu</td>
+<td>4ms - 10ms</td>
+<td>0ms - 2ms，减少 80%</td>
+</tr>
+<tr>
+<td>filterTopNavShow</td>
+<td>0 - 20ms</td>
+<td>初次加载不再执行，展开执行</td>
+</tr>
+</tbody>
+</table>
+<p>对比还是比较明显的，大部分时间都控制在了 10ms 以内。</p>
+<p>可以再看一下改造前后的 Profiler 的图形。</p>
+<p>改造前： <img src="/image/blog-2019-console-performance-67.png" alt="picture 11"></p>
+<p>改造后： <img src="/image/blog-2019-console-performance-24.png" alt="picture 12"></p>
+<p>经过优化可以看到很多峰值都已经消失了（剩余的是一些目前不太好做的优化点），进入页面和切换产品时也能明显感受到差异。</p>
+<h2 id="总结" tabindex="-1">总结 <a class="header-anchor" href="#总结" aria-hidden="true">#</a></h2>
+<p>从上述优化代码中可以看到，大部分的性能问题都是由循环带来的，一个小小的性能问题在经过多次循环后也会带来严重的影响，所以平时代码时很多东西还是需要尽可能注意，比如能尽快结束的代码就尽快结束，没有必要的操作一概省略，该做缓存的做缓存，保持良好的编程习惯，可以让自己的代码哪怕在未知情况下也能保证良好的运行速度。</p>
+<p>借助 JavaScript Profiler 和 console.time，性能排查和优化可以做到非常简单，排查到问题点，很容易针对问题去做优化方案。</p>
+</div></div></div><div class="toc _toc_1ezzn_1"><div class="title level-2"><a href="#性能问题排查与收集">性能问题排查与收集</a></div><div class="title level-3"><a href="#performance">Performance</a></div><div class="title level-3"><a href="#javascript-profiler">JavaScript Profiler</a></div><div class="title level-3"><a href="#console-time">console.time</a></div><div class="title level-2"><a href="#性能问题整理和优化">性能问题整理和优化</a></div><div class="title level-3"><a href="#拆分循环中的任务">拆分循环中的任务</a></div><div class="title level-3"><a href="#理清逻辑">理清逻辑</a></div><div class="title level-3"><a href="#善用位运算">善用位运算</a></div><div class="title level-3"><a href="#减少重复任务">减少重复任务</a></div><div class="title level-3"><a href="#尽早退出">尽早退出</a></div><div class="title level-3"><a href="#善用-lazy">善用 lazy</a></div><div class="title level-2"><a href="#成果">成果</a></div><div class="title level-2"><a href="#总结">总结</a></div></div></div></div></main></div><footer class="footer _footer_16r70_1"><div class="container"><p class="powered">Powered by<!-- --> <a href="https://github.com/ZxBing0066/rvpress" target="_blank">RVPress</a></p></div></footer><div class="_debug_2dl0w_1 debug "><p class="title">Debug</p><pre class="block">{
+    &quot;site&quot;: {
+        &quot;lang&quot;: &quot;zh-CN&quot;,
+        &quot;title&quot;: &quot;HeyFE&quot;,
+        &quot;description&quot;: &quot;HeyFE&#x27;s Blog&quot;,
+        &quot;base&quot;: &quot;/&quot;,
+        &quot;head&quot;: [],
+        &quot;themeConfig&quot;: {
+            &quot;lastUpdated&quot;: &quot;Last Updated&quot;,
+            &quot;nav&quot;: [
+                {
+                    &quot;text&quot;: &quot;Blog&quot;,
+                    &quot;link&quot;: &quot;/&quot;,
+                    &quot;activeMatch&quot;: &quot;^/blog/&quot;
+                }
+            ],
+            &quot;locales&quot;: {}
+        },
+        &quot;locales&quot;: {},
+        &quot;langs&quot;: {}
+    },
+    &quot;pageList&quot;: [
+        {
+            &quot;title&quot;: &quot;Git 思维导图&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;date&quot;: &quot;2014-09-11T12:12:12.000Z&quot;,
+                &quot;tags&quot;: [
+                    &quot;git&quot;
+                ]
+            },
+            &quot;headers&quot;: [],
+            &quot;relativePath&quot;: &quot;blog/2014-09-11-git.md&quot;,
+            &quot;createTime&quot;: 1649686573000,
+            &quot;lastUpdated&quot;: 1647786576000
+        },
+        {
+            &quot;title&quot;: &quot;Jekyll on Windows 安装&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;date&quot;: &quot;2014-09-12T22:02:12.000Z&quot;,
+                &quot;tags&quot;: [
+                    &quot;github&quot;,
+                    &quot;jekyll&quot;,
+                    &quot;blog&quot;
+                ]
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;安装 ruby&quot;,
+                    &quot;slug&quot;: &quot;安装-ruby&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;安装 Ruby DevKit&quot;,
+                    &quot;slug&quot;: &quot;安装-ruby-devkit&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;安装 Jekyll Gem&quot;,
+                    &quot;slug&quot;: &quot;安装-jekyll-gem&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;安装 python&quot;,
+                    &quot;slug&quot;: &quot;安装-python&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;代码高亮&quot;,
+                    &quot;slug&quot;: &quot;代码高亮&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2014-09-12-how-to-use-jekyll.md&quot;,
+            &quot;createTime&quot;: 1649686573000,
+            &quot;lastUpdated&quot;: 1647786576000
+        },
+        {
+            &quot;title&quot;: &quot;SublimeText PlainTasks 使用教程&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;date&quot;: &quot;2014-11-07T21:23:43.000Z&quot;,
+                &quot;tags&quot;: [
+                    &quot;sublime-text&quot;
+                ]
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;PlainTasks使用教程(所有快捷键为win下的快捷键,mac需要自行替换)&quot;,
+                    &quot;slug&quot;: &quot;plaintasks使用教程-所有快捷键为win下的快捷键-mac需要自行替换&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2014-11-07-plaintasks-start.md&quot;,
+            &quot;createTime&quot;: 1649686573000,
+            &quot;lastUpdated&quot;: 1647786576000
+        },
+        {
+            &quot;title&quot;: &quot;SublimeText3 安装&amp;配置&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;date&quot;: &quot;2014-11-07T10:16:43.000Z&quot;,
+                &quot;tags&quot;: [
+                    &quot;sublime-text&quot;
+                ]
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;下载&quot;,
+                    &quot;slug&quot;: &quot;下载&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;安装Package Control&quot;,
+                    &quot;slug&quot;: &quot;安装package-control&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;下载后直接安装&quot;,
+                    &quot;slug&quot;: &quot;下载后直接安装&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;Package Control使用&quot;,
+                    &quot;slug&quot;: &quot;package-control使用&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;常用命令&quot;,
+                    &quot;slug&quot;: &quot;常用命令&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;手动安装插件&quot;,
+                    &quot;slug&quot;: &quot;手动安装插件&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;插件推荐&quot;,
+                    &quot;slug&quot;: &quot;插件推荐&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;主题推荐&quot;,
+                    &quot;slug&quot;: &quot;主题推荐&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2014-11-07-sublime-text-3.md&quot;,
+            &quot;createTime&quot;: 1649686573000,
+            &quot;lastUpdated&quot;: 1647786576000
+        },
+        {
+            &quot;title&quot;: &quot;在 SublimeText 中使用 Gist&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;date&quot;: &quot;2014-11-08T12:07:43.000Z&quot;,
+                &quot;tags&quot;: [
+                    &quot;sublime-text&quot;,
+                    &quot;gist&quot;
+                ]
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;首先使用Package Control安装Gist插件&quot;,
+                    &quot;slug&quot;: &quot;首先使用package-control安装gist插件&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;在Github中创建Token&quot;,
+                    &quot;slug&quot;: &quot;在github中创建token&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;修改Gist插件配置&quot;,
+                    &quot;slug&quot;: &quot;修改gist插件配置&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;其它配置项含义&quot;,
+                    &quot;slug&quot;: &quot;其它配置项含义&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;快捷键&amp;功能&quot;,
+                    &quot;slug&quot;: &quot;快捷键-功能&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;创建Gist&quot;,
+                    &quot;slug&quot;: &quot;创建gist&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;添加文件到Gist&quot;,
+                    &quot;slug&quot;: &quot;添加文件到gist&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;使用Gist&quot;,
+                    &quot;slug&quot;: &quot;使用gist&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;打开Gist&quot;,
+                    &quot;slug&quot;: &quot;打开gist&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;编辑删除Gist&quot;,
+                    &quot;slug&quot;: &quot;编辑删除gist&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;页面脚本引用&quot;,
+                    &quot;slug&quot;: &quot;页面脚本引用&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2014-11-08-gist.md&quot;,
+            &quot;createTime&quot;: 1649686573000,
+            &quot;lastUpdated&quot;: 1647786576000
+        },
+        {
+            &quot;title&quot;: &quot;在 Github Pages 中使用 Disqus&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;date&quot;: &quot;2014-11-12T12:07:43.000Z&quot;,
+                &quot;tags&quot;: [
+                    &quot;blog&quot;,
+                    &quot;disqus&quot;
+                ]
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;Github Pages由于是一堆静态页面,导致无法写评论和留言,所有这里就用到Disqus了,在页面中引入后便可以实现评论等各种吐槽交互的功能,简直狂拽吊炸天~&quot;,
+                    &quot;slug&quot;: &quot;github-pages由于是一堆静态页面-导致无法写评论和留言-所有这里就用到disqus了-在页面中引入后便可以实现评论等各种吐槽交互的功能-简直狂拽吊炸天&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;注册Disqus&quot;,
+                    &quot;slug&quot;: &quot;注册disqus&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;新建实例&quot;,
+                    &quot;slug&quot;: &quot;新建实例&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;添加Disqus 到页面&quot;,
+                    &quot;slug&quot;: &quot;添加disqus-到页面&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;搞定收工&quot;,
+                    &quot;slug&quot;: &quot;搞定收工&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2014-11-12-disqus.md&quot;,
+            &quot;createTime&quot;: 1649686573000,
+            &quot;lastUpdated&quot;: 1647786576000
+        },
+        {
+            &quot;title&quot;: &quot;Git 中使用 ssh key&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;date&quot;: &quot;2014-11-12T12:07:43.000Z&quot;,
+                &quot;tags&quot;: [
+                    &quot;git&quot;
+                ]
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;生成ssh key公钥&quot;,
+                    &quot;slug&quot;: &quot;生成ssh-key公钥&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;创建ssh key:&quot;,
+                    &quot;slug&quot;: &quot;创建ssh-key&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;将公钥添加到Github&quot;,
+                    &quot;slug&quot;: &quot;将公钥添加到github&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;将https协议clone的仓库修改为git协议&quot;,
+                    &quot;slug&quot;: &quot;将https协议clone的仓库修改为git协议&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2014-11-18-git-ssh-key.md&quot;,
+            &quot;createTime&quot;: 1649686573000,
+            &quot;lastUpdated&quot;: 1647786576000
+        },
+        {
+            &quot;title&quot;: &quot;Goagent 搭建&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;date&quot;: &quot;2014-12-06T21:10:23.000Z&quot;,
+                &quot;tags&quot;: [
+                    &quot;goagent&quot;,
+                    &quot;proxy&quot;
+                ]
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;下载goagent&quot;,
+                    &quot;slug&quot;: &quot;下载goagent&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;注册google帐号&quot;,
+                    &quot;slug&quot;: &quot;注册google帐号&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;申请Google App Engine&quot;,
+                    &quot;slug&quot;: &quot;申请google-app-engine&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;上传goagent&quot;,
+                    &quot;slug&quot;: &quot;上传goagent&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;修改本地配置&quot;,
+                    &quot;slug&quot;: &quot;修改本地配置&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;翻滚吧&quot;,
+                    &quot;slug&quot;: &quot;翻滚吧&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;总结&quot;,
+                    &quot;slug&quot;: &quot;总结&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2014-12-06-goagent.md&quot;,
+            &quot;createTime&quot;: 1649686573000,
+            &quot;lastUpdated&quot;: 1647786576000
+        },
+        {
+            &quot;title&quot;: &quot;Shadowsocks 搭建&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;date&quot;: &quot;2014-12-06T12:10:23.000Z&quot;,
+                &quot;tags&quot;: [
+                    &quot;shadowsocks&quot;,
+                    &quot;proxy&quot;
+                ]
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;搭建环境&quot;,
+                    &quot;slug&quot;: &quot;搭建环境&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;安装nodejs环境&quot;,
+                    &quot;slug&quot;: &quot;安装nodejs环境&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;安装shadowsocks&quot;,
+                    &quot;slug&quot;: &quot;安装shadowsocks&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;配置config文件&quot;,
+                    &quot;slug&quot;: &quot;配置config文件&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;启动shadowsocks&quot;,
+                    &quot;slug&quot;: &quot;启动shadowsocks&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;本地客户端,准备开始翻 X 吧&quot;,
+                    &quot;slug&quot;: &quot;本地客户端-准备开始翻-x-吧&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;配置PAC File&quot;,
+                    &quot;slug&quot;: &quot;配置pac-file&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;总结&quot;,
+                    &quot;slug&quot;: &quot;总结&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;Trouble Shooting&quot;,
+                    &quot;slug&quot;: &quot;trouble-shooting&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;Else&quot;,
+                    &quot;slug&quot;: &quot;else&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2014-12-06-shadowsocks.md&quot;,
+            &quot;createTime&quot;: 1649686573000,
+            &quot;lastUpdated&quot;: 1647786576000
+        },
+        {
+            &quot;title&quot;: &quot;NodeJS 搭建简易网站&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;date&quot;: &quot;2014-12-17T15:29:00.000Z&quot;,
+                &quot;tags&quot;: [
+                    &quot;nodejs&quot;
+                ]
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;安装nodejs&quot;,
+                    &quot;slug&quot;: &quot;安装nodejs&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;安装npm&quot;,
+                    &quot;slug&quot;: &quot;安装npm&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;安装express&quot;,
+                    &quot;slug&quot;: &quot;安装express&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;创建文件并启动&quot;,
+                    &quot;slug&quot;: &quot;创建文件并启动&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;静态文件服务器&quot;,
+                    &quot;slug&quot;: &quot;静态文件服务器&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;打完收工&quot;,
+                    &quot;slug&quot;: &quot;打完收工&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2014-12-17-nodejs-simple-server.md&quot;,
+            &quot;createTime&quot;: 1649686573000,
+            &quot;lastUpdated&quot;: 1647786576000
+        },
+        {
+            &quot;title&quot;: &quot;微信在线相册制作 - 图片篇&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;date&quot;: &quot;2015-06-29T17:47:00.000Z&quot;,
+                &quot;tags&quot;: [
+                    &quot;微信&quot;
+                ]
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;图片选择&quot;,
+                    &quot;slug&quot;: &quot;图片选择&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;图片上传&quot;,
+                    &quot;slug&quot;: &quot;图片上传&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;图片预览&quot;,
+                    &quot;slug&quot;: &quot;图片预览&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;图片压缩&quot;,
+                    &quot;slug&quot;: &quot;图片压缩&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;图片方向&quot;,
+                    &quot;slug&quot;: &quot;图片方向&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;canvasResize&quot;,
+                    &quot;slug&quot;: &quot;canvasresize&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2015-06-29-weixin-album-image.md&quot;,
+            &quot;createTime&quot;: 1649686573000,
+            &quot;lastUpdated&quot;: 1647786576000
+        },
+        {
+            &quot;title&quot;: &quot;Weinre&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;date&quot;: &quot;2015-06-30T14:20:00.000Z&quot;,
+                &quot;tags&quot;: [
+                    &quot;调试&quot;,
+                    &quot;移动端&quot;
+                ]
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;安装&quot;,
+                    &quot;slug&quot;: &quot;安装&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;结构&quot;,
+                    &quot;slug&quot;: &quot;结构&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;原理&quot;,
+                    &quot;slug&quot;: &quot;原理&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;配置&quot;,
+                    &quot;slug&quot;: &quot;配置&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;运行&quot;,
+                    &quot;slug&quot;: &quot;运行&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;脚本&quot;,
+                    &quot;slug&quot;: &quot;脚本&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;调试&quot;,
+                    &quot;slug&quot;: &quot;调试&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;面板&quot;,
+                    &quot;slug&quot;: &quot;面板&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2015-06-30-weinre.md&quot;,
+            &quot;createTime&quot;: 1649686573000,
+            &quot;lastUpdated&quot;: 1647786576000
+        },
+        {
+            &quot;title&quot;: &quot;微信在线相册制作 - 微信篇&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;date&quot;: &quot;2015-06-30T12:46:00.000Z&quot;,
+                &quot;tags&quot;: [
+                    &quot;微信&quot;
+                ]
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;wx.ready&quot;,
+                    &quot;slug&quot;: &quot;wx-ready&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;wx.chooseImage&quot;,
+                    &quot;slug&quot;: &quot;wx-chooseimage&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;css 冲突&quot;,
+                    &quot;slug&quot;: &quot;css-冲突&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;dom 属性获取错误&quot;,
+                    &quot;slug&quot;: &quot;dom-属性获取错误&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2015-06-30-weixin-album-weixin.md&quot;,
+            &quot;createTime&quot;: 1649686573000,
+            &quot;lastUpdated&quot;: 1647786576000
+        },
+        {
+            &quot;title&quot;: &quot;Shell 脚本初尝试&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;date&quot;: &quot;2016-08-14T14:57:47.000Z&quot;,
+                &quot;tags&quot;: [
+                    &quot;shell&quot;
+                ]
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;Trouble Shooting&quot;,
+                    &quot;slug&quot;: &quot;trouble-shooting&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2016-08-14-shell-scripting.md&quot;,
+            &quot;createTime&quot;: 1649686573000,
+            &quot;lastUpdated&quot;: 1647786576000
+        },
+        {
+            &quot;title&quot;: &quot;Tmux 配置详解&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;date&quot;: &quot;2016-08-15T06:57:47.000Z&quot;,
+                &quot;tags&quot;: [
+                    &quot;terminal&quot;,
+                    &quot;tmux&quot;
+                ]
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;安装&quot;,
+                    &quot;slug&quot;: &quot;安装&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;panes 的默认布局方式&quot;,
+                    &quot;slug&quot;: &quot;panes-的默认布局方式&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;CLIENTS 和 SESSIONS&quot;,
+                    &quot;slug&quot;: &quot;clients-和-sessions&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;WINDOWS 和 PANES&quot;,
+                    &quot;slug&quot;: &quot;windows-和-panes&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;快捷键&quot;,
+                    &quot;slug&quot;: &quot;快捷键&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;Trouble Shooting&quot;,
+                    &quot;slug&quot;: &quot;trouble-shooting&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2016-08-15-tmux.md&quot;,
+            &quot;createTime&quot;: 1649686573000,
+            &quot;lastUpdated&quot;: 1647786576000
+        },
+        {
+            &quot;title&quot;: &quot;Javascript 严格模式&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;date&quot;: &quot;2016-08-26T18:08:18.000Z&quot;,
+                &quot;tags&quot;: [
+                    &quot;javascript&quot;
+                ]
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;兼容版本&quot;,
+                    &quot;slug&quot;: &quot;兼容版本&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;宣告严格模式&quot;,
+                    &quot;slug&quot;: &quot;宣告严格模式&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;严格模式中不允许的代码&quot;,
+                    &quot;slug&quot;: &quot;严格模式中不允许的代码&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;注意事项&quot;,
+                    &quot;slug&quot;: &quot;注意事项&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;参考文献地址&quot;,
+                    &quot;slug&quot;: &quot;参考文献地址&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2016-08-26-strict-mode.md&quot;,
+            &quot;createTime&quot;: 1649686573000,
+            &quot;lastUpdated&quot;: 1647786576000
+        },
+        {
+            &quot;title&quot;: &quot;tmuxinator 使用&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;date&quot;: &quot;2016-08-26T06:03:27.000Z&quot;,
+                &quot;tags&quot;: [
+                    &quot;terminal&quot;,
+                    &quot;tmux&quot;
+                ]
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;安装&quot;,
+                    &quot;slug&quot;: &quot;安装&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;设置默认编辑器&quot;,
+                    &quot;slug&quot;: &quot;设置默认编辑器&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;自动补全&quot;,
+                    &quot;slug&quot;: &quot;自动补全&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;使用&quot;,
+                    &quot;slug&quot;: &quot;使用&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;其他命令&quot;,
+                    &quot;slug&quot;: &quot;其他命令&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;项目文件详解&quot;,
+                    &quot;slug&quot;: &quot;项目文件详解&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2016-08-26-tmuxinator.md&quot;,
+            &quot;createTime&quot;: 1649686573000,
+            &quot;lastUpdated&quot;: 1647786576000
+        },
+        {
+            &quot;title&quot;: &quot;Tmux 配置&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;date&quot;: &quot;2016-08-27T05:45:43.000Z&quot;,
+                &quot;tags&quot;: [
+                    &quot;terminal&quot;,
+                    &quot;tmux&quot;
+                ]
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;配置文件&quot;,
+                    &quot;slug&quot;: &quot;配置文件&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;配置文件修改&quot;,
+                    &quot;slug&quot;: &quot;配置文件修改&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;参考文献&quot;,
+                    &quot;slug&quot;: &quot;参考文献&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2016-08-27-tmux-config.md&quot;,
+            &quot;createTime&quot;: 1649686573000,
+            &quot;lastUpdated&quot;: 1647786576000
+        },
+        {
+            &quot;title&quot;: &quot;观察者模式&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;date&quot;: &quot;2016-09-12T05:53:02.000Z&quot;,
+                &quot;tags&quot;: [
+                    &quot;设计模式&quot;
+                ]
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;介绍&quot;,
+                    &quot;slug&quot;: &quot;介绍&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;代码示例&quot;,
+                    &quot;slug&quot;: &quot;代码示例&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;代码解析&quot;,
+                    &quot;slug&quot;: &quot;代码解析&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;优势&quot;,
+                    &quot;slug&quot;: &quot;优势&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;缺点&quot;,
+                    &quot;slug&quot;: &quot;缺点&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;注意事项&quot;,
+                    &quot;slug&quot;: &quot;注意事项&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;观察者模式和发布/订阅模式&quot;,
+                    &quot;slug&quot;: &quot;观察者模式和发布-订阅模式&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;参考文献&quot;,
+                    &quot;slug&quot;: &quot;参考文献&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2016-09-12-observer-pattern.md&quot;,
+            &quot;createTime&quot;: 1649686573000,
+            &quot;lastUpdated&quot;: 1647786576000
+        },
+        {
+            &quot;title&quot;: &quot;RxJS&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;date&quot;: &quot;2016-09-12T11:05:28.000Z&quot;,
+                &quot;ignoreInList&quot;: true
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;介绍&quot;,
+                    &quot;slug&quot;: &quot;介绍&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;例子&quot;,
+                    &quot;slug&quot;: &quot;例子&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;参考文献&quot;,
+                    &quot;slug&quot;: &quot;参考文献&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2016-09-12-rxjs.md&quot;,
+            &quot;createTime&quot;: 1649686573000,
+            &quot;lastUpdated&quot;: 1647786576000
+        },
+        {
+            &quot;title&quot;: &quot;JavaScript 代码性能优化 - 从排查到处理&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;tags&quot;: [
+                    &quot;javascript&quot;,
+                    &quot;performance&quot;
+                ],
+                &quot;date&quot;: &quot;2019-11-14T00:00:00.000Z&quot;
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;性能问题排查与收集&quot;,
+                    &quot;slug&quot;: &quot;性能问题排查与收集&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;Performance&quot;,
+                    &quot;slug&quot;: &quot;performance&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;JavaScript Profiler&quot;,
+                    &quot;slug&quot;: &quot;javascript-profiler&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;console.time&quot;,
+                    &quot;slug&quot;: &quot;console-time&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;性能问题整理和优化&quot;,
+                    &quot;slug&quot;: &quot;性能问题整理和优化&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;拆分循环中的任务&quot;,
+                    &quot;slug&quot;: &quot;拆分循环中的任务&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;理清逻辑&quot;,
+                    &quot;slug&quot;: &quot;理清逻辑&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;善用位运算&quot;,
+                    &quot;slug&quot;: &quot;善用位运算&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;减少重复任务&quot;,
+                    &quot;slug&quot;: &quot;减少重复任务&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;尽早退出&quot;,
+                    &quot;slug&quot;: &quot;尽早退出&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;善用 lazy&quot;,
+                    &quot;slug&quot;: &quot;善用-lazy&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;成果&quot;,
+                    &quot;slug&quot;: &quot;成果&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;总结&quot;,
+                    &quot;slug&quot;: &quot;总结&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2019-console-performance.md&quot;,
+            &quot;createTime&quot;: 1650038339000,
+            &quot;lastUpdated&quot;: 1650038339000
+        },
+        {
+            &quot;title&quot;: &quot;如何方便的为团队所有项目统一 ESLint 配置&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;tags&quot;: [
+                    &quot;eslint&quot;,
+                    &quot;team&quot;
+                ],
+                &quot;date&quot;: &quot;2019-11-18T00:00:00.000Z&quot;
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;前言&quot;,
+                    &quot;slug&quot;: &quot;前言&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;统一配置处理&quot;,
+                    &quot;slug&quot;: &quot;统一配置处理&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;ESLint extends&quot;,
+                    &quot;slug&quot;: &quot;eslint-extends&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;Package eslintConfig&quot;,
+                    &quot;slug&quot;: &quot;package-eslintconfig&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;依赖包&quot;,
+                    &quot;slug&quot;: &quot;依赖包&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;参考&quot;,
+                    &quot;slug&quot;: &quot;参考&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;保证配置不被篡改&quot;,
+                    &quot;slug&quot;: &quot;保证配置不被篡改&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;CLI&quot;,
+                    &quot;slug&quot;: &quot;cli&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;commit hook&quot;,
+                    &quot;slug&quot;: &quot;commit-hook&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;CI/CD&quot;,
+                    &quot;slug&quot;: &quot;ci-cd&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;发布系统发布时做校验&quot;,
+                    &quot;slug&quot;: &quot;发布系统发布时做校验&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;后续升级&quot;,
+                    &quot;slug&quot;: &quot;后续升级&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;总结&quot;,
+                    &quot;slug&quot;: &quot;总结&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2019-eslint-config-team.md&quot;,
+            &quot;createTime&quot;: 1650038339000,
+            &quot;lastUpdated&quot;: 1650038339000
+        },
+        {
+            &quot;title&quot;: &quot;GitHub Pages 如何实现 SPA&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;tags&quot;: [
+                    &quot;github&quot;
+                ],
+                &quot;date&quot;: &quot;2019-11-05T00:00:00.000Z&quot;
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;前因&quot;,
+                    &quot;slug&quot;: &quot;前因&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;404&quot;,
+                    &quot;slug&quot;: &quot;_404&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;初次方案&quot;,
+                    &quot;slug&quot;: &quot;初次方案&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;进阶方案&quot;,
+                    &quot;slug&quot;: &quot;进阶方案&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;最终效果&quot;,
+                    &quot;slug&quot;: &quot;最终效果&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;注意事项&quot;,
+                    &quot;slug&quot;: &quot;注意事项&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;参考&quot;,
+                    &quot;slug&quot;: &quot;参考&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2019-github-pages-spa.md&quot;,
+            &quot;createTime&quot;: 1650038339000,
+            &quot;lastUpdated&quot;: 1649686573000
+        },
+        {
+            &quot;title&quot;: &quot;动手实现一个 JavaScript 沙箱&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;tags&quot;: [
+                    &quot;javascript&quot;,
+                    &quot;sandbox&quot;
+                ],
+                &quot;date&quot;: &quot;2019-10-25T00:00:00.000Z&quot;
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;前言&quot;,
+                    &quot;slug&quot;: &quot;前言&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;动手&quot;,
+                    &quot;slug&quot;: &quot;动手&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;代码执行&quot;,
+                    &quot;slug&quot;: &quot;代码执行&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;初版实现&quot;,
+                    &quot;slug&quot;: &quot;初版实现&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;进阶实现&quot;,
+                    &quot;slug&quot;: &quot;进阶实现&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;最终实现&quot;,
+                    &quot;slug&quot;: &quot;最终实现&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;使用场景&quot;,
+                    &quot;slug&quot;: &quot;使用场景&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;举个 🌰&quot;,
+                    &quot;slug&quot;: &quot;举个-🌰&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;局限性&quot;,
+                    &quot;slug&quot;: &quot;局限性&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;扩展阅读&quot;,
+                    &quot;slug&quot;: &quot;扩展阅读&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;参考文献&quot;,
+                    &quot;slug&quot;: &quot;参考文献&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2019-javascript-sandbox.md&quot;,
+            &quot;createTime&quot;: 1650038339000,
+            &quot;lastUpdated&quot;: 1649686573000
+        },
+        {
+            &quot;title&quot;: &quot;IDE AI 自动补全插件 TabNine&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;tags&quot;: [
+                    &quot;生产力&quot;
+                ],
+                &quot;date&quot;: &quot;2019-11-06T00:00:00.000Z&quot;
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;介绍&quot;,
+                    &quot;slug&quot;: &quot;介绍&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;支持&quot;,
+                    &quot;slug&quot;: &quot;支持&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;使用感受&quot;,
+                    &quot;slug&quot;: &quot;使用感受&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;指令&quot;,
+                    &quot;slug&quot;: &quot;指令&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;配置面板&quot;,
+                    &quot;slug&quot;: &quot;配置面板&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;上车&quot;,
+                    &quot;slug&quot;: &quot;上车&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;链接&quot;,
+                    &quot;slug&quot;: &quot;链接&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2019-tab-nine.md&quot;,
+            &quot;createTime&quot;: 1650038339000,
+            &quot;lastUpdated&quot;: 1650038339000
+        },
+        {
+            &quot;title&quot;: &quot;是时候学习/推广一波可选链（Optional chaining）和空值合并（Nullish coalescing ）了&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;tags&quot;: [
+                    &quot;javascript&quot;
+                ],
+                &quot;date&quot;: &quot;2020-07-04T00:00:00.000Z&quot;
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;背景&quot;,
+                    &quot;slug&quot;: &quot;背景&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;Optional chaining 介绍&quot;,
+                    &quot;slug&quot;: &quot;optional-chaining-介绍&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;Nullish coalescing 介绍&quot;,
+                    &quot;slug&quot;: &quot;nullish-coalescing-介绍&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;如何使用&quot;,
+                    &quot;slug&quot;: &quot;如何使用&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;Babel 转义&quot;,
+                    &quot;slug&quot;: &quot;babel-转义&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;注意点&quot;,
+                    &quot;slug&quot;: &quot;注意点&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;document.all&quot;,
+                    &quot;slug&quot;: &quot;document-all&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;loose&quot;,
+                    &quot;slug&quot;: &quot;loose&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;总结&quot;,
+                    &quot;slug&quot;: &quot;总结&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2020-es-features.md&quot;,
+            &quot;createTime&quot;: 1650038339000,
+            &quot;lastUpdated&quot;: 1650038339000
+        },
+        {
+            &quot;title&quot;: &quot;前端模块简史 - CJS &amp; *MD &amp; ES Modules &amp; SystemJS &amp; Webpack&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;tags&quot;: [
+                    &quot;javascript&quot;,
+                    &quot;module&quot;
+                ],
+                &quot;date&quot;: &quot;2020-06-18T00:00:00.000Z&quot;
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;文件模块&quot;,
+                    &quot;slug&quot;: &quot;文件模块&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;全局变量&quot;,
+                    &quot;slug&quot;: &quot;全局变量&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;命名空间&quot;,
+                    &quot;slug&quot;: &quot;命名空间&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;IIFE 包裹&quot;,
+                    &quot;slug&quot;: &quot;iife-包裹&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;模块系统&quot;,
+                    &quot;slug&quot;: &quot;模块系统&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;CommonJS（以下称 CJS）&quot;,
+                    &quot;slug&quot;: &quot;commonjs（以下称-cjs）&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;AMD&quot;,
+                    &quot;slug&quot;: &quot;amd&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;CMD&quot;,
+                    &quot;slug&quot;: &quot;cmd&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;UMD&quot;,
+                    &quot;slug&quot;: &quot;umd&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;ES Modules&quot;,
+                    &quot;slug&quot;: &quot;es-modules&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;SystemJS&quot;,
+                    &quot;slug&quot;: &quot;systemjs&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;模块打包&quot;,
+                    &quot;slug&quot;: &quot;模块打包&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;webpack&quot;,
+                    &quot;slug&quot;: &quot;webpack&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;总结&quot;,
+                    &quot;slug&quot;: &quot;总结&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;最后&quot;,
+                    &quot;slug&quot;: &quot;最后&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2020-modules.md&quot;,
+            &quot;createTime&quot;: 1650038339000,
+            &quot;lastUpdated&quot;: 1650038339000
+        },
+        {
+            &quot;title&quot;: &quot;大型 SPA 项目架构设计与重构&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;tags&quot;: [
+                    &quot;architecture&quot;
+                ],
+                &quot;date&quot;: &quot;2021-08-27T00:00:00.000Z&quot;
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;老架构介绍&quot;,
+                    &quot;slug&quot;: &quot;老架构介绍&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;老架构存在的问题&quot;,
+                    &quot;slug&quot;: &quot;老架构存在的问题&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;新架构&quot;,
+                    &quot;slug&quot;: &quot;新架构&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;启动器&quot;,
+                    &quot;slug&quot;: &quot;启动器&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;公共模块&quot;,
+                    &quot;slug&quot;: &quot;公共模块&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;业务模块&quot;,
+                    &quot;slug&quot;: &quot;业务模块&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;优化后&quot;,
+                    &quot;slug&quot;: &quot;优化后&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;运行流程&quot;,
+                    &quot;slug&quot;: &quot;运行流程&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;开发&quot;,
+                    &quot;slug&quot;: &quot;开发&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;现状&quot;,
+                    &quot;slug&quot;: &quot;现状&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;blog/2021-console-architecture.md&quot;,
+            &quot;createTime&quot;: 1650038339000,
+            &quot;lastUpdated&quot;: 1650038339000
+        },
+        {
+            &quot;title&quot;: &quot;Elements&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;tags&quot;: [
+                    &quot;blog&quot;
+                ]
+            },
+            &quot;headers&quot;: [
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;H2 Heading&quot;,
+                    &quot;slug&quot;: &quot;h2-heading&quot;
+                },
+                {
+                    &quot;level&quot;: 3,
+                    &quot;title&quot;: &quot;H3 Heading&quot;,
+                    &quot;slug&quot;: &quot;h3-heading&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;List&quot;,
+                    &quot;slug&quot;: &quot;list&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;Table&quot;,
+                    &quot;slug&quot;: &quot;table&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;Quotes&quot;,
+                    &quot;slug&quot;: &quot;quotes&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;Syntax Highlighter&quot;,
+                    &quot;slug&quot;: &quot;syntax-highlighter&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;Images&quot;,
+                    &quot;slug&quot;: &quot;images&quot;
+                },
+                {
+                    &quot;level&quot;: 2,
+                    &quot;title&quot;: &quot;iframe 嵌入&quot;,
+                    &quot;slug&quot;: &quot;iframe-嵌入&quot;
+                }
+            ],
+            &quot;relativePath&quot;: &quot;elements.md&quot;,
+            &quot;createTime&quot;: 1649686573000,
+            &quot;lastUpdated&quot;: 1649686573000
+        },
+        {
+            &quot;title&quot;: &quot;&quot;,
+            &quot;description&quot;: &quot;&quot;,
+            &quot;frontmatter&quot;: {
+                &quot;list&quot;: true
+            },
+            &quot;headers&quot;: [],
+            &quot;relativePath&quot;: &quot;index.md&quot;,
+            &quot;createTime&quot;: 1649686573000,
+            &quot;lastUpdated&quot;: 1649686573000
+        }
+    ],
+    &quot;theme&quot;: {
+        &quot;lastUpdated&quot;: &quot;Last Updated&quot;,
+        &quot;nav&quot;: [
+            {
+                &quot;text&quot;: &quot;Blog&quot;,
+                &quot;link&quot;: &quot;/&quot;,
+                &quot;activeMatch&quot;: &quot;^/blog/&quot;
+            }
+        ],
+        &quot;locales&quot;: {}
+    },
+    &quot;page&quot;: {
+        &quot;title&quot;: &quot;JavaScript 代码性能优化 - 从排查到处理&quot;,
+        &quot;description&quot;: &quot;&quot;,
+        &quot;frontmatter&quot;: {
+            &quot;tags&quot;: [
+                &quot;javascript&quot;,
+                &quot;performance&quot;
+            ],
+            &quot;date&quot;: &quot;2019-11-14T00:00:00.000Z&quot;
+        },
+        &quot;headers&quot;: [
+            {
+                &quot;level&quot;: 2,
+                &quot;title&quot;: &quot;性能问题排查与收集&quot;,
+                &quot;slug&quot;: &quot;性能问题排查与收集&quot;
+            },
+            {
+                &quot;level&quot;: 3,
+                &quot;title&quot;: &quot;Performance&quot;,
+                &quot;slug&quot;: &quot;performance&quot;
+            },
+            {
+                &quot;level&quot;: 3,
+                &quot;title&quot;: &quot;JavaScript Profiler&quot;,
+                &quot;slug&quot;: &quot;javascript-profiler&quot;
+            },
+            {
+                &quot;level&quot;: 3,
+                &quot;title&quot;: &quot;console.time&quot;,
+                &quot;slug&quot;: &quot;console-time&quot;
+            },
+            {
+                &quot;level&quot;: 2,
+                &quot;title&quot;: &quot;性能问题整理和优化&quot;,
+                &quot;slug&quot;: &quot;性能问题整理和优化&quot;
+            },
+            {
+                &quot;level&quot;: 3,
+                &quot;title&quot;: &quot;拆分循环中的任务&quot;,
+                &quot;slug&quot;: &quot;拆分循环中的任务&quot;
+            },
+            {
+                &quot;level&quot;: 3,
+                &quot;title&quot;: &quot;理清逻辑&quot;,
+                &quot;slug&quot;: &quot;理清逻辑&quot;
+            },
+            {
+                &quot;level&quot;: 3,
+                &quot;title&quot;: &quot;善用位运算&quot;,
+                &quot;slug&quot;: &quot;善用位运算&quot;
+            },
+            {
+                &quot;level&quot;: 3,
+                &quot;title&quot;: &quot;减少重复任务&quot;,
+                &quot;slug&quot;: &quot;减少重复任务&quot;
+            },
+            {
+                &quot;level&quot;: 3,
+                &quot;title&quot;: &quot;尽早退出&quot;,
+                &quot;slug&quot;: &quot;尽早退出&quot;
+            },
+            {
+                &quot;level&quot;: 3,
+                &quot;title&quot;: &quot;善用 lazy&quot;,
+                &quot;slug&quot;: &quot;善用-lazy&quot;
+            },
+            {
+                &quot;level&quot;: 2,
+                &quot;title&quot;: &quot;成果&quot;,
+                &quot;slug&quot;: &quot;成果&quot;
+            },
+            {
+                &quot;level&quot;: 2,
+                &quot;title&quot;: &quot;总结&quot;,
+                &quot;slug&quot;: &quot;总结&quot;
+            }
+        ],
+        &quot;relativePath&quot;: &quot;blog/2019-console-performance.md&quot;,
+        &quot;createTime&quot;: 1650038339000,
+        &quot;lastUpdated&quot;: 1650038339000
+    },
+    &quot;frontmatter&quot;: {
+        &quot;tags&quot;: [
+            &quot;javascript&quot;,
+            &quot;performance&quot;
+        ],
+        &quot;date&quot;: &quot;2019-11-14T00:00:00.000Z&quot;
+    },
+    &quot;lang&quot;: &quot;zh-CN&quot;,
+    &quot;title&quot;: &quot;JavaScript 代码性能优化 - 从排查到处理 | HeyFE&quot;,
+    &quot;description&quot;: &quot;HeyFE&#x27;s Blog&quot;,
+    &quot;localePath&quot;: &quot;/&quot;
+}</pre></div></div></div>
+        <script>__RVP_HASH_MAP__ = JSON.parse("{\"blog_2014-09-11-git.md\":\"7aeefd49\",\"blog_2014-09-12-how-to-use-jekyll.md\":\"cace8279\",\"blog_2014-11-07-plaintasks-start.md\":\"bce96d48\",\"blog_2014-11-07-sublime-text-3.md\":\"37dd30e3\",\"blog_2014-11-08-gist.md\":\"2a0cd9d5\",\"blog_2014-11-12-disqus.md\":\"ea92519b\",\"blog_2014-11-18-git-ssh-key.md\":\"931606bb\",\"blog_2014-12-06-goagent.md\":\"57e223cf\",\"blog_2014-12-06-shadowsocks.md\":\"9d09b264\",\"blog_2014-12-17-nodejs-simple-server.md\":\"18bd75ee\",\"blog_2015-06-29-weixin-album-image.md\":\"7ed1ef0a\",\"blog_2015-06-30-weinre.md\":\"4be7a6d8\",\"blog_2015-06-30-weixin-album-weixin.md\":\"00238d22\",\"blog_2016-08-14-shell-scripting.md\":\"e7e0b013\",\"blog_2016-08-15-tmux.md\":\"ed94400f\",\"blog_2016-08-26-strict-mode.md\":\"0fc09ebe\",\"blog_2016-08-26-tmuxinator.md\":\"007b22fa\",\"blog_2016-08-27-tmux-config.md\":\"928b54fb\",\"blog_2016-09-12-observer-pattern.md\":\"cf90a287\",\"blog_2016-09-12-rxjs.md\":\"90092117\",\"blog_2019-console-performance.md\":\"2cc5e7c3\",\"blog_2019-eslint-config-team.md\":\"573c8a09\",\"blog_2019-github-pages-spa.md\":\"a526948f\",\"blog_2019-javascript-sandbox.md\":\"eb6a0008\",\"blog_2019-tab-nine.md\":\"5e3fd988\",\"blog_2020-es-features.md\":\"bbb01e09\",\"blog_2020-modules.md\":\"e77bcabf\",\"blog_2021-console-architecture.md\":\"d111ac7f\",\"elements.md\":\"1caa520e\",\"index.md\":\"e4d4d337\"}")</script>
+        <script type="module" async src="/assets/app.d36d7bad.js"></script>
+        
+    </body>
+</html>

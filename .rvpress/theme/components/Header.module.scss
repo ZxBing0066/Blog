@@ -17,7 +17,7 @@
     background-color: var(--color-background);
     will-change: border;
     transition: border 0.4s;
-    border-bottom: 2px solid var(--color-background);
+    border-bottom: 1px solid var(--color-background);
     &:global(.fixed) {
         border-bottom-color: var(--color-border);
     }

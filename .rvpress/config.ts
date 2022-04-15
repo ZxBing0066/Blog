@@ -13,10 +13,9 @@ const config: UserConfig<any> = {
         ]
     ],
     themeConfig: {
-        logo: 'HeyFE',
         lastUpdated: 'Last Updated',
         nav: [
-            { text: 'Blog', link: '/blog/', activeMatch: '^/blog/' },
+            { text: 'Blog', link: '/', activeMatch: '^/blog/' }
             // {
             //     text: 'Category',
             //     items: [

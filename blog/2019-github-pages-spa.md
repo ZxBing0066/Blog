@@ -1,5 +1,6 @@
 ---
 tags: [github]
+date: 2019-11-05
 ---
 
 # GitHub Pages 如何实现 SPA

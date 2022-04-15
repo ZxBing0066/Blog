@@ -17,7 +17,7 @@ const RNavItem = memo(function RNavItem({ item }: { item: NavItem }) {
 const RNavLink = memo(function RNavLink({ item }: { item: NavItemWithLink }) {
     const isOutbound = useMemo(() => item.link.startsWith('http'), [item.link]);
     return (
-        <a className="nav-link" href={item.link} rel={item.rel} aria-label={item.ariaLabel} target={item.target}>
+        <a className='nav-link' href={item.link} rel={item.rel} aria-label={item.ariaLabel} target={item.target}>
             {item.text}
             {isOutbound && <Outbound />}
         </a>
@@ -26,15 +26,15 @@ const RNavLink = memo(function RNavLink({ item }: { item: NavItemWithLink }) {
 
 const RNavMenu = memo(function RNavMenu({ item }: { item: NavItemWithChildren }) {
     return (
-        <div className="nav-menu">
-            <a className="nav-link" aria-label={item.ariaLabel}>
+        <div className='nav-menu'>
+            <a className='nav-link' aria-label={item.ariaLabel}>
                 {item.text}
-                <Angle className="angle-down" />
+                <Angle className='angle-down' />
             </a>
 
-            <ul className="menu-list">
+            <ul className='menu-list'>
                 {item.items.map(item => (
-                    <li key={item.text} className="menu-item">
+                    <li key={item.text} className='menu-item'>
                         <RNavMenuLink item={item} />
                     </li>
                 ))}
@@ -56,9 +56,9 @@ const Nav = memo(function Nav() {
     const { nav } = theme;
     if (!nav) return null;
     return (
-        <ul className="nav">
+        <ul className='nav'>
             {nav.map((navItem, i) => (
-                <li className="nav-item" key={i}>
+                <li className='nav-item' key={i}>
                     <RNavItem item={navItem} />
                 </li>
             ))}
@@ -67,14 +67,16 @@ const Nav = memo(function Nav() {
 });
 
 const Header = () => {
-    const { theme, site } = useData<ThemeConfig>();
+    const { site } = useData<ThemeConfig>();
     const rootScroll = useRootScroll();
     const fixed = rootScroll > 40;
 
     return (
         <header className={'header ' + cls.header + (fixed ? ' fixed' : '')}>
-            <div className="wrap">
-                <a href={site.base}>{theme.logo && <span className="logo">{theme.logo}</span>}</a>
+            <div className='wrap'>
+                <a href={site.base}>
+                    <span className='logo'>HeyFE's Blog</span>
+                </a>
                 <Nav />
             </div>
         </header>

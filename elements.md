@@ -1,5 +1,6 @@
 ---
 tags: [blog]
+ignoreInList: true
 ---
 
 # Elements

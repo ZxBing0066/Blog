@@ -5,16 +5,16 @@ specifiers:
   '@types/react': ^17.0.40
   css-doodle: ^0.26.3
   firebase: ^9.6.10
-  rvpress: ^0.1.6
+  rvpress: ^0.1.7
 
 dependencies:
   css-doodle: 0.26.3
   firebase: 9.6.10
 
 devDependencies:
-  '@rvpress/theme-blog': 0.1.2_rvpress@0.1.6
+  '@rvpress/theme-blog': 0.1.2_rvpress@0.1.7
   '@types/react': 17.0.41
-  rvpress: 0.1.6_@types+react@17.0.41
+  rvpress: 0.1.7_@types+react@17.0.41
 
 packages:
 
@@ -968,12 +968,12 @@ packages:
       picomatch: 2.3.1
     dev: true
 
-  /@rvpress/theme-blog/0.1.2_rvpress@0.1.6:
+  /@rvpress/theme-blog/0.1.2_rvpress@0.1.7:
     resolution: {integrity: sha512-cyNwbOG9MoQGuXLNiZmleM99vrx0tJ5S6jEjGj6f30QRGfwzhw5tB0TVxRrxH1yy31jG3HkAogJu8OMYIUvPlw==}
     peerDependencies:
       rvpress: 0.1.5
     dependencies:
-      rvpress: 0.1.6_@types+react@17.0.41
+      rvpress: 0.1.7_@types+react@17.0.41
     dev: true
 
   /@types/long/4.0.1:
@@ -1824,8 +1824,8 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /rvpress/0.1.6_@types+react@17.0.41:
-    resolution: {integrity: sha512-OwbfHch4UtFZ3eNxx5twdUyOMnFmdxXiyDfCLl8uBcguQedcjBVIyIcgNcF7aSqV0sYLSMFuLS1Ush6U5eSweg==}
+  /rvpress/0.1.7_@types+react@17.0.41:
+    resolution: {integrity: sha512-/6Qqk6dCZZx2UIZWnFpStI1EHh7duWfV/+O6pANW8PlsXpIhPkXC4DiYG28SyDHwMlfFVKNeMHs9knyvS1m8jw==}
     engines: {node: '>=12.0.0'}
     hasBin: true
     dependencies:

@@ -23,7 +23,7 @@
   "devDependencies": {
     "@rvpress/theme-blog": "^0.1.2",
     "@types/react": "^17.0.40",
-    "rvpress": "^0.1.6"
+    "rvpress": "^0.1.7"
   },
   "dependencies": {
     "css-doodle": "^0.26.3",

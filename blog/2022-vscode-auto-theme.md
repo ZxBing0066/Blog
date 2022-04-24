@@ -1,5 +1,5 @@
 ---
-tags: [vscode, 生产力]
+tags: [VSCode, 生产力]
 ---
 
 # VSCode 如何根据系统主题自动更换主题

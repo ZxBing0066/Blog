@@ -7,7 +7,7 @@ import cls from './List.module.scss';
 import Tags from './Tags';
 
 const PageBlock = ({ page }: { page: PageData }) => {
-    const href = '/' + page.relativePath.replace(/.md$/, '');
+    const href = '/' + page.relativePath.replace(/.md$/, '.html');
     return (
         <div className='page-block'>
             {/* <div className='page-card'> */}

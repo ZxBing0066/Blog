@@ -77,7 +77,7 @@ img {
     border-radius: 8px;
 }
 
-iframe {
+:not([id^='disqus_']) > iframe {
     display: block;
     box-sizing: border-box;
     border-radius: 8px;

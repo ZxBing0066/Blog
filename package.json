@@ -27,6 +27,8 @@
   },
   "dependencies": {
     "css-doodle": "^0.26.3",
-    "firebase": "^9.6.10"
+    "disqus-react": "^1.1.3",
+    "firebase": "^9.6.10",
+    "prop-types": "^15.8.1"
   }
 }

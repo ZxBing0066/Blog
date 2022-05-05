@@ -1,1 +1,0 @@
-import"./app.d36d7bad.js";const e='{"title":"","description":"","frontmatter":{"list":true},"headers":[],"relativePath":"index.md","createTime":1649686573000,"lastUpdated":1649686573000}';var a=()=>"";export{e as __pageData,a as default};

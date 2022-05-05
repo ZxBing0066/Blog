@@ -25,20 +25,22 @@ const Blog = () => {
                     <TOC />
                 </div>
             </div>
-            <Suspense fallback={null}>
-                <DiscussionEmbed
-                    shortname='zxbing0066-blog'
-                    config={{
-                        url: 'https://blog.heyfe.org' + location.pathname,
-                        identifier: location.pathname
-                            .replace(/^\//, '')
-                            .replace(/\.html$/, '')
-                            .replace(/\//g, '--'),
-                        title: page.title,
-                        language: 'zh_CN'
-                    }}
-                />
-            </Suspense>
+            {typeof location === 'undefined' ? null : (
+                <Suspense fallback={null}>
+                    <DiscussionEmbed
+                        shortname='zxbing0066-blog'
+                        config={{
+                            url: 'https://blog.heyfe.org' + location.pathname,
+                            identifier: location.pathname
+                                .replace(/^\//, '')
+                                .replace(/\.html$/, '')
+                                .replace(/\//g, '--'),
+                            title: page.title,
+                            language: 'zh_CN'
+                        }}
+                    />
+                </Suspense>
+            )}
         </main>
     );
 };

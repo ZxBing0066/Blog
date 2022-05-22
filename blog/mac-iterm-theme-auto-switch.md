@@ -50,6 +50,8 @@ iterm2.run_forever(main)
 
 ## 使用方式
 
+### 直接导入官方案例脚本
+
 官网事例 [Change Color Presets On Theme Change](https://iterm2.com/python-api/examples/theme.html) 下方点击下载，将会下载一个 its 文件（应该是 iTerm script 的缩写），该文件为一个包，里面包含了一些配置信息、运行环境等。
 
 下载完成后点击该文件 iTerm2 会自动导入脚本，或者在 iTerm2 菜单中找到 Scripts > Manage > Import 选择该文件即可。
@@ -60,7 +62,7 @@ iterm2.run_forever(main)
 
 安装完成后重启即可实现根据系统主题自动切换 iTerm2 主题配色。
 
-如果想要自定义暗色和亮色配色，打开脚本文件，修改对应的代码为指定的配色即可。
+如果想要自定义暗色和亮色配色，打开脚本文件，Scripts > Manage > Reveal Scripts in Finder，打开 AutoLaunch > theme > theme > theme.py 文件，修改对应的代码为指定的配色即可。
 
 ```python {2,4}
     if "dark" in parts:
@@ -71,4 +73,10 @@ iterm2.run_forever(main)
 
 配色名称可在 iTerm2 配置 > Profiles > Colors > Color Presets 中查看。
 
+修改后记得重启来生效。
+
 ![picture 4](/image/blog-mac-iterm-theme-auto-switch-95.png)
+
+### 自行创建 iTerm2 脚本
+
+在 iTerm2 菜单中找到 Scripts > Manage > New Python Script，按照提示选择环境、输入名称等创建，然后贴入上面的脚本即可。

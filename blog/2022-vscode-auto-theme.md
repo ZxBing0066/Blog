@@ -37,9 +37,11 @@ VSCode 配置中存在一个配置项 `window.autoDetectColorScheme`：
 
 ## 问题
 
-添加自动切换主题后，系统每次切换主题时，VSCode 会按照配置将 `preferredDarkColorTheme` 或 `preferredLightColorTheme` 写入到 `colorTheme` 来进行主题切换。这就导致，如果你使用了配置同步，几台电脑的 VSCode 都会切换主题写入配置文件，然后进行同步，这会导致后来的写入失败，VSCode 会提示错误并自动打开配置文件。而且这里好像有些 bug，偶尔打开配置文件会失败，而显示一个看不见的未保存文件，只能重启窗口解决。
+<del>添加自动切换主题后，系统每次切换主题时，VSCode 会按照配置将 `preferredDarkColorTheme` 或 `preferredLightColorTheme` 写入到 `colorTheme` 来进行主题切换。这就导致，如果你使用了配置同步，几台电脑的 VSCode 都会切换主题写入配置文件，然后进行同步，这会导致后来的写入失败，VSCode 会提示错误并自动打开配置文件。而且这里好像有些 bug，偶尔打开配置文件会失败，而显示一个看不见的未保存文件，只能重启窗口解决。</del>
 
-当然，直接不需要关注配置文件内容关闭即可，无伤大雅，不过项目开的多的时候需要关闭很多个配置文件，需要一个个关闭就比较麻烦了，希望 VSCode 后面能优化一下，不要再写入 `colorTheme` 直接按照 `autoDetectColorScheme` 来读取 `preferredDarkColorTheme` 或 `preferredLightColorTheme` 做主题就好了。
+<del>当然，直接不需要关注配置文件内容关闭即可，无伤大雅，不过项目开的多的时候需要关闭很多个配置文件，需要一个个关闭就比较麻烦了，希望 VSCode 后面能优化一下，不要再写入 `colorTheme` 直接按照 `autoDetectColorScheme` 来读取 `preferredDarkColorTheme` 或 `preferredLightColorTheme` 做主题就好了。</del>
+
+后续尝试发现是因为 `Sundial` 插件导致的，不是 VSCode 的锅，😂 可忽略。
 
 ## 插件实现
 

@@ -1678,10 +1678,10 @@ rollup@^2.59.0:
   optionalDependencies:
     fsevents "~2.3.2"
 
-rvpress@^0.1.7:
-  version "0.1.7"
-  resolved "https://registry.yarnpkg.com/rvpress/-/rvpress-0.1.7.tgz#8ba340642439ac5bdf8cd94662fb80845bbe43c0"
-  integrity sha512-/6Qqk6dCZZx2UIZWnFpStI1EHh7duWfV/+O6pANW8PlsXpIhPkXC4DiYG28SyDHwMlfFVKNeMHs9knyvS1m8jw==
+rvpress@^0.1.8:
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/rvpress/-/rvpress-0.1.8.tgz#4a921089f7f223b42d985128fe5fa8eb56b84109"
+  integrity sha512-eybtEUrTv420IGkgdVcH5NGXHIxV4Cqvy0/cGnoTfl/SEY8FwhVRYUOHGeQKYfx/LPHdiemQqftFSl+k474/tQ==
   dependencies:
     "@docsearch/css" "^3.0.0-alpha.50"
     "@docsearch/js" "^3.0.0-alpha.50"

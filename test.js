@@ -12,9 +12,12 @@ const getGitTimestamp = file => {
                     .filter(s => !!s.length)
             );
         });
-        git.stderr.on('data', error2 => {});
-        git.on('close', () => {
+        git.stderr.on('data', error2 => {
+            console.log('error',error2)
+        });
+        git.on('close', (e) => {
             {
+                console.log(e,output);
                 resolve([+output[0] * 1e3, +output[output.length - 1] * 1e3]);
             }
         });

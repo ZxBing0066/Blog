@@ -15,7 +15,7 @@ const config: UserConfig<any> = {
     themeConfig: {
         lastUpdated: 'Last Updated',
         nav: [
-            { text: 'Blog', link: '/', activeMatch: '^/blog/' }
+            // { text: 'Blog', link: '/', activeMatch: '^/blog/' }
             // {
             //     text: 'Category',
             //     items: [
@@ -33,8 +33,8 @@ const config: UserConfig<any> = {
             //         }
             //     ]
             // },
-            // { text: 'About', link: '/about/' },
-            // { text: 'Github', link: 'https://github.com/ZxBing0066/', target: '_blank' }
+            { text: '主站', link: 'https://www.heyfe.org/' },
+            { text: 'Github', link: 'https://github.com/ZxBing0066/', target: '_blank' }
         ]
     }
 };

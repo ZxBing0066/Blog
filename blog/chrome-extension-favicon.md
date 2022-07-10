@@ -26,7 +26,7 @@ tags: [FAQ, chrome-extension]
 
 不过由于某些不可说的原因，对网络存在要求。
 
-### icons duckduckgo
+### duckduckgo icons
 
 格式：`https://icons.duckduckgo.com/ip3/<domain>.ico`
 

@@ -10,7 +10,7 @@ tags: [FAQ, chrome-extension]
 
 ## 几种常用方案
 
-### `chrome://favicon/`
+### chrome favicon
 
 格式： `chrome://favicon/<url>`
 
@@ -18,7 +18,7 @@ tags: [FAQ, chrome-extension]
 
 但是该方案无法使用在网页中，chrome 会提示 `Not allowed to load local resource`。只可用于 chrome 插件中，并且需要为 v2 版本的 manifest 添加 `permissions: ["chrome://favicon/"]`，v3 版本 目前还没有替代方案。
 
-### `www.google.com/s2/favicons`
+### google favicons
 
 格式：`https://www.google.com/s2/favicons?domain=<url>&size=<size>`
 
@@ -26,7 +26,7 @@ tags: [FAQ, chrome-extension]
 
 不过由于某些不可说的原因，对网络存在要求。
 
-### `icons.duckduckgo.com`
+### icons duckduckgo
 
 格式：`https://icons.duckduckgo.com/ip3/<domain>.ico`
 

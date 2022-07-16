@@ -38,9 +38,9 @@ tags: [FAQ, chrome-extension]
 
 由于大部分的网站都会使用 favicon 的默认路径，所以可以直接拼接获取域名对应的 favicon 图标。只是简单的场景可以尝试使用。
 
-### 脚本
+### 后端获取
 
-get url 对应的 html，然后 parse 出 url 中的 favicon 配置的 url，即可获取到对应的 favicon 图标。
+get url 对应的 html，然后 parse 出 url 中的 favicon 配置的 url，即可获取到对应的 favicon 图标。需要使用后端获取主要是因为前端会出现跨域问题。
 
 ```js
 const html = await fetch(url).then(res => res.text());
@@ -57,7 +57,7 @@ const favicon = html.match(/<link rel="icon" href="(.*?)"/)[1];
 | `www.google.com/s2/favicons` | ![](https://www.google.com/s2/favicons?domain=https://www.github.com/ZxBing0066&size=32) | `https://www.google.com/s2/favicons?domain=<url>&size=<size>` | ⭕️ | ⭕️ | 精确到 url、支持修改大小 | 国内访问受限 |
 | `icons.duckduckgo.com` | ![](https://icons.duckduckgo.com/ip3/www.github.com.ico) | `https://icons.duckduckgo.com/ip3/<domain>.ico` | ❌ | ⭕️ | 本地缓存，速度快 | 使用场景过于局限，只适用于使用 v2 manifest 的 chrome 插件 |
 | 直接获取域名对应的 favicon 图标 | ![](https://www.github.com/favicon.ico) | `https://<domain>/favicon.ico` | ❌ | ❌ | 简单 | 遇到自定义地址就躺 |
-| 脚本 | 无 | 无 | ❌ | ⭕️ | 不依赖于外部服务，自食其力 | 需要开发成本，需要后端开发去获取 |
+| 后端获取 | 无 | 无 | ❌ | ⭕️ | 不依赖于外部服务，自食其力 | 需要开发成本，需要后端开发去获取 |
 
 ## 参考资料
 

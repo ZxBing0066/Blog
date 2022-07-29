@@ -1,5 +1,5 @@
 ---
-tags: [FAQ]
+tags: []
 ---
 
 # Mac iTerm2 跟随系统主题自动切换

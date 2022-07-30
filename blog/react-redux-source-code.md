@@ -1,3 +1,7 @@
+---
+tags: [源码, react, redux]
+---
+
 # React-Redux 源码解析
 
 此处源码版本为：`720f0ba`

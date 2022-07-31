@@ -70,7 +70,7 @@ jobs:
 
 ## 原因
 
-一般我们在 action 中都会先使用 checkout 来检出代码，然后进行操作，`checkout action` 在检出代码时默认只检出当前事件触发的 commit，而不是所有的 commit，从而导致 history 的丢失。参考 checkout 中的 fetch-depth 说明，如果没有指定 fetch-depth，默认为 1，即只检出最近的一次 commit。
+一般我们在 action 中都会先使用 checkout 来检出代码，然后进行操作，`checkout action` 在检出代码时默认只检出当前事件触发的 commit，而不是所有的 commit，从而导致 history 的丢失。参考 checkout 中的 fetch-depth 说明，如果没有指定 fetch-depth，默认为 1，即只检出最近的一次 commit（参考 git clone --depth 参数）。
 
 ```yml
 # Number of commits to fetch. 0 indicates all history for all branches and tags.

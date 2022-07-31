@@ -50,7 +50,7 @@ export const useWorker = <T extends (...fnArgs: any[]) => any>(fn: T, options: O
 ];
 ```
 
-在看下实现，`useWorker` 包含一个 `state workerStatus`，默认为 `PENDING`。
+再看下实现，`useWorker` 包含一个 `state workerStatus`，默认为 `PENDING`。
 
 包含四个 `ref`：
 
@@ -195,7 +195,7 @@ const blob = new Blob([blobCode], { type: 'text/javascript' });
 const url = URL.createObjectURL(blob);
 ```
 
-显示将 `jobRunner、fn、transferable` 拼接成一段方法字符串，然后创建 `blob` 并将其转换为 `url`。
+先是将 `jobRunner、fn、transferable` 拼接成一段方法字符串，然后创建 `blob` 并将其转换为 `url`。
 
 `jobRunner` 会调用 `fn`，然后将 `fn` 返回的结果和状态通过 `postMessage` 发送给主线程，主线程会触发 `onmessage`，调用 `promiseRef` 返回结果 和调用 `onWorkerEnd`。`onWorkerEnd` 会按照 `autoTerminate` 参数决定是否需要在完成任务后自动销毁 `worker`。
 
@@ -203,7 +203,7 @@ const url = URL.createObjectURL(blob);
 
 ### 兼容处理
 
-然而没发现兼容相关的代码。`useWorker` 使用到了 `createObjectURL` 和 `Worker`，当然这俩兼容性还可以，兼容的 `IE 10`。如果不放心可以主动做个降级：
+然而没发现兼容相关的代码。`useWorker` 使用到了 `createObjectURL` 和 `Worker`，当然这俩兼容性还可以，兼容到 `IE 10`。如果不放心可以主动做个降级：
 
 ```ts
 const runSort = async () => {

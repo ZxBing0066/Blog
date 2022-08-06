@@ -78,6 +78,12 @@ jobs:
 fetch-depth: ''
 ```
 
+其实该参数就是 git clone 中的 depth 参数，可以看下 git 中关于该参数的说明：
+
+> Create a *shallow* clone with a history truncated to the specified number of commits. Implies `--single-branch` unless `--no-single-branch` is given to fetch the histories near the tips of all branches. If you want to clone submodules shallowly, also pass `--shallow-submodules`.
+
+简单理解说就是浅 clone 指定数量的 commit，主要是为了用来减轻服务器压力的，因为一般在 CI/CD 中无需关注历史记录，只需要关注最新的状态即可，所以默认都是只浅 clone 最近的一次 commit。有兴趣的同学可以尝试下使用 --depth 参数来 clone 一些比较流行的开源库，如 React、babel 等，可以明显感觉到差距。
+
 ## 相关问题
 
 除了上面说的历史记录丢失的问题外，在 pull request 中还存在另一个问题：log 中最近的一条记录为一条不存在的 commit，类似 `xxx Merge xxx into xxx`，原因是 pull request 中会创建一个新的 merge commit，如果需要 head branch 的 log，可以添加 ref 参数：

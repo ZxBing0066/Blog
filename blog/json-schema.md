@@ -133,7 +133,7 @@ definitions 一般用于定义一些复杂类型，方便在 schema 中复用定
 }
 ```
 
-$ref 代表此处定义为引用，属性为引用的地址，# 为该 schema 文件的根，此处即为引用 definitions 中 name 的定义。
+`$ref` 代表此处定义为引用，属性为引用的地址，# 为该 schema 文件的根，此处即为引用 definitions 中 name 的定义。
 
 然后我们便可在 json 文件中使用我们刚刚定义的 schema：
 
@@ -152,6 +152,11 @@ $ref 代表此处定义为引用，属性为引用的地址，# 为该 schema �
 ## 总结
 
 JSON schema 可以用来规范我们的配置文件，借助 IDE 的智能提示还能降低我们编写配置文件的成本，如果存在这方面的需求，赶紧用起来吧。
+
+## 参考
+
+-   [JSON Schema](https://json-schema.org/)
+-   [Understanding JSON Schema](https://json-schema.org/understanding-json-schema/)
 
 ## 关键字
 

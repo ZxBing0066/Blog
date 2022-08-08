@@ -156,7 +156,7 @@
 ## 参考
 
 -   [JSON Schema](https://json-schema.org/)
--   [Understanding JSON` `Schema](https://json-schema.org/understanding-json-schema/)
+-   [Understanding JSON Schema](https://json-schema.org/understanding-json-schema/)
 
 ## 关键字
 

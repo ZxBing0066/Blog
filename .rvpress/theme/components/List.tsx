@@ -49,11 +49,12 @@ const PageList = () => {
                 }
                 page.frontmatter.tags = tags;
                 console.log(page.relativePath);
-                
+
                 return (
                     !page.frontmatter.list &&
                     !page.frontmatter.home &&
                     !page.relativePath.match(/^wip\//) &&
+                    !page.relativePath.match(/^work\//) &&
                     !page.frontmatter.ignoreInList &&
                     (!tag || page.frontmatter.tags.includes(tag))
                 );

@@ -1,5 +1,7 @@
 # try catch 代码性能测试
 
+从
+
 ```js
 (() => {
     const a = 1,

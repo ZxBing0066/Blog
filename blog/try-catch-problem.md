@@ -30,6 +30,26 @@ try {
 }
 ```
 
+当然，你如果一定要省略 `error`，可以这么写：
+
+```js
+try {
+    throw new Error('test');
+} catch {
+    console.error('error');
+}
+```
+
+直接连同括号一起省略即可（来自评论区），不过有一定兼容问题，`babel` 兼容转译后会转换为：
+
+```js
+try {
+  throw new Error("test");
+} catch (_unused) {
+  console.error("error");
+}
+```
+
 ## 第二题
 
 ```js

@@ -2,7 +2,7 @@
 
 制作了一个马赛克图片转换器，可以将图片转换成马赛克风格，并可转换为 `css box-shadow` 进行输出。前排先放效果图、转换器地址和 `GitHub` 地址：
 
-![picture 1](/public/image/blog-mosaic-converter-44.gif)
+![picture 1](/image/blog-mosaic-converter-44.gif)
 
 转化器地址：https://mosaic.heyfe.org/
 
@@ -12,15 +12,15 @@
 
 转换器会将传入的图片转换为马赛克风格，并将马赛克风格的图片以 `box-shadow` 进行转换，借助 `box-shadow`，我们可以直接用 `css` 来渲染该图片，且可以通过 `box-shadow` 的一些特性来达成一些比较好玩的效果，比如用间隙来加重马赛克风格：
 
-![picture 2](/public/image/blog-mosaic-converter-84.png)
+![picture 2](/image/blog-mosaic-converter-84.png)
 
 或者直接将间隙拉到顶，达成类似点阵图的效果：
 
-![picture 3](/public/image/blog-mosaic-converter-55.png)
+![picture 3](/image/blog-mosaic-converter-55.png)
 
 又或者借助 `border-radius`，实现圆点图效果：
 
-![picture 4](/public/image/blog-mosaic-converter-71.png)
+![picture 4](/image/blog-mosaic-converter-71.png)
 
 制作出想要的效果后，可以在右侧点击 `复制 box-shadow 样式` 按钮复制其样式。
 

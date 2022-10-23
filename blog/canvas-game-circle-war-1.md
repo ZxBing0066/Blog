@@ -1,6 +1,6 @@
 # 从 0 手撸 canvas 小游戏：圆圆战争 - 游戏设计、canvas 基础绘制篇
 
-决定从 0 开始手撸一只 canvas 小游戏，游戏设定为一只圆之国的国王，惨遭万圆围攻，只得拿起王家镇国之宝 - 圆之枪守卫王国的故事。
+决定从 0 开始手撸一只 `canvas` 小游戏，游戏设定为一只圆之国的国王，惨遭万圆围攻，只得拿起王家镇国之宝 - 圆之枪守卫王国的故事。
 
 本游戏中主要的三个元素：圆之国的国王简称圆王、圆王发射出的子弹、进攻的敌人，为了呼应游戏名称，所有的出场元素全都是圆形（其实是懒得找素材）。
 
@@ -8,7 +8,7 @@
 
 https://code.juejin.cn/pen/7157665779939278884
 
-前排提醒，因为码上掘金编辑器不支持 class properties 特性，所以只能将 class 中的 `hp=100` 改为 `hp:number;`，然后在 constructor 中赋值。
+前排提醒，因为码上掘金编辑器不支持 `class properties` 特性，所以只能将 `class` 中的 `hp=100` 改为 `hp:number;`，然后在 `constructor` 中赋值。
 
 ## 代码结构设计
 
@@ -32,7 +32,7 @@ class King {
 }
 ```
 
-先看圆王，由于圆王可以发射子弹，所以我们再下面先添加上子弹列表，然后还有 draw，可以等价认为是 React 组件中的 render，每次更新视图，我们就调用 draw 来进行绘制。
+先看圆王，由于圆王可以发射子弹，所以我们再下面先添加上子弹列表，然后还有 `draw`，可以等价认为是 `React` 组件中的 `render`，每次更新视图，我们就调用 `draw` 来进行绘制。
 
 ```ts
 class Bullet {
@@ -83,11 +83,11 @@ class Enemy {
 }
 ```
 
-敌人同样需要移动和绘制，所以也需要速度、坐标等属性，然后使用 draw 来绘制，使用 move 来移动
+敌人同样需要移动和绘制，所以也需要速度、坐标等属性，然后使用 `draw` 来绘制，使用 `move` 来移动
 
 ## 图形绘制
 
-我们再来看下 canvas 中如何绘制圆形：
+我们再来看下 `canvas` 中如何绘制圆形：
 
 ```ts
 function drawCircle(cx: number, cy: number, radius: number, color: string, shadow?: string) {
@@ -100,7 +100,7 @@ function drawCircle(cx: number, cy: number, radius: number, color: string, shado
 }
 ```
 
-canvas 中绘制圆形需要使用 arc 来绘制，其中 cx 和 cy 为圆形的坐标，radius 则为圆形的半径，`2 * Math.PI` 则表示圆弧的角度为 360 度。为了让圆看起来没那么生硬，增加了阴影。
+`canvas` 中绘制圆形需要使用 `arc` 来绘制，其中 `cx` 和 `cy` 为圆形的坐标，`radius` 则为圆形的半径，`2 * Math.PI` 则表示圆弧的角度为 `360` 度。为了让圆看起来没那么生硬，增加了阴影。
 
 https://code.juejin.cn/pen/7157652212641562628
 
@@ -138,7 +138,7 @@ const game = {
 };
 ```
 
-我们将圆王、敌人和子弹全部挂在 game 对象下，然后通过 requestAnimationRequest 调用 loop，在 loop 中执行 draw 和 move，这样就可以完成子弹和敌人的移动。
+我们将圆王、敌人和子弹全部挂在 `game` 对象下，然后通过 `requestAnimationRequest` 调用 `loop`，在 `loop` 中执行 `draw` 和 `move`，这样就可以完成子弹和敌人的移动。
 
 ## 结语
 

@@ -67,7 +67,7 @@ Here are some ideas to get you started:
 
 除了使用上述模版二次定制外，`profile` 还可以使用一些有趣的模块，比如常见的各大开源项目中使用的 `badge`，或是一些特色的 `profile` 模块。
 
-`badge` 模块：
+### `badge` 模块
 
 -   https://shields.io/
 
@@ -77,15 +77,13 @@ Here are some ideas to get you started:
 
 ![badgen](https://badgen.net/badge/icon/windows?icon=windows&label)
 
----
-
-`waka` 时间展示：
+### `waka` 时间展示
 
 https://github.com/marketplace/actions/waka-readme
 
----
+### github-profile-trophy
 
-展示 `GitHub stars` 等信息：
+展示 `GitHub stars` 等信息
 
 -   https://github.com/ryo-ma/github-profile-trophy
 
@@ -95,13 +93,19 @@ https://github.com/marketplace/actions/waka-readme
 
 [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=anuraghazra)](https://github.com/anuraghazra/github-readme-stats)
 
----
+### 有趣的 snk
 
-还有将你的 `GitHub contributions` 绘制成贪吃蛇游戏，十分有趣：
+snk 可以将你的 `GitHub contributions` 绘制成贪吃蛇游戏，十分有趣：
 
 https://github.com/Platane/snk
 
 ![snk](https://raw.githubusercontent.com/zxbing0066/zxbing0066/output/github-contribution-grid-snake.svg#gh-light-mode-only)
+
+### profile views
+
+可以展示 profile 的访问量
+
+![](https://komarev.com/ghpvc/?username=your-github-username&style=flat-square)
 
 ## 技巧
 

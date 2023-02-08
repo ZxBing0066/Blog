@@ -131,11 +131,11 @@ const createPanel = () => {
 
 好了，我们看下效果。
 
-![picture 5](/image/blog-three-js-rabbit-2-48.gif)
+![picture 6](/image/blog-three-js-rabbit-2-8.gif)
 
 ## 最后
 
 本篇我们介绍了通过 GUI 方便的开发调试 three.js，此外还介绍了如何更新 scale、rotateY、background 以及如何切换动画。当然 GUI 库本身并不局限于 three.js 场景下，如果你的其他应用程序也存在此类调试场景，也可以直接使用。
 
--   源码地址: https://github.com/ZxBing0066/playground-public/tree/master/three-js-rabbit-1
--   预览地址：https://playground.heyfe.org/three-js-rabbit-1/
+-   源码地址: https://github.com/ZxBing0066/playground-public/tree/master/three-js-rabbit-2
+-   预览地址：https://playground.heyfe.org/three-js-rabbit-2/

@@ -2,15 +2,15 @@
 
 上一篇我们聊了关于在 three.js 如何使用模型快速渲染出一只兔子，以及 three.js 中的一些基础知识，这篇我们聊聊怎么简单的让兔子模型动起来。
 
-![picture 3](/image/blog-three-js-rabbit-1-32.gif)
+![picture 5](/image/blog-three-js-rabbit-1-43.gif)
 
 ## 模型动画
 
 一般而言模型中都保存有内置动画，而要调用这些内置动画我们需要取出其中的动画信息，调用合成器进行动画合成。
 
-为了展示动画切换效果，本次使用的模型是：[兔子模型](https://sketchfab.com/3d-models/rabbit-caba07ca532947858ab66b65879cc105)
+为了展示动画效果，本次使用的模型是：[兔子模型](https://sketchfab.com/3d-models/rabbit-rigged-e7213589744d436b9d96e2dbb31198a5)
 
-![picture 1](/image/blog-three-js-rabbit-1-47.png)
+![picture 4](/image/blog-three-js-rabbit-1-62.png)
 
 ```ts
 loader.load(
@@ -50,7 +50,7 @@ loader.load(
     function (gltf) {
         mixer = new THREE.AnimationMixer(gltf.scene);
 
-        [idleAction, walkAction] = [mixer.clipAction(animations[0]), mixer.clipAction(animations[1])];
+        walkAction = mixer.clipAction(animations[0]);
         walkAction.play();
         render();
     },

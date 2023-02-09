@@ -59,7 +59,19 @@ if (!(Get-NetFirewallRule -Name "OpenSSH-Server-In-TCP" -ErrorAction SilentlyCon
 }
 ```
 
-### 可能的错误和处理
+## 可能的错误和处理
+
+### `Add-WindowsCapability failed. Error code - 0x800f0954`
+
+![picture 2](/image/blog-vscode-remote-ssh-61.png)
+
+解决方案：
+
+1. 运行 `gpedit.msc` 打开策略组编辑器
+2. 打开 `Computer Configuration\Administrative Templates\System\Specify settings for optional component installation and component repair`，中文对应 `计算机配置\管理模版\系统\指定可选组件安装和组件修复的设置`。![picture 3](/image/blog-vscode-remote-ssh-28.png)
+3. 将其修改为启用后重新尝试。
+
+参考链接：https://social.technet.microsoft.com/Forums/en-US/42bfdd6e-f191-4813-9142-5c86a2797c53/windows-10-1809-rsat-toolset-error-code-of-0x800f0954?forum=win10itprogeneral
 
 ## 配置
 

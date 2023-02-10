@@ -61,4 +61,8 @@
 
 ### cypress 白屏
 
-一般是 chrome 启动失败，可参考 Chrome 安装处成功安装并启动 Chrome 后再试。
+一般是 Chrome 启动失败，可参考 Chrome 安装处成功安装并启动 Chrome 后再试。
+
+### Timed out waiting for the browser to connect
+
+一般也是由于 Chrome 启动失败，导致 cypress 无法连接 Chrome。

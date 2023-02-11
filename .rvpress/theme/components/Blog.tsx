@@ -7,7 +7,7 @@ import BlogTime from './BlogTime';
 import Tags from './Tags';
 import TOC from './TOC';
 
-const DiscussionEmbed = React.lazy(async () => ({ default: (await import('disqus-react')).DiscussionEmbed }));
+const Giscus = React.lazy(() => import('@giscus/react'));
 
 const Blog = () => {
     const { page } = useData();
@@ -27,17 +27,20 @@ const Blog = () => {
             </div>
             {typeof location === 'undefined' ? null : (
                 <Suspense fallback={null}>
-                    <DiscussionEmbed
-                        shortname='zxbing0066-blog'
-                        config={{
-                            url: 'https://blog.heyfe.org' + location.pathname,
-                            identifier: location.pathname
-                                .replace(/^\//, '')
-                                .replace(/\.html$/, '')
-                                .replace(/\//g, '--'),
-                            title: page.title,
-                            language: 'zh_CN'
-                        }}
+                    <Giscus
+                        id='comments'
+                        repo='ZxBing0066/Blog'
+                        repoId='MDEwOlJlcG9zaXRvcnkyMzg2Nzc5OA=='
+                        category='Q&A'
+                        categoryId='DIC_kwDOAWwxls4CUI_l'
+                        mapping='pathname'
+                        strict='0'
+                        reactionsEnabled='1'
+                        emitMetadata='0'
+                        inputPosition='bottom'
+                        // theme='preferred_color_scheme'
+                        theme='light'
+                        lang='zh-CN'
                     />
                 </Suspense>
             )}

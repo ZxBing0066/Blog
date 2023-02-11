@@ -8,7 +8,7 @@ specifiers:
   disqus-react: ^1.1.3
   firebase: ^9.6.10
   prop-types: ^15.8.1
-  rvpress: ^0.1.9
+  rvpress: ^0.1.10
 
 dependencies:
   '@giscus/react': 2.2.6
@@ -18,9 +18,9 @@ dependencies:
   prop-types: 15.8.1
 
 devDependencies:
-  '@rvpress/theme-blog': 0.1.2_rvpress@0.1.9
+  '@rvpress/theme-blog': 0.1.2_rvpress@0.1.10
   '@types/react': 17.0.41
-  rvpress: 0.1.9_@types+react@17.0.41
+  rvpress: 0.1.10_@types+react@17.0.41
 
 packages:
 
@@ -995,12 +995,12 @@ packages:
       picomatch: 2.3.1
     dev: true
 
-  /@rvpress/theme-blog/0.1.2_rvpress@0.1.9:
+  /@rvpress/theme-blog/0.1.2_rvpress@0.1.10:
     resolution: {integrity: sha512-cyNwbOG9MoQGuXLNiZmleM99vrx0tJ5S6jEjGj6f30QRGfwzhw5tB0TVxRrxH1yy31jG3HkAogJu8OMYIUvPlw==}
     peerDependencies:
       rvpress: 0.1.5
     dependencies:
-      rvpress: 0.1.9_@types+react@17.0.41
+      rvpress: 0.1.10_@types+react@17.0.41
     dev: true
 
   /@types/long/4.0.1:
@@ -1898,8 +1898,8 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /rvpress/0.1.9_@types+react@17.0.41:
-    resolution: {integrity: sha512-IvSgaso62h+CnSFEeMas0h6igwqIjp3ZmehbbadIdnEjPRb7oz/PNUGqtU6+StR+jh/PmuG+sO2uPQetIU0IFQ==}
+  /rvpress/0.1.10_@types+react@17.0.41:
+    resolution: {integrity: sha512-0BWXIoga4EJOZgFjgGXTzVAZbtzTE8fecCqsEJDAh3Ic5lgFWk6Xgp4QHfeHt/eNpVNTMhbQj35Kg3OBscj/Ew==}
     engines: {node: '>=12.0.0'}
     hasBin: true
     dependencies:

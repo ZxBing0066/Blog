@@ -24,7 +24,7 @@
   "devDependencies": {
     "@rvpress/theme-blog": "^0.1.2",
     "@types/react": "^17.0.40",
-    "rvpress": "^0.1.9"
+    "rvpress": "^0.1.10"
   },
   "dependencies": {
     "@giscus/react": "^2.2.6",

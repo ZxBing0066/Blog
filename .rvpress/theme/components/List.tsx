@@ -48,8 +48,6 @@ const PageList = () => {
                     tags = tags.split(/[\s,]+/);
                 }
                 page.frontmatter.tags = tags;
-                console.log(page.relativePath);
-
                 return (
                     !page.frontmatter.list &&
                     !page.frontmatter.home &&

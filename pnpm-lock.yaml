@@ -8,19 +8,23 @@ specifiers:
   disqus-react: ^1.1.3
   firebase: ^9.6.10
   prop-types: ^15.8.1
-  rvpress: ^0.1.10
+  react: ^17.0.2
+  react-dom: ^17.0.2
+  rvpress: ^0.1.11
 
 dependencies:
-  '@giscus/react': 2.2.6
+  '@giscus/react': 2.2.6_sfoxds7t5ydpegc3knd667wn6m
   css-doodle: 0.26.3
-  disqus-react: 1.1.3
+  disqus-react: 1.1.3_sfoxds7t5ydpegc3knd667wn6m
   firebase: 9.6.10
   prop-types: 15.8.1
+  react: 17.0.2
+  react-dom: 17.0.2_react@17.0.2
 
 devDependencies:
-  '@rvpress/theme-blog': 0.1.2_rvpress@0.1.10
+  '@rvpress/theme-blog': 0.1.2_rvpress@0.1.11
   '@types/react': 17.0.41
-  rvpress: 0.1.10_@types+react@17.0.41
+  rvpress: 0.1.11_@types+react@17.0.41
 
 packages:
 
@@ -889,13 +893,15 @@ packages:
     resolution: {integrity: sha512-9FqhNjKQWpQ3fGnSOCovHOm+yhhiorKEqYLAfd525jWavunDJcx8rOW6i6ozAh+FbwcYMkL7b+3j4UR/30MpoQ==}
     dev: false
 
-  /@giscus/react/2.2.6:
+  /@giscus/react/2.2.6_sfoxds7t5ydpegc3knd667wn6m:
     resolution: {integrity: sha512-qGjikDm7euLOCfMPn500d7F3UIl/qI55/dWF4ALC5Fo/7i5qktKCAwy6/zop93PjP0hJL6mi54K6x36SyvaLyQ==}
     peerDependencies:
       react: ^16 || ^17 || ^18
       react-dom: ^16 || ^17 || ^18
     dependencies:
       giscus: 1.2.6
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
     dev: false
 
   /@grpc/grpc-js/1.6.2:
@@ -995,12 +1001,12 @@ packages:
       picomatch: 2.3.1
     dev: true
 
-  /@rvpress/theme-blog/0.1.2_rvpress@0.1.10:
+  /@rvpress/theme-blog/0.1.2_rvpress@0.1.11:
     resolution: {integrity: sha512-cyNwbOG9MoQGuXLNiZmleM99vrx0tJ5S6jEjGj6f30QRGfwzhw5tB0TVxRrxH1yy31jG3HkAogJu8OMYIUvPlw==}
     peerDependencies:
       rvpress: 0.1.5
     dependencies:
-      rvpress: 0.1.10_@types+react@17.0.41
+      rvpress: 0.1.11_@types+react@17.0.41
     dev: true
 
   /@types/long/4.0.1:
@@ -1224,11 +1230,14 @@ packages:
       ms: 2.1.2
     dev: true
 
-  /disqus-react/1.1.3:
+  /disqus-react/1.1.3_sfoxds7t5ydpegc3knd667wn6m:
     resolution: {integrity: sha512-DwKdmbHTMPyhBECBeRYAPNcIqZNKMvsRiyVdF89BdmFCbZpWb7+xMj/lvAuckBSx1ilOHpTKYYyW11uodaJ6ig==}
     peerDependencies:
       react: ^15.6.1 || ^16.0.0 || ^17.0.0 || ^18.0.0
       react-dom: ^15.6.1 || ^16.0.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
     dev: false
 
   /electron-to-chromium/1.4.75:
@@ -1831,7 +1840,6 @@ packages:
       object-assign: 4.1.1
       react: 17.0.2
       scheduler: 0.20.2
-    dev: true
 
   /react-is/16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
@@ -1848,7 +1856,6 @@ packages:
     dependencies:
       loose-envify: 1.4.0
       object-assign: 4.1.1
-    dev: true
 
   /readable-stream/2.3.7:
     resolution: {integrity: sha512-Ebho8K4jIbHAxnuxi7o42OrZgF/ZTNcsZj6nRKyUmkhLFq8CHItp/fy6hQZuZmP/n3yZ9VBUbp4zz/mX8hmYPw==}
@@ -1898,8 +1905,8 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /rvpress/0.1.10_@types+react@17.0.41:
-    resolution: {integrity: sha512-0BWXIoga4EJOZgFjgGXTzVAZbtzTE8fecCqsEJDAh3Ic5lgFWk6Xgp4QHfeHt/eNpVNTMhbQj35Kg3OBscj/Ew==}
+  /rvpress/0.1.11_@types+react@17.0.41:
+    resolution: {integrity: sha512-inz7M6UaXAFSvcij7wu4iVaU8oCbwydfgDkxDUkt75Z/nB/01ufJ/FG7unxKHROybzJTflKL6FWgkVqqFe215A==}
     engines: {node: '>=12.0.0'}
     hasBin: true
     dependencies:
@@ -1938,7 +1945,6 @@ packages:
     dependencies:
       loose-envify: 1.4.0
       object-assign: 4.1.1
-    dev: true
 
   /selenium-webdriver/4.0.0-rc-1:
     resolution: {integrity: sha512-bcrwFPRax8fifRP60p7xkWDGSJJoMkPAzufMlk5K2NyLPht/YZzR2WcIk1+3gR8VOCLlst1P2PI+MXACaFzpIw==}

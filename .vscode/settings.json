@@ -3,5 +3,5 @@
         "frontmatter"
     ],
     "markdown-image.base.fileNameFormat": "${path}-${mdname}-${rand,100}",
-    "markdown-image.local.path": "/public/image"
+    // "markdown-image.local.path": "/public/image"
 }

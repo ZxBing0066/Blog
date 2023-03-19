@@ -257,9 +257,9 @@ UMD 中也可以添加 CMD 的支持，不过由于前端的发展，CMD 已经�
 
 而随着 ES 标准的更新，逐渐出现了原生的模块化语法 ES Modules。
 
-import 支持两种语法
+`import` 支持两种语法
 
-#### 静态声明 import 'module'
+#### 静态声明 `import 'module'`
 
 首先是作为静态声明
 
@@ -304,7 +304,7 @@ setInterval(() => {
 }, 1000);
 ```
 
-#### 动态导入 import('module')
+#### 动态导入 `import('module')`
 
 同时 import 也支持动态导入模块
 

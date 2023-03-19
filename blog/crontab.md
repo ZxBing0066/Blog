@@ -81,7 +81,7 @@ crontab 一般为 5 位，分别表示 `minute hour day(month) month day(week)`�
 
 ## 工具
 
-crontab 如果格式记不住也可以借助一些在线工具，比如：https://crontab.guru/ 或 https://tool.lu/crontab/，可以在线编辑和看到 crontab 的定义。
+crontab 如果格式记不住也可以借助一些在线工具，比如：https://crontab.guru/ 或 https://tool.lu/crontab/ ，可以在线编辑和看到 crontab 的定义。
 
 ## 参考链接
 

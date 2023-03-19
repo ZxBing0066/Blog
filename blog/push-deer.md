@@ -50,6 +50,8 @@ PushDeer 还支持图片类型和 markdown 类型消息，具体的参数如下�
 
 ## 最后
 
+PushDeer 除了上述的消息发送 API 外还提供了大量其他的 API，具体的可参考： https://www.pushdeer.com/dev.html 。
+
 PushDeer 作为一个消息推送服务，满足我目前的所有需求：跨平台、免费、无限制。
 
 ## 参考链接

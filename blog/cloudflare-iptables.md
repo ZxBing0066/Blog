@@ -1,21 +1,21 @@
-# cloudflare 配合 iptables 屏蔽未知流量
+# Cloudflare 配合 iptables 屏蔽未知流量
 
-由于我的机器的 Web 服务在 cloudflare 后面，然而通过 IP 也可以直接访问，感觉有些不太安全。由于我的服务都开启了 cloudflare proxy，于是决定直接把从非 cloudflare 的流量直接屏蔽掉，这就可以借助 iptables 来进行。
+由于我的机器的 Web 服务在 Cloudflare 后面，然而通过 IP 也可以直接访问，感觉有些不太安全。由于我的服务都开启了 Cloudflare proxy，于是决定直接把从非 Cloudflare 的流量直接屏蔽掉，这就可以借助 iptables 来进行。
 
 简单的说要达到上述的效果只需要两条 iptables 规则：
 
--   一条放行来自 cloudflare IP 的流量的规则
+-   一条放行来自 Cloudflare IP 的流量的规则
 -   一条禁止其它 IP 的流量的规则
 
-然后到 cloudflare 找到了 [allow-cloudflare-ip-addresses](https://developers.cloudflare.com/fundamentals/get-started/setup/allow-cloudflare-ip-addresses/) 这篇文章，里面有较为详细的说明。
+然后到 Cloudflare 找到了 [allow-cloudflare-ip-addresses](https://developers.cloudflare.com/fundamentals/get-started/setup/allow-cloudflare-ip-addresses/) 这篇文章，里面有较为详细的说明。
 
 ## 实操
 
-针对 IPV4 为例，我们首先在 https://www.cloudflare.com/ips-v4 可以找到 cloudflare 所有的 ipv4 的记录。
+针对 IPV4 为例，我们首先在 https://www.cloudflare.com/ips-v4 可以找到 Cloudflare 所有的 ipv4 的记录。
 
 要实现上述效果我们只需要所有的 ip 全部拼接成字符串，然后通过 iptables 添加对应规则 `iptables -I INPUT -p tcp -m multiport --dports http,https -s $ip -j ACCEPT`，修改后记得使用 iptables-save 将其保存到 rules 文件中，也可以直接修改 `/etc/iptables/rules.v4` 文件中的规则。此处的 `$ip` 就是我们上面整理好的 ip 列表变量，可以手动替换，也可以直接通过 shell 添加变量。
 
-通过上述规则，现在所有来自 cloudflare 的流量就可以直接通过了，然后我们再进行第二步：禁止其它流量通过。我们只需要再使用 iptables 添加一条新的 DROP 规则即可： `iptables -A INPUT -p tcp -m multiport --dports http,https -j DROP`。这样所有的 http 和 https 请求都会被 iptables 拦截并抛弃。
+通过上述规则，现在所有来自 Cloudflare 的流量就可以直接通过了，然后我们再进行第二步：禁止其它流量通过。我们只需要再使用 iptables 添加一条新的 DROP 规则即可： `iptables -A INPUT -p tcp -m multiport --dports http,https -j DROP`。这样所有的 http 和 https 请求都会被 iptables 拦截并抛弃。
 
 做完上述操作一定要注意：
 

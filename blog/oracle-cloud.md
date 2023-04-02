@@ -47,3 +47,7 @@ sudo iptables-restore < /etc/iptables/rules.v4
 
 1. iptables 哪怕将其服务关闭后规则依然会生效（不能确定，从现象中来说是这样，GPT 的回答中解释是因为规则已经写入内核，与服务无关），只有修改规则后重新生效才能影响到现有规则。
 2. iptables-save 用于将使用 iptables 命令修改的 iptables 规则存储到规则文件中，但是无法令其生效。
+
+## 参考资料
+
+-   https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm

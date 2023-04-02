@@ -87,11 +87,11 @@ https://github.com/marketplace/actions/waka-readme
 
 -   https://github.com/ryo-ma/github-profile-trophy
 
-[![trophy](https://github-profile-trophy.vercel.app/?username=ryo-ma)](https://github.com/ryo-ma/github-profile-trophy)
+![trophy](https://github-profile-trophy.vercel.app/?username=ryo-ma)
 
 -   https://github.com/anuraghazra/github-readme-stats
 
-[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=anuraghazra)](https://github.com/anuraghazra/github-readme-stats)
+![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=anuraghazra)
 
 ### 有趣的 snk
 

@@ -133,3 +133,11 @@ map $http_upgrade $connection_upgrade {
 ### 没有 GPU 怎么办
 
 没有 GPU 时在启动时需要添加 `--skip-torch-cuda-test --no-half --use-cpu all` 这几个参数，关闭 CUDA 并强制开启使用 CPU。
+
+### Mac 报错： have 'arm64', need 'x86_64'
+
+一般这种情况下是安装了 arm 版的 homebrew，导致安装的其他依赖包也是 arm 版本，而有些依赖包没有 arm 版本就会造成依赖缺失，所以遇到后需要检查自己的 homebrew 版本并切换成 x86 版本并重新安装依赖。
+
+## 注意
+
+**最后一定要注意：在调试时出现问题需要重新安装依赖时，一定、一定、一定要记得先清理干净 WebUI 目录下的缓存，比如 `__pycache__`、`venv` 这几个目录，否则会一直使用缓存中的配置。**

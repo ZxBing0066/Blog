@@ -102,3 +102,7 @@ Token 我们需要去 [GitHub 设置](https://github.com/settings/tokens) 中去
 ### 上传没有反应
 
 开发者面板会出现 `Get 0 Images` 的提示。大概率是由于你的剪切板中没有可粘贴的图片。
+
+### Remote 时上传失效
+
+当项目为 Remote 项目时，粘贴会不生效，猜测是因为插件运行在 Remote 机器上，访问不了当前机器的剪切板导致的。暂时未找到什么解决方案。

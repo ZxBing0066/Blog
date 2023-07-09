@@ -1,3 +1,7 @@
+---
+tags: [wsl]
+---
+
 # WSL 展示 Linux GUI - VcXsrv
 
 要在 WSL 中使用 cypress 需要依赖于浏览器如 Chrome，而 Chrome 又依赖于 Linux GUI，先看下如何配置 Linux GUI。

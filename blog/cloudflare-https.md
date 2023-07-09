@@ -1,3 +1,7 @@
+---
+tags: [cloudflare]
+---
+
 # Cloudflare 的加密模式配置
 
 Cloudflare 可以免费提供 DNS 服务，此外还可通过配置加密模式为网站强行开启 https。（注意加密模式仅对 Proxy 记录生效）

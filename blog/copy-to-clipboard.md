@@ -1,3 +1,7 @@
+---
+tags: [开源, 源码解析]
+---
+
 # copy-to-clipboard 源码解析，隐藏的内容比想象的要多
 
 本文针对的源码版本为：[193826f](https://github.com/sudodoki/copy-to-clipboard/tree/193826f9859923d4e83c35093f3c436be00a162b)
@@ -155,5 +159,3 @@ reselectPrevious();
 -   style.clip
 
 不过代码依然有优化的空间，如大量引用 mark.style 处可创建引用、随处可见的 debug 可做成预处理函数、兼容方案中 onCopy 行为不一致等。
-
-

@@ -1,3 +1,7 @@
+---
+tags: [javascript, css, 动画]
+---
+
 # 孤陋寡闻了，才知道已经可以用 JS 来控制 CSS 动画了
 
 最近翻 `MDN` 突然发现一套叫 `Web Animations API` 的东东，点进去看才知道，原来是一套控制 `css animation` 的 `API`，而且已经有段时间了 🤦‍♂️，而我居然一直不知道。

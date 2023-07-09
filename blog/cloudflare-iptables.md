@@ -1,3 +1,7 @@
+---
+tags: [cloudflare]
+---
+
 # Cloudflare 配合 iptables 屏蔽未知流量
 
 由于我的机器的 Web 服务在 Cloudflare 后面，然而通过 IP 也可以直接访问，感觉有些不太安全。由于我的服务都开启了 Cloudflare proxy，于是决定直接把从非 Cloudflare 的流量直接屏蔽掉，这就可以借助 iptables 来进行。

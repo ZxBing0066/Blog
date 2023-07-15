@@ -1,5 +1,5 @@
 ---
-tags: [cloudflare]
+tags: [Cloudflare]
 ---
 
 # Cloudflare 的加密模式配置

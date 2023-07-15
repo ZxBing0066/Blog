@@ -1,5 +1,5 @@
 ---
-tags: [cloudflare]
+tags: [Cloudflare]
 ---
 
 # Cloudflare 配合 iptables 屏蔽未知流量

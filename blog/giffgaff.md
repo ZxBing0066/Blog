@@ -1,3 +1,7 @@
+---
+tags: [giffgaff, 瞎折腾]
+---
+
 # giffgaff 申请英国手机卡
 
 前不久在 giffgaff 申请了一张英国的手机卡，这里做下记录。

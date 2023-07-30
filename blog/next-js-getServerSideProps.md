@@ -1,4 +1,10 @@
-# 一起来学 next.js - getServerSideProps 篇
+---
+tags: [next.js, React, SSR]
+summary: 介绍 next.js 中的 getServerSideProps 如何使用，有哪些细节。
+cover: https://stg.heyfe.org/images/blog-next.js-1690694536769.webp
+---
+
+# next.js - getServerSideProps 篇
 
 `getServerSideProps` 是 `next.js` 中的一项特色功能，可以让我们在给页面设置一些初始的 `props` 参数。
 

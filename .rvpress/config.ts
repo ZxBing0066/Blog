@@ -10,6 +10,13 @@ const config: UserConfig<any> = {
             {
                 src: 'https://cdn.jsdelivr.net/npm/pace-js@latest/pace.min.js'
             }
+        ],
+        [
+            'link',
+            {
+                rel: 'shortcut icon',
+                href: 'favicon.svg'
+            }
         ]
     ],
     themeConfig: {

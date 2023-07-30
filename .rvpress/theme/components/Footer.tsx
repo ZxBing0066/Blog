@@ -9,7 +9,7 @@ export default React.memo(() => {
                 <p className='copyright'>
                     © 2014-present{' '}
                     <a href='https://github.com/ZxBing0066' target='_blank'>
-                        ZxBing0066
+                        嘿嘿
                     </a>
                     . All Rights Reserved.
                 </p>

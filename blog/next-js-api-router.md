@@ -1,4 +1,10 @@
-# 一起来学 next.js - API 路由篇
+---
+tags: [next.js, React]
+summary: 介绍 next.js 中的 API 路由设计，动态路由和路由参数等。
+cover: https://stg.heyfe.org/images/blog-next.js-1690694536769.webp
+---
+
+# next.js - API 路由篇
 
 > `next.js` 作为最热门的 `react` 框架，不过这么久了好像国内使用率一直不太高。最近在研究做个小项目正好做下笔记，有兴趣的可以一起来学习。
 
@@ -37,7 +43,7 @@ export default function handler(req, res) {
 除了 `nodejs` 原生中包含的一些属性和方法外，`next` 还在 `res` 中扩展了以下几个常用的方法：
 
 -   `res.status(code)` 响应的 `http` 状态码
--   `res.json(body) json` 响应体
+-   `res.json(body)` `json` 响应体
 -   `res.send(body)` 其它响应体，可以是 `string`、`object`、`Buffer`
 -   `res.redirect([status,] path)` 重定向
 -   `res.revalidate(urlPath)` 重新进行校验

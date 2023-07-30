@@ -1,9 +1,9 @@
-$color-text: #030D17;
-$color-primary: #1661AB;
+$color-text: #030d17;
+$color-primary: #1661ab;
 $color-secondary: #b0d5df;
 $color-border: #dcdcdc;
 $color-background: #fff;
-$color-assist: #FBDA41;
+$color-assist: #fbda41;
 
 $color-warning: #f4ce69;
 $color-danger: #f19790;
@@ -24,6 +24,7 @@ $color-tip: #8fb2c9;
     --color-border-active: #{mix($color-border, $color-primary, 80%)};
     --color-border-primary: #{$color-primary};
     --color-shadow: rgba(24, 120, 179, 0.75);
+    --color-background-t: linear-gradient(var(--color-background), rgba(255, 255, 255, 0.1));
 
     --color-text-tip: #{darken($color-tip, 50%)};
     --color-text-warning: #{darken($color-warning, 50%)};

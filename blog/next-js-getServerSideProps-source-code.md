@@ -1,3 +1,9 @@
+---
+tags: [next.js, React, SSR, 源码解析]
+summary: 解析 next.js 中的 getServerSideProps 相关的源码，SSR 实现等。
+cover: https://stg.heyfe.org/images/blog-next.js-1690694536769.webp
+---
+
 # next.js 源码解析 - getServerSideProps 篇
 
 老规矩，昨天写了关于 `getServerSideProps` 的内容，今天趁热写一下 `getServerSideProps` 相应的源码，看看 `next.js getServerSideProps` 是怎么实现的，还有什么从文档无法知晓的细节。

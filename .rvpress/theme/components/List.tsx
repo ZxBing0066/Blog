@@ -10,13 +10,19 @@ const PageBlock = ({ page }: { page: PageData }) => {
     const href = '/' + page.relativePath.replace(/.md$/, '.html');
     return (
         <div className='page-block'>
-            {/* <div className='page-card'> */}
-            <h2 className='title'>
-                <a href={href}>{page.title}</a>
-            </h2>
-            <Tags page={page} />
-            <BlogTime page={page} />
-            {/* </div> */}
+            <div className='left'>
+                <a href={href} className='cover'>
+                    <img src={page.frontmatter.cover || '/post.png'} alt='cover' />
+                </a>
+            </div>
+            <div className='right'>
+                <a href={href} className='title'>
+                    <h2>{page.title}</h2>
+                </a>
+                <p className='summary'>{page.frontmatter.summary}</p>
+                <Tags page={page} />
+                <BlogTime page={page} />
+            </div>
         </div>
     );
 };
@@ -64,11 +70,48 @@ const PageList = () => {
     return (
         <main className={'list ' + cls.list}>
             <div className='container'>
-                <h1 className='main-title'>Blog</h1>
-                <p className='main-description'>
-                    一个前端程序员的博客 👨🏻‍💻 <span className='cursor'>|</span>
-                </p>
-                {/* <p></p> */}
+                <div className='about-card'>
+                    <img src='/avatar.webp' alt='avatar' className='avatar' />
+                    <div className='introduce'>
+                        👋 你好，我是<b>嘿嘿</b>，一名 👨🏻‍💻。
+                    </div>
+                    <div className='announce'>
+                        你能坚持的只有自己，能改变的也只有自己。<span className='cursor'>|</span>
+                    </div>
+                    <ul className='social-media-list'>
+                        <li>
+                            <a href='https://github.com/ZxBing0066' target='_blank'>
+                                <img src='/github.svg' alt='github' />
+                            </a>
+                        </li>
+                        <li>
+                            <a href='https://juejin.cn/user/219558054997710' target='_blank'>
+                                <img src='/juejin.png' alt='juejin' />
+                            </a>
+                        </li>
+                        <li className='popup'>
+                            <a target='_blank'>
+                                <img src='/weixin.png' alt='weixin' />
+                            </a>
+                            <div className='popover'>
+                                <div className='arrow'></div>
+                                <div className='content'>
+                                    <img src='/weixin-qrcode.jpg' alt='' />
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <a href='https://www.zhihu.com/people/ZxBing0066' target='_blank'>
+                                <img src='/zhihu.svg' alt='zhihu' />
+                            </a>
+                        </li>
+                        <li>
+                            <a href='https://segmentfault.com/u/zxbing0066' target='_blank'>
+                                <img src='/segmentfault.png' alt='segmentfault' />
+                            </a>
+                        </li>
+                    </ul>
+                </div>
                 {tag && <h2 className='subtitle'>Tag: {tag}</h2>}
                 <Content className='content' />
                 <div className='list-wrap'>

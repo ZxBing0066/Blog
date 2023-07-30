@@ -1,3 +1,9 @@
+---
+tags: [next.js, React, 源码解析]
+summary: 解析下 next.js 中 API 路由实现的相关源码，包含打包、dev server、server 相关的部分。
+cover: https://stg.heyfe.org/images/blog-next.js-1690694536769.webp
+---
+
 # next.js 源码解析 - API 路由篇
 
 文章中包含大量源码排查路径相关内容，不感兴趣可直接跳到最后。
@@ -394,7 +400,7 @@ export function interopDefault(mod: any) {
 
 从源码解析我们可以看到文档中没有描绘出来的一些点：
 
--   `next.js` 中的 /`api` 下的请求和 `ssr`、`ssg` 是同一个 `server` 处理，只是 `ssr`、`ssg` 的处理由 `next.js` 内部处理，而 `api` 请求会转交给 `API` 路由文件中的默认函数来处理。
+-   `next.js` 中的 `/api` 下的请求和 `ssr`、`ssg` 是同一个 `server` 处理，只是 `ssr`、`ssg` 的处理由 `next.js` 内部处理，而 `api` 请求会转交给 `API` 路由文件中的默认函数来处理。
 -   `API` 路由文件可以使用 `esm` 模式导出处理函数，也可以使用 `cjs` 导出。
 -   `API` 路由下也可以访问到 `previewData` 和 `preview`，虽然暂不清楚用途是什么。
 -   `cookies`、`previewData` 和 `preview` 结尾 `lazyProp`，只有在访问该属性时才会去挂载。

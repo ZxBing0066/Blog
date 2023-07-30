@@ -1,9 +1,85 @@
-@keyframes menu-button-spin {
+@keyframes colorful {
+    0%,
+    to {
+        fill: black;
+    }
+    12% {
+        fill: red;
+    }
+    24% {
+        fill: orange;
+    }
+    36% {
+        fill: yellow;
+    }
+    48% {
+        font: green;
+    }
+    60% {
+        fill: cyan;
+    }
+    72% {
+        fill: blue;
+    }
+    85% {
+        fill: purple;
+    }
+}
+
+@keyframes rainbow {
     0% {
-        transform: translateZ(0) scale(0.8);
+        fill: #ff0000;
+    }
+    16.666% {
+        fill: #ff7f00;
+    }
+    33.333% {
+        fill: #ffff00;
+    }
+    50% {
+        fill: #00ff00;
+    }
+    66.666% {
+        fill: #0000ff;
+    }
+    83.333% {
+        fill: #4b0082;
     }
     100% {
-        transform: scale(1);
+        fill: #8f00ff;
+    }
+}
+
+@keyframes zoom {
+    0% {
+        height: 24px;
+    }
+    50% {
+        height: 36px;
+    }
+    100% {
+        height: 24px;
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes move {
+    0% {
+        transform: translate(0, 0);
+    }
+    50% {
+        transform: translate(50px, 50px);
+    }
+    100% {
+        transform: translate(0, 0);
     }
 }
 
@@ -14,10 +90,10 @@
     z-index: 10;
     padding: 1em 2em 0;
     margin-bottom: 2em;
-    background-color: var(--color-background);
+    background: var(--color-background-t);
     will-change: border;
     transition: border 0.4s;
-    border-bottom: 1px solid var(--color-background);
+    backdrop-filter: blur(5px);
     &:global(.fixed) {
         border-bottom-color: var(--color-border);
     }
@@ -43,105 +119,17 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 1rem 0;
         }
         .logo {
-            font-size: 1.5rem;
-            text-decoration: none;
+            height: 1.5rem;
         }
-        .nav {
-            display: flex;
-            list-style-type: none;
-
-            .angle-down {
-                height: 0.7em;
-                margin-left: 0.5em;
-            }
-
-            .nav-item {
-                position: relative;
-            }
-
-            .nav-item + .nav-item {
-                margin-left: 1em;
-            }
-
-            .nav-link {
-                display: inline-flex;
-                align-items: center;
-                padding: 0.5em 1em;
-                .icon {
-                    margin-left: 0.3em;
-                }
-                &:not([href]) {
-                    cursor: default;
-                }
-            }
-
-            .nav-link {
-                &:hover {
-                    color: var(--color-text-active);
-                    will-change: color;
-                    transition: width 0.2;
-                    &::after {
-                        width: 100%;
-                    }
-                }
-                &::after {
-                    content: ' ';
-                    width: 0;
-                    will-change: width;
-                    transition: width 0.2s;
-                    display: block;
-                    position: absolute;
-                    bottom: 0;
-                    left: 0;
-                    height: 2px;
-                    background-color: var(--color-border-primary);
-                }
-            }
-
-            .menu-list {
-                display: none;
-                position: absolute;
-                right: 0;
-                top: 100%;
-                padding: 1em;
-                border-radius: 1em;
-                background-color: var(--color-background);
-                box-shadow: 3px 7px 12px 5px rgba(24, 120, 179, 12%);
-                list-style-type: none;
-            }
-            .menu-item {
-                padding: 0.5em 1em;
-                text-align: right;
-                a {
-                    display: inline-block;
-                    width: 100%;
-                    &:hover {
-                        color: var(--color-text-active);
-                    }
-                }
-            }
-
-            .nav-menu {
-                .nav-link {
-                    &::after {
-                        content: none;
-                    }
-                }
-            }
-
-            .nav-menu:hover {
-                .nav-link {
-                    color: var(--color-text-active);
-                }
-                .menu-list {
-                    display: block;
-                    :local {
-                        animation: menu-button-spin 0.2s;
-                    }
-                }
-            }
+        .header-link svg {
+            transition: transform 0.3s;
+            height: 1.5rem;
+        }
+        .header-link:hover svg {
+            transform: scale(1.2) rotateY(360deg);
         }
     }
 }

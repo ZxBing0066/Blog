@@ -1,4 +1,10 @@
-# 简单实现 next.js 的 restful 风格 API handler 封装
+---
+tags: [next.js, React, restful]
+summary: 在使用 next.js 开发时如何方便封装 handler，来实现 restful 风格 API。
+cover: https://stg.heyfe.org/images/blog-next.js-1690694536769.webp
+---
+
+# next.js 中如何实现 restful 风格 API handler 封装
 
 最近在做个 `next.js` 的内部项目，由于 `next.js` 可以通过文件 `API` 路由的方式快速创建一个 `API`，因此选择了使用 `restful` 风格，这样可以利用好 `next.js` 文件路由的优势。
 

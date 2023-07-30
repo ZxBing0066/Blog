@@ -1,4 +1,10 @@
-# 一起来学 next.js - getStaticProps、getStaticPaths 篇
+---
+tags: [next.js, React, SSG, ISR]
+summary: 介绍 next.js 中的 getStaticProps、getStaticPaths 如何使用，SSG 如何实现等。
+cover: https://stg.heyfe.org/images/blog-next.js-1690694536769.webp
+---
+
+# next.js - getStaticProps、getStaticPaths 篇
 
 之前讲过 `next.js` 中的 `getServerSideProps`，今天来讲一讲另一个很类似的 `API`：`getStaticProps`，以及和 `getStaticProps` 紧密相关的 `getStaticPaths`。
 

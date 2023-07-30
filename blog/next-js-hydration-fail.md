@@ -1,4 +1,10 @@
-# 一起来学 next.js - 关闭 SSR 方案及 hydration 错误的原因及解决方案
+---
+tags: [next.js, React, SSR]
+summary: 介绍如何在 next.js 中关闭 SSR，已经常见的 hydration 错误的原因和解决方案。
+cover: https://stg.heyfe.org/images/blog-next.js-1690694536769.webp
+---
+
+# next.js - 如何关闭 SSR 及处理 hydration 错误
 
 今天聊一聊上手 `next.js` 使用中常会出现的一类报错：`hydration fail`，估计大部分使用过 `next.js` 开发的同学对下面的报错信息一定都很熟悉：
 

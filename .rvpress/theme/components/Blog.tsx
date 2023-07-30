@@ -16,10 +16,14 @@ const Blog = () => {
             <div className='container'>
                 <div className='reading-area'>
                     <div className='content-wrap'>
+                        <div className='cover'>
+                            <img src={page.frontmatter.cover || '/post.png'} alt='cover' />
+                        </div>
                         <div className='meta'>
                             <BlogTime page={page} />
                             <Tags page={page} />
                         </div>
+                        <div className="line"></div>
                         <Content className='content' />
                     </div>
                     <TOC />

@@ -1,4 +1,9 @@
-# react-live 源码解读
+---
+tags: [React, 源码解析]
+cover: https://stg.heyfe.org/images/blog-react-1690726283446.png
+---
+
+# react-live 源码解析
 
 `react-live` 是一个 `react` 的实时编辑器，可直接编辑 `react` 代码，并实时预览。可以看下官方的预览图：
 

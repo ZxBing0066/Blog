@@ -1,3 +1,8 @@
+---
+tags: [React]
+cover: https://stg.heyfe.org/images/blog-react-1690726283446.png
+---
+
 # 嗯？你能在 Class 组件下用 hooks？
 
 hooks 的火热程度无需多言，然而我最近逛 GitHub 时发现几年前就有人将 hooks 搬运到 Class 组件下了，一起看看吧。

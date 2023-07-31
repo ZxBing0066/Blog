@@ -1,3 +1,8 @@
+---
+tags: [React, 组件]
+cover: https://stg.heyfe.org/images/blog-react-1690726283446.png
+---
+
 # 写个开源组件库需要知道些什么
 
 本文总结下近几年维护公司开源 React 组件库的一些经验。文章主要分为六部分讲解：

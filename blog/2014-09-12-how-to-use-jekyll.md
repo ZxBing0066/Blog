@@ -1,6 +1,8 @@
 ---
 date: 2014-9-12 22:02:12
-tags: [github, jekyll, blog]
+tags: [GitHub, Jekyll, blog]
+cover: https://stg.heyfe.org/images/blog-2014-09-12-how-to-use-jekyll-1690763385048.png
+summary: Jekyll 是一个由 GitHub 推出的静态页面生成工具，可以方便的搭建 Blog，本文记录如何在 Windows 中进行 Jekyll 的安装。
 ---
 
 # Jekyll on Windows 安装

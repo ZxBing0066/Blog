@@ -1,6 +1,8 @@
 ---
 date: 2014-11-7 10:16:43
 tags: [sublime-text]
+cover: https://stg.heyfe.org/images/blog-2014-11-07-sublime-text-3-1690763493754.png
+summary: SublimeText 是一个轻量的文本编辑器，记录下包管理器、常用插件的安装，常用的命令等。
 ---
 
 # SublimeText3 安装&配置

@@ -1,6 +1,8 @@
 ---
 date: 2014-11-7 21:23:43
 tags: [sublime-text]
+cover: https://stg.heyfe.org/images/blog-2014-11-07-sublime-text-3-1690763493754.png
+summary: PlainTasks 是一个 SublimeText 中的插件，可以让文本当作任务列表来使用。
 ---
 
 # SublimeText PlainTasks 使用教程

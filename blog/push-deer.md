@@ -1,3 +1,8 @@
+---
+tags: [瞎折腾]
+cover: https://stg.heyfe.org/images/blog-push-deer-1690814557259.png
+---
+
 # PushDeer 消息推送服务
 
 PushDeer 是一个好用的跨平台消息推送服务，可以用于进行一些消息推送，客户端支持 iPhone、MacOS、Android。比如自己有一些脚本信息、服务器状态等消息，需要推送消息来让自己知晓时便可以使用。

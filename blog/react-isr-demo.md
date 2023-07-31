@@ -1,5 +1,6 @@
 ---
 tags: [渲染模式, React]
+cover: https://stg.heyfe.org/images/blog-react-isr-demo-1690810719572.png
 ---
 
 # React ISR 如何实现

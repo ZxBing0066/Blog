@@ -1,3 +1,8 @@
+---
+tags: [three.js]
+cover: https://stg.heyfe.org/images/blog-three-js-rabbit-0-1690812321314.png
+---
+
 # three.js 模型动画控制、混合、状态面板
 
 上一篇我们聊了如何使用 GUI 方便我们调试 three.js，本篇聊一聊如何控制模型动画，将多个动画进行混合，以及程序的状态面板。

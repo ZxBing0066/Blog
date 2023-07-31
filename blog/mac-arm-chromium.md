@@ -1,3 +1,8 @@
+---
+tags: [pupeteer]
+cover: https://stg.heyfe.org/images/blog-ubuntu-puppeteer-1690811141540.png
+---
+
 # Mac M1（arm 系列芯片）如何安装 Chromium | Puppeteer
 
 最近写个脚本用到 puppeteer，然后安装 Chromium 出现一点问题，这里记录一下解决方案。

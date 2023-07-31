@@ -26,3 +26,7 @@ export const classnames = (...names: (ObjectClassnames | string | boolean | numb
 export const getPageCreateTime = (page: PageData) => {
     return page.frontmatter.date ? +new Date(page.frontmatter.date) : page.createTime || +new Date();
 };
+
+export const getPageUpdateTime = (page: PageData) => {
+    return page.lastUpdated && page.lastUpdated !== getPageCreateTime(page) ? page.lastUpdated : null;
+};

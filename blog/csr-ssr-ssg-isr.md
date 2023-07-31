@@ -1,5 +1,6 @@
 ---
 tags: [渲染模式]
+cover: https://stg.heyfe.org/images/blog-csr-ssr-ssg-isr-1690811088700.webp
 ---
 
 # 什么是 CSR、SSR、SSG、ISR

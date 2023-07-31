@@ -1,5 +1,7 @@
 ---
 tags: [giffgaff, 瞎折腾]
+summary: giffgaff 是英国的一家运营商，算是上手成本较低的海外手机卡了。本文记录下申请和激活的过程。
+cover: https://stg.heyfe.org/images/blog-giffgaff-1690810316864.png
 ---
 
 # giffgaff 申请英国手机卡

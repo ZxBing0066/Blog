@@ -1,3 +1,8 @@
+---
+tags: [AI绘画, AIGC, Stable Diffusion]
+cover: https://stg.heyfe.org/images/blog-stable-diffusion-models-1690811336594.png
+---
+
 # Stable Diffusion 是如何工作的？【译】
 
 > 最近在学习 Stable Diffusion 相关的内容，看到这篇文章，感觉不错所以翻译一下。

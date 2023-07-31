@@ -6,6 +6,9 @@ import BlogTime from './BlogTime';
 import cls from './List.module.scss';
 import Tags from './Tags';
 
+const announces = ['你能坚持的只有自己，能改变的也只有自己。✨', '水能载舟，亦可赛艇。🚤'];
+const announce = announces[(Math.random() * announces.length) | 0];
+
 const PageBlock = ({ page }: { page: PageData }) => {
     const href = '/' + page.relativePath.replace(/.md$/, '.html');
     return (
@@ -76,7 +79,8 @@ const PageList = () => {
                         👋 你好，我是<b>嘿嘿</b>，一名 👨🏻‍💻。
                     </div>
                     <div className='announce'>
-                        你能坚持的只有自己，能改变的也只有自己。<span className='cursor'>|</span>
+                        {announce}
+                        <span className='cursor'>|</span>
                     </div>
                     <ul className='social-media-list'>
                         <li>

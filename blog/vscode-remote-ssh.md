@@ -1,3 +1,8 @@
+---
+tags: [VSCode, SSH]
+cover: https://stg.heyfe.org/images/blog-vscode-js-debug-terminal-1690811194402.jpg
+---
+
 # VSCode Remote - SSH 入门保姆级教程
 
 > 本文针对环境为本地机器：`MacOS`，远程环境 `Windows 10`。

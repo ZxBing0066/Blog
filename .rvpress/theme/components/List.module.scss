@@ -245,7 +245,7 @@
             }
             .cover {
                 width: 20rem;
-                height: 13rem;
+                height: 12rem;
                 display: flex;
                 img {
                     object-fit: cover;
@@ -264,7 +264,6 @@
             }
 
             .title {
-                padding: 0.4rem 0;
                 font-size: 1.2rem;
                 color: var(--color-text);
                 :hover {

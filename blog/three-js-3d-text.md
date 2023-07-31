@@ -1,3 +1,8 @@
+---
+tags: [three.js]
+cover: https://stg.heyfe.org/images/blog-three-js-rabbit-0-1690812321314.png
+---
+
 # three.js 立体字
 
 three.js 可以直接将文字渲染成立体图形，配合 3D 模型场景效果非常赞。本篇一起看一下如何在 three.js 中渲染出 3D 文本。

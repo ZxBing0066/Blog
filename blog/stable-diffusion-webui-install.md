@@ -1,3 +1,8 @@
+---
+tags: [AI绘画, AIGC, Stable Diffusion]
+cover: https://stg.heyfe.org/images/blog-stable-diffusion-models-1690811336594.png
+---
+
 # Stable Diffusion WebUI 各操作系统安装教程
 
 最近几天在 2 台 Mac、2 台 PC、一台云无 GPU 的 Linux 安装了 Stable Diffusion WebUI，这里记录下如何安装，以及一些注意点和坑。

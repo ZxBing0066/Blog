@@ -1,3 +1,8 @@
+---
+tags: [AI绘画, AIGC, Stable Diffusion]
+cover: https://stg.heyfe.org/images/blog-stable-diffusion-models-1690811336594.png
+---
+
 # AI 绘画基础 - 细数 Stable Diffusion 中的各种常用模型 【🧙 魔导士装备图鉴】
 
 AI 绘画新手魔导士在刚开始玩 Stable Diffusion 时总会遇到各种新的概念，让人困惑，其中就包括各种模型和他们之间的关系。

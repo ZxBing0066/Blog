@@ -1,3 +1,8 @@
+---
+tags: [VSCode, Node.js]
+cover: https://stg.heyfe.org/images/blog-vscode-js-debug-terminal-1690811194402.jpg
+---
+
 # Node 调试利器，前端、Node 开发必备 - VSCode JS Debug Terminal
 
 经常看到有同学抱怨 `Node` 调试麻烦或者是搞不清怎么调试各种脚本、`Jest`、`Webpack` 等等，而偶尔看到的调试相关的文章又全都是在写 `inspect`、`launch.json` 这些方案，其实有一定学习成本。

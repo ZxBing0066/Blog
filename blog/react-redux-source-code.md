@@ -1,6 +1,6 @@
 ---
 tags: [React, redux, 源码解析]
-cover: https://stg.heyfe.org/images/blog-react-1690726283446.png
+cover: https://stg.heyfe.org/images/blog-react-isr-demo-1690810719572.png
 ---
 
 # React-Redux 源码解析

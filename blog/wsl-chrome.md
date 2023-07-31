@@ -1,5 +1,6 @@
 ---
-tags: [wsl]
+tags: [WSL, chrome]
+cover: https://stg.heyfe.org/images/blog-wsl-chrome-1690811688446.png
 ---
 
 # WSL 中安装 google-chrome

@@ -1,3 +1,8 @@
+---
+tags: [AI绘画, AIGC]
+cover: https://stg.heyfe.org/images/blog-stable-diffusion-models-1690811336594.png
+---
+
 # AI 绘画 - 如何 0 成本在线体验 AI 绘画的魅力
 
 要想体验 `AI` 绘画，比较流行的三种方式是 `Midjourney`、`OpenAI` 的 `DALL·E` 2 以及 `Stable Diffusion`。而 `Midjourney` 已经停止免费试用，且使用价格不太便宜，`DALL·E` 2 也是一样价格不菲。只有 `Stable Diffusion` 作为一款开源模型可以自建，也有各种白嫖的方式比如 `Google` 的 `Colab`，阿里云的 `PAI` 等，这些我之前都写过相应的文章。然而毕竟还是需要一定学习和使用成本，很容易让新手望而却步。

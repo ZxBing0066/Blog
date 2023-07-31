@@ -1,6 +1,6 @@
 ---
 tags: [React]
-cover: https://stg.heyfe.org/images/blog-react-1690726283446.png
+cover: https://stg.heyfe.org/images/blog-react-isr-demo-1690810719572.png
 ---
 
 # React 组件文档套件设计

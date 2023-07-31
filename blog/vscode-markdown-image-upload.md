@@ -1,3 +1,8 @@
+---
+tags: [VSCode, GitHub]
+cover: https://stg.heyfe.org/images/blog-vscode-js-debug-terminal-1690811194402.jpg
+---
+
 # VSCode Markdown 图片上传到 GitHub 图床
 
 VSCode 中有一个插件 [Markdown Image](https://marketplace.visualstudio.com/items?itemName=hancel.markdown-image) 还算好用，可以一键将图片上传然后将链接粘贴到 Markdown 中。
@@ -83,7 +88,7 @@ Token 我们需要去 [GitHub 设置](https://github.com/settings/tokens) 中去
 
 然后我们在 VSCode 即可通过快捷键或命令粘贴剪切板中的文件。
 
-![picture 11](https://stg.heyfe.org/images/blog-vscode-markdown-image-upload-4b89efc92959becbb2ed226ae7436cf6d2091cc5cee7a7ff1e5af08e77973901.png)  
+![picture 11](https://stg.heyfe.org/images/blog-vscode-markdown-image-upload-4b89efc92959becbb2ed226ae7436cf6d2091cc5cee7a7ff1e5af08e77973901.png)
 
 ## FAQ
 

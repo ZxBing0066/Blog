@@ -1,5 +1,6 @@
 ---
-tags: [wsl, ssh]
+tags: [WSL, ssh]
+cover: https://stg.heyfe.org/images/blog-wsl-chrome-1690811688446.png
 ---
 
 # WSL SSH 设置和开机启动

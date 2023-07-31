@@ -1,3 +1,8 @@
+---
+tags: [babel]
+cover: https://stg.heyfe.org/images/blog-we-can-see-babel-everywhere-1690811931000.png
+---
+
 # 一文看懂 babel 的工作原理
 
 `babel` 在前端快速发展的最近几年，为前端的工程化提供了莫大的帮助，解决了前端各种浏览器兼容问题导致的 `js` 崩溃，让我们可以放下的用上新的各种 `es6`、`es7` 等新语法，今天聊一聊 `babel` 的工作原理。

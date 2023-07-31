@@ -1,3 +1,8 @@
+---
+tags: [three.js]
+cover: https://stg.heyfe.org/images/blog-three-js-rabbit-0-1690812321314.png
+---
+
 # 另类 three.js 画作 - 方块兔
 
 ![picture 1](https://stg.heyfe.org/images/blog-three-js-rabbit-block-80.gif)

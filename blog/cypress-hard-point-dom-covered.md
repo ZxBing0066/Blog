@@ -1,3 +1,8 @@
+---
+tags: [cypress, 源码解析]
+cover: https://stg.heyfe.org/images/blog-cypress-hard-point-dom-covered-1690810838694.png
+---
+
 # Cypress 踩坑记 - DOM 遮挡
 
 > `Cypress` 是一个非常流行的测试工具，然而实际使用过程中发现一些问题，这里做些记录。

@@ -1,6 +1,7 @@
 ---
 tags: [FAQ, 生产力, python]
 description: 'mac 12.3 command not found: python Alfred'
+cover: https://stg.heyfe.org/images/blog-2022-mac-preview-stunk-1690814279537.png
 ---
 
 # 关于 Mac 12.3 出现 python not found 的解决方法

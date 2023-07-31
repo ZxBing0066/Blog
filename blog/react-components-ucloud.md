@@ -1,6 +1,6 @@
 ---
 tags: [React, 组件]
-cover: https://stg.heyfe.org/images/blog-react-1690726283446.png
+cover: https://stg.heyfe.org/images/blog-react-isr-demo-1690810719572.png
 ---
 
 # 写个开源组件库需要知道些什么

@@ -1,3 +1,8 @@
+---
+tags: [AI绘画, AIGC, Stable Diffusion]
+cover: https://stg.heyfe.org/images/blog-stable-diffusion-models-1690811336594.png
+---
+
 # 阿里云 PAI 免费试用搭建 stable-diffusion-WebUI
 
 最近玩 stable-diffusion 一直在 Colab 上，前几天发现阿里云的 PAI 有免费试用，就玩了一下，发现速度比 Colab 还快，然后可以免费试用三个月（如果不关机的话估计就只能玩 1 个月）。

@@ -1,3 +1,8 @@
+---
+tags: [three.js]
+cover: https://stg.heyfe.org/images/blog-three-js-rabbit-0-1690812321314.png
+---
+
 # 使用 GUI 方便 three.js 开发调试
 
 上一篇聊到如何调用模型中的内置动画从而让模型动起来，而该模型中其实有两个动画，而我们只看到了其中一种。本篇我们聊一聊如何使用 GUI 方便我们调试 three.js，操控界面参数。

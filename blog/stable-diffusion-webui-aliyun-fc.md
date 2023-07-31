@@ -1,3 +1,8 @@
+---
+tags: [AI绘画, AIGC, Stable Diffusion]
+cover: https://stg.heyfe.org/images/blog-stable-diffusion-models-1690811336594.png
+---
+
 # 阿里云 AIGC 白嫖 FC 搭建 stable diffusion
 
 下午瞎逛在 V 站看到阿里在做推广，正好这几天在研究 stable-diffusion，就进去看了看，活动地址： https://developer.aliyun.com/topic/aigc 。

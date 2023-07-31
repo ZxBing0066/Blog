@@ -1,6 +1,7 @@
 ---
 date: 2014-12-17 15:29:00
-tags: [nodejs]
+tags: [node.js]
+cover: https://stg.heyfe.org/images/blog-node-js-file-upload-download-1690812036240.png
 ---
 
 # NodeJS 搭建简易网站

@@ -1,3 +1,8 @@
+---
+tags: [cypress, 源码解析]
+cover: https://stg.heyfe.org/images/blog-cypress-hard-point-dom-covered-1690810838694.png
+---
+
 # Cypress 踩坑记 - 命令队列
 
 在玩 `Cypress` 的时候，上路第一步，~~先斩意中人~~ 先得搞清楚 `Cypress` 的代码执行顺序到底是什么。

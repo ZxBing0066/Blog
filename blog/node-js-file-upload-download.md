@@ -1,3 +1,8 @@
+---
+tags: [node.js, next.js]
+cover: https://stg.heyfe.org/images/blog-node-js-file-upload-download-1690812036240.png
+---
+
 # 如何实现上传文件到 nodejs 和文件下载
 
 最近拿 `next.js` 做个全栈项目，需要文件上传和下载，这里记录下实现方式。

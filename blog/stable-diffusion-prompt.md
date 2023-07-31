@@ -1,3 +1,8 @@
+---
+tags: [AI绘画, AIGC, Stable Diffusion]
+cover: https://stg.heyfe.org/images/blog-stable-diffusion-models-1690811336594.png
+---
+
 # AI 绘画咒语入门 - Stable Diffusion Prompt 语法指南 【成为初级魔导士吧！】
 
 要用好 Stable Diffusion，最最重要的就是掌握 Prompt（提示词）。由于提示词对于生成图的影响甚大，所以被称为魔法，用得好惊天动地，用不好魂飞魄散 🐶。

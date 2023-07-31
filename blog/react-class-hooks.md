@@ -1,6 +1,6 @@
 ---
 tags: [React]
-cover: https://stg.heyfe.org/images/blog-react-1690726283446.png
+cover: https://stg.heyfe.org/images/blog-react-isr-demo-1690810719572.png
 ---
 
 # 嗯？你能在 Class 组件下用 hooks？

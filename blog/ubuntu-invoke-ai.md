@@ -1,3 +1,8 @@
+---
+tags: [AI绘画, AIGC, Stable Diffusion, linux]
+cover: https://stg.heyfe.org/images/blog-stable-diffusion-models-1690811336594.png
+---
+
 # Ubuntu 中安装 InvokeAI
 
 安装过程基本比较顺利，InvokeAI 官方提供的一键安装脚本非常友好。

@@ -2,7 +2,7 @@
 
 上一篇我们聊了关于在 three.js 如何使用模型快速渲染出一只兔子，以及 three.js 中的一些基础知识，这篇我们聊聊怎么简单的让兔子模型动起来。
 
-![picture 5](/image/blog-three-js-rabbit-1-43.gif)
+![picture 5](https://stg.heyfe.org/images/blog-three-js-rabbit-1-43.gif)
 
 ## 模型动画
 
@@ -10,7 +10,7 @@
 
 为了展示动画效果，本次使用的模型是：[兔子模型](https://sketchfab.com/3d-models/rabbit-rigged-e7213589744d436b9d96e2dbb31198a5)
 
-![picture 4](/image/blog-three-js-rabbit-1-62.png)
+![picture 4](https://stg.heyfe.org/images/blog-three-js-rabbit-1-62.png)
 
 ```ts
 loader.load(
@@ -37,7 +37,7 @@ loader.load(
 
 模型内置的动画信息存储在模型的 animations 中，该属性为一个数组，可以打印出来看下：
 
-![picture 2](/image/blog-three-js-rabbit-1-60.png)
+![picture 2](https://stg.heyfe.org/images/blog-three-js-rabbit-1-60.png)
 
 可以看到 animation 中存储了包括动画的混合模式、动画时长、动画信息等。
 

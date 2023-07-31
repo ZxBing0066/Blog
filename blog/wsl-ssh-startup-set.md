@@ -74,7 +74,7 @@ sudo vim  /etc/sudoers
 
 然后使用 `运行` 执行 `shell:startup`:
 
-![picture 1](/image/blog-wsl-ssh-startup-set-10.png)
+![picture 1](https://stg.heyfe.org/images/blog-wsl-ssh-startup-set-10.png)
 
 打开开机启动文件夹后，在其中创建一个 `startubuntu.vbs` 的脚本文件。开机启动文件夹中的内容会在 windows 启动后自动执行。然后将以下内容添加到脚本中：
 
@@ -91,15 +91,15 @@ ws.run "wsl -d Ubuntu-22.04 -u root /usr/sbin/service ssh --full-restart", vbhid
 
 如果需要从外部连接到 WSL，需要为上面设置的 SSH 端口配置防火墙。
 
-![picture 2](/image/blog-wsl-ssh-startup-set-29.png)
+![picture 2](https://stg.heyfe.org/images/blog-wsl-ssh-startup-set-29.png)
 
 打开防火墙配置，然后添加入口规则：
 
-![picture 3](/image/blog-wsl-ssh-startup-set-33.png)
+![picture 3](https://stg.heyfe.org/images/blog-wsl-ssh-startup-set-33.png)
 
 然后输入上面设置的 SSH 端口号：
 
-![picture 4](/image/blog-wsl-ssh-startup-set-70.png)
+![picture 4](https://stg.heyfe.org/images/blog-wsl-ssh-startup-set-70.png)
 
 防火墙设置完成后，就可以在外部通过 ssh 访问 WSL 了。
 

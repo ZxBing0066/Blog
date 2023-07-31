@@ -21,7 +21,7 @@ https://code.juejin.cn/pen/7127635551796068386
 
 可在官网中选择喜爱的主题：[pace](https://codebyzach.github.io/pace/)
 
-以下是官方提供的主题的截图： ![picture 2](/image/blog-pace-js-13.png)
+以下是官方提供的主题的截图： ![picture 2](https://stg.heyfe.org/images/blog-pace-js-13.png)
 
 直接下载喜欢的主题样式即可，也可对主题做二次开发，或直接参考官方主题开发自己的主题。
 

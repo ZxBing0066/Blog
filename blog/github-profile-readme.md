@@ -10,7 +10,7 @@
 
 要创建属于自己的 `GitHub profile`，只需要创建自己账户同名的 `GitHub` 仓库即可：
 
-![picture 3](/image/blog-github-profile-readme-14.png)
+![picture 3](https://stg.heyfe.org/images/blog-github-profile-readme-14.png)
 
 `profile` 属于彩蛋类功能，创建时在下方将会出现提示。如果勾选自动创建 `README`，将会创建一个特殊的 `README` 模版，长这样：
 
@@ -45,7 +45,7 @@ Here are some ideas to get you started:
 
 先上地址：https://zzetao.github.io/awesome-github-profile/
 
-![picture 4](/image/blog-github-profile-readme-88.png)
+![picture 4](https://stg.heyfe.org/images/blog-github-profile-readme-88.png)
 
 该项目提供了丰富的模版，可以从中选择喜爱的模版进行二次开发。
 
@@ -135,7 +135,7 @@ https://github.com/Platane/snk
 
 除了上述暗色主题兼容外，还可借助其他 `GitHub` 中的内置样式来达成一些好看的效果：
 
-![picture 5](/image/blog-github-profile-readme-95.png)
+![picture 5](https://stg.heyfe.org/images/blog-github-profile-readme-95.png)
 
 比如此处的灰色块便是借助 `GitHub` 的 `code` 样式来实现，图片也是来源于 `GitHub` 各处的图标图片。
 

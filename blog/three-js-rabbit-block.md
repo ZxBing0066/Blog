@@ -1,12 +1,12 @@
 # 另类 three.js 画作 - 方块兔
 
-![picture 1](/image/blog-three-js-rabbit-block-80.gif)
+![picture 1](https://stg.heyfe.org/images/blog-three-js-rabbit-block-80.gif)
 
 之前做过一款像素图片转化器，这几天写 three.js 的文章时突发奇想，感觉可以在 three.js 中也丢一个像素图进去。不过丢什么呢，兔年当然是兔子了。
 
 ## 像素数据
 
-![picture 2](/image/blog-three-js-rabbit-block-66.png)
+![picture 2](https://stg.heyfe.org/images/blog-three-js-rabbit-block-66.png)
 
 随手找了一张简单的兔子图片，首先我们需要将图片中的像素数据取出，这里就直接使用我的像素转换器了，在代码中稍微添加一点点代码就可以将该图片的像素信息取出来了：
 

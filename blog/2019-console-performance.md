@@ -19,13 +19,13 @@ date: 2019-11-14
 
 第一种方式可以借助 Performance 面板来采集信息，展开 Main 面板，可以看到代码运行的信息。不过 Performance 面板中内容较多，还包含了渲染、网络、内存等其它的信息，视觉干扰比较严重。虽然很强大但是做纯 JS 性能排查时不推荐使用，今天主要介绍另一种方式。
 
-![picture 5](/image/blog-2019-console-performance-85.png)
+![picture 5](https://stg.heyfe.org/images/blog-2019-console-performance-85.png)
 
 ### JavaScript Profiler
 
 还有一种方式是借助 JavaScript Profiler，JavaScript Profiler 默认是隐藏的，需要在 DevTool 右上角的更多按钮（三个点的按钮） => More tools 中打开。
 
-![picture 6](/image/blog-2019-console-performance-83.png)
+![picture 6](https://stg.heyfe.org/images/blog-2019-console-performance-83.png)
 
 可以看到 JavaScript Profiler 面板较 Performance 面板比起来简单多了，左侧最上方一排按钮可以收集、删除、垃圾回收（可能是用来强制执行 GC 的，不太确定），可以收集多次 Profiler 进行比对。
 
@@ -37,11 +37,11 @@ Chart 面板上方为图表，纵轴为 CPU 的使用率，横轴是时间轴，
 
 通过 JavaScript Profiler 面板可以很方面的排查出性能异常的代码。
 
-![picture 7](/image/blog-2019-console-performance-4.png)
+![picture 7](https://stg.heyfe.org/images/blog-2019-console-performance-4.png)
 
 比如图中的 n.bootstrap，执行时间为 354.3ms，显然会造成比较严重的卡顿。
 
-![picture 9](/image/blog-2019-console-performance-71.png)
+![picture 9](https://stg.heyfe.org/images/blog-2019-console-performance-71.png)
 
 还可以顺着时间片段往下深究到底是哪个步骤耗时较长，从上面可以看到其中 l.initState 耗时 173ms，下面是几个 forEach，显然是这里的循环性能消耗比较大，点击时间片段会跳转到 source 面板的对应代码中，排查起来非常方便。
 
@@ -78,7 +78,7 @@ console.time 目前大部分浏览器已经支持，通过 console.time 可以�
 -   不能同时启用多个同样标识的 timer
 -   一个 timer 结束后，可以再次开启一个同名 timer
 
-![picture 10](/image/blog-2019-console-performance-64.png)
+![picture 10](https://stg.heyfe.org/images/blog-2019-console-performance-64.png)
 
 通过 console.time 我们可以直观的看到一段代码的执行时长，每次改动后页面刷新就能看到 log，从而看到改动后的影响。
 
@@ -457,9 +457,9 @@ renderMenuList = () => {
 
 可以再看一下改造前后的 Profiler 的图形。
 
-改造前： ![picture 11](/image/blog-2019-console-performance-67.png)
+改造前： ![picture 11](https://stg.heyfe.org/images/blog-2019-console-performance-67.png)
 
-改造后： ![picture 12](/image/blog-2019-console-performance-24.png)
+改造后： ![picture 12](https://stg.heyfe.org/images/blog-2019-console-performance-24.png)
 
 经过优化可以看到很多峰值都已经消失了（剩余的是一些目前不太好做的优化点），进入页面和切换产品时也能明显感受到差异。
 

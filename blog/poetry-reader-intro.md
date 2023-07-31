@@ -4,7 +4,7 @@
 
 先放个动图吧：
 
-![picture 1](/image/blog-poetry-reader-intro-45.gif)  
+![picture 1](https://stg.heyfe.org/images/blog-poetry-reader-intro-45.gif)  
 
 
 `emm`，不过动图没声音，想要体验的还是去上面的网站去看下吧。

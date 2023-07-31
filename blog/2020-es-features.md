@@ -9,7 +9,7 @@ date: 2020-07-04
 
 ## 背景
 
-`Optional chaining` 和 `Nullish coalescing` 目前都已经纳入 `ECMA-262` 标准中，不过兼容性还差得远，如下： ![MDN 兼容表](/image/blog-2020-es-features-92.png) 两个操作符的兼容几乎一致，不过现在有了 `babel`，兼容都不是问题。不过还是要注意使用前一定要确认项目是否支持这俩操作符，切勿只顾一时爽，至于如何兼容可以看下方。
+`Optional chaining` 和 `Nullish coalescing` 目前都已经纳入 `ECMA-262` 标准中，不过兼容性还差得远，如下： ![MDN 兼容表](https://stg.heyfe.org/images/blog-2020-es-features-92.png) 两个操作符的兼容几乎一致，不过现在有了 `babel`，兼容都不是问题。不过还是要注意使用前一定要确认项目是否支持这俩操作符，切勿只顾一时爽，至于如何兼容可以看下方。
 
 ## `Optional chaining` 介绍
 

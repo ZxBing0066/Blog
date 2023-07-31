@@ -117,7 +117,7 @@ jobs:
 
 任务的 key 即任务名称，也可通过任务中的 name 字段来定义，会在 workflow 运行图中进行展示。
 
-![picture 2](/image/blog-github-actions-83.png)
+![picture 2](https://stg.heyfe.org/images/blog-github-actions-83.png)
 
 此外一个任务一般至少包含两个字段：
 
@@ -163,7 +163,7 @@ name: my-first-workflow
 
 名称会展示在 Actions 面板的任务列表中：
 
-![picture 1](/image/blog-github-actions-93.png)
+![picture 1](https://stg.heyfe.org/images/blog-github-actions-93.png)
 
 ## 复用
 

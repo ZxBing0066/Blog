@@ -36,7 +36,7 @@ getComputedStyle(document.querySelector('.lure-link')).color;
 
 会发现返回的是 green，而不是 red。
 
-![picture 1](/image/emot-amazing.png)
+![picture 1](https://stg.heyfe.org/images/emot-amazing.png)
 
 好家伙，眼见为虚，不知道的还以为红绿色盲了。
 
@@ -72,7 +72,7 @@ report(userId, visited);
 
 好家伙，你访问某某 hub 的事情败露了，emm，别人一看，这家伙肯定是个爱学习的仔（别误会，我说 Github）。
 
-![picture 1](/image/emot-sbz.jpg)
+![picture 1](https://stg.heyfe.org/images/emot-sbz.jpg)
 
 所以呢浏览器直接把 :visited 的这些样式取消了，那为啥保留了颜色这类样式呢？不是一样会暴露吗？
 
@@ -82,7 +82,7 @@ report(userId, visited);
 
 因为其它大部分样式会影响到别的元素的展示，比如如果高度变化，那它的容器高度就会发生变化，攻击者依旧可以使用别的方法去获取链接的状态，比如父元素的高度或者兄弟元素的偏移位置等。
 
-![picture 2](/image/emot-hjh.png)
+![picture 2](https://stg.heyfe.org/images/emot-hjh.png)
 
 所以浏览器为了你的隐私考虑，不得不对 :visited 做出诸多限制。毕竟爱学习这种事情，不能随便暴露。
 
@@ -105,7 +105,7 @@ report(userId, visited);
 
     并且上述值不可使用带透明度的颜色，如 transparent、rgba(0,0,0,0.5) 等，透明度都会被忽略。具体原因并没有找到相关文献，网络上有猜测和 `pixel perfect timing attack` 相关，猜测是因为透明度会影响渲染时间（颜色混合），然后攻击者可以通过时间差来猜测是否应用了透明色从而得出链接的状态。
 
-    ![picture 1](/image/emot-amazing.png)
+    ![picture 1](https://stg.heyfe.org/images/emot-amazing.png)
 
     至于为什么要禁止背景图片，因为背景图会发送请求，连 JS 都不用写就直接给你上报上去了。如：
 

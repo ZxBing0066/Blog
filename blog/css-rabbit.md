@@ -89,7 +89,7 @@
 
 然后我们通过 after 伪元素来添加内耳部分。宽高直接使用百分比，方便大小变化。
 
-![picture 1](/image/blog-css-rabbit-97.png)
+![picture 1](https://stg.heyfe.org/images/blog-css-rabbit-97.png)
 
 ### 脑袋
 
@@ -139,7 +139,7 @@
 
 结构类似于耳朵，同样使用伪元素绘制内部反光的小白点。
 
-![picture 2](/image/blog-css-rabbit-93.png)
+![picture 2](https://stg.heyfe.org/images/blog-css-rabbit-93.png)
 
 ### 鼻子
 
@@ -183,7 +183,7 @@
 }
 ```
 
-![picture 3](/image/blog-css-rabbit-13.png)
+![picture 3](https://stg.heyfe.org/images/blog-css-rabbit-13.png)
 
 ## 动画
 

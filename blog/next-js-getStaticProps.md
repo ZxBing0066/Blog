@@ -109,7 +109,7 @@ export default GetStaticPaths;
 
 所以上述代码我们在 `next build` 时将会生成 10 个静态页面 `[1-10].html` 和 10 个 `JSON` 文件 `[1-10].json`，生成的文件可以到 `.next/server/pages/` 下查看。
 
-![picture 1](/image/blog-next-js-getStaticProps-1.png)
+![picture 1](https://stg.heyfe.org/images/blog-next-js-getStaticProps-1.png)
 
 ### fallback
 
@@ -121,7 +121,7 @@ export default GetStaticPaths;
 
 `fallback` 为 `blocking` 时行为和 `true` 基本一致，但不同的是当访问不存在的页面时会等待 `getStaticProps` 执行完成后再返回页面，不需要进行二次数据请求。所以初次访问表现不一致，一个为异步一个为同步。
 
-![picture 2](/image/blog-next-js-getStaticProps-2.png)
+![picture 2](https://stg.heyfe.org/images/blog-next-js-getStaticProps-2.png)
 
 ### 注意点
 

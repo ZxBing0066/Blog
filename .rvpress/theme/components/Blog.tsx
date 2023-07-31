@@ -17,7 +17,7 @@ const Blog = () => {
                 <div className='reading-area'>
                     <div className='content-wrap'>
                         <div className='cover'>
-                            <img src={page.frontmatter.cover || '/post.png'} alt='cover' />
+                            <img src={page.frontmatter.cover || '/post.jpg'} alt='cover' />
                         </div>
                         <div className='meta'>
                             <BlogTime page={page} />

@@ -14,7 +14,7 @@ tags: [组件, 自动化]
 
 所以每个组件的文档我只需要在组件的定义上写下组件的交互说明，并且注释中可以直接使用 `markdown` 语法。然后在组件的 `props` 定义中写上关于该 `props` 的说明，在 `react-styleguidist` 生成的页面中，便可以看到关于组件、`props` 的说明，省大功夫了。后续更新直接编辑注释即可，不用再关注文档同步的问题。
 
-![picture 1](/image/blog-component-work-auto-43.png)
+![picture 1](https://stg.heyfe.org/images/blog-component-work-auto-43.png)
 
 至于组件的智能提示，直接将组件使用 `ts` 编写，打包时使用 `tsc` 打包 `declaration` 文件，`props` 定义和组件注释全都带上，一举多得，可真棒呀。
 

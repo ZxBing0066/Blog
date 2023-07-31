@@ -33,7 +33,7 @@ VSCode 配置中存在一个配置项 `window.autoDetectColorScheme`：
 
 可以直接修改配置文件，或者 `cmd+shift+p` 后输入 `Open Settings (UI)`，搜索 `autoDetectColorScheme` 就可以看到对应的配置项。
 
-![picture 2](/image/blog-2022-vscode-auto-theme-83.png)
+![picture 2](https://stg.heyfe.org/images/blog-2022-vscode-auto-theme-83.png)
 
 ## 问题
 

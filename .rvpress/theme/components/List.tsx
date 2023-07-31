@@ -12,7 +12,7 @@ const PageBlock = ({ page }: { page: PageData }) => {
         <div className='page-block'>
             <div className='left'>
                 <a href={href} className='cover'>
-                    <img src={page.frontmatter.cover || '/post.png'} alt='cover' />
+                    <img src={page.frontmatter.cover || '/post.jpg'} alt='cover' />
                 </a>
             </div>
             <div className='right'>

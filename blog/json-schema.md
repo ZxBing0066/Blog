@@ -22,7 +22,7 @@ tags: [json]
 
 添加后，`IDE` 或其它工具将会根据目标地址中的 `schema` 定义对 `JSON` 文件进行检查和智能提示等等。
 
-![picture 2](/image/blog-json-schema-27.png)
+![picture 2](https://stg.heyfe.org/images/blog-json-schema-27.png)
 
 如上图，会在编辑时自动提示字段名称，`hover` 字段名显示字段解释，类型错误的字段显示警告等等。
 

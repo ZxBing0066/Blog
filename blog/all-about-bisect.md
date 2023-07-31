@@ -50,15 +50,15 @@ git 会切换到 HEAD~10 的 commit 上，此时你可以查看当前版本是�
 
 要启动该功能，只需要启动 VSCode 命令输入 Extension Bisect，也可在插件菜单中启动。
 
-![picture 2](/image/blog-bisection-all-74.png)
+![picture 2](https://stg.heyfe.org/images/blog-bisection-all-74.png)
 
 启动后 VSCode 提示本次可能需要的次数等说明，确定后便会将插件进行拆分禁用，然后在右下角询问当前情况是否正常（可能需要手动点击右下角消息提示打开）。
 
-![picture 1](/image/blog-bisection-all-27.png)
+![picture 1](https://stg.heyfe.org/images/blog-bisection-all-27.png)
 
 从而一次次缩小范围，定位到引起问题的插件。
 
-![picture 1](/image/blog-bisection-all-16.png)
+![picture 1](https://stg.heyfe.org/images/blog-bisection-all-16.png)
 
 除了定位插件的 bug，你也可以借助它来定位插件的功能，比如你很好奇某个 snippet 是哪个插件提供的，同样可以借助它来定位。
 

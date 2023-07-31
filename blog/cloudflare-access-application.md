@@ -1,5 +1,7 @@
 ---
-tags: [Cloudflare]
+tags: [Cloudflare, 建站]
+summary: 介绍通过 Cloudflare Access 功能来为站点添加判定，从而实现将站点只对指定人员开放。
+cover: https://stg.heyfe.org/images/blog-cloudflare-1690700083116.png
 ---
 
 # 利用 Cloudflare Access - 打造个人私密站点

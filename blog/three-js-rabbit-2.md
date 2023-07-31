@@ -16,7 +16,7 @@ const panel = new GUI({ width: 310 });
 
 然后我们就可以在右上角看到这样一个操控面板，不过此时还没有任何内容：
 
-![picture 1](/image/blog-three-js-rabbit-2-33.png)
+![picture 1](https://stg.heyfe.org/images/blog-three-js-rabbit-2-33.png)
 
 上面我们只设置了 width，此外它还提供了其它很多自定义参数，可查看 [GUI Class 文档](https://lil-gui.georgealways.com/#GUI)。
 
@@ -28,7 +28,7 @@ panel.add(document, 'title');
 
 此时就会出现这样的一条操控项，并且当你修改后会看到页面的 title 会跟着变化，这也是为什么 GUI 的 API 设计成这样的原因：这样可以方便的拿到引用进行赋值从而达到一种双向绑定的效果。
 
-![picture 2](/image/blog-three-js-rabbit-2-12.png)
+![picture 2](https://stg.heyfe.org/images/blog-three-js-rabbit-2-12.png)
 
 ## GUI 新增操控项
 
@@ -55,7 +55,7 @@ gui.add(controllers, 'myFunction'); // button
 -   当值为 number 时，则展示为数字输入框
 -   当值为 function 时，则展示为按钮，点击按钮会调用该 function
 
-![picture 3](/image/blog-three-js-rabbit-2-68.png)
+![picture 3](https://stg.heyfe.org/images/blog-three-js-rabbit-2-68.png)
 
 此外当类型为 number 时，可以通过 min 和 max 设定最大最小值、step 设定步进值。
 
@@ -68,7 +68,7 @@ gui.add(obj, 'number1', 0, 1); // min, max
 gui.add(obj, 'number2', 0, 100, 10); // min, max, step
 ```
 
-![picture 4](/image/blog-three-js-rabbit-2-63.png)
+![picture 4](https://stg.heyfe.org/images/blog-three-js-rabbit-2-63.png)
 
 另外 GUI 还支持颜色项、下拉菜单项以及用于将项目分组的文件夹项。
 
@@ -131,7 +131,7 @@ const createPanel = () => {
 
 好了，我们看下效果。
 
-![picture 6](/image/blog-three-js-rabbit-2-8.gif)
+![picture 6](https://stg.heyfe.org/images/blog-three-js-rabbit-2-8.gif)
 
 ## 最后
 

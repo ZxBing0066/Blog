@@ -2,7 +2,7 @@
 
 > 本文针对环境为本地机器：`MacOS`，远程环境 `Windows 10`。
 
-![picture 1](/image/blog-vscode-ssh-remote-27.png)
+![picture 1](https://stg.heyfe.org/images/blog-vscode-ssh-remote-27.png)
 
 ## 什么是 VSCode Remote - SSH
 
@@ -63,12 +63,12 @@ if (!(Get-NetFirewallRule -Name "OpenSSH-Server-In-TCP" -ErrorAction SilentlyCon
 
 ### `Add-WindowsCapability failed. Error code - 0x800f0954`
 
-![picture 2](/image/blog-vscode-remote-ssh-61.png)
+![picture 2](https://stg.heyfe.org/images/blog-vscode-remote-ssh-61.png)
 
 解决方案：
 
 1. 运行 `gpedit.msc` 打开策略组编辑器
-2. 打开 `Computer Configuration\Administrative Templates\System\Specify settings for optional component installation and component repair`，中文对应 `计算机配置\管理模版\系统\指定可选组件安装和组件修复的设置`。![picture 3](/image/blog-vscode-remote-ssh-28.png)
+2. 打开 `Computer Configuration\Administrative Templates\System\Specify settings for optional component installation and component repair`，中文对应 `计算机配置\管理模版\系统\指定可选组件安装和组件修复的设置`。![picture 3](https://stg.heyfe.org/images/blog-vscode-remote-ssh-28.png)
 3. 将其修改为启用后重新尝试。
 
 参考链接：https://social.technet.microsoft.com/Forums/en-US/42bfdd6e-f191-4813-9142-5c86a2797c53/windows-10-1809-rsat-toolset-error-code-of-0x800f0954?forum=win10itprogeneral
@@ -79,15 +79,15 @@ if (!(Get-NetFirewallRule -Name "OpenSSH-Server-In-TCP" -ErrorAction SilentlyCon
 
 安装后可以看到 `VSCode` 界面多出两个按钮，一个是左下角的 `Remote` 状态按钮：
 
-![picture 2](/image/blog-vscode-ssh-remote-13.png)
+![picture 2](https://stg.heyfe.org/images/blog-vscode-ssh-remote-13.png)
 
 一个是左侧按钮栏的 `Remote Explorer`：
 
-![picture 3](/image/blog-vscode-ssh-remote-85.png)
+![picture 3](https://stg.heyfe.org/images/blog-vscode-ssh-remote-85.png)
 
 点击 `Remote` 按钮，可以进入 `Remote` 菜单，也可使用 `Show Remote Menu` 进入：
 
-![picture 4](/image/blog-vscode-ssh-remote-67.png)
+![picture 4](https://stg.heyfe.org/images/blog-vscode-ssh-remote-67.png)
 
 ## 连接
 
@@ -111,15 +111,15 @@ Host SSH-name # 名称标识
 
 按照上述添加成功后，以后连接则可直接在 `Remote Menu` 中选择对应的连接，或者在 `Remote Explorer` 中直接选择对应的配置进行连接。
 
-![picture 5](/image/blog-vscode-ssh-remote-82.png)
+![picture 5](https://stg.heyfe.org/images/blog-vscode-ssh-remote-82.png)
 
-![picture 6](/image/blog-vscode-ssh-remote-45.png)
+![picture 6](https://stg.heyfe.org/images/blog-vscode-ssh-remote-45.png)
 
 ### 连接后
 
 如果连接时未选择开发对应的文件夹，点击左侧的 `Open Folder` 后 `VSCode` 将会提示你选择需要开发的文件夹：
 
-![picture 7](/image/blog-vscode-ssh-remote-88.png)
+![picture 7](https://stg.heyfe.org/images/blog-vscode-ssh-remote-88.png)
 
 且此处的 `Clone Repository` 也是将仓库 `Clone` 到远程机器上。
 
@@ -131,23 +131,23 @@ Host SSH-name # 名称标识
 
 开发时体验基本与本地开发无异，但是在远程机器较为卡顿是还是会发现无论是创建文件、`terminal` 中输入命令等都会存在一定的延迟。`VSCode` 也对这些做了一定的优化，比如在 `terminal` 中会用灰色来提示当前输入还在传输中：
 
-![picture 8](/image/blog-vscode-ssh-remote-71.png)
+![picture 8](https://stg.heyfe.org/images/blog-vscode-ssh-remote-71.png)
 
 或者是文件操作是 `Explorer` 会展示 `loading` 提示操作中：
 
-![picture 9](/image/blog-vscode-ssh-remote-51.gif)
+![picture 9](https://stg.heyfe.org/images/blog-vscode-ssh-remote-51.gif)
 
 ### 端口映射
 
 此外还有一个远程开发时常见的问题，服务访问。如我们在进行开发时，本地需要起 `server` 来预览，然而由于 `shell`、环境、代码等都是远端的，所以 `http` 服务也是远端机器提供，此时要访问远端机器提供的服务，则需要端口转发。`VSCode Remote` 自带了端口转发的功能：
 
-![picture 10](/image/blog-vscode-ssh-remote-91.png)
+![picture 10](https://stg.heyfe.org/images/blog-vscode-ssh-remote-91.png)
 
 可以看到 `VSCode Remote` 在下方多了一个 `Port Forward` 状态栏按钮，且面板区域多了一个 `PORTS` 面板，点开后可以配置端口的映射。
 
 以 `create-react-app` 为例，`create-react-app` 默认端口为 3000，我们可以添加一个 3000 到 3000 的端口映射，则我们在访问本地的 `localhost:3000` 时， `VSCode` 会将请求转发到远端机器的 3000 端口上，以此完成本地机器直接访问远程服务的目的。且 `VSCode` 会自动监听端口的服务访问，比如 `create-react-app` 启动后 `VSCode` 会自动添加一个 3000 到 3000 的映射。
 
-![picture 11](/image/blog-vscode-ssh-remote-41.png)
+![picture 11](https://stg.heyfe.org/images/blog-vscode-ssh-remote-41.png)
 
 此外如果想要修改映射关系可在映射项目右键，可修改对应的本地和远程端口，以及访问协议。比如需要需要让 `create-react-app` 应用以 `https` 协议运行，我们可以使用 `HTTPS=true npm start` 启动项目，然后将端口映射的协议修改为 `https`，即可在本地的 `https://localhost:3000` 中访问到。
 
@@ -161,7 +161,7 @@ Host SSH-name # 名称标识
 
 此外 `VSCode Remote` 还提供了其它多种 `Remote` 连接的方式，以用于不同的场景，只能说一句：真香。
 
-![picture 1](/image/blog-vscode-remote-ssh-16.png)
+![picture 1](https://stg.heyfe.org/images/blog-vscode-remote-ssh-16.png)
 
 ## 参考资料
 

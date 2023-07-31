@@ -58,7 +58,7 @@ which chromedriver # should be /usr/bin/chromedriver
 
 安装完成后，可直接通过 `google-chrome` 启动 chrome，即可打开 Chrome 窗口：
 
-![picture 1](/image/blog-wsl-chrome-38.png)
+![picture 1](https://stg.heyfe.org/images/blog-wsl-chrome-38.png)
 
 ## FAQ
 

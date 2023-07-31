@@ -56,7 +56,7 @@ iterm2.run_forever(main)
 
 下载完成后点击该文件 iTerm2 会自动导入脚本，或者在 iTerm2 菜单中找到 Scripts > Manage > Import 选择该文件即可。
 
-![Picture](/image/blog-mac-iterm-theme-auto-switch-17.png)
+![Picture](https://stg.heyfe.org/images/blog-mac-iterm-theme-auto-switch-17.png)
 
 选择后一般会提示是否自动启动，选择是。如果是第一次使用 iTerm2 python 脚本还会提示安装运行环境，按照提示确认安装即可。
 
@@ -75,7 +75,7 @@ iterm2.run_forever(main)
 
 修改后记得重启来生效。
 
-![picture 4](/image/blog-mac-iterm-theme-auto-switch-95.png)
+![picture 4](https://stg.heyfe.org/images/blog-mac-iterm-theme-auto-switch-95.png)
 
 ### 自行创建 iTerm2 脚本
 

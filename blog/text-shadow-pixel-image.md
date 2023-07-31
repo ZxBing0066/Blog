@@ -1,6 +1,6 @@
 # 可玩性超高的文字像素图 - 像素图转换器新增文字像素图功能
 
-![picture 1](/image/blog-text-shadow-pixel-image-8.png)
+![picture 1](https://stg.heyfe.org/images/blog-text-shadow-pixel-image-8.png)
 
 前排先提问，请问用 `CSS` 实现图中的效果需要多少需要几步？
 
@@ -24,7 +24,7 @@ https://code.juejin.cn/pen/7156973456188244009
 
 ## 编辑器实现
 
-![picture 5](/image/blog-text-shadow-pixel-image-18.png)
+![picture 5](https://stg.heyfe.org/images/blog-text-shadow-pixel-image-18.png)
 
 在像素编辑器中，我新增了一些与文字相关的选项，如 "使用 `text-shadow"` 用来开启 `text-shadow` 模式（默认为 `box-shadow`），"自定义 `text-shadow` 文字" 来控制 `text-shadow` 的图案文字，"`text-shadow` 文字比例" 用来控制 `text-shadow` 的尺寸（由于部分文字较小，如 `.*` 等，容易导致图案不清晰）。
 
@@ -68,11 +68,11 @@ const outputShadow = (size: number) => {
 
 使用 `#` 组成的我全都要
 
-![picture 3](/image/blog-text-shadow-pixel-image-59.png)
+![picture 3](https://stg.heyfe.org/images/blog-text-shadow-pixel-image-59.png)
 
 还有使用 `💩` 组成的熊猫头
 
-![picture 4](/image/blog-text-shadow-pixel-image-39.png)
+![picture 4](https://stg.heyfe.org/images/blog-text-shadow-pixel-image-39.png)
 
 是不是感觉很有意思 😂。
 
@@ -80,7 +80,7 @@ const outputShadow = (size: number) => {
 
 编辑器中除了增加了对 `text-shadow` 的支持外，页面布局重新优化了一下，还增加了几个小动画：
 
-![picture 2](/image/blog-text-shadow-pixel-image-19.gif)
+![picture 2](https://stg.heyfe.org/images/blog-text-shadow-pixel-image-19.gif)
 
 动画代码如下：
 

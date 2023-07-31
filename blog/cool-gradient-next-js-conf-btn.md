@@ -102,7 +102,7 @@ body {
 
 如果去掉背景截取，我们可以看到效果是这样：
 
-![picture 1](/image/blog-cool-gradient-next-js-conf-btn-2.png)
+![picture 1](https://stg.heyfe.org/images/blog-cool-gradient-next-js-conf-btn-2.png)
 
 感觉还不错的样子。核心样式我们已经复刻完成了，我们再来加上动画。要制造出光线移动的效果，我们只需要慢慢的移动背景，由于渐变色颜色过渡都是循序渐进的，这样在只剩下边框时，就会有一种边框色在流动的感觉。
 

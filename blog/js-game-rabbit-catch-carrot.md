@@ -66,7 +66,7 @@
 
 胡萝卜我们一样使用 emoji 来做。（amazing，有剩下找素材的时间）此处注意 carrot 和 player 都会移动，所以我们为其添加上 transition，这样可以在移动时更加顺滑。此时的画面长这样：
 
-![picture 1](/image/blog-js-game-rabbit-catch-carrot-92.png)
+![picture 1](https://stg.heyfe.org/images/blog-js-game-rabbit-catch-carrot-92.png)
 
 ## 逻辑代码
 
@@ -101,7 +101,7 @@ document.addEventListener('keypress', onKeyPress, true);
 
 控制代码为了方便，我们直接使用 keypress，不过 keypress 不支持方向键，所以我们使用 A、D 作为控制方向替代。按下对应的按键后我们在当前的 player 的 left 属性进行移动操作，注意移动范围的处理。此时我们就可以使用方向键来控制小兔兔的移动了。
 
-![picture 2](/image/blog-js-game-rabbit-catch-carrot-71.gif)
+![picture 2](https://stg.heyfe.org/images/blog-js-game-rabbit-catch-carrot-71.gif)
 
 ## 胡萝卜随机生成
 

@@ -46,11 +46,11 @@ pyenv global 2.7.18
 
 1. 修改 workflow 中的执行命令，将其中的 `python` 替换为绝对路径，如 `~/.pyenv/shims/python`，也可自行添加软链到 `/usr/local/bin/python`，然后饮用软链地址。
 
-![picture 18](/image/blog-2022-mac-12-3-python-not-found-85.png)
+![picture 18](https://stg.heyfe.org/images/blog-2022-mac-12-3-python-not-found-85.png)
 
 2. 在 workflow 中添加环境变量，如 `PATH=${PATH}:~/.pyenv/shims`，等于手动注入 pyenv，这样就可以正常执行 python 了。
 
-![picture 17](/image/blog-2022-mac-12-3-python-not-found-62.png)
+![picture 17](https://stg.heyfe.org/images/blog-2022-mac-12-3-python-not-found-62.png)
 
 当然也可以在 workflow 中直接 source rc 文件来注入，但是由于 rc 文件本身可能依赖其他的环境变量，所以这种方式不太可靠。并且 rc 文件一般内容较多，很容易影响 workflow 的速度。workflow 每次调用都会执行整个命令，等于一直在 source rc 文件。
 

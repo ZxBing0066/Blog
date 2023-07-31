@@ -45,11 +45,11 @@
 
 成功在 VSCode SSH Remote 到 WSL 时运行 `cypress run`。
 
-![picture 1](/image/blog-cypress-on-remote-wsl-58.png)
+![picture 1](https://stg.heyfe.org/images/blog-cypress-on-remote-wsl-58.png)
 
 执行 `cypress open` 时会在远程桌面中打开窗口。
 
-![picture 2](/image/blog-cypress-on-remote-wsl-46.png)
+![picture 2](https://stg.heyfe.org/images/blog-cypress-on-remote-wsl-46.png)
 
 ## 进阶
 

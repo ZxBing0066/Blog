@@ -10,7 +10,7 @@ pyenv 是一个 python 的版本管理器，可以让我们轻松的安装、卸
 
 这里先放一张官方截图：
 
-![pyenv](/image/blog-2022-pyenv-61.png)
+![pyenv](https://stg.heyfe.org/images/blog-2022-pyenv-61.png)
 
 官方仓库地址：[https://github.com/pyenv/pyenv](https://github.com/pyenv/pyenv)
 

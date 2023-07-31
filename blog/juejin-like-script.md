@@ -10,7 +10,7 @@
 
 新等级除了每日发文、发沸点得分较高外，能持续获取分数的就是互相点赞了。
 
-![level](/image/blog-juejin-like-script-68.png)
+![level](https://stg.heyfe.org/images/blog-juejin-like-script-68.png)
 
 ## 脚本助力
 

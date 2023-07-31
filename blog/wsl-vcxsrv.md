@@ -21,7 +21,7 @@ sudo apt install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 li
 
 启动后展示如下界面：
 
-![picture 1](/image/blog-wsl-vcxsrv-68.png)
+![picture 1](https://stg.heyfe.org/images/blog-wsl-vcxsrv-68.png)
 
 此处 Multiple windows 表示 Linux GUI 应用回作为独立程序存在，打开单独的 window 窗口，而其他的则类似于整个窗口，可以理解为 Linux 桌面，由于我没有安装 Linux 桌面，进入直接是黑屏，这里采用 Multiple windows 的方式。点击下一步最后会出现 Disable access control 选项，建议勾选不然后面会一直需要确认。完成后 Multiple windows 模式什么都不会发生，只会出现一个 xclient 的小图标，点击可以查看链接的 GUI 数量和退出，其他模式会打开 Linux 的桌面。
 
@@ -35,7 +35,7 @@ export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}
 
 使用上面的脚本会自动将 DISPLAY 设置为 IP:0.0，建议添加到 rc 文件自动执行。完成后可尝试启动 GUI 应用查看是否成功，比如使用 xeyes 会打开如下窗口：
 
-![picture 2](/image/blog-wsl-vcxsrv-77.png)
+![picture 2](https://stg.heyfe.org/images/blog-wsl-vcxsrv-77.png)
 
 能看到则代表已经 GUI 已经配置成功。
 
@@ -49,7 +49,7 @@ sudo apt install xfce4
 
 然后通过 `startxfce4` 启动，即可成功看到 Linux 桌面。
 
-![picture 3](/image/blog-wsl-vcxsrv-24.png)
+![picture 3](https://stg.heyfe.org/images/blog-wsl-vcxsrv-24.png)
 
 ## FAQ
 

@@ -1,5 +1,7 @@
 ---
-tags: [Cloudflare]
+tags: [Cloudflare, http]
+summary: 介绍在 Cloudflare 中如何进行 https 的相关配置，几种加密模式的区别。
+cover: https://stg.heyfe.org/images/blog-cloudflare-1690700083116.png
 ---
 
 # Cloudflare 的加密模式配置

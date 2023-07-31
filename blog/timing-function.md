@@ -18,17 +18,17 @@ https://code.juejin.cn/pen/7148632511441010688
 
 为了用好贝塞尔曲线，我们第一步先学会看懂贝塞尔曲线图，此处我们可以借助 `chrome devtool`，可以帮助我们更方便的调试。
 
-![picture 2](/image/blog-timing-function-7.png)
+![picture 2](https://stg.heyfe.org/images/blog-timing-function-7.png)
 
 这里我们先配合几个内置函数的曲线图解读一下，曲线是怎么关联到动画的执行的。
 
-![picture 3](/image/blog-timing-function-58.png)
+![picture 3](https://stg.heyfe.org/images/blog-timing-function-58.png)
 
 这里的横轴为时间轴，纵轴为动画进度轴。能看到 `linear` 对应的就是一条直线，所以 `linear` 对应的动画就是以恒定的速度进行，而 `ease` 则是前期上升较快后期较慢，对应的动画效果就是前期的速度较快，后期的速度较慢。
 
 当我们需要制作一个贝塞尔曲线时，我们就可以直接借助 `chrome devtool`，拖动两个小圆点来改变曲线，制作出符合自己需求的曲线。
 
-![picture 5](/image/blog-timing-function-62.png)
+![picture 5](https://stg.heyfe.org/images/blog-timing-function-62.png)
 
 比如像这样就可以创造出一个超出回弹的动画。
 
@@ -36,7 +36,7 @@ https://code.juejin.cn/pen/7148632511441010688
 
 `CSS` 动画中使用的贝塞尔曲线其实是三次贝塞尔曲线，他依赖于 4 个坐标点生存，坐标系是这样的：
 
-![picture 4](/image/blog-timing-function-76.png)
+![picture 4](https://stg.heyfe.org/images/blog-timing-function-76.png)
 
 横向坐标轴 `x` 轴表示时间，纵向坐标轴 `y` 轴表示计算后的值，坐标轴上一直存在两个固定点：起点 (0,0)，终点 (1,1)。所以 `x` 轴的 0 代表时间起点，1 代表时间终点，`y` 轴的 0 代表起始状态，1 代表结束状态。
 
@@ -58,7 +58,7 @@ animation-timing-function: cubic-bezier(0.2, -2, 0.8, 2);
 
 曲线公式如下：
 
-![picture 6](/image/blog-timing-function-28.png)
+![picture 6](https://stg.heyfe.org/images/blog-timing-function-28.png)
 
 `CSS` 借助三次贝塞尔曲线，借助两个坐标点就可以制造出一个缓动动画曲线，使用曲线函数即可算出每个时间点对应的动画进度。
 

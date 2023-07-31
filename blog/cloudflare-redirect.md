@@ -1,5 +1,7 @@
 ---
 tags: [Cloudflare]
+summary: 介绍在 Cloudflare 中如何进行重定向的配置，几种方案和可能遇到的问题的分析解决。
+cover: https://stg.heyfe.org/images/blog-cloudflare-1690700083116.png
 ---
 
 # Cloudflare 重定向配置

@@ -56,7 +56,7 @@ ignoreInList: true
 
 再说说今年在掘金的故事，今年参加了两期掘金日新更文，写了 60+ 篇文，成功升到了 5 级，也搞到了一堆的周边。
 
-![picture 1](/image/blog-2022-32.png)
+![picture 1](https://stg.heyfe.org/images/blog-2022-32.png)
 
 借助写作的动力（升级的快感、奖品的诱惑），写了几个文章演示使用的网站：
 

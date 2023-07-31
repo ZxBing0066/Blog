@@ -74,7 +74,7 @@ Saved to: benchmark/results/reduce.chart.html
 
 如果使用了图表还可打开图表查看，会更直观，如上结果对应的图表为：
 
-![picture 1](/image/blog-benny-introduce-90.png)
+![picture 1](https://stg.heyfe.org/images/blog-benny-introduce-90.png)
 
 图表可直接将输出的图表 `html` 打开查看，其中使用 `chart.js` 进行渲染。
 

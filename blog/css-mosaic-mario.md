@@ -39,7 +39,7 @@
 
 先看下参考的原图：
 
-![picture 1](/image/blog-css-mosaic-mario-70.png)
+![picture 1](https://stg.heyfe.org/images/blog-css-mosaic-mario-70.png)
 
 要绘制马里奥，我们需要照着图，将图进行格子化，然后一个格子一个格子的绘制。。。。 那是不可能的！
 

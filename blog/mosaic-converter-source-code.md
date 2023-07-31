@@ -2,7 +2,7 @@
 
 上文有讲到我制作了一个马赛克图片转换器，可以将图片转换成马赛克风格，并可转换为 `css box-shadow` 进行输出。前排还是先放效果图、转换器地址和 `GitHub` 地址：
 
-![picture 1](/image/blog-mosaic-converter-44.gif)
+![picture 1](https://stg.heyfe.org/images/blog-mosaic-converter-44.gif)
 
 转化器地址：https://mosaic.heyfe.org/
 
@@ -102,9 +102,9 @@ ctx.drawImage(offscreenCanvas, 0, 0, canvasWidth, canvasWidth * ratio);
 
 此处我们根据宽高比设置画布大小，需要注意的是：`imageSmoothingEnabled`，默认情况下浏览器拿到一张像素较低的图片要将其绘制时，为了更好的观感会进行平滑处理，为了保证我们的像素图的像素性，我们需要强制关闭浏览器这一特性，可以看下关闭前后的对比图：
 
-![picture 6](/image/blog-mosaic-converter-source-code-89.png)
+![picture 6](https://stg.heyfe.org/images/blog-mosaic-converter-source-code-89.png)
 
-![picture 5](/image/blog-mosaic-converter-source-code-98.png)
+![picture 5](https://stg.heyfe.org/images/blog-mosaic-converter-source-code-98.png)
 
 可以明显看到默认情况下像素格都被平滑过渡消失了，为了在画布中绘制出马赛克风格的图片，我们需要将 `imageSmoothingEnabled` 关闭。关闭后我们可直接将 `offscreenCanvas` 绘制到大画布中。
 
@@ -149,7 +149,7 @@ const outputBoxShadow = (size: number) => {
 
 借助 `box-shadow` 的一些特性，可以让图片风格更丰富。
 
-![picture 1](/image/blog-mosaic-converter-source-code-82.png)
+![picture 1](https://stg.heyfe.org/images/blog-mosaic-converter-source-code-82.png)
 
 ## 总结
 

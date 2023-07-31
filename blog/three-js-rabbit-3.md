@@ -29,7 +29,7 @@ const render = () => {
 
 然后我们就可以在左上角看到状态面板。
 
-![picture 1](/image/blog-three-js-rabbit-3-88.png)
+![picture 1](https://stg.heyfe.org/images/blog-three-js-rabbit-3-88.png)
 
 ## 动画 weight
 
@@ -102,11 +102,11 @@ const init = () => {
 };
 ```
 
-![picture 2](/image/blog-three-js-rabbit-3-36.png)
+![picture 2](https://stg.heyfe.org/images/blog-three-js-rabbit-3-36.png)
 
 此时我们就可以使用 slider 来操控 weight 了，一起看下 weight 的效果。
 
-![picture 3](/image/blog-three-js-rabbit-3-99.gif)
+![picture 3](https://stg.heyfe.org/images/blog-three-js-rabbit-3-99.gif)
 
 ## 使用 weight 来切换动画
 

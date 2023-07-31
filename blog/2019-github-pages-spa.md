@@ -98,7 +98,7 @@ index.html
 
 ## 最终效果
 
-可以看下效果： ![github-spa.gif](/image/2019-github-pages-spa.gif)
+可以看下效果： ![github-spa.gif](https://stg.heyfe.org/images/2019-github-pages-spa.gif)
 
 网站地址：[https://rapiop.github.io/vue/](https://rapiop.github.io/vue/)
 

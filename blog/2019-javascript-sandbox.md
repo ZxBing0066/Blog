@@ -89,7 +89,7 @@ console.log(outterVariable);
 
 除了全局变量的问题，貌似一切 OK，再想想怎么解决全局变量这个大麻烦
 
-![](/image/emot-dydx.jpg)
+![](https://stg.heyfe.org/images/emot-dydx.jpg)
 
 改变代码的作用域，除了 eval、Function 就只能想到 with 了，不过 with 的功能是将给定的表达式挂到作用域的顶端，全局变量好像不太行？等等，那试试 Proxy 呢。
 
@@ -151,7 +151,7 @@ console.log(outterVariable);
 
 通过 with 改变作用域链，以及 Proxy 的 has 阻断变量的查询，就能将对变量的访问锁死在沙盒环境中。然而，报错了。
 
-![当场去世](/image/emot-qnqs.jpg)
+![当场去世](https://stg.heyfe.org/images/emot-qnqs.jpg)
 
 由于阻断了变量的查询，全局对象上的正常属性也都无法访问了，这就不妙了。如何在阻断后还能访问到全局变量呢，把我们上面的 context 里塞上 window 的属性就好啦。当然不能一个个复制，这时候我们可以直接使用继承，这样不止能访问到全局，还能让对全局对象的修改只影响到 context 而不影响 window，可喜可贺 可喜可贺。
 
@@ -215,13 +215,13 @@ console.log('outterVariable' in global);
 
 第一个点比较好解决，访问这些属性时直接返回 proxy 就行了，this 可以通过将 Function bind proxy 解决第二个就比较麻烦了，由于全局变量很多都是引用类型，要解决除非一层层深克隆（要处理各种奇怪问题），或者一层层代理（也会出现各种各样的问题），所以放弃了，毕竟篡改全局变量不是什么好代码，一般场景下也很少出现这样的代码，不过我们可以通过白名单或者黑名单的方式，让沙盒中的代码只能访问必要的全局变量，防止重要的全局变量被篡改
 
-![我能怎么办](/image/emot-wxwm.jpg)
+![我能怎么办](https://stg.heyfe.org/images/emot-wxwm.jpg)
 
 第三个也很麻烦，Function 和间接 eval 是直接在全局下执行的，实在想解决的话，Function 和 eval 可以通过抛出自定义的 eval 和 Function 来实现，而 function 的话可以通过启用沙箱的严格模式来实现
 
 然而还是可以绕过，比如使用 (function(){}).constructor
 
-![](/image/emot-sbz.jpg)
+![](https://stg.heyfe.org/images/emot-sbz.jpg)
 
 ### 最终实现
 
@@ -235,7 +235,7 @@ console.log('outterVariable' in global);
 
 想看 DEMO 效果的可以直接看这里： [![Edit quirky-microservice-8oqog](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/quirky-microservice-8oqog?fontsize=14&hidenavigation=1&theme=dark)
 
-效果基本如期，其中还有一些比较细节实现，有兴趣的可以关注下最终实现库，源码不到 100 行 [![](/image/github-star.jpg)](https://github.com/ZxBing0066/z-sandbox)
+效果基本如期，其中还有一些比较细节实现，有兴趣的可以关注下最终实现库，源码不到 100 行 [![](https://stg.heyfe.org/images/github-star.jpg)](https://github.com/ZxBing0066/z-sandbox)
 
 通过下面的代码我们可以很方便的将 React15 和 16 跑在一起，而不需要担心它们互相干扰。
 

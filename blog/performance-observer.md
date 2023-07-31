@@ -60,6 +60,6 @@ onInitial();
 
 还要注意的是该 `API` 兼容性并不佳：
 
-![picture 6](/image/blog-performance-observer-63.png)
+![picture 6](https://stg.heyfe.org/images/blog-performance-observer-63.png)
 
 并且没有什么比较靠谱的 `polyfill`。所以理想很丰满、现实很骨感，生产基本是没法用了，只能当个玩具耍耍。当然，我们也可以尝试自己实现一个 `polyfill`，毕竟如果你遇到如上的需求，可能写一个 `PerformanceObserver polyfill` 是性价比更高的选择。

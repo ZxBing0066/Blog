@@ -16,7 +16,7 @@ wsl -l -v
 wsl --list --verbose
 ```
 
-![picture 1](/image/blog-wsl-upgrade-26.png)
+![picture 1](https://stg.heyfe.org/images/blog-wsl-upgrade-26.png)
 
 运行后 VERSION 字段对应的即为该 WSL 的版本，如果为 1 则继续下面的步骤。
 
@@ -30,7 +30,7 @@ wsl --set-version Ubuntu-22.04 2
 
 如果升级是出现如下报错：
 
-![picture 2](/image/blog-wsl-upgrade-21.png)
+![picture 2](https://stg.heyfe.org/images/blog-wsl-upgrade-21.png)
 
 下载： https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi 安装，完成后重试。
 
@@ -40,7 +40,7 @@ wsl --set-version Ubuntu-22.04 2
 
 重新执行 `--set-version` 后，需要等待一段时间，不放心可以使用 `-l -v` 查看当前状态：
 
-![picture 3](/image/blog-wsl-upgrade-27.png)
+![picture 3](https://stg.heyfe.org/images/blog-wsl-upgrade-27.png)
 
 `Converting` 则表示当前正在转换中。
 
@@ -48,7 +48,7 @@ wsl --set-version Ubuntu-22.04 2
 
 升级完成后，可以打开 WSL，需要注意的是 WSL 2 与 WSL 1 网络架构不同，WSL 2 有自己的独立虚拟网卡，而 WSL 1 则是网络桥接。可以在 CMD 中 ipconfig 查看：
 
-![picture 4](/image/blog-wsl-upgrade-93.png)
+![picture 4](https://stg.heyfe.org/images/blog-wsl-upgrade-93.png)
 
 如果需要从远程 SSH 访问 WSL，会发现无法访问，此时可以有两种方案：
 

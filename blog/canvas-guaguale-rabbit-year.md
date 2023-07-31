@@ -6,7 +6,7 @@ tags: [javascript, canvas]
 
 今年是兔年，随手写个兔年祝福语刮刮乐，祝大家新年快乐（迟到的祝福）。
 
-![picture 1](/image/blog-canvas-guaguale-rabbit-year-16.gif)
+![picture 1](https://stg.heyfe.org/images/blog-canvas-guaguale-rabbit-year-16.gif)
 
 ## 刮刮乐设计
 

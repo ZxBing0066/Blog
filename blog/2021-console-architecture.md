@@ -49,7 +49,7 @@ date: 2021-08-27
 
 ## 新架构
 
-![架构图](/image/blog-2021-console-architecture-84.png)
+![架构图](https://stg.heyfe.org/images/blog-2021-console-architecture-84.png)
 
 控制台项目分三层，启动器、公共模块、业务模块。
 
@@ -124,7 +124,7 @@ date: 2021-08-27
 -   使用灰度信息初始化微前端、模块管理器
 -   根据当前 `url` 匹配项目，如果为老项目则加载老启动器，进入老项目加载流程，新项目直接加载项目、依赖
 
-![流程图](/image/blog-2021-console-architecture-49.png)
+![流程图](https://stg.heyfe.org/images/blog-2021-console-architecture-49.png)
 
 ### 开发
 

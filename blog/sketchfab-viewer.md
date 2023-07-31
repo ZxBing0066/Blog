@@ -79,11 +79,11 @@ client.init(uid, {
 
 这样一个和 sketchfab 官网同样强大的模型预览工具就生成了。
 
-![picture 1](/image/blog-sketchfab-viewer-29.png)
+![picture 1](https://stg.heyfe.org/images/blog-sketchfab-viewer-29.png)
 
 注意此处的 UID 是模型的唯一 id，可以在每个模型的链接最后找到。比如如下模型的 UID 就是链接最后的 `d45c2cfa06094235a9e8783aa454ffb6`:
 
-![picture 2](/image/blog-sketchfab-viewer-55.png)
+![picture 2](https://stg.heyfe.org/images/blog-sketchfab-viewer-55.png)
 
 ## 进阶
 

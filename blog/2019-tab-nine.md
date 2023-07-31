@@ -13,7 +13,7 @@ date: 2019-11-06
 
 先来个官网的例子感受一下：
 
-![python_demo_1.gif](/image/blog-2019-tab-nine-0.gif)
+![python_demo_1.gif](https://stg.heyfe.org/images/blog-2019-tab-nine-0.gif)
 
 ## 支持
 
@@ -38,7 +38,7 @@ VSCode 可直接到插件商店搜索 TabNine 下载。
 
 它会根据已有的代码去补全后面的类似代码，这点给一般的自动补全工具做了很好的补充。
 
-![](/image/blog-2019-tab-nine-1.gif)
+![](https://stg.heyfe.org/images/blog-2019-tab-nine-1.gif)
 
 ## 指令
 
@@ -71,7 +71,7 @@ VSCode 可直接到插件商店搜索 TabNine 下载。
 
 Professional 版本支持使用云算力来加速自动补全（在配置面板中开启）。
 
-![](/image/blog-2019-tab-nine-2.png)
+![](https://stg.heyfe.org/images/blog-2019-tab-nine-2.png)
 
 ## 链接
 

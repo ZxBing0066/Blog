@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { HTMLAttributes, useMemo } from 'react';
 import { Content, PageData, useData } from 'rvpress';
 
 import { getPageCreateTime } from '../utils';
@@ -6,13 +6,18 @@ import BlogTime from './BlogTime';
 import cls from './List.module.scss';
 import Tags from './Tags';
 
-const announces = ['你能坚持的只有自己，能改变的也只有自己。✨', '水能载舟，亦可赛艇。🚤'];
+const announces = [
+    '你能坚持的只有自己，能改变的也只有自己。✨',
+    '水能载舟，亦可赛艇。🚤',
+    '你不要过来啊！😱',
+    '别慌，问题不大。🐳'
+];
 const announce = announces[(Math.random() * announces.length) | 0];
 
-const PageBlock = ({ page }: { page: PageData }) => {
+const PageBlock = ({ page, ...rest }: { page: PageData } & HTMLAttributes<HTMLDivElement>) => {
     const href = '/' + page.relativePath.replace(/.md$/, '.html');
     return (
-        <div className='page-block'>
+        <div className='page-block' {...rest}>
             <div className='left'>
                 <a href={href} className='cover'>
                     <img src={page.frontmatter.cover || '/post.jpg'} alt='cover' />
@@ -119,8 +124,12 @@ const PageList = () => {
                 {tag && <h2 className='subtitle'>Tag: {tag}</h2>}
                 <Content className='content' />
                 <div className='list-wrap'>
-                    {finalPageList.map(page => (
-                        <PageBlock page={page} key={page.relativePath} />
+                    {finalPageList.map((page, i) => (
+                        <PageBlock
+                            page={page}
+                            key={page.relativePath}
+                            style={{ animationDelay: 0.1 * Math.min(i, 15) + 's' }}
+                        />
                     ))}
                 </div>
             </div>

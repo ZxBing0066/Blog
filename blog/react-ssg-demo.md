@@ -1,5 +1,6 @@
 ---
 tags: [渲染模式, React]
+summary: SSG 被很多开源库所应用，比如 VitePress、Next.js、Docusaurus，本文记录下 SSG 的使用场景，以及实现原理。
 cover: https://stg.heyfe.org/images/blog-react-isr-demo-1690810719572.png
 ---
 

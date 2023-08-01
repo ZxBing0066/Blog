@@ -267,8 +267,9 @@
             box-sizing: border-box;
             padding: 2rem 1rem 1rem;
             transition: transform 0.3s;
+            transform: translate(300%);
             :local {
-                animation: bounceInRight 0.5s;
+                animation: bounceInRight 0.5s both;
             }
 
             .left {
@@ -325,7 +326,7 @@
             flex-direction: column;
             margin-bottom: 2rem;
             .avatar {
-                width: 8rem;
+                height: 8rem;
                 border-radius: 50%;
                 &:hover {
                     :local {

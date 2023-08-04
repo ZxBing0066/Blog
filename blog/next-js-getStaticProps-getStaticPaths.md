@@ -1,5 +1,5 @@
 ---
-tags: [next.js, React, SSG, ISR]
+tags: [next.js, React, SSG]
 summary: 介绍 next.js 中的 getStaticProps、getStaticPaths 如何使用，SSG 如何实现等。
 cover: https://stg.heyfe.org/images/blog-next.js-1690694536769.webp
 ---

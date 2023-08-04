@@ -245,8 +245,9 @@
 .list {
     :global {
         display: flex;
-        padding: 0 2rem;
+        padding: 2rem 2rem 0;
         max-width: 1000px;
+        overflow: hidden;
         margin: 0 auto;
         line-height: 1.8;
 

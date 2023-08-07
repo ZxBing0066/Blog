@@ -1,6 +1,7 @@
 ---
 tags: [渲染模式]
 cover: https://stg.heyfe.org/images/blog-csr-ssr-ssg-isr-1690811088700.webp
+summary: CSR、SSR、SSG、ISR 是目前前端非常常见的渲染模式。本文以 React、Vue 为例，介绍下主流的渲染模式以及在主流框架中如何实现上述的渲染模式。
 ---
 
 # 什么是 CSR、SSR、SSG、ISR

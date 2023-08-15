@@ -5,6 +5,10 @@ tags: [AI绘画, AIGC, Stable Diffusion]
 
 # 在 Stable Diffusion 中控制光线的三种方式
 
+> 在 Stable Diffusion Art 网站上看到一片关于在 Stable Diffusion 中如何控制光线的网站，感觉讲的很通俗易懂，做个翻译。
+>
+> 原文地址： https://stable-diffusion-art.com/control-lighting/
+
 光线在摄影中扮演着至关重要的角色，并对图像的整体质量和意境产生重要影响。你可以利用光线来增强主题，创造深度和立体感，传达情感，并突出重要细节。
 
 在本文中，你将了解通过以下方法来控制光线：
@@ -149,7 +153,7 @@ tags: [AI绘画, AIGC, Stable Diffusion]
 
 提示：
 
--   如果未看到效果，请调整提示词的[权重](https://stable-diffusion-art.com/prompt-guide/#Keyword_weight)。
+-   如果未看到效果，请调整提示词的权重。
 -   区域提示并不总是百分之百有效。生成多一些的图片，并挑选出最好的结果。
 
 ## 使用 ControlNet 控制光照
@@ -157,8 +161,6 @@ tags: [AI绘画, AIGC, Stable Diffusion]
 现在，任何教程都离不开提到 `ControlNet`... 所以本文也不可避免！
 
 这种方法允许你精确控制光线。
-
-你需要安装 `ControlNet` 扩展。请按照 [本教程](https://stable-diffusion-art.com/controlnet/) 进行安装。
 
 ### Txt2img 设置
 

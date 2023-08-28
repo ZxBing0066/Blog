@@ -1,6 +1,6 @@
 ---
 tags: []
-summary: 浏览器的视频画中画特性有几年了，最近又增加了文档画中画，顺便复习下视频画中画。
+summary: 浏览器的视频画中画特性有几年了，最近又增加了文档画中画，顺便复习下视频画中画，已经使用时的各种细节问题。
 attractor-title: 浏览器视频画中画（Picture In Picture），一篇就够
 ---
 
@@ -163,13 +163,13 @@ button.onclick = togglePictureInPicture;
 
 ### 启用画中画状态下设置 disablePictureInPicture
 
-然后是如果当前的 `video` 已经处于画中画的状态为其设置 `disablePictureInPicture` 会发生什么？尝试了一下浏览器已经会保持该视频当前的画中画状态。
+然后是如果当前的 `video` 已经处于画中画的状态为其设置 `disablePictureInPicture` 会发生什么？尝试了一下浏览器依旧会保持该视频当前的画中画状态。
 
 ![](https://stg.heyfe.org/images/blog-video-picture-in-picture-1693138328788.png)
 
 ### 移动端
 
-画中画在移动端的行为基本一致，唯一的差异是**所有浏览器共享一个画中画视频额度**。
+画中画在移动端的行为基本一致，唯一的差异是**所有浏览器共享一个画中画视频额度**。就是说如果 `Chrome` 已经存在画中画窗口时，如果在 `Safari` 下开启了某个视频的画中画则现有的 `Chrome` 的画中画将会被替换。
 
 ## 最后
 

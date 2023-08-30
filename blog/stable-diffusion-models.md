@@ -113,7 +113,7 @@ CodeFormer 是一个开源项目，在 WebUI 中已经默认被整合，可以�
 | 模型名称 | 作用 | 后缀名 | 大小 | 在 WebUI 中的文件夹 |
 | --- | --- | --- | --- | --- |
 | Checkpoint | 主模型 | .ckpt 或 .safetensors | 2G - 7G | `models/Stable-diffusion` |
-| LoRA 和 LyCORIS | 微调模型，一般用于控制画风、控制生成的角色、控制角色的姿势等等 | .safetensors | 2G - 7G | `models/Stable-diffusion` |
+| LoRA 和 LyCORIS | 微调模型，一般用于控制画风、控制生成的角色、控制角色的姿势等等 | .safetensors | 2G - 7G | `models/LoRA` |
 | Textual Inversion | 文本编码器模型 | .pt 或 .safetensors | KB 级别 | `embeddings` |
 | Hypernetworks | 调整模型神经网络权重，进行风格的微调 | .pt 或 .safetensors | 20M - 200M | `models/hypernetworks` |
 | ControlNet | 强大的控制模型，可以进行画面控制、动作控制、色深控制、色彩控制等等 | .safetensors | KB 级别 | `models/ControlNet` |

@@ -1,4 +1,6 @@
 ---
+lastUpdate: 2023-7-31
+date: 2023-2-10
 tags: [WSL, chrome]
 cover: https://stg.heyfe.org/images/blog-wsl-chrome-1690811688446.png
 ---

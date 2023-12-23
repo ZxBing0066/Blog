@@ -1,4 +1,6 @@
 ---
+lastUpdate: 2023-7-31
+date: 2023-4-22
 tags: [AI绘画, AIGC, Stable Diffusion]
 cover: https://stg.heyfe.org/images/blog-stable-diffusion-models-1690811336594.png
 ---

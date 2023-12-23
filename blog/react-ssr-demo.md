@@ -1,4 +1,6 @@
 ---
+lastUpdate: 2023-8-1
+date: 2023-7-31
 tags: [渲染模式, React]
 summary: SSR 即 Server Side Rendering，是被讨论最多的渲染模式，记录下 SSR 的使用场景，以及如何实现。
 cover: https://stg.heyfe.org/images/blog-react-isr-demo-1690810719572.png

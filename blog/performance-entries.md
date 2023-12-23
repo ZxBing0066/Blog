@@ -1,3 +1,7 @@
+---
+lastUpdate: 2022-10-18
+date: 2022-10-18
+---
 # 强大的 performance API - PerformanceEntry 篇（你想要的性能指标，都逃不过我的掌控 🫴）
 
 很久前写的一篇性能优化的文章中有提到我们可以使用 `performance.now` 来获取程序运行的时间，今天再来介绍一个鲜为人知却又无比强大的 `API` - `performance` 中的一个很强大的功能：`getEntries`，简单的说通过 `getEntries` 系列 `API`，浏览器中的自带的一切性能相关指标我们都可以直接获取到，下面一起来看下里面藏着哪些信息。

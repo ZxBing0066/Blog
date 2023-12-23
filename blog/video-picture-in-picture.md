@@ -1,4 +1,6 @@
 ---
+lastUpdate: 2023-8-28
+date: 2023-8-27
 tags: []
 summary: 浏览器的视频画中画特性有几年了，最近又增加了文档画中画，顺便复习下视频画中画，已经使用时的各种细节问题。
 cover: https://stg.heyfe.org/images/blog-video-picture-in-picture-1692800866314.png

@@ -1,4 +1,6 @@
 ---
+lastUpdate: 2023-7-31
+date: 2023-3-27
 tags: [Cloudflare, Linux, iptables]
 summary: 介绍使用 Cloudflare 和 iptables 实现屏蔽未知的流量，从而提升站点的安全性。
 cover: https://stg.heyfe.org/images/blog-cloudflare-1690700083116.png

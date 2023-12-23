@@ -1,4 +1,6 @@
 ---
+lastUpdate: 2023-7-30
+date: 2022-9-29
 tags: [next.js, React]
 summary: 介绍 next.js 中的 API 路由设计，动态路由和路由参数等。
 cover: https://stg.heyfe.org/images/blog-next.js-1690694536769.webp

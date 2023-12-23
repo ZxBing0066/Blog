@@ -7,7 +7,6 @@ import cls from './BlogTime.module.scss';
 const BlogTime = ({ page }: { page: PageData }) => {
     const date = getPageCreateTime(page);
     const lastUpdated = getPageUpdateTime(page);
-    console.log(lastUpdated);
 
     const s = useMemo(() => {
         const d = new Date(date);

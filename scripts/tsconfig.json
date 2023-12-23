@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "module": "esnext",
+        "moduleResolution": "node",
+        "strict": true,
+        "noUnusedLocals": true,
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "declaration": true,
+        "lib": ["ESNext"],
+        "baseUrl": ".",
+        "rootDir": ".",
+        "target": "es2019",
+        "types": ["node"],
+        "sourceMap": true,
+        "emitDeclarationOnly": true
+    },
+    "include": ["."]
+}

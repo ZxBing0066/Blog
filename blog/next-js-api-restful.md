@@ -1,4 +1,6 @@
 ---
+lastUpdate: 2023-7-30
+date: 2023-7-30
 tags: [next.js, React, restful]
 summary: 在使用 next.js 开发时如何方便封装 handler，来实现 restful 风格 API。
 cover: https://stg.heyfe.org/images/blog-next.js-1690694536769.webp

@@ -1,4 +1,6 @@
 ---
+lastUpdate: 2023-8-6
+date: 2023-8-6
 tags: [next.js, React, SSG, 源码解析]
 summary: 解析 next.js 中的 getStaticProps、getStaticPaths 相关的源码，SSG 的相关实现等。
 cover: https://stg.heyfe.org/images/blog-next.js-1690694536769.webp

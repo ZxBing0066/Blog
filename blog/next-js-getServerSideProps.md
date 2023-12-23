@@ -1,4 +1,6 @@
 ---
+lastUpdate: 2023-7-30
+date: 2022-10-9
 tags: [next.js, React, SSR]
 summary: 介绍 next.js 中的 getServerSideProps 如何使用，有哪些细节。
 cover: https://stg.heyfe.org/images/blog-next.js-1690694536769.webp

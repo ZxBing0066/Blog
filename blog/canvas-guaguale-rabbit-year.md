@@ -1,4 +1,6 @@
 ---
+lastUpdate: 2023-7-31
+date: 2023-2-9
 tags: [javascript, canvas]
 ---
 

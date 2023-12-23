@@ -1,4 +1,6 @@
 ---
+lastUpdate: 2023-7-31
+date: 2022-8-16
 tags: [React, 组件]
 cover: https://stg.heyfe.org/images/blog-react-isr-demo-1690810719572.png
 ---

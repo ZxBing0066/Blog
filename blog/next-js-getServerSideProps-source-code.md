@@ -1,4 +1,6 @@
 ---
+lastUpdate: 2023-7-30
+date: 2022-10-10
 tags: [next.js, React, SSR, 源码解析]
 summary: 解析 next.js 中的 getServerSideProps 相关的源码，SSR 实现等。
 cover: https://stg.heyfe.org/images/blog-next.js-1690694536769.webp

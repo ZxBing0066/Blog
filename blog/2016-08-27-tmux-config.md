@@ -1,4 +1,5 @@
 ---
+lastUpdate: 2022-4-11
 date: 2016-08-27 5:45:43
 tags: [terminal, tmux]
 ---

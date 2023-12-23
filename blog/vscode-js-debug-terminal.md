@@ -1,4 +1,6 @@
 ---
+lastUpdate: 2023-7-31
+date: 2023-5-15
 tags: [VSCode, Node.js]
 cover: https://stg.heyfe.org/images/blog-vscode-js-debug-terminal-1690811194402.jpg
 ---

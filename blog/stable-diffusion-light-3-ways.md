@@ -1,4 +1,6 @@
 ---
+lastUpdate: 2023-8-15
+date: 2023-8-14
 cover: https://stg.heyfe.org/images/blog-stable-diffusion-light-3-ways-1692021833858.jpeg
 tags: [AI绘画, AIGC, Stable Diffusion]
 summary: 这是一片译文，主要讲解了在 Stable Diffusion 中如何通过提示词、Regional Prompter 插件以及 ControlNet 来进行光线的控制以增强图片的效果。

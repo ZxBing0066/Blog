@@ -1,4 +1,6 @@
 ---
+lastUpdate: 2023-7-31
+date: 2023-4-8
 tags: [MacOS]
 cover: https://stg.heyfe.org/images/blog-2022-mac-preview-stunk-1690814279537.png
 ---

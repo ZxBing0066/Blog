@@ -1,4 +1,6 @@
 ---
+lastUpdate: 2023-7-31
+date: 2022-10-16
 tags: [babel]
 cover: https://stg.heyfe.org/images/blog-we-can-see-babel-everywhere-1690811931000.png
 ---

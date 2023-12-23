@@ -1,4 +1,6 @@
 ---
+lastUpdate: 2023-7-31
+date: 2023-2-4
 tags: [three.js]
 cover: https://stg.heyfe.org/images/blog-three-js-rabbit-0-1690812321314.png
 ---

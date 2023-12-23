@@ -1,4 +1,6 @@
 ---
+lastUpdate: 2023-7-31
+date: 2023-4-27
 tags: [pupeteer]
 cover: https://stg.heyfe.org/images/blog-ubuntu-puppeteer-1690811141540.png
 ---

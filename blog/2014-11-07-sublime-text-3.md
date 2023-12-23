@@ -1,4 +1,5 @@
 ---
+lastUpdate: 2023-7-31
 date: 2014-11-7 10:16:43
 tags: [sublime-text]
 cover: https://stg.heyfe.org/images/blog-2014-11-07-sublime-text-3-1690763493754.png

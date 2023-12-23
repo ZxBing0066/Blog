@@ -28,5 +28,8 @@ export const getPageCreateTime = (page: PageData) => {
 };
 
 export const getPageUpdateTime = (page: PageData) => {
-    return page.lastUpdated && page.lastUpdated !== getPageCreateTime(page) ? page.lastUpdated : null;
+    return (
+        page.frontmatter.lastUpdate ||
+        (page.lastUpdated && page.lastUpdated !== getPageCreateTime(page) ? page.lastUpdated : null)
+    );
 };

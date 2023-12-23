@@ -1,4 +1,6 @@
 ---
+lastUpdate: 2022-5-21
+date: 2022-5-21
 tags: [zsh, FQA]
 ignoreInList: true
 ---

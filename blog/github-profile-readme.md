@@ -1,3 +1,7 @@
+---
+lastUpdate: 2023-7-31
+date: 2022-8-26
+---
 # 玩转 GitHub profile - 打造自己的特色 GitHub 主页
 
 今天介绍下 `GitHub` 的一项特色功能 - `GitHub profile`，以及一些列开源工具、项目来帮助打造自己特色的 `GitHub profile`。

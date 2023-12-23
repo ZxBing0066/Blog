@@ -1,4 +1,6 @@
 ---
+lastUpdate: 2023-7-30
+date: 2023-7-30
 tags: [next.js, React, 源码解析]
 summary: 解析 next.js 中的 dynamic import 相关的源码实现。
 cover: https://stg.heyfe.org/images/blog-next.js-1690694536769.webp

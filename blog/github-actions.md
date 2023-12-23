@@ -1,3 +1,7 @@
+---
+lastUpdate: 2023-7-31
+date: 2022-8-23
+---
 # 玩转 GitHub Actions
 
 GitHub Actions 是 GitHub 中提供的自动化功能，通过它可以方便的在你提交代码、发送 PR 等各种事件触发时触发一系列自动化操作，完成 CI/CD、辅助机器人等功能，解放双手。

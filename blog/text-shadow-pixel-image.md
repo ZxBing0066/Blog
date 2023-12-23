@@ -1,3 +1,7 @@
+---
+lastUpdate: 2023-7-31
+date: 2022-10-22
+---
 # 可玩性超高的文字像素图 - 像素图转换器新增文字像素图功能
 
 ![picture 1](https://stg.heyfe.org/images/blog-text-shadow-pixel-image-8.png)

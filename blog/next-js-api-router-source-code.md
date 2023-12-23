@@ -1,4 +1,6 @@
 ---
+lastUpdate: 2023-7-30
+date: 2022-10-1
 tags: [next.js, React, 源码解析]
 summary: 解析下 next.js 中 API 路由实现的相关源码，包含打包、dev server、server 相关的部分。
 cover: https://stg.heyfe.org/images/blog-next.js-1690694536769.webp

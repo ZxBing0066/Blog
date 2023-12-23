@@ -1,4 +1,6 @@
 ---
+lastUpdate: 2023-7-31
+date: 2022-4-16
 tags: [FAQ, 生产力]
 cover: https://stg.heyfe.org/images/blog-2022-mac-preview-stunk-1690814279537.png
 ---

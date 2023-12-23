@@ -1,4 +1,6 @@
 ---
+lastUpdate: 2023-7-30
+date: 2023-7-30
 tags: [next.js, React, SSR]
 summary: 介绍如何在 next.js 中关闭 SSR，已经常见的 hydration 错误的原因和解决方案。
 cover: https://stg.heyfe.org/images/blog-next.js-1690694536769.webp

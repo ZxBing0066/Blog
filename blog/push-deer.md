@@ -1,4 +1,6 @@
 ---
+lastUpdate: 2023-7-31
+date: 2023-3-19
 tags: [瞎折腾]
 cover: https://stg.heyfe.org/images/blog-push-deer-1690814557259.png
 ---

@@ -1,4 +1,6 @@
 ---
+lastUpdate: 2022-7-16
+date: 2022-7-10
 tags: [FAQ, chrome-extension]
 ---
 

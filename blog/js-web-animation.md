@@ -1,7 +1,7 @@
 ---
 lastUpdate: 2023-7-9
 date: 2022-8-17
-tags: [javascript, css, 动画]
+tags: [JavaScript, CSS, Animation]
 ---
 
 # 孤陋寡闻了，才知道已经可以用 JS 来控制 CSS 动画了

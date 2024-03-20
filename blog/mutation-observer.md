@@ -1,7 +1,9 @@
 ---
 lastUpdate: 2022-10-8
 date: 2022-10-8
+tags: ['JavaScript', 'WebAPI']
 ---
+
 # MutationObserver - 监听你的 DOM 是否有变动
 
 `MutationObserver` 可用来监视 `DOM` 的变化，算是一个比较老的 `API`，但是却鲜为人知，他的前身是 `MutationEvent`：一系列监听 `DOM` 变更的 `event` 事件 - `DOMAttrModified`、`DOMNodeInserted`、`DOMSubtreeModified` 等。

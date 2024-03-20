@@ -1,7 +1,9 @@
 ---
 lastUpdate: 2023-7-31
 date: 2022-9-16
+tags: ['CSS']
 ---
+
 # 给我一个 div + 三行 css，还你一个超级马里奥
 
 前排先上效果图。
@@ -30,16 +32,49 @@ date: 2022-9-16
 
 ```css
 #mario {
-  width: 1em;
-  height: 1em;
-  box-shadow: 6em 0em 1px red, 7em 0em 1px red, 8em 0em 1px red, 9em 0em 1px red, 10em 0em 1px red, 11em 0em 1px red, 5em 1em 1px red, 6em 1em 1px red, 7em 1em 1px red, 8em 1em 1px red, 9em 1em 1px red, 10em 1em 1px red, 11em 1em 1px red, 12em 1em 1px red, 13em 1em 1px red, 14em 1em 1px red, 11em 2em 1px #3e2d2b, 12em 2em 1px #fbba2d, 5em 2em 1px #3e2d2b, 6em 2em 1px #3e2d2b, 7em 2em 1px #3e2d2b, 8em 2em 1px #fbba2d, 9em 2em 1px #fbba2d, 10em 2em 1px #fbba2d, 4em 3em 1px #3e2d2b, 5em 3em 1px #fbba2d, 11em 3em 1px #3e2d2b, 6em 3em 1px #3e2d2b, 7em 3em 1px #3e2d2b, 8em 3em 1px #fbba2d, 9em 3em 1px #fbba2d, 10em 3em 1px #fbba2d, 12em 3em 1px #fbba2d, 13em 3em 1px #fbba2d, 14em 3em 1px #fbba2d, 4em 4em 1px #3e2d2b, 5em 4em 1px #fbba2d, 12em 4em 1px #3e2d2b, 6em 4em 1px #3e2d2b, 7em 4em 1px #3e2d2b, 8em 4em 1px #fbba2d, 9em 4em 1px #fbba2d, 10em 4em 1px #fbba2d, 11em 4em 1px #fbba2d, 13em 4em 1px #fbba2d, 14em 4em 1px #fbba2d, 15em 4em 1px #fbba2d, 4em 5em 1px #3e2d2b, 5em 5em 1px #3e2d2b, 6em 5em 1px #fbba2d, 7em 5em 1px #fbba2d, 8em 5em 1px #fbba2d, 9em 5em 1px #fbba2d, 10em 5em 1px #fbba2d, 11em 5em 1px #3e2d2b, 12em 5em 1px #3e2d2b, 13em 5em 1px #3e2d2b, 14em 5em 1px #3e2d2b, 6em 6em 1px #fbba2d, 7em 6em 1px #fbba2d, 8em 6em 1px #fbba2d, 9em 6em 1px #fbba2d, 10em 6em 1px #fbba2d, 11em 6em 1px #fbba2d, 12em 6em 1px #fbba2d, 13em 6em 1px #fbba2d, 5em 7em 1px red, 6em 7em 1px red, 7em 7em 1px #37448e, 8em 7em 1px #37448e, 9em 7em 1px red, 10em 7em 1px red, 11em 7em 1px red, 12em 7em 1px red, 11em 8em 1px #37448e, 4em 8em 1px red, 5em 8em 1px red, 6em 8em 1px red, 7em 8em 1px #37448e, 8em 8em 1px #37448e, 9em 8em 1px red, 10em 8em 1px red, 12em 8em 1px red, 13em 8em 1px red, 14em 8em 1px red, 11em 9em 1px #37448e, 3em 9em 1px red, 4em 9em 1px red, 5em 9em 1px red, 6em 9em 1px red, 7em 9em 1px #37448e, 8em 9em 1px #37448e, 9em 9em 1px red, 10em 9em 1px red, 12em 9em 1px red, 13em 9em 1px red, 14em 9em 1px red, 15em 9em 1px red, 5em 10em 1px red, 6em 10em 1px #37448e, 11em 10em 1px #fcea3d, 12em 10em 1px #37448e, 13em 10em 1px red, 2em 10em 1px #fbba2d, 3em 10em 1px #fbba2d, 4em 10em 1px #fbba2d, 7em 10em 1px #fcea3d, 8em 10em 1px #fcea3d, 9em 10em 1px #37448e, 10em 10em 1px #37448e, 14em 10em 1px #fbba2d, 15em 10em 1px #fbba2d, 16em 10em 1px #fbba2d, 2em 11em 1px #fbba2d, 3em 11em 1px #fbba2d, 4em 11em 1px #fbba2d, 5em 11em 1px #fbba2d, 6em 11em 1px #37448e, 7em 11em 1px #37448e, 8em 11em 1px #37448e, 9em 11em 1px #37448e, 10em 11em 1px #37448e, 11em 11em 1px #37448e, 12em 11em 1px #37448e, 13em 11em 1px #fbba2d, 14em 11em 1px #fbba2d, 15em 11em 1px #fbba2d, 16em 11em 1px #fbba2d, 2em 12em 1px #fbba2d, 3em 12em 1px #fbba2d, 4em 12em 1px #fbba2d, 5em 12em 1px #37448e, 6em 12em 1px #37448e, 7em 12em 1px #37448e, 8em 12em 1px #37448e, 9em 12em 1px #37448e, 10em 12em 1px #37448e, 11em 12em 1px #37448e, 12em 12em 1px #37448e, 13em 12em 1px #37448e, 14em 12em 1px #fbba2d, 15em 12em 1px #fbba2d, 16em 12em 1px #fbba2d, 2em 13em 1px #fbba2d, 3em 13em 1px #fbba2d, 4em 13em 1px #fbba2d, 5em 13em 1px #37448e, 6em 13em 1px #37448e, 7em 13em 1px #37448e, 8em 13em 1px #37448e, 9em 13em 1px #37448e, 10em 13em 1px #37448e, 11em 13em 1px #37448e, 12em 13em 1px #37448e, 13em 13em 1px #37448e, 14em 13em 1px #fbba2d, 15em 13em 1px #fbba2d, 16em 13em 1px #fbba2d, 5em 14em 1px #37448e, 6em 14em 1px #37448e, 7em 14em 1px #37448e, 11em 14em 1px #37448e, 12em 14em 1px #37448e, 13em 14em 1px #37448e, 4em 15em 1px #3e2d2b, 5em 15em 1px #3e2d2b, 6em 15em 1px #3e2d2b, 12em 15em 1px #3e2d2b, 13em 15em 1px #3e2d2b, 14em 15em 1px #3e2d2b, 3em 16em 1px #3e2d2b, 4em 16em 1px #3e2d2b, 5em 16em 1px #3e2d2b, 6em 16em 1px #3e2d2b, 12em 16em 1px #3e2d2b, 13em 16em 1px #3e2d2b, 14em 16em 1px #3e2d2b, 15em 16em 1px #3e2d2b;
+    width: 1em;
+    height: 1em;
+    box-shadow: 6em 0em 1px red, 7em 0em 1px red, 8em 0em 1px red, 9em 0em 1px red, 10em 0em 1px red, 11em 0em 1px red,
+        5em 1em 1px red, 6em 1em 1px red, 7em 1em 1px red, 8em 1em 1px red, 9em 1em 1px red, 10em 1em 1px red,
+        11em 1em 1px red, 12em 1em 1px red, 13em 1em 1px red, 14em 1em 1px red, 11em 2em 1px #3e2d2b, 12em 2em 1px
+            #fbba2d, 5em 2em 1px #3e2d2b, 6em 2em 1px #3e2d2b, 7em 2em 1px #3e2d2b, 8em 2em 1px #fbba2d,
+        9em 2em 1px #fbba2d, 10em 2em 1px #fbba2d, 4em 3em 1px #3e2d2b, 5em 3em 1px #fbba2d, 11em 3em 1px #3e2d2b, 6em
+            3em 1px #3e2d2b, 7em 3em 1px #3e2d2b, 8em 3em 1px #fbba2d, 9em 3em 1px #fbba2d, 10em 3em 1px #fbba2d,
+        12em 3em 1px #fbba2d, 13em 3em 1px #fbba2d, 14em 3em 1px #fbba2d, 4em 4em 1px #3e2d2b, 5em 4em 1px #fbba2d, 12em
+            4em 1px #3e2d2b, 6em 4em 1px #3e2d2b, 7em 4em 1px #3e2d2b, 8em 4em 1px #fbba2d, 9em 4em 1px #fbba2d,
+        10em 4em 1px #fbba2d, 11em 4em 1px #fbba2d, 13em 4em 1px #fbba2d, 14em 4em 1px #fbba2d, 15em 4em 1px #fbba2d, 4em
+            5em 1px #3e2d2b, 5em 5em 1px #3e2d2b, 6em 5em 1px #fbba2d, 7em 5em 1px #fbba2d, 8em 5em 1px #fbba2d,
+        9em 5em 1px #fbba2d, 10em 5em 1px #fbba2d, 11em 5em 1px #3e2d2b, 12em 5em 1px #3e2d2b, 13em 5em 1px #3e2d2b, 14em
+            5em 1px #3e2d2b, 6em 6em 1px #fbba2d, 7em 6em 1px #fbba2d, 8em 6em 1px #fbba2d, 9em 6em 1px #fbba2d,
+        10em 6em 1px #fbba2d, 11em 6em 1px #fbba2d, 12em 6em 1px #fbba2d, 13em 6em 1px #fbba2d, 5em 7em 1px red, 6em 7em
+            1px red, 7em 7em 1px #37448e, 8em 7em 1px #37448e, 9em 7em 1px red, 10em 7em 1px red, 11em 7em 1px red, 12em
+            7em 1px red, 11em 8em 1px #37448e, 4em 8em 1px red, 5em 8em 1px red, 6em 8em 1px red, 7em 8em 1px #37448e, 8em
+            8em 1px #37448e, 9em 8em 1px red, 10em 8em 1px red, 12em 8em 1px red, 13em 8em 1px red, 14em 8em 1px red, 11em
+            9em 1px #37448e, 3em 9em 1px red, 4em 9em 1px red, 5em 9em 1px red, 6em 9em 1px red, 7em 9em 1px #37448e, 8em
+            9em 1px #37448e, 9em 9em 1px red, 10em 9em 1px red, 12em 9em 1px red, 13em 9em 1px red, 14em 9em 1px red, 15em
+            9em 1px red, 5em 10em 1px red, 6em 10em 1px #37448e, 11em 10em 1px #fcea3d, 12em 10em 1px #37448e,
+        13em 10em 1px red, 2em 10em 1px #fbba2d, 3em 10em 1px #fbba2d, 4em 10em 1px #fbba2d, 7em 10em 1px #fcea3d, 8em
+            10em 1px #fcea3d, 9em 10em 1px #37448e, 10em 10em 1px #37448e, 14em 10em 1px #fbba2d, 15em 10em 1px #fbba2d,
+        16em 10em 1px #fbba2d, 2em 11em 1px #fbba2d, 3em 11em 1px #fbba2d, 4em 11em 1px #fbba2d, 5em 11em 1px #fbba2d, 6em
+            11em 1px #37448e, 7em 11em 1px #37448e, 8em 11em 1px #37448e, 9em 11em 1px #37448e, 10em 11em 1px #37448e,
+        11em 11em 1px #37448e, 12em 11em 1px #37448e, 13em 11em 1px #fbba2d, 14em 11em 1px #fbba2d,
+        15em 11em 1px #fbba2d, 16em 11em 1px #fbba2d, 2em 12em 1px #fbba2d, 3em 12em 1px #fbba2d, 4em 12em 1px #fbba2d, 5em
+            12em 1px #37448e, 6em 12em 1px #37448e, 7em 12em 1px #37448e, 8em 12em 1px #37448e, 9em 12em 1px #37448e,
+        10em 12em 1px #37448e, 11em 12em 1px #37448e, 12em 12em 1px #37448e, 13em 12em 1px #37448e,
+        14em 12em 1px #fbba2d, 15em 12em 1px #fbba2d, 16em 12em 1px #fbba2d, 2em 13em 1px #fbba2d, 3em 13em 1px #fbba2d,
+        4em 13em 1px #fbba2d, 5em 13em 1px #37448e, 6em 13em 1px #37448e, 7em 13em 1px #37448e, 8em 13em 1px #37448e,
+        9em 13em 1px #37448e, 10em 13em 1px #37448e, 11em 13em 1px #37448e, 12em 13em 1px #37448e, 13em 13em 1px #37448e,
+        14em 13em 1px #fbba2d, 15em 13em 1px #fbba2d, 16em 13em 1px #fbba2d, 5em 14em 1px #37448e, 6em 14em 1px #37448e,
+        7em 14em 1px #37448e, 11em 14em 1px #37448e, 12em 14em 1px #37448e, 13em 14em 1px #37448e, 4em 15em 1px #3e2d2b,
+        5em 15em 1px #3e2d2b, 6em 15em 1px #3e2d2b, 12em 15em 1px #3e2d2b, 13em 15em 1px #3e2d2b, 14em 15em 1px #3e2d2b,
+        3em 16em 1px #3e2d2b, 4em 16em 1px #3e2d2b, 5em 16em 1px #3e2d2b, 6em 16em 1px #3e2d2b, 12em 16em 1px #3e2d2b, 13em
+            16em 1px #3e2d2b, 14em 16em 1px #3e2d2b, 15em 16em 1px #3e2d2b;
 }
 ```
 
 为了让马赛克更马赛克，我将所有阴影的 blur 设置为 1px，这样在色块的交接处会形成 1px 的线条，制造出方块感。
 
 ## 绘制过程
-
 
 先看下参考的原图：
 
@@ -108,8 +143,8 @@ const output = define
 
 不过有一点需要注意的是，如果你的原点需要绘制像素点，通过这种方法是不行的，因为阴影只能在原 div 的外部展示，所以绘制时一定要注意，当然如果你一定要绘制的话也可以通过其它方法：
 
-* 为 div 直接设置背景色
-* 将 第一个点的阴影修改为内阴影
+-   为 div 直接设置背景色
+-   将 第一个点的阴影修改为内阴影
 
 ## 进阶
 
@@ -118,5 +153,3 @@ const output = define
 此外我们的色块也不一定要是正方形，我们还可以通过 border-radius，为原 div 增加弧度，这样每个色块也会跟着变化。
 
 此外我们还可以修改原 div 的宽高比例，同步变更阴影中 x、y 的 offset 的比例，即可制造出长方形马赛克、椭圆形马赛克等。
-
-

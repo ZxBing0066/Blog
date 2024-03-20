@@ -1,6 +1,7 @@
 ---
 lastUpdate: 2023-7-31
 date: 2022-10-23
+tags: ['JavaScript', 'WebAPI']
 ---
 # PerformanceObserver - 配合 performance 掌控页面性能数据
 

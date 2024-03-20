@@ -1,7 +1,9 @@
 ---
 lastUpdate: 2022-10-7
 date: 2022-10-7
+tags: ['JavaScript', 'WebAPI']
 ---
+
 # ResizeObserver - 监视 DOM 大小的变化
 
 `ResizeObserver` 用于监听元素的大小尺寸变化，常见用于监听自适应大小的元素变化引起的宽高变化时处理应宽高变化而需要 `JS` 做特定处理的场景。

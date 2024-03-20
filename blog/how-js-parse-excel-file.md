@@ -1,7 +1,9 @@
 ---
 lastUpdate: 2022-10-14
 date: 2022-10-14
+tags: ['JavaScript']
 ---
+
 # 用 JS 解析 excel 文件需要分几步
 
 > 八月长江万里晴，千帆一道带风轻。

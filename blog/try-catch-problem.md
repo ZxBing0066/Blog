@@ -1,4 +1,10 @@
-# 朋友，进来刷点 try-catch 看看你能全对吗（答应我，请务必看到最后 🫣）
+---
+tags: ['JavaScript']
+attractor-title: 朋友，进来刷点 try-catch 看看你能全对吗（答应我，请务必看到最后 🫣）
+summary: 通过几道题目来了解 try-catch 的一些小秘密。
+---
+
+# JS try-catch 的小秘密
 
 随着这几年前端的高速发展，前端逻辑的复杂度越来越高，质量要求越来越高，再加上 `async`、`await` 的横行，`try-catch` 在前端的使用率越来越高。然而 `try-catch` 中可能隐藏着一些不为人知的小秘密㊙️，今天一起通过几道小题目看看这些秘密㊙️。
 
@@ -15,8 +21,8 @@ try {
 先看第一道，可以试着猜猜执行结果是什么。
 
 ---
-lastUpdate: 2022-8-26
-date: 2022-8-24
+
+lastUpdate: 2022-8-26 date: 2022-8-24
 
 答案是：上述代码将会因为语法错误而报错。
 
@@ -46,9 +52,9 @@ try {
 
 ```js
 try {
-  throw new Error("test");
+    throw new Error('test');
 } catch (_unused) {
-  console.error("error");
+    console.error('error');
 }
 ```
 

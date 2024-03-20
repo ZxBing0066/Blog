@@ -1,7 +1,9 @@
 ---
 lastUpdate: 2022-10-6
 date: 2022-10-6
+tags: ['JavaScript', 'WebAPI']
 ---
+
 # IntersectionObserver - 监视你的 DOM 元素相交
 
 `IntersectionObserver` 用于监听元素是否进入视口（与视口是否存在相交），在图片懒加载等场景中被广泛应用，不过除了这个基础的用法，他还有更强大的能力。
@@ -97,4 +99,3 @@ const callback = entries => {
 ## 总结
 
 利用 `IntersectionObserver` 我们可以很方便的对元素是否展示、展示区域的大小、比例进行监听。
-

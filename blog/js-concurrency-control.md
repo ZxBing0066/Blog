@@ -2,6 +2,8 @@
 lastUpdate: 2023-9-8
 date: 2023-9-8
 attractor-title: 可能是最简单的 JS 并发控制方案
+tags: ['JavaScript']
+summary: 通过模拟线程的方式快速简单的实现 JS 的并发控制
 ---
 
 # JS 并发控制

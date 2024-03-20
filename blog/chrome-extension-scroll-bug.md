@@ -1,12 +1,12 @@
 ---
 lastUpdate: 2022-7-11
 date: 2022-7-11
-tags: [FAQ, chrome-extension]
+tags: [FAQ, Chrome-Extension]
 ---
 
-# 关于 chrome 插件页面中滚动条异常的问题
+# 关于 Chrome 插件页面中滚动条异常的问题
 
-最近开发某 chrome 插件时发现，在 Mac 上使用该插件时滚动条不见了，测试了一下发现和 Mac 的配置有关，默认情况下在使用触控板时，Mac 会自动隐藏滚动条，可以在系统配置中进行配置来复现：将 `System Preferences > General > Show scroll bars` 改为 `When scrolling` 即可。应该是 Chrome 的 bug，论坛里有对应的 issue 但是一直没被修复。
+最近开发某 Chrome 插件时发现，在 Mac 上使用该插件时滚动条不见了，测试了一下发现和 Mac 的配置有关，默认情况下在使用触控板时，Mac 会自动隐藏滚动条，可以在系统配置中进行配置来复现：将 `System Preferences > General > Show scroll bars` 改为 `When scrolling` 即可。应该是 Chrome 的 bug，论坛里有对应的 issue 但是一直没被修复。
 
 ## 现象
 
@@ -48,7 +48,7 @@ tags: [FAQ, chrome-extension]
 
 3. 为 body 添加 `min-height: 601px`
 
-    由于 chrome extension popup 的最大高度为 600px，初始化将 body 设置为 601px 即可在初始化时强制出现滚动条从而避免该问题，但是会导致页面一直出现滚动条，可在脚本中将 min-height 再改回 600px 即可。也可修改其它元素的高度，只要让其初始化时能够出现滚动条即可。
+    由于 Chrome extension popup 的最大高度为 600px，初始化将 body 设置为 601px 即可在初始化时强制出现滚动条从而避免该问题，但是会导致页面一直出现滚动条，可在脚本中将 min-height 再改回 600px 即可。也可修改其它元素的高度，只要让其初始化时能够出现滚动条即可。
 
 4. 不要给 app 使用固定高度或最小高度
 

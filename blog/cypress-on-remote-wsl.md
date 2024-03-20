@@ -42,9 +42,9 @@ cover: https://stg.heyfe.org/images/blog-cypress-hard-point-dom-covered-16908108
 
 有需要的可在 [WSL 展示 Linux GUI - VcXsrv](./wsl-vcxsrv.md) 中查看。
 
-### 安装 chrome
+### 安装 Chrome
 
-配置完 GUI 后需要安装 chrome。
+配置完 GUI 后需要安装 Chrome。
 
 可参考 [WSL 中安装 google-chrome](./wsl-chrome.md)。
 

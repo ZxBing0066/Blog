@@ -10,11 +10,11 @@ date: 2023-3-19
 
 编写脚本时，我们可以选择 nodejs、python、bash 脚本，此处以 nodejs 脚本为例。
 
-首先我们先使用 chrome 的网络请求面板找到签到网站中的签到请求，然后右键对应的请求：
+首先我们先使用 Chrome 的网络请求面板找到签到网站中的签到请求，然后右键对应的请求：
 
 ![picture 1](https://stg.heyfe.org/images/blog-qinglong-script-62.png)
 
-然后我们选择 `Copy as Node.js fetch`，chrome 就会将请求所需要的配置、cookie、headers 等自动生成一段 fetch 请求代码，比如：
+然后我们选择 `Copy as Node.js fetch`，Chrome 就会将请求所需要的配置、cookie、headers 等自动生成一段 fetch 请求代码，比如：
 
 ```js
 fetch('https://xxxxx.com/api/sign_in', {

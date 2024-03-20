@@ -56,7 +56,7 @@ onInitial();
 
 ### 自定义控制台面板
 
-还有一种使用场景就是我们可以利用 `performance` 中的所有 `performanceEntry` 拼凑出如 `chrome` 中的 `performance` 面板、`network` 面板等页面，这样在为用户排查问题时，可以使用该用户最近的访问来尝试还原现场。当然由于 `performanceEntry` 中不存在数据等详细信息，所以只能做出比较简陋版本的控制台面板。
+还有一种使用场景就是我们可以利用 `performance` 中的所有 `performanceEntry` 拼凑出如 `Chrome` 中的 `performance` 面板、`network` 面板等页面，这样在为用户排查问题时，可以使用该用户最近的访问来尝试还原现场。当然由于 `performanceEntry` 中不存在数据等详细信息，所以只能做出比较简陋版本的控制台面板。
 
 ## 兼容
 

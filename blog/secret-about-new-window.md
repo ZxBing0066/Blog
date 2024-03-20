@@ -76,7 +76,7 @@ try {
 
 注意 `noreferrer` 包含 `noopener` 的作用，并且会影响到窗口请求的 `referrer` 头，会影响到一些导流分析统计数据。
 
-不过经测试最新 `chrome` 中使用 `a` 标签点击时，`opener` 默认为 `null`，必须要显示使用 `rel='opener'` 才能拿到 `opener` 引用。
+不过经测试最新 `Chrome` 中使用 `a` 标签点击时，`opener` 默认为 `null`，必须要显示使用 `rel='opener'` 才能拿到 `opener` 引用。
 
 ## target
 

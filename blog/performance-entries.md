@@ -153,7 +153,7 @@ performance.measure('measure start to end', 'start', 'end');
 }
 ```
 
-并且，在 `chrome` 中你的 `mark` 和 `measure` 也会在 `Performance` 面板中出现。好了，还开发什么埋点系统，一个 `performance` 全搞定，只需要做个数据统计平台就完事了。
+并且，在 `Chrome` 中你的 `mark` 和 `measure` 也会在 `Performance` 面板中出现。好了，还开发什么埋点系统，一个 `performance` 全搞定，只需要做个数据统计平台就完事了。
 
 ## worker 小助手 - 让你的性能上报与代码解耦
 

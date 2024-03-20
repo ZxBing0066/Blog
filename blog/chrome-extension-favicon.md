@@ -1,24 +1,24 @@
 ---
 lastUpdate: 2022-7-16
 date: 2022-7-10
-tags: [FAQ, chrome-extension]
+tags: [FAQ, Chrome-Extension]
 ---
 
 # 如何获取网站对应的 favicon 图标
 
-最近在开发一个 `chrome` 插件，其中需要读取到对应网站的 favicon 图标，遇到一些问题记录一下。
+最近在开发一个 `Chrome` 插件，其中需要读取到对应网站的 favicon 图标，遇到一些问题记录一下。
 
 太长不看的可以直接跳到最后总结部分。
 
 ## 几种常用方案
 
-### chrome favicon
+### Chrome favicon
 
 格式： `chrome://favicon/<url>`
 
-`chrome://favicon/` 可以获取到对应网站在 **当前 chrome 中** 的使用 favicon 图标，对应着该网站在书签栏的图标或上次打开时的图标。图标使用的是 chrome 本地的缓存，所以速度很块。
+`chrome://favicon/` 可以获取到对应网站在 **当前 Chrome 中** 的使用 favicon 图标，对应着该网站在书签栏的图标或上次打开时的图标。图标使用的是 Chrome 本地的缓存，所以速度很块。
 
-但是该方案无法使用在网页中，chrome 会提示 `Not allowed to load local resource`。只可用于 chrome 插件中，并且需要为 v2 版本的 manifest 添加 `permissions: ["chrome://favicon/"]`，v3 版本 目前还没有替代方案。
+但是该方案无法使用在网页中，Chrome 会提示 `Not allowed to load local resource`。只可用于 Chrome 插件中，并且需要为 v2 版本的 manifest 添加 `permissions: ["chrome://favicon/"]`，v3 版本 目前还没有替代方案。
 
 ### google favicons
 

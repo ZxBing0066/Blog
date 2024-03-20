@@ -106,7 +106,7 @@ anim.animate([{ transform: 'translateX(0)' }, { transform: 'translateX(100px)' }
 
 ## 兼容和 polyfill
 
-当然，该系列 `API` 兼容并不佳，要能够完整体验需要至少 `chrome` 84 以上版本，`IE` 则完全没戏。
+当然，该系列 `API` 兼容并不佳，要能够完整体验需要至少 `Chrome` 84 以上版本，`IE` 则完全没戏。
 
 不过还好有 `polyfill` 的存在：[web-animations-js](https://github.com/web-animations/web-animations-js)
 

@@ -1,7 +1,7 @@
 ---
 lastUpdate: 2022-7-11
 date: 2022-7-11
-tags: [FAQ, Chrome-Extension]
+tags: [FAQ, Chrome-Extension, Fixed]
 ---
 
 # 关于 Chrome 插件页面中滚动条异常的问题
@@ -58,3 +58,7 @@ tags: [FAQ, Chrome-Extension]
 
 -   https://stackoverflow.com/questions/65398584/chrome-extension-popup-page-scroll-not-working-on-mac-os
 -   https://bugs.chromium.org/p/chromium/issues/detail?id=1161137
+
+## 更新
+
+此 bug 已于 2022 年被修复，具体可查看 [Chromium Issue 40738633](https://issues.chromium.org/issues/40738633)，看日志在 107 后的版本均已正常。

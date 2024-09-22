@@ -1,7 +1,7 @@
 ---
 lastUpdate: 2022-8-6
 date: 2022-7-24
-tags: [FAQ, github]
+tags: [Troubleshooter, github]
 ---
 
 # 关于在 GitHub Action 中无法获取 Git 历史的问题

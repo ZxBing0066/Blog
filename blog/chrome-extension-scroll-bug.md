@@ -1,7 +1,7 @@
 ---
 lastUpdate: 2022-7-11
 date: 2022-7-11
-tags: [FAQ, Chrome-Extension, Fixed]
+tags: [Troubleshooter, Chrome-Extension, Fixed]
 ---
 
 # 关于 Chrome 插件页面中滚动条异常的问题

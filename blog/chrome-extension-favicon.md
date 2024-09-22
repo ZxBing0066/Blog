@@ -1,7 +1,7 @@
 ---
 lastUpdate: 2022-7-16
 date: 2022-7-10
-tags: [FAQ, Chrome-Extension]
+tags: [Troubleshooter, Chrome-Extension]
 ---
 
 # 如何获取网站对应的 favicon 图标

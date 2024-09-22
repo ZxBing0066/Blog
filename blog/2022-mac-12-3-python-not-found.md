@@ -1,7 +1,7 @@
 ---
 lastUpdate: 2023-7-31
 date: 2022-4-17
-tags: [FAQ, 生产力, python]
+tags: [Troubleshooter, 生产力, python]
 description: 'mac 12.3 command not found: python Alfred'
 cover: https://stg.heyfe.org/images/blog-2022-mac-preview-stunk-1690814279537.png
 ---

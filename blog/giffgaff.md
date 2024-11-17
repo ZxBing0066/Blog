@@ -40,7 +40,9 @@ cover: https://stg.heyfe.org/images/blog-giffgaff-1690810316864.png
 
 ## 申请
 
-申请卡过分非常简单只需要进入 [giffgaff 官网](https://www.giffgaff.com/orders/affiliate/zxbin54) ，然后按照下图进行填写：
+申请卡过程非常简单只需要进入 [giffgaff 官网](https://www.giffgaff.com/orders/affiliate/zxbin54) ，然后按照下图进行填写：
+
+> 上面的链接是带邀请的，使用链接申请激活后 giffgaff 会给邀请者和受邀者的账户各打 5 英镑。如果介意可以选择放弃 5 英镑的受邀奖励直接去官网点击 `Order your free SIM` 申请。
 
 ![](https://stg.heyfe.org/images/blog-giffgaff-1689426884536.png)
 
@@ -50,7 +52,7 @@ cover: https://stg.heyfe.org/images/blog-giffgaff-1690810316864.png
 
 ![](https://stg.heyfe.org/images/blog-giffgaff-1689428119556.png)
 
-接下来的就是等待了，上海我大概等了 2 周的时间，没等到就又申请了一次，然后又等了两周时间。所以如果不放心可以一上来申请两三张，然后一起等。一般投递员会放到信箱，所以记得检查邮箱。
+接下来的就是等待了，上海我大概等了 2 周的时间，没等到就又申请了一次，然后又等了两周时间。所以如果不放心可以一上来申请两三张，然后一起等。一般投递员会放到信箱，而且很少会电话提醒，所以记得检查信箱。
 
 一般快递到了也会有邮件通知，所以可以定期查看邮件。
 
@@ -61,8 +63,6 @@ cover: https://stg.heyfe.org/images/blog-giffgaff-1690810316864.png
 ![](https://stg.heyfe.org/images/blog-giffgaff-1689470591290.png)
 
 卡片的另一边是激活码，激活卡片时会用到。
-
-> 上面的链接是带邀请的，使用链接申请激活后 giffgaff 会给邀请者和受邀者的账户各打 5 英镑。如果介意可以直接去官网点击 `Order your free SIM` 申请。
 
 ## 激活
 
@@ -96,4 +96,4 @@ cover: https://stg.heyfe.org/images/blog-giffgaff-1690810316864.png
 
 -   号码前面的 0 要去掉，因为是英国的号码，所以国际区号是 +44
 -   后续登陆 giffgaff 账户时要使用手机号登陆（包含 0），无法使用注册邮箱登陆
--   记得半年一次的保号操作
+-   记得半年一次的保号操作（半年发一条短信即可）

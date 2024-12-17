@@ -7,7 +7,7 @@ import cls from './List.module.scss';
 import Tags from './Tags';
 
 const announces = [
-    '你能坚持的只有自己，能改变的也只有自己。✨',
+    // '你能坚持的只有自己，能改变的也只有自己。✨',
     '水能载舟，亦可赛艇。🚤',
     '你不要过来啊！😱',
     '别慌，问题不大。🐳'
@@ -63,12 +63,13 @@ const PageList = () => {
                 }
                 page.frontmatter.tags = tags;
                 return (
-                    !page.frontmatter.list &&
-                    !page.frontmatter.home &&
-                    !page.relativePath.match(/^wip\//) &&
-                    !page.relativePath.match(/^work\//) &&
-                    !page.frontmatter.ignoreInList &&
-                    (!tag || page.frontmatter.tags.includes(tag))
+                    (tag !== '日记' && page.frontmatter.tags.includes('日记')) ||
+                    (!page.frontmatter.list &&
+                        !page.frontmatter.home &&
+                        !page.relativePath.match(/^wip\//) &&
+                        !page.relativePath.match(/^work\//) &&
+                        !page.frontmatter.ignoreInList &&
+                        (!tag || page.frontmatter.tags.includes(tag)))
                 );
             })
             .sort((a, b) => getPageCreateTime(b) - getPageCreateTime(a));

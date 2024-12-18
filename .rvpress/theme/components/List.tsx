@@ -63,7 +63,7 @@ const PageList = () => {
                 }
                 page.frontmatter.tags = tags;
                 return (
-                    (tag !== '日记' && page.frontmatter.tags.includes('日记')) ||
+                    !(tag !== '日记' && page.frontmatter.tags.includes('日记')) ||
                     (!page.frontmatter.list &&
                         !page.frontmatter.home &&
                         !page.relativePath.match(/^wip\//) &&

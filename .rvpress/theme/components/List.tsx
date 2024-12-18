@@ -63,13 +63,12 @@ const PageList = () => {
                 }
                 page.frontmatter.tags = tags;
                 return (
-                    !(tag !== '日记' && page.frontmatter.tags.includes('日记')) ||
-                    (!page.frontmatter.list &&
-                        !page.frontmatter.home &&
-                        !page.relativePath.match(/^wip\//) &&
-                        !page.relativePath.match(/^work\//) &&
-                        !page.frontmatter.ignoreInList &&
-                        (!tag || page.frontmatter.tags.includes(tag)))
+                    !page.frontmatter.list &&
+                    !page.frontmatter.home &&
+                    !page.relativePath.match(/^wip\//) &&
+                    !page.relativePath.match(/^work\//) &&
+                    !page.frontmatter.ignoreInList &&
+                    (!tag || page.frontmatter.tags.includes(tag))
                 );
             })
             .sort((a, b) => getPageCreateTime(b) - getPageCreateTime(a));

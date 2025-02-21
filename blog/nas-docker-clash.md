@@ -1,7 +1,7 @@
 ---
 tags: [tag]
-summary:
-cover: https://stg.heyfe.org/images/blog-next.js-1690694536769.webp
+summary: Nas 中部署 Clash，实现 Nas 的科学上网自给自足
+cover: https://stg.heyfe.org/images/blog-nas-docker-clash-1740151206808.png
 ---
 
 # Nas 中使用 Docker 部署 Clash

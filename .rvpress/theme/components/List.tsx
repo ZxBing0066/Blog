@@ -66,6 +66,7 @@ const PageList = () => {
                     !page.frontmatter.list &&
                     !page.frontmatter.home &&
                     !page.relativePath.match(/^wip\//) &&
+                    !page.relativePath.match(/^template\//) &&
                     !page.relativePath.match(/^work\//) &&
                     !page.frontmatter.ignoreInList &&
                     (!tag || page.frontmatter.tags.includes(tag))

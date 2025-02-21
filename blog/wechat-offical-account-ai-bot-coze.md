@@ -1,3 +1,7 @@
+---
+tags: [AI, 微信公众号]
+cover: https://stg.heyfe.org/images/blog-wechat-offical-account-ai-bot-coze-1733666307507.png
+---
 # 动动手指几分钟，给微信公众号接入 AI
 
 最近看到 Coze（扣子） 智能体可以一键接入各种平台，包括微信公众号，所以就试了一下，比预想的简单得多，几分钟就搞定了。

@@ -8,7 +8,7 @@ cover: https://stg.heyfe.org/images/blog-next.js-1690694536769.webp
 
 前言
 
-## 内容
+## 正文
 
 ## 结语
 

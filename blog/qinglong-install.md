@@ -1,7 +1,9 @@
 ---
 lastUpdate: 2023-3-19
 date: 2023-3-19
-tags: ['瞎折腾']
+tags: ['瞎折腾', '青龙', 'Docker']
+summary: 青龙是一个 `定时任务管理面板` 的开源项目，我们可以使用它来实现一些自动化的任务管理，比如自动签到等等。
+cover: https://stg.heyfe.org/images/blog-qinglong-install-1740152682200.png
 ---
 
 # 青龙面板 - 介绍与安装

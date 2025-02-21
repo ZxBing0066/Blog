@@ -2,7 +2,7 @@
 lastUpdate: 2023-7-31
 date: 2022-5-3
 ignoreInList: true
-tags: [clash, Troubleshooter]
+tags: [Clash, Troubleshooter]
 ---
 
 # 如何解决 Clash for Windows 的 UWP Loopback 无法打开的问题

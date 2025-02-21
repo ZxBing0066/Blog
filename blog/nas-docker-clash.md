@@ -1,12 +1,12 @@
 ---
-tags: [tag]
-summary: Nas 中部署 Clash，实现 Nas 的科学上网自给自足
+tags: [NAS, Docker, Clash]
+summary: NAS 中部署 Clash，实现 NAS 的科学上网自给自足
 cover: https://stg.heyfe.org/images/blog-nas-docker-clash-1740151206808.png
 ---
 
-# Nas 中使用 Docker 部署 Clash
+# NAS 中使用 Docker 部署 Clash
 
-Nas 中部署的一些服务经常需要科学上网才能正常工作，比如青龙中安装依赖、prowlarr 中更新索引器等。虽然可以通过本地电脑共享给 Nas 使用，但某些时候很不方便，比如服务偶尔重启但本地电脑未开机等。所以决定在 Nas 中部署一下 Clash，自给自足。
+NAS 中部署的一些服务经常需要科学上网才能正常工作，比如青龙中安装依赖、prowlarr 中更新索引器等。虽然可以通过本地电脑共享给 NAS 使用，但某些时候很不方便，比如服务偶尔重启但本地电脑未开机等。所以决定在 NAS 中部署一下 Clash，自给自足。
 
 ## 正文
 
@@ -63,7 +63,7 @@ mode: rule
 
 ## 结语
 
-Clash 在 Nas 中部署后，即可实现 Nas 的科学上网自给自足，不用再依赖其他设备。而且 Nas 作为长期开机设备，也可以作为一个稳定的代理设备，方便其他局域网设备使用，比如 Switch 等。
+Clash 在 NAS 中部署后，即可实现 NAS 的科学上网自给自足，不用再依赖其他设备。而且 NAS 作为长期开机设备，也可以作为一个稳定的代理设备，方便其他局域网设备使用，比如 Switch 等。
 
 ## 引用
 

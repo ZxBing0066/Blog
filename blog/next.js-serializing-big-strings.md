@@ -1,5 +1,5 @@
 ---
-tags: [Troubleshooter, next.js]
+tags: [Troubleshooting, next.js]
 ---
 
 # Next.JS Serializing big strings XXX impacts deserialization performance 错误处理

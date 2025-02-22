@@ -1,7 +1,7 @@
 ---
 lastUpdate: 2023-7-31
 date: 2022-4-24
-tags: [安全, Troubleshooter]
+tags: [安全, Troubleshooting]
 ---
 
 # 深究 :visited 伪类和隐私安全那点事

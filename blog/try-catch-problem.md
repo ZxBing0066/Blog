@@ -2,6 +2,8 @@
 tags: ['JavaScript']
 attractor-title: 朋友，进来刷点 try-catch 看看你能全对吗（答应我，请务必看到最后 🫣）
 summary: 通过几道题目来了解 try-catch 的一些小秘密。
+lastUpdate: 2022-8-26
+date: 2022-8-24
 ---
 
 # JS try-catch 的小秘密
@@ -19,10 +21,6 @@ try {
 ```
 
 先看第一道，可以试着猜猜执行结果是什么。
-
----
-
-lastUpdate: 2022-8-26 date: 2022-8-24
 
 答案是：上述代码将会因为语法错误而报错。
 

@@ -3,9 +3,9 @@ tags: [Chrome, 动向]
 cover: https://stg.heyfe.org/images/blog-unsupport-chrome-uBlock-Origin-1741054993098.png
 ---
 
-# Google 正在逐步强行禁用 uBlock Origin 插件
+# Google 正在逐步禁用 uBlock Origin 插件
 
-最近很多人反映，自己的 uBlock Origin 插件无法正常使用，被强制禁用了。这是因为 Google 正在逐步强行禁用使用 Manifest V2 的插件，而 uBlock Origin 正是使用的 Manifest V2。
+最近看到很多人反映自己的 uBlock Origin 插件无法正常使用。这是因为 Google 正在逐步禁用使用 Manifest V2 的插件，而 uBlock Origin 使用的就是 Manifest V2。
 
 ![](https://stg.heyfe.org/images/blog-unsupport-chrome-uBlock-Origin-1741052952885.png)
 
@@ -21,13 +21,15 @@ uBlock Origin 的官网虽然也放出了 uBlock Origin Lite 的下载链接，�
 
 ![](https://stg.heyfe.org/images/blog-unsupport-chrome-uBlock-Origin-1741054944501.png)
 
+而 Google 想对 MV2 动手也不是一天两天了，但是因为开发者的反对，被迫推迟了多次。加上受影响最大的就是各种广告拦截插件，所以很多人质疑 Google 是不是为了保障自家的广告业务。
+
 ## 什么是 Manifest V2 和 Manifest V3
 
-Manifest V2 和 Manifest V3 是 Chrome 插件的两种规范，Manifest V2 是 Chrome 插件的旧规范，Manifest V3 是 Chrome 插件的新规范。在进行插件开发时，需要为插件指定规范的版本，不同的规范版本有不同的功能和限制。 Manifest V3 在安全性上有所提升，但是相对的也多了一些限制。
+MV2 和 MV3 是 Chrome 插件的两种规范，MV2 是 Chrome 插件的旧规范，MV3 是 Chrome 插件的新规范。在进行插件开发时，需要为插件指定规范的版本，不同的规范版本有不同的功能和限制。 MV3 在安全性和性能上有所提升，但是相对的也多了一些限制。
 
 ## Manifest V3 对 uBlock Origin 的影响
 
-Manifest V3 对 uBlock Origin 的影响主要体现在权限的限制上。Manifest V3 中，webRequest API 的权限被限制，uBlock Origin 重度依赖 webRequest API，因此 uBlock Origin 虽然推出了 MV3 版本，但新版本只能使用 declarativeNetRequest API（可理解为阉割版的 webRequest API，缺乏动态能力），因此插件的进阶拦截效果会受到影响。
+MaV3 对 uBlock Origin 的影响主要体现在权限的限制上。MV3 中，webRequest API 的权限被限制，uBlock Origin 重度依赖 webRequest API，因此 uBlock Origin 虽然推出了 MV3 版本，但新版本只能使用 declarativeNetRequest API（可理解为阉割版的 webRequest API，缺乏动态能力），因此插件的进阶拦截效果会受到影响。
 
 ## 替代方案
 

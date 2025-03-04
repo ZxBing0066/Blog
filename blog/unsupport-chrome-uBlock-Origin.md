@@ -46,3 +46,6 @@ Manifest V3 对 uBlock Origin 的影响主要体现在权限的限制上。Manif
 ## 参考
 
 -   https://www.reddit.com/r/youtube/comments/1j2ec76/ublock_origin_is_gone/
+-   https://chromewebstore.google.com/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm?hl=en
+-   https://ublockorigin.com/
+-   https://github.com/gorhill/uBlock

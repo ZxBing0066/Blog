@@ -17,6 +17,14 @@ const config: UserConfig<any> = {
                 rel: 'shortcut icon',
                 href: 'favicon.svg'
             }
+        ],
+        // <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1906392499705020" crossorigin="anonymous"></script>
+        [
+            'script',
+            {
+                src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1906392499705020',
+                crossorigin: 'anonymous'
+            }
         ]
     ],
     themeConfig: {

@@ -19,14 +19,43 @@ const Blog = () => {
                         <div className='cover'>
                             <img src={page.frontmatter.cover || '/post.jpg'} alt='cover' />
                         </div>
+                        <script
+                            async
+                            src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1906392499705020'
+                            crossOrigin='anonymous'
+                        ></script>
+                        <ins
+                            className='adsbygoogle'
+                            style={{ display: 'block' }}
+                            data-ad-client='ca-pub-1906392499705020'
+                            data-ad-slot='3304980199'
+                            data-ad-format='auto'
+                            data-full-width-responsive='true'
+                        ></ins>
+                        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
                         <div className='meta'>
                             <BlogTime page={page} />
                             <Tags page={page} />
                         </div>
-                        <div className="line"></div>
+                        <div className='line'></div>
                         <Content className='content' />
                     </div>
-                    <TOC />
+                    <div>
+                        <script
+                            async
+                            src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1906392499705020'
+                            crossOrigin='anonymous'
+                        ></script>
+                        <ins
+                            className='adsbygoogle'
+                            style={{ display: 'block' }}
+                            data-ad-format='autorelaxed'
+                            data-ad-client='ca-pub-1906392499705020'
+                            data-ad-slot='1377748580'
+                        ></ins>
+                        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+                        <TOC />
+                    </div>
                 </div>
             </div>
             {typeof location === 'undefined' ? null : (

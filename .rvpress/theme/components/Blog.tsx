@@ -32,7 +32,7 @@ const Blog = () => {
                             data-ad-format='auto'
                             data-full-width-responsive='true'
                         ></ins>
-                        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+                        <script>{`(adsbygoogle = window.adsbygoogle || []).push({});`}</script>
                         <div className='meta'>
                             <BlogTime page={page} />
                             <Tags page={page} />
@@ -53,7 +53,7 @@ const Blog = () => {
                             data-ad-client='ca-pub-1906392499705020'
                             data-ad-slot='1377748580'
                         ></ins>
-                        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+                        <script>{`(adsbygoogle = window.adsbygoogle || []).push({});`}</script>
                         <TOC />
                     </div>
                 </div>

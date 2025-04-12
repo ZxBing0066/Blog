@@ -1,0 +1,200 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import Tags from '../../components/Tags.astro';
+import BlogTime from '../../components/BlogTime.astro';
+
+export async function getStaticPaths() {
+    const posts = await getCollection('blog');
+
+    // 获取所有唯一标签
+    const tags = [...new Set(posts.flatMap(post => post.data.tags || []))];
+
+    // 为每个标签创建路径
+    return tags.map(tag => {
+        const filteredPosts = posts.filter(post =>
+            post.data.tags?.map(t => t.toLowerCase()).includes(tag.toLowerCase()) && !post.data.ignoreInList
+        );
+        return {
+            params: { tag: tag.toLowerCase() },
+            props: { tag, posts: filteredPosts }
+        };
+    });
+}
+
+const { tag, posts } = Astro.props;
+---
+
+<Layout title={`标签: ${tag} - 嘿嘿的博客`} description={`查看所有标记为 ${tag} 的文章`}>
+    <div class='theme'>
+        <Header />
+        <main class='main'>
+            <div class='tag-page'>
+                <div class='container'>
+                    <div class='tag-header'>
+                        <a href='/tags' class='back-link'>← 返回所有标签</a>
+                        <h1>标签: <span class='highlight'>{tag}</span></h1>
+                        <p>共有 {posts.length} 篇文章</p>
+                    </div>
+
+                    <div class='posts-list'>
+                        {
+                            posts.map((post, i) => (
+                                <div class='post-card' style={`animation-delay: ${0.1 * Math.min(i, 15)}s`}>
+                                    <div class='post-image'>
+                                        <a href={`/blog/${post.id}/`}>
+                                            <img src={post.data.heroImage || '/post.jpg'} alt='cover' />
+                                        </a>
+                                    </div>
+                                    <div class='post-content'>
+                                        <a href={`/blog/${post.id}/`} class='post-title'>
+                                            <h2>{post.data.title}</h2>
+                                        </a>
+                                        <p class='post-summary'>{post.data.description}</p>
+                                        <div class='post-meta'>
+                                            <BlogTime date={post.data.pubDate} lastUpdated={post.data.updatedDate} />
+                                            {post.data.tags && <Tags tags={post.data.tags} />}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))
+                        }
+                    </div>
+                </div>
+            </div>
+        </main>
+        <Footer />
+    </div>
+</Layout>
+
+<style>
+    .container {
+        padding: 0 3rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        line-height: 1.8;
+    }
+
+    .tag-page {
+        margin: 2rem 0;
+    }
+
+    .tag-header {
+        margin-bottom: 2rem;
+    }
+
+    .back-link {
+        display: inline-block;
+        margin-bottom: 1rem;
+        color: var(--color-primary);
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+
+    .back-link:hover {
+        color: var(--color-text-active);
+    }
+
+    h1 {
+        margin-bottom: 0.5rem;
+        font-size: 2.2rem;
+    }
+
+    .highlight {
+        color: var(--color-primary);
+    }
+
+    .posts-list {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .post-card {
+        display: flex;
+        gap: 2rem;
+        background-color: var(--color-background);
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+        transition:
+            transform 0.3s,
+            box-shadow 0.3s;
+        animation: fadeInUp 0.5s ease-out forwards;
+        opacity: 0;
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(15px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .post-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    .post-image {
+        flex: 0 0 250px;
+    }
+
+    .post-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .post-content {
+        flex: 1;
+        padding: 1.5rem;
+        padding-left: 0;
+    }
+
+    .post-title h2 {
+        margin-top: 0;
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+        color: var(--color-text);
+        transition: color 0.2s;
+    }
+
+    .post-title:hover h2 {
+        color: var(--color-primary);
+    }
+
+    .post-summary {
+        margin-bottom: 1.5rem;
+        color: var(--color-text-secondary);
+    }
+
+    .post-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    @media (max-width: 768px) {
+        .post-card {
+            flex-direction: column;
+        }
+
+        .post-image {
+            flex: 0 0 auto;
+            height: 200px;
+        }
+
+        .post-content {
+            padding: 1.5rem;
+        }
+    }
+</style>

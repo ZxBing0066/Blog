@@ -1,0 +1,36 @@
+---
+interface Props {
+    date: Date;
+    lastUpdated?: Date;
+}
+
+const { date, lastUpdated } = Astro.props;
+
+function formatDate(date: Date): string {
+    return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`;
+}
+
+let displayText = '';
+const dateStr = formatDate(date);
+
+if (lastUpdated) {
+    const lastUpdatedStr = formatDate(lastUpdated);
+    if (lastUpdatedStr === dateStr) {
+        displayText = dateStr;
+    } else {
+        displayText = `${dateStr} - ${lastUpdatedStr}`;
+    }
+} else {
+    displayText = dateStr;
+}
+---
+
+<span class='blog-time'>{displayText}</span>
+
+<style>
+    .blog-time {
+        font-size: 0.9rem;
+        color: var(--color-text-secondary);
+    }
+</style>
+

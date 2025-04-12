@@ -1,0 +1,291 @@
+/*
+  Custom theme based on original blog 
+*/
+
+:root {
+    /* 基础变量 - 从原主题迁移 */
+    --color-text: #030d17;
+    --color-primary: #1661ab;
+    --color-secondary: #b0d5df;
+    --color-border: #dcdcdc;
+    --color-background: #fff;
+    --color-assist: #fbda41;
+
+    --color-warning: #f4ce69;
+    --color-danger: #f19790;
+    --color-tip: #8fb2c9;
+
+    /* 扩展变量 */
+    --color-text-active: var(--color-primary);
+    --color-text-primary: var(--color-primary);
+    --color-text-secondary: #728197;
+    --color-background-active: #e6e6e6;
+    --color-border-active: #c5d2e0;
+    --color-border-primary: var(--color-primary);
+    --color-shadow: rgba(24, 120, 179, 0.75);
+    --color-background-t: linear-gradient(var(--color-background), rgba(255, 255, 255, 0.1));
+
+    --color-text-tip: #3c5e7c;
+    --color-text-warning: #7d662f;
+    --color-text-danger: #7d3932;
+    --color-text-info: #4a7b8a;
+    --color-border-tip: #5c8ebc;
+    --color-border-warning: #ccab41;
+    --color-border-danger: #cc6b63;
+    --color-border-info: #7baebb;
+    --color-background-tip: #a0c4dd;
+    --color-background-warning: #f8df85;
+    --color-background-danger: #f4aba5;
+    --color-background-info: #c3e0e9;
+
+    --color-text-assist: #4a7b8a;
+    --color-background-assist: #c3e0e9;
+    --color-background-assist-light: #b9d9df;
+
+    --font-family-mono: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+    --font-family-base: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+        'Open Sans', 'Helvetica Neue', sans-serif;
+
+    --code-font-size: 0.8rem;
+    --code-line-height: 1.3;
+    --code-font-family: var(--font-family-mono);
+    --code-text-color: #2183cc;
+    --code-background-color: #282c34;
+    --code-inline-background-color: rgba(27, 31, 35, 0.05);
+
+    --code-comment: #6a737d;
+    --code-keyword: #d73a49;
+    --code-function: #6f42c1;
+    --code-string: #22863a;
+    --code-number: #005cc5;
+    --code-tag: #22863a;
+    --code-attribute: #6f42c1;
+    --code-literal: #005cc5;
+}
+
+body {
+    font-family: var(--font-family-base);
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    background-color: var(--color-background);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    color: var(--color-text);
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+main {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 1.5rem 0 0.5rem 0;
+    color: var(--color-text);
+    line-height: 1.2;
+}
+
+h1 {
+    font-size: 2.5em;
+}
+
+h2 {
+    font-size: 2em;
+}
+
+h3 {
+    font-size: 1.5em;
+}
+
+h4 {
+    font-size: 1.25em;
+}
+
+h5 {
+    font-size: 1em;
+}
+
+strong,
+b {
+    font-weight: 700;
+}
+
+a {
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--color-text-active);
+}
+
+p {
+    margin-bottom: 1em;
+}
+
+.prose p {
+    margin-bottom: 1.5em;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+code {
+    padding: 3px 6px;
+    background-color: var(--code-inline-background-color);
+    border-radius: 4px;
+    font-family: var(--code-font-family);
+    font-size: var(--code-font-size);
+    color: var(--code-text-color);
+}
+
+pre {
+    padding: 1.2em;
+    background-color: var(--code-background-color);
+    border-radius: 8px;
+    overflow-x: auto;
+    font-size: var(--code-font-size);
+    line-height: 1.5;
+    margin: 1.5rem 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+pre > code {
+    all: unset;
+    font-family: var(--code-font-family);
+    color: #abb2bf;
+    display: block;
+}
+
+pre .comment {
+    color: var(--code-comment);
+}
+pre .keyword {
+    color: var(--code-keyword);
+}
+pre .function {
+    color: var(--code-function);
+}
+pre .string {
+    color: var(--code-string);
+}
+pre .number {
+    color: var(--code-number);
+}
+pre .tag {
+    color: var(--code-tag);
+}
+pre .attribute {
+    color: var(--code-attribute);
+}
+pre .literal {
+    color: var(--code-literal);
+}
+
+blockquote {
+    border-left: 4px solid var(--color-primary);
+    padding: 0.5em 0 0.5em 1em;
+    margin: 1.5em 0;
+    background-color: var(--code-inline-background-color);
+    border-radius: 0 4px 4px 0;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid var(--color-border);
+    margin: 2em 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5em 0;
+}
+
+table th,
+table td {
+    padding: 0.5em;
+    border: 1px solid var(--color-border);
+}
+
+table th {
+    background-color: var(--color-background-active);
+}
+
+/* 主题布局类 */
+.theme {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main {
+    flex: 1;
+}
+
+/* 博客文章阅读区域 */
+.reading-area {
+    display: flex;
+    margin: 2rem 0;
+}
+
+.content-wrap {
+    flex: 1;
+    max-width: 100%;
+}
+
+@media (max-width: 768px) {
+    .reading-area {
+        flex-direction: column;
+    }
+}
+
+/* 标签样式 */
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.tag {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    background-color: var(--color-background-active);
+    border-radius: 4px;
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+    transition: all 0.2s ease;
+}
+
+.tag:hover {
+    background-color: var(--color-primary);
+    color: white;
+    text-decoration: none;
+}
+
+.sr-only {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    position: absolute !important;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    clip: rect(1px 1px 1px 1px);
+    clip: rect(1px, 1px, 1px, 1px);
+    clip-path: inset(50%);
+    white-space: nowrap;
+}

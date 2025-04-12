@@ -1,0 +1,35 @@
+<div id='comments' class='giscus-container'></div>
+
+<script>
+    // 在页面加载后，添加 Giscus 脚本
+    document.addEventListener('DOMContentLoaded', () => {
+        const script = document.createElement('script');
+        script.src = 'https://giscus.app/client.js';
+        script.setAttribute('data-repo', 'ZxBing0066/Blog');
+        script.setAttribute('data-repo-id', 'MDEwOlJlcG9zaXRvcnkyMzg2Nzc5OA==');
+        script.setAttribute('data-category', 'Q&A');
+        script.setAttribute('data-category-id', 'DIC_kwDOAWwxls4CUI_l');
+        script.setAttribute('data-mapping', 'pathname');
+        script.setAttribute('data-strict', '0');
+        script.setAttribute('data-reactions-enabled', '1');
+        script.setAttribute('data-emit-metadata', '0');
+        script.setAttribute('data-input-position', 'bottom');
+        script.setAttribute('data-theme', 'light');
+        script.setAttribute('data-lang', 'zh-CN');
+        script.crossOrigin = 'anonymous';
+        script.async = true;
+
+        const commentsDiv = document.getElementById('comments');
+        if (commentsDiv) {
+            commentsDiv.appendChild(script);
+        }
+    });
+</script>
+
+<style>
+    .giscus-container {
+        margin-top: 4rem;
+        width: 100%;
+    }
+</style>
+

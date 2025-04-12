@@ -16,6 +16,7 @@
     "remark-container": "^0.1.2"
   },
   "devDependencies": {
+    "@types/node": "^22.14.1",
     "gray-matter": "^4.0.3"
   }
 }

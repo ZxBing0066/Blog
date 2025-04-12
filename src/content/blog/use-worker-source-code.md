@@ -7,8 +7,6 @@ tags:
     - worker
 ---
 
-# 有趣的 hook - useWorker
-
 本文针对的代码版本为 [1ceb211](https://github.com/alewin/useWorker/tree/1ceb211fc0cbd3cb4b72b6a7f4d36e16c339109c)
 
 前几天看到个有趣的 `hook`: `useWorker`。可以直接将函数转换为 `worker`，然后调用执行，这样便可以将一些耗时、阻塞的计算放到 `worker` 中执行，避免主线程阻塞。

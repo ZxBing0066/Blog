@@ -8,8 +8,6 @@ tags:
   - React
 ---
 
-# React ISR 如何实现
-
 之前写了两个 `demo` 讲解了如何实现 `SSR` 和 `SSG`，今天再写个 `demo` 说在 `ISR` 如何实现。
 
 ## 什么是 ISR

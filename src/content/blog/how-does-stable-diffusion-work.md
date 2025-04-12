@@ -8,8 +8,6 @@ tags:
     - Stable Diffusion
 ---
 
-# Stable Diffusion 是如何工作的？【译】
-
 > 最近在学习 Stable Diffusion 相关的内容，看到这篇文章，感觉不错所以翻译一下。
 
 > 原文地址：[How does Stable Diffusion work?](https://stable-diffusion-art.com/how-stable-diffusion-work/)

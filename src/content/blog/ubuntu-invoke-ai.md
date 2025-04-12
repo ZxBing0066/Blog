@@ -9,8 +9,6 @@ tags:
     - linux
 ---
 
-# Ubuntu 中安装 InvokeAI
-
 安装过程基本比较顺利，InvokeAI 官方提供的一键安装脚本非常友好。
 
 ## 安装前准备

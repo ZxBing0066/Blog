@@ -6,8 +6,6 @@ tags:
     - MacOS
 ---
 
-# Mac 开启 ssh 登陆
-
 家里一台 Mac mini，一台 MacBook Air，平时比较习惯用 MacBook，但是偶尔需要上 mini 上去修改一些服务，每次都要切换键盘鼠标什么的比较麻烦，所以干脆把 Mac mini 的 ssh server 打开了。
 
 ## 开启

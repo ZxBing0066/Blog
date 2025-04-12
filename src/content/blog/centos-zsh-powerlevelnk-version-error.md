@@ -6,8 +6,6 @@ tags:
     - FQA
 ---
 
-# 解决 centos 下 zsh 安装 powerlevel10k 提示版本不匹配
-
 centos 下使用 yum install zsh 后，再安装 oh-my-zsh 并安装 powerlevel10k（powerlevel9k 也会报错），会提示版本不匹配，如下：
 
 ```sh

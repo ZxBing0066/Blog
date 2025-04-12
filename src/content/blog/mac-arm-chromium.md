@@ -9,8 +9,6 @@ tags:
     - pupeteer
 ---
 
-# Mac M1（arm 系列芯片）如何安装 Chromium | Puppeteer
-
 最近写个脚本用到 puppeteer，然后安装 Chromium 出现一点问题，这里记录一下解决方案。
 
 ## Puppeteer 自动安装失败

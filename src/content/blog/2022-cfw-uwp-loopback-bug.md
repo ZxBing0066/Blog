@@ -7,8 +7,6 @@ tags:
     - Troubleshooting
 ---
 
-# 如何解决 Clash for Windows 的 UWP Loopback 无法打开的问题
-
 CFW 最近自带的 UWP Loopback 工具存在问题，打开后无法正常显示 app 列表，如图，一片空白：
 
 ![picture 1](https://stg.heyfe.org/images/blog-2022-cfw-uwp-loopback-bug-10.png)

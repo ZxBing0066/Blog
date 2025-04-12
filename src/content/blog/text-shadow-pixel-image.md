@@ -4,8 +4,6 @@ pubDate: '2022-10-22'
 tags: []
 ---
 
-# 可玩性超高的文字像素图 - 像素图转换器新增文字像素图功能
-
 ![picture 1](https://stg.heyfe.org/images/blog-text-shadow-pixel-image-8.png)
 
 前排先提问，请问用 `CSS` 实现图中的效果需要多少需要几步？

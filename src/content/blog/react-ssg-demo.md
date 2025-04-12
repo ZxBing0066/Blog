@@ -8,8 +8,6 @@ tags:
   - React
 ---
 
-# React SSG 如何实现
-
 上次写了一个 `SSR` 的 `DEMO`，今天写个小 `Demo` 来从头实现一下 `react` 的 `SSG`，来理解下 `SSG` 是如何实现的。
 
 ## 什么是 SSG

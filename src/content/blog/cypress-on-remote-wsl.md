@@ -9,8 +9,6 @@ tags:
     - WSL
 ---
 
-# 如何让 cypress 在远程机器的 WSL 中跑起来
-
 工作中习惯使用 Mac 进行开发，而公司代码由于限制只能保存在 Windows 中，故而在使用 Mac 开发时需要远程到 Windows 中进行开发。为此使用 [VSCode SSH Remote](./vscode-remote-ssh.md) 到 Windows 中进行开发。然而由于 Windows 的开发环境与 Mac 相差甚远，为了方便决定通过 VSCode SSH Remote 到 Windows 中的 WSL 进行开发。开发时又遇上 cypress 无法启动的问题，故有了此系列文章。
 
 ## 目标

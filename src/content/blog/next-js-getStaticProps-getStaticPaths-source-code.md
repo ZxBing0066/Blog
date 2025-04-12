@@ -10,8 +10,6 @@ tags:
   - 源码解析
 ---
 
-# next.js 源码解析 - getStaticProps、getStaticPaths 篇
-
 > 😂 好久前写了关于 `getStaticProps` 和 `getStaticPaths` 的内容，然而半年过去了源码解析就一直忘记了，不久前有人提醒才想起来，补下坑。
 
 本文主要是解读下 `getStaticProps`、`getStaticPaths` 相关的源码，不了解这两个 `API` 的建议先看下之前的文章再看。👀

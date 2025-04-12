@@ -10,8 +10,6 @@ tags:
     - 动向
 ---
 
-# Google 正在逐步禁用 uBlock Origin 插件
-
 最近看到很多人反映自己的 uBlock Origin 插件无法正常使用。这是因为 Google 正在逐步禁用使用 Manifest V2 的插件，而 uBlock Origin 使用的就是 Manifest V2。
 
 ![](https://stg.heyfe.org/images/blog-unsupport-chrome-uBlock-Origin-1741052952885.png)

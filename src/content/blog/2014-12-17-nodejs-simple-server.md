@@ -8,8 +8,6 @@ tags:
   - node.js
 ---
 
-# NodeJS 搭建简易网站
-
 > 朋友让帮忙在他的`Windows Azure`里搭个简单的`nodejs`服务器,好吧,其实真的很无脑,看了就知道.搭建环境是`Ubuntu 14.10`.
 
 ## 安装`nodejs`

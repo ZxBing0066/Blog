@@ -8,8 +8,6 @@ tags:
     - Stable Diffusion
 ---
 
-# Stable Diffusion WebUI 各操作系统安装教程
-
 最近几天在 2 台 Mac、2 台 PC、一台云无 GPU 的 Linux 安装了 Stable Diffusion WebUI，这里记录下如何安装，以及一些注意点和坑。
 
 以下内容针对 Windows（N 卡）、MacOS（m 系列芯片）、Linux（Ubuntu、无 GPU）。

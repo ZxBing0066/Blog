@@ -7,8 +7,6 @@ tags:
     - 瞎折腾
 ---
 
-# 将 Cubox 内容导入到 Obsidian
-
 Cubox 是一个比较方便的“稍后读”软件，Obsidian 则是一个很优秀的笔记软件。一般收藏使用 Cubox，但是知识整理时还是放到 Obsidian 会更方便。但 Cubox 本身并没有导出的功能。
 
 要实现将 Cubox 内容导入到 Obsidian 需要借助 Cubox 的“自定义快捷动作”和 Obsidian 的 Advanced URI 插件。

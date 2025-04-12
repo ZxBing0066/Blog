@@ -6,8 +6,6 @@ tags:
     - github
 ---
 
-# 关于在 GitHub Action 中无法获取 Git 历史的问题
-
 前不久在 RVPress 中添加了自动获取文章创建和修改时间的功能，其中使用 `git log` 来获取文章文件的 history，而后发现该功能在 GitHub Action 中无法正常工作。这里记录一下 📝。
 
 ## 测试

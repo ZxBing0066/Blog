@@ -8,8 +8,6 @@ tags:
     - 源码解析
 ---
 
-# Redux 源码全解析
-
 前排提示：
 
 -   如果需要配合源码使用，请 `git clone git@github.com:reduxjs/redux.git` 然后切到 `9eef8ff6` 进行，避免代码版本不一致。

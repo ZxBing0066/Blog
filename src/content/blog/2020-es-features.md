@@ -6,8 +6,6 @@ tags:
     - javascript
 ---
 
-# 是时候学习/推广一波可选链（Optional chaining）和空值合并（Nullish coalescing ）了
-
 > 最近工作中发现团队有些同学不太了解 `Optional chaining` 和 `Nullish coalescing` 两个新的操作符，正好推广一波。
 
 ## 背景

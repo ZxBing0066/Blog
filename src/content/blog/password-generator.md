@@ -4,8 +4,6 @@ pubDate: '2022-08-12'
 tags: []
 ---
 
-# 开源个密码生成库
-
 几个月前因为某个需求参考了 `Chrome` 的密码生成的源码撸了一个 `js` 的密码生成器，这里分享一下。
 
 前排先上下 [GitHub 链接](https://github.com/ZxBing0066/zlib/tree/master/packages/generate-password)。

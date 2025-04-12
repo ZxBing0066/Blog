@@ -8,8 +8,6 @@ tags:
   - Stable Diffusion
 ---
 
-# 阿里云 AIGC 白嫖 FC 搭建 stable diffusion
-
 下午瞎逛在 V 站看到阿里在做推广，正好这几天在研究 stable-diffusion，就进去看了看，活动地址： https://developer.aliyun.com/topic/aigc 。
 
 主要就是阿里云的 FC 免费提供 3 个月的试用（注意，只有 150 元额度，所以重度使用可能一会就玩没了），可以快速搭建 AiGC 服务。

@@ -7,8 +7,6 @@ tags:
     - tmux
 ---
 
-# Tmux 配置
-
 ### 配置文件
 
 个人`tmux`配置文件地址是`~/.tmux.conf`,`mac`下的系统配置文件路径`/etc/tmux.conf`(不通系统下路径会不相同).

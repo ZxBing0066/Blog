@@ -6,8 +6,6 @@ tags:
     - 性能
 ---
 
-# benny 介绍 - 一个简单的 benchmark 框架
-
 `benny` 是一个简单的 `benchmark` 框架，当你需要测试自己的库或是方法性能时，可使用它来进行对其进行基准测试。
 
 前排先上 [GitHub 地址](https://github.com/caderek/benny)

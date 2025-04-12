@@ -7,8 +7,6 @@ tags:
     - SSH
 ---
 
-# VSCode Remote - SSH 入门保姆级教程
-
 > 本文针对环境为本地机器：`MacOS`，远程环境 `Windows 10`。
 
 ![picture 1](https://stg.heyfe.org/images/blog-vscode-ssh-remote-27.png)

@@ -7,8 +7,6 @@ tags:
     - Chrome
 ---
 
-# WSL 中安装 google-chrome
-
 要在 WSL 中安装 chrome 首先需要确保满足以下条件：
 
 -   WSL 版本为 WSL 2

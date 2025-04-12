@@ -6,8 +6,6 @@ tags:
     - Animation
 ---
 
-# 好玩又难搞的多重阴影动画 - 几经波折，终于搞懂了多重阴影动画间歇失效的原因
-
 事情是这样的：之前写的像素转换器，其实我一直想给他加上像素动画，但是却屡战屡败，今天终于解决了这个问题，这里记录一下。
 
 ![picture 1](https://stg.heyfe.org/images/blog-multiple-shadow-animation-84.gif)

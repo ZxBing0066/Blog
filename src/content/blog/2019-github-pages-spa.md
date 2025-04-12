@@ -6,8 +6,6 @@ tags:
   - github
 ---
 
-# GitHub Pages 如何实现 SPA
-
 ## 前因
 
 这两天在 GitHub Pages 里面托管了一个小 DEMO，但是 DEMO 是 SPA 的，然而 **GitHub Pages 是无法支持 SPA 配置的**，这里记录一下解决方案。

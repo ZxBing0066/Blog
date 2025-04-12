@@ -6,8 +6,6 @@ tags:
     - 源码解析
 ---
 
-# copy-to-clipboard 源码解析，隐藏的内容比想象的要多
-
 本文针对的源码版本为：[193826f](https://github.com/sudodoki/copy-to-clipboard/tree/193826f9859923d4e83c35093f3c436be00a162b)
 
 [copy-to-clipboard](https://github.com/sudodoki/copy-to-clipboard) 是一个 js 的剪切板库，可用来复制内容到剪切板，看源码后发现其中隐藏的内容着实不少，今天一起来解读下其源码。

@@ -13,8 +13,6 @@ tags:
     - Stable Diffusion
 ---
 
-# 在 Stable Diffusion 中控制光线的三种方式
-
 > 在 Stable Diffusion Art 网站上看到一片关于在 Stable Diffusion 中如何控制光线的网站，感觉讲的很通俗易懂，做个翻译。
 >
 > 原文地址： https://stable-diffusion-art.com/control-lighting/

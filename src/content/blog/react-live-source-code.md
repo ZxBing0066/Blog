@@ -7,8 +7,6 @@ tags:
     - 源码解析
 ---
 
-# react-live 源码解析
-
 `react-live` 是一个 `react` 的实时编辑器，可直接编辑 `react` 代码，并实时预览。可以看下官方的预览图：
 
 ![](https://user-images.githubusercontent.com/17658189/63181897-1d67d380-c049-11e9-9dd2-7da2a3a57f05.gif)

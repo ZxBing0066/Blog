@@ -8,8 +8,6 @@ tags:
   - python
 ---
 
-# 关于 Mac 12.3 出现 python not found 的解决方法
-
 ## 原因
 
 由于 macOS 12.3 版本开始，水果将 python 2 直接移除了，导致原先很多使用 python 执行的脚本都失效了。

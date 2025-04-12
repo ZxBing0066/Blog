@@ -7,8 +7,6 @@ tags:
   - sublime-text
 ---
 
-# SublimeText PlainTasks 使用教程
-
 ## `PlainTasks`使用教程(所有快捷键为`win`下的快捷键,`mac`需要自行替换)
 
 -   在`SublimeText`中输入`Ctrl+P`打开面板,执行`Tasks: New document`命令来新建一个 TODO 文件,或者自己手动创建一个.

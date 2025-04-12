@@ -5,8 +5,6 @@ tags:
     - worker
 ---
 
-# 聊一聊浏览器中的 Worker - Web Worker
-
 ## 什么是 Worker
 
 `Worker` 是浏览器提供的一种可以创建独立后台线程运行代码的方式。

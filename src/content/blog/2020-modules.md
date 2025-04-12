@@ -7,8 +7,6 @@ tags:
     - module
 ---
 
-# 前端模块简史 - CJS & \*MD & ES Modules & SystemJS & Webpack
-
 > 最近这些年前端发展速度迅猛，而前端的模块化方案也在不断的更新，这里记录整理下工作 8 年所了解的一些关于前端模块化的知识，顺便 “考下古” ，由于涉及的内容较多不是每个都很了解，只能尽量保证输出内容的准确性。
 
 配合 demo [ FE-module-examples](https://github.com/ZxBing0066/fe-module-examples) 食用更佳

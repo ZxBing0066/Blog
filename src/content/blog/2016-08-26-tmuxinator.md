@@ -7,8 +7,6 @@ tags:
     - tmux
 ---
 
-# tmuxinator 使用
-
 > tmuxinator 是一个 tmux 的管理工具,使用它可以很方便的创建和管理 tmux. [github 地址](https://github.com/tmuxinator/tmuxinator)
 
 ### 安装

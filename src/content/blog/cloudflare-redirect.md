@@ -7,8 +7,6 @@ tags:
     - Cloudflare
 ---
 
-# Cloudflare 重定向配置
-
 最近把之前的一个网站域名换成另一个域名，想要添加一下重定向，避免流量流失（虽然本来就没流量）。然后在 Cloudflare 配置时尝试多次都失败了，遇到各种 `Your connection is not private` 或者 `Webpage Temporarily Down or Moved Permanently` 报错，还有跳到 404 页面等各种问题。最后终于解决，这里记录一下。
 
 ## Cloudflare 重定向配置的几种方案

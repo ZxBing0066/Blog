@@ -4,8 +4,6 @@ pubDate: '2022-10-05'
 tags: []
 ---
 
-# 制作了一个马赛克图片转换器 - 实现篇
-
 上文有讲到我制作了一个马赛克图片转换器，可以将图片转换成马赛克风格，并可转换为 `css box-shadow` 进行输出。前排还是先放效果图、转换器地址和 `GitHub` 地址：
 
 ![picture 1](https://stg.heyfe.org/images/blog-mosaic-converter-44.gif)

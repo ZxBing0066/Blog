@@ -4,8 +4,6 @@ pubDate: '2023-02-08'
 tags: []
 ---
 
-# 展示 3D 模型也许不用 three.js，sketchfab viewer 挺好的
-
 之前写了一些关于如何使用 three.js 展示 3D 模型的例子。然而在一些场景下用 three.js 进行模型展示的开发要求可能相对会高一点，我们还有更简单的方法：sketchfab-viewer。
 
 ## sketchfab

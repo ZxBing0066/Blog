@@ -9,8 +9,6 @@ tags:
   - restful
 ---
 
-# next.js 中如何实现 restful 风格 API handler 封装
-
 最近在做个 `next.js` 的内部项目，由于 `next.js` 可以通过文件 `API` 路由的方式快速创建一个 `API`，因此选择了使用 `restful` 风格，这样可以利用好 `next.js` 文件路由的优势。
 
 ## 问题暴露

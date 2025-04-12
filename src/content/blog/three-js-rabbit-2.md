@@ -6,8 +6,6 @@ tags:
     - three.js
 ---
 
-# 使用 GUI 方便 three.js 开发调试
-
 上一篇聊到如何调用模型中的内置动画从而让模型动起来，而该模型中其实有两个动画，而我们只看到了其中一种。本篇我们聊一聊如何使用 GUI 方便我们调试 three.js，操控界面参数。
 
 一般而言，three.js 生态常用到两个 GUI 库，一个 [DAT.GUI](https://www.npmjs.com/package/dat.gui)，还有一个是近期被 three.js 内置的 [lil.gui](https://lil-gui.georgealways.com/)。两个库主要都是为了方便通过 UI 来调试参数，实时看到效果，从而方便开发。本篇主要使用 lil.gui，下面简称 GUI。

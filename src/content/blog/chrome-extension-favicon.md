@@ -6,8 +6,6 @@ tags:
     - Chrome-Extension
 ---
 
-# 如何获取网站对应的 favicon 图标
-
 最近在开发一个 `Chrome` 插件，其中需要读取到对应网站的 favicon 图标，遇到一些问题记录一下。
 
 太长不看的可以直接跳到最后总结部分。

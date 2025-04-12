@@ -9,8 +9,6 @@ tags:
   - SSG
 ---
 
-# next.js - getStaticProps、getStaticPaths 篇
-
 之前讲过 `next.js` 中的 `getServerSideProps`，今天来讲一讲另一个很类似的 `API`：`getStaticProps`，以及和 `getStaticProps` 紧密相关的 `getStaticPaths`。
 
 `getStaticProps` 主要用于构建时落地一些静态数据，但不同于 `getServerSideProps`，`getStaticProps` 默认情况下只会在构建时执行一次，之后的每次请求都会使用构建时的数据。在 `ISR`、`SSG` 等场景下还有不同的表现。

@@ -9,8 +9,6 @@ tags:
   - SSR
 ---
 
-# next.js - getServerSideProps 篇
-
 `getServerSideProps` 是 `next.js` 中的一项特色功能，可以让我们在给页面设置一些初始的 `props` 参数。
 
 ## 使用

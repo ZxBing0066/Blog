@@ -9,8 +9,6 @@ tags:
   - 源码解析
 ---
 
-# next.js 源码解析 - dynamic 篇
-
 上文我们一起看完了在 `next.js` 中如何解决 `hydration fail` 的错误和如何局部关闭 `SSR` 的几个方案，其中聊到了 `next.js` 的 `dynamic API`。老规矩，今天我们一起来看看 `dynamic API` 的源码实现。
 
 ## API

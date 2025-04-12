@@ -6,8 +6,6 @@ tags:
     - WebAPI
 ---
 
-# MutationObserver - 监听你的 DOM 是否有变动
-
 `MutationObserver` 可用来监视 `DOM` 的变化，算是一个比较老的 `API`，但是却鲜为人知，他的前身是 `MutationEvent`：一系列监听 `DOM` 变更的 `event` 事件 - `DOMAttrModified`、`DOMNodeInserted`、`DOMSubtreeModified` 等。
 
 个人能想到的使用场景一个是监听 `DOM` 的变化，防止用户篡改 `DOM` 结构，比如可以在被篡改后直接 `document.write('请勿篡改')` 来避免用户篡改重要页面并进行截图作秀。又或者是使用 `contenteditable` 时监听内容变更，在富文本编辑器领域可能会有所应用。还可以监听一些浏览器插件修改 `DOM` 节点的行为。

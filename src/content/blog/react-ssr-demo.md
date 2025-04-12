@@ -8,8 +8,6 @@ tags:
   - React
 ---
 
-# React SSR 如何实现
-
 今天写个小 `Demo` 来从头实现一下 `react` 的 `SSR`，帮助理解 `SSR` 是如何实现的，有什么细节。
 
 ## 什么是 SSR

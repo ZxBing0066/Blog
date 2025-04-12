@@ -7,8 +7,6 @@ tags:
     - GitHub
 ---
 
-# VSCode Markdown 图片上传到 GitHub 图床
-
 VSCode 中有一个插件 [Markdown Image](https://marketplace.visualstudio.com/items?itemName=hancel.markdown-image) 还算好用，可以一键将图片上传然后将链接粘贴到 Markdown 中。
 
 之前都是把 Markdown 直接贴在对应项目里，然后通过相对链接访问，使用的时候发现一些问题：

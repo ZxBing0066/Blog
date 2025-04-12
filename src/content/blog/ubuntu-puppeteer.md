@@ -7,8 +7,6 @@ tags:
     - linux
 ---
 
-# Ubuntu 下安装 Puppeteer
-
 > 最近把一些项目从本地放到白嫖的甲骨云服务器上了，主要是为了方便在家里和公司都能访问到一样的环境，然后之前写的一些脚本有用到 Puppeteer，直接 install 并没有自动安装 Chromium，这里记录下手动安装方式。
 
 1. 首先安装 Puppeteer

@@ -5,8 +5,6 @@ tags:
     - 瞎折腾
 ---
 
-# 在 Cursor 中使用自定义模型 - DeepSeek
-
 Cursor 免费试用过期后迫于贫穷，只能看看能不能用自定义模型来平替一下，看到有人推荐了 `DeepSeek`，就试试看。
 
 首先到 [平台官网](https://platform.deepseek.com/) 注册一下账号，会送 10 元免费额度（5M tokens），一个月有效期。然后即可到 API keys 页面中新建一个 API key。完成后回到 Cursor 中，打开 Cursor Settings 界面，参考下图进行配置即可。

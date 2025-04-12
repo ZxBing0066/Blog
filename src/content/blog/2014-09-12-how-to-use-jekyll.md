@@ -10,8 +10,6 @@ tags:
   - blog
 ---
 
-# Jekyll on Windows 安装
-
 > `jekyll`是一个简单的静态页面生成工具,主要用于搭建静态简易`Blog`
 
 ## 安装 ruby

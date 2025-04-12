@@ -7,8 +7,6 @@ tags:
   - sublime-text
 ---
 
-# SublimeText3 安装&配置
-
 ## 下载
 
 > 下载地址链接:[http://www.sublimetext.com/3](http://www.sublimetext.com/3) 本人下载的是绿色版`portable version`,下载后解压打开 ST3.

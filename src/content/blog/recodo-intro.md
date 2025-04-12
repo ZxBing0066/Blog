@@ -6,8 +6,6 @@ tags:
     - React
 ---
 
-# React 组件文档套件设计
-
 在编写 `React UI` 组件时为了方便开发者使用组件，我们经常会使用文档系统来自动生成组件文档和定义文档。开源中比较出名的是 `storybook`，还有 `react-styleguidist`。
 
 ## 动机

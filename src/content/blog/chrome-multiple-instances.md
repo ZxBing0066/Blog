@@ -6,8 +6,6 @@ tags:
     - Chrome
 ---
 
-# MacOS 中打开多个 Chrome 实例
-
 前端开发偶尔会遇到一些特殊情况（如某 API 不支持跨域，但又急需使用）可能需要临时关闭 Chrome 的安全策略，一般情况下可以通过命令行参数 `--disable-web-security` 来关闭安全策略，但这样需要关闭 Chrome 窗口，然后重新添加参数后再打开，而且很容易搞混，麻烦又不安全。在 MacOS 中可以通过命令行启动多个 Chrome 实例，这样就可以在不关闭原有 Chrome 窗口的情况下打开一个新的 Chrome 实例，这样就可以在新的 Chrome 实例中添加命令行参数，而不影响原有的 Chrome 实例。
 
 ## 命令行打开 Chrome 实例

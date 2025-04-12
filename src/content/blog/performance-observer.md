@@ -6,8 +6,6 @@ tags:
     - WebAPI
 ---
 
-# PerformanceObserver - 配合 performance 掌控页面性能数据
-
 `PerformanceObserver` 是一个强大的 `API`，他可以用来配合 `performance` 使用，从而达到 `performanceEntry` 类事件发生时可以及时通知的效果。下面一起来看下如何使用吧。
 
 ## 如何使用

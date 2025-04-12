@@ -6,8 +6,6 @@ tags:
     - Cloudflare
 ---
 
-# 利用 Cloudflare 和 Gmail 实现域名邮箱
-
 当拥有一个网站后，不想把自己的私人邮箱暴露在网站上，这时候就可以利用 Cloudflare 和 Gmail 来实现域名邮箱。
 
 ## 正文

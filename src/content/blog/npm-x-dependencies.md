@@ -4,8 +4,6 @@ pubDate: '2022-08-30'
 tags: []
 ---
 
-# 乱花迷人眼 - 一文彻底看懂 package.json 中的各种 dependencies
-
 `package.json` 中存在各种各样的依赖定义：`dependencies`、`devDependencies`、`peerDependencies`、`optionalDependencies`、`bundleDependencies`，很容易让初学的开发者晕头，到底有什么区别。
 
 依赖主要涉及到两个场景：

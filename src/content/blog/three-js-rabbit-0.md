@@ -6,8 +6,6 @@ tags:
     - three.js
 ---
 
-# 用 three.js 画只 🐰 有多简单
-
 ![picture 1](https://stg.heyfe.org/images/blog-three-js-rabbit-0-97.gif)
 
 three.js 是一个非常流行的图形库，通过它可以让开发者方便的进行开发。而通过几十行代码就能做成这样一个兔子模型展示网页，下面一起看下代码。

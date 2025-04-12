@@ -6,8 +6,6 @@ tags:
     - canvas
 ---
 
-# 几十行代码搞定刮刮乐
-
 今年是兔年，随手写个兔年祝福语刮刮乐，祝大家新年快乐（迟到的祝福）。
 
 ![picture 1](https://stg.heyfe.org/images/blog-canvas-guaguale-rabbit-year-16.gif)

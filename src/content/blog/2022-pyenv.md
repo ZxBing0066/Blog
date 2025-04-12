@@ -5,8 +5,6 @@ tags:
     - python
 ---
 
-# pyenv - 简单易用的 python 的版本管理器
-
 pyenv 是一个 python 的版本管理器，可以让我们轻松的安装、卸载、切换 python 版本。
 
 简单说就是： pyenv 之于 python 等于 nvm 之于 nodejs

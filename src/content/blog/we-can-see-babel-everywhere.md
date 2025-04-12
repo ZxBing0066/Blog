@@ -8,8 +8,6 @@ tags:
     - babel
 ---
 
-# 无处不在的 babel
-
 `babel` 作为前端生态圈举足轻重的一员，在前端工程化等领域起着非常重要的作用。今天一起来看看那些常见的 `babel` 使用场景，看一看 `babel` 的生态圈有多庞大。
 
 ## webpack：babel-loader

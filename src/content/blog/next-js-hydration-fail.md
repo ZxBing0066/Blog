@@ -9,8 +9,6 @@ tags:
   - SSR
 ---
 
-# next.js - 如何关闭 SSR 及处理 hydration 错误
-
 今天聊一聊上手 `next.js` 使用中常会出现的一类报错：`hydration fail`，估计大部分使用过 `next.js` 开发的同学对下面的报错信息一定都很熟悉：
 
 ```

@@ -8,6 +8,9 @@ import remarkContainer from 'remark-container';
 export default defineConfig({
     site: 'https://blog.heyfe.org',
     integrations: [mdx(), sitemap()],
+    build: {
+        format: 'file'
+    },
     markdown: {
         remarkPlugins: [
             [

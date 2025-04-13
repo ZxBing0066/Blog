@@ -10,7 +10,7 @@ import Giscus from '../components/Giscus.astro';
 
 type Props = CollectionEntry<'blog'>['data'];
 
-const { title, description, pubDate, updatedDate, heroImage, tags } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage = '/post.jpg', tags } = Astro.props;
 
 // 获取文章目录
 const headings = await Astro.slots.render('default').then(html => {
@@ -53,10 +53,10 @@ const headings = await Astro.slots.render('default').then(html => {
                                 <div class='content'>
                                     <slot />
                                 </div>
-                                <Giscus />
                             </div>
                             <TOC headings={headings} />
                         </div>
+                        <Giscus />
                     </div>
                 </article>
             </main>

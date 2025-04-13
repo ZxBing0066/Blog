@@ -2,17 +2,17 @@
 // Import the global.css file here so that it is included on
 // all pages through the use of the <BaseHead /> component.
 import '../styles/global.css';
-import { SITE_TITLE } from '../consts';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 
 interface Props {
     title: string;
-    description: string;
+    description?: string;
     image?: string;
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const { title, description, image = '/post.jpg' } = Astro.props;
+const { title, description = SITE_DESCRIPTION, image = '/post.jpg' } = Astro.props;
 ---
 
 <!-- Global Metadata -->
@@ -22,6 +22,9 @@ const { title, description, image = '/post.jpg' } = Astro.props;
 <link rel='sitemap' href='/sitemap-index.xml' />
 <link rel='alternate' type='application/rss+xml' title={SITE_TITLE} href={new URL('rss.xml', Astro.site)} />
 <meta name='generator' content={Astro.generator} />
+
+<!-- 页面加载进度条 -->
+<script src='https://cdn.jsdelivr.net/npm/pace-js@latest/pace.min.js'></script>
 
 <!-- Canonical URL -->
 <link rel='canonical' href={canonicalURL} />

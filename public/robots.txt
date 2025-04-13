@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+
+# 设置站点地图位置
+Sitemap: https://blog.heyfe.org/sitemap.xml

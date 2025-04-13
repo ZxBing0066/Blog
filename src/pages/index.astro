@@ -67,12 +67,12 @@ const posts = (await getCollection('blog'))
                             posts.map((post, i) => (
                                 <div class='page-block' style={`animation-delay: ${0.03 * Math.min(i, 15)}s`}>
                                     <div class='left'>
-                                        <a href={`/blog/${post.id}/`} class='cover'>
+                                        <a href={`/blog/${post.id}.html`} class='cover'>
                                             <img src={post.data.heroImage || '/post.jpg'} alt='cover' />
                                         </a>
                                     </div>
                                     <div class='right'>
-                                        <a href={`/blog/${post.id}/`} class='title'>
+                                        <a href={`/blog/${post.id}.html`} class='title'>
                                             <h2>{post.data.title}</h2>
                                         </a>
                                         <p class='summary'>{post.data.description}</p>

@@ -1,41 +1,23 @@
-// @ts-check
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
-import remarkContainer from 'remark-container';
+import remarkDirective from 'remark-directive';
+import { youtubeDirectiveRemarkPlugin } from './plugins/youtube-directive';
+import { noteDirectiveRemarkPlugin } from './plugins/note-directive';
 
 // https://astro.build/config
 export default defineConfig({
     site: 'https://blog.heyfe.org',
-    integrations: [mdx(), sitemap()],
+    integrations: [
+        mdx({
+            remarkPlugins: [remarkDirective, youtubeDirectiveRemarkPlugin, noteDirectiveRemarkPlugin]
+        }),
+        sitemap()
+    ],
     build: {
         format: 'file'
     },
     markdown: {
-        remarkPlugins: [
-            [
-                remarkContainer,
-                {
-                    // 配置自定义容器
-                    customContainers: {
-                        info: {
-                            className: 'info'
-                        },
-                        warning: {
-                            className: 'warning'
-                        },
-                        danger: {
-                            className: 'danger'
-                        },
-                        tip: {
-                            className: 'tip'
-                        },
-                        note: {
-                            className: 'note'
-                        }
-                    }
-                }
-            ]
-        ]
+        remarkPlugins: [remarkDirective, youtubeDirectiveRemarkPlugin, noteDirectiveRemarkPlugin]
     }
 });

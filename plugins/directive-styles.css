@@ -1,0 +1,62 @@
+/* Directive styling */
+
+/* Container directives */
+.directive-warning,
+.directive-note {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  position: relative;
+}
+
+.directive-warning {
+  background-color: rgba(255, 204, 0, 0.1);
+  border-left: 4px solid #fc0;
+}
+
+.directive-note {
+  background-color: rgba(0, 122, 255, 0.1);
+  border-left: 4px solid #07f;
+}
+
+/* Title for directives */
+.directive-title {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.directive-warning .directive-title {
+  color: #b7940a;
+}
+
+.directive-note .directive-title {
+  color: #0066cc;
+}
+
+/* Leaf directives */
+mark.directive-mark {
+  background-color: #ffffcc;
+  padding: 0 0.2rem;
+  border-radius: 2px;
+}
+
+mark.directive-warning-mark {
+  background-color: #fff0cc;
+  padding: 0 0.2rem;
+  border-radius: 2px;
+  color: #b7940a;
+}
+
+/* For abbr directive */
+abbr.directive-abbr {
+  text-decoration: underline dotted;
+  cursor: help;
+}
+
+/* Custom directive */
+.directive-custom {
+  color: #9c27b0;
+  font-style: italic;
+} 

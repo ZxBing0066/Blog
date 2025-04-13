@@ -19,7 +19,7 @@ sudo rm -rf ~/Library/Containers/com.apple.Preview/*
 
 然后重新打开，就可以了。
 
-::: tip 原因猜测
+:::note{title="原因猜测"}
 
 `~/Library/Containers/` 里主要包含的时对应程序的一些缓存数据、支持文件、临时文件等。
 

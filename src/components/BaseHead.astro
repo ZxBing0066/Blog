@@ -23,8 +23,9 @@ const { title, description = SITE_DESCRIPTION, image = '/post.jpg' } = Astro.pro
 <link rel='alternate' type='application/rss+xml' title={SITE_TITLE} href={new URL('rss.xml', Astro.site)} />
 <meta name='generator' content={Astro.generator} />
 
-<!-- 页面加载进度条 -->
+<!-- Pace -->
 <script src='https://cdn.jsdelivr.net/npm/pace-js@latest/pace.min.js'></script>
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/pace-js@latest/pace-theme-default.min.css' />
 
 <!-- Canonical URL -->
 <link rel='canonical' href={canonicalURL} />

@@ -2,6 +2,8 @@
   Custom theme based on original blog 
 */
 
+@import '../../plugins/directive-styles.css';
+
 :root {
     /* 基础变量 - 从原主题迁移 */
     --color-text: #030d17;
@@ -235,7 +237,6 @@ table th {
 .main {
     flex: 1;
 }
-
 
 @media (max-width: 768px) {
     .reading-area {

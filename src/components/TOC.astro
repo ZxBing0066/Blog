@@ -1,87 +1,92 @@
 ---
 // Table of Contents component
 interface TocItem {
-  text: string;
-  slug: string;
-  depth: number;
+    text: string;
+    slug: string;
+    depth: number;
 }
 
 interface Props {
-  headings: TocItem[];
+    headings: TocItem[];
 }
 
 const { headings } = Astro.props;
 
 // 如果没有标题，则不显示目录
 if (!headings || headings.length === 0) {
-  return null;
+    return null;
 }
 ---
 
-<div class="toc">
-  <div class="toc-title">目录</div>
-  {headings.map(item => (
-    <div class={`title level-${item.depth}`}>
-      <a href={`#${item.slug}`}>{item.text}</a>
-    </div>
-  ))}
+<div class='toc'>
+    <div class='toc-title'>目录</div>
+    {
+        headings.map(item => (
+            <div class={`title level-${item.depth}`}>
+                <a href={`#${item.slug}`}>{item.text}</a>
+            </div>
+        ))
+    }
 </div>
 
 <style>
-  .toc {
-    position: sticky;
-    top: 6rem;
-    width: 250px;
-    margin-left: 2rem;
-    padding-left: 1rem;
-    border-left: 1px solid var(--color-border);
-    font-size: 0.9rem;
-    max-height: calc(100vh - 8rem);
-    overflow-y: auto;
-    align-self: flex-start;
-  }
-
-  .toc-title {
-    font-weight: 600;
-    margin-bottom: 0.8rem;
-    color: var(--color-text);
-  }
-
-  .title {
-    margin-bottom: 0.5rem;
-    line-height: 1.3;
-  }
-
-  .title a {
-    color: var(--color-text-secondary);
-    text-decoration: none;
-    transition: color 0.2s ease;
-    display: block;
-  }
-
-  .title a:hover {
-    color: var(--color-primary);
-  }
-
-  .level-2 {
-    margin-left: 0;
-  }
-
-  .level-3 {
-    margin-left: 1rem;
-  }
-
-  .level-4 {
-    margin-left: 2rem;
-  }
-
-  .level-5, .level-6 {
-    margin-left: 3rem;
-  }
-
-  @media (max-width: 1024px) {
     .toc {
-      display: none;
+        position: sticky;
+        top: 6rem;
+        width: 250px;
+        margin-left: 2rem;
+        padding-left: 1rem;
+        border-left: 1px solid var(--color-border);
+        font-size: 0.9rem;
+        max-height: calc(100vh - 8rem);
+        overflow-y: auto;
+        align-self: flex-start;
+        flex-shrink: 0;
     }
-  }
-</style> 
+
+    .toc-title {
+        font-weight: 600;
+        margin-bottom: 0.8rem;
+        color: var(--color-text);
+    }
+
+    .title {
+        margin-bottom: 0.5rem;
+        line-height: 1.3;
+    }
+
+    .title a {
+        color: var(--color-text-secondary);
+        text-decoration: none;
+        transition: color 0.2s ease;
+        display: block;
+    }
+
+    .title a:hover {
+        color: var(--color-primary);
+    }
+
+    .level-2 {
+        margin-left: 0;
+    }
+
+    .level-3 {
+        margin-left: 1rem;
+    }
+
+    .level-4 {
+        margin-left: 2rem;
+    }
+
+    .level-5,
+    .level-6 {
+        margin-left: 3rem;
+    }
+
+    @media (max-width: 1024px) {
+        .toc {
+            display: none;
+        }
+    }
+</style>
+

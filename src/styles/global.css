@@ -236,16 +236,6 @@ table th {
     flex: 1;
 }
 
-/* 博客文章阅读区域 */
-.reading-area {
-    display: flex;
-    margin: 2rem 0;
-}
-
-.content-wrap {
-    flex: 1;
-    max-width: 100%;
-}
 
 @media (max-width: 768px) {
     .reading-area {

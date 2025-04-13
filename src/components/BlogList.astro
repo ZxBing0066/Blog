@@ -149,21 +149,6 @@ const { posts } = Astro.props;
         text-align: center;
     }
 
-    @media (max-width: 768px) {
-        .post-card.horizontal {
-            flex-direction: column;
-        }
-
-        .post-card.horizontal .post-image {
-            flex: 0 0 auto;
-            height: 200px;
-        }
-
-        .post-card.horizontal .post-content {
-            padding: 1.5rem;
-        }
-    }
-
     @media (max-width: 1000px) {
         .page-block {
             flex-direction: column;
@@ -176,8 +161,7 @@ const { posts } = Astro.props;
                 height: 70%;
             }
             .right {
-                align-items: center;
-                text-align: center;
+                margin-top: 1rem;
             }
         }
     }

@@ -66,6 +66,18 @@ const headings = await Astro.slots.render('default').then(html => {
 </html>
 
 <style>
+    /* 博客文章阅读区域 */
+    .reading-area {
+        display: flex;
+        margin: 2rem 0;
+    }
+
+    .content-wrap {
+        flex: 1;
+        max-width: 100%;
+        overflow: hidden;
+    }
+
     .blog {
         padding: 0 3rem;
         max-width: 1200px;
@@ -147,6 +159,9 @@ const headings = await Astro.slots.render('default').then(html => {
     @media (max-width: 768px) {
         .title {
             font-size: 2rem;
+        }
+        .blog {
+            padding: 0 1rem;
         }
     }
 </style>

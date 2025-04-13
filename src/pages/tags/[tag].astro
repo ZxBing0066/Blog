@@ -52,6 +52,10 @@ const { tag, posts } = Astro.props;
         max-width: 1200px;
         margin: 0 auto;
         line-height: 1.8;
+
+        @media (max-width: 1000px) {
+            padding: 0;
+        }
     }
 
     .tag-page {

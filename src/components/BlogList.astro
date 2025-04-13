@@ -1,0 +1,184 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Tags from './Tags.astro';
+import BlogTime from './BlogTime.astro';
+
+interface Props {
+    posts: CollectionEntry<'blog'>[];
+}
+
+const { posts } = Astro.props;
+---
+
+<div class='posts-list'>
+    {
+        posts.map((post, i) => (
+            <div class={'page-block'} style={`animation-delay: ${0.03 * Math.min(i, 15)}s`}>
+                <div class='left'>
+                    <a href={`/blog/${post.id}.html`} class='cover'>
+                        <img src={post.data.heroImage || '/post.jpg'} alt='cover' />
+                    </a>
+                </div>
+                <div class='right'>
+                    <a href={`/blog/${post.id}.html`} class='title'>
+                        <h2>{post.data.title}</h2>
+                    </a>
+                    <p class='summary'>{post.data.description}</p>
+                    <div class='post-meta'>
+                        {post.data.tags && <Tags tags={post.data.tags} />}
+                        <BlogTime date={post.data.pubDate} lastUpdated={post.data.updatedDate} />
+                    </div>
+                </div>
+            </div>
+        ))
+    }
+</div>
+
+<style>
+    @keyframes bounceInUp {
+        0%,
+        60%,
+        75%,
+        90%,
+        to {
+            animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+
+        0% {
+            opacity: 0;
+            transform: translate3d(0, 3000px, 0) scaleY(5);
+        }
+
+        60% {
+            opacity: 1;
+            transform: translate3d(0, -20px, 0) scaleY(0.9);
+        }
+
+        75% {
+            transform: translate3d(0, 10px, 0) scaleY(0.95);
+        }
+
+        90% {
+            transform: translate3d(0, -5px, 0) scaleY(0.985);
+        }
+
+        to {
+            transform: translateZ(0);
+        }
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(15px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .posts-list {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .page-block {
+        display: flex;
+        flex-direction: row;
+        gap: 2rem;
+        color: var(--color-text);
+        box-sizing: border-box;
+        padding: 2rem 1rem 1rem;
+        transition: transform 0.3s;
+        transform: translate(300%);
+        animation: bounceInUp 0.5s both;
+
+        .left {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 20rem;
+        }
+        .cover {
+            width: 20rem;
+            height: 12rem;
+            display: flex;
+            img {
+                object-fit: cover;
+                width: 100%;
+                height: 100%;
+            }
+        }
+        .right {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            justify-content: center;
+        }
+        &:hover {
+            transform: scale(1.05);
+        }
+
+        .title {
+            font-size: 1.2rem;
+            color: var(--color-text);
+            :hover {
+                color: var(--color-primary);
+            }
+            h2 {
+                transition: color 0.2s ease-in-out;
+                margin: 0;
+                line-height: 1.5;
+                font-size: inherit;
+            }
+        }
+        .summary {
+            flex: 1;
+            margin: 0.5rem 0;
+        }
+        .tags {
+            margin-bottom: 0.5rem;
+        }
+    }
+
+    .main-title {
+        text-align: center;
+    }
+    .subtitle {
+        text-align: center;
+    }
+
+    @media (max-width: 768px) {
+        .post-card.horizontal {
+            flex-direction: column;
+        }
+
+        .post-card.horizontal .post-image {
+            flex: 0 0 auto;
+            height: 200px;
+        }
+
+        .post-card.horizontal .post-content {
+            padding: 1.5rem;
+        }
+    }
+
+    @media (max-width: 1000px) {
+        .page-block {
+            flex-direction: column;
+            gap: 0;
+            .left {
+                width: 100%;
+            }
+            .left .cover {
+                width: 100%;
+                height: 70%;
+            }
+            .right {
+                align-items: center;
+                text-align: center;
+            }
+        }
+    }
+</style>

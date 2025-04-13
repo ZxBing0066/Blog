@@ -1,7 +1,5 @@
 ---
 title: Next.JS Serializing big strings XXX impacts deserialization performance 错误处理
-description: >-
-    最近写个新项目配置好后启动就开始告警：[webpack.cache.PackFileCacheStrategy] Serializing big strings (XXXkiB) impacts de...
 pubDate: '2025-02-22'
 tags:
     - Troubleshooting

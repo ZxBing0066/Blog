@@ -3,7 +3,7 @@ title:
 description:
 pubDate: 2022-10-12
 heroImage: https://stg.heyfe.org/images/blog-next.js-1690694536769.webp
-tags: [tag]
+tags: []
 ---
 
 前言

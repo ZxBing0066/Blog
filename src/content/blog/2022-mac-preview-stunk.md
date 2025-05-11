@@ -1,12 +1,9 @@
 ---
 title: 关于 Mac Preview（预览） 卡死的解决办法
-description: |-
-    最近使用 Mac 的 Preview 去看一些 pdf 书籍，发现在进行标记的时候经常容易卡死不动，然后便无法恢复，强关重开后过会又会出现。记录一下解决方案。
+description: 最近使用 Mac 的 Preview 去看一些 pdf 书籍，发现在进行标记的时候经常容易卡死不动，然后便无法恢复，强关重开后过会又会出现。记录一下解决方案。
 pubDate: '2022-04-16'
 heroImage: 'https://stg.heyfe.org/images/blog-2022-mac-preview-stunk-1690814279537.png'
-tags:
-    - Troubleshooting
-    - 生产力
+tags: [Troubleshooting, Mac]
 ---
 
 最近使用 `Mac` 的 `Preview` 去看一些 `pdf` 书籍，发现在进行标记的时候经常容易卡死不动，然后便无法恢复，强关重开后过会又会出现。

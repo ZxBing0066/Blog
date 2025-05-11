@@ -4,9 +4,9 @@ description: NAS 中部署 Clash，实现 NAS 的科学上网自给自足
 pubDate: '2025-02-21'
 heroImage: 'https://stg.heyfe.org/images/blog-nas-docker-clash-1740151206808.png'
 tags:
-  - NAS
-  - Docker
-  - Clash
+    - NAS
+    - Docker
+    - Clash
 ---
 
 NAS 中部署的一些服务经常需要科学上网才能正常工作，比如青龙中安装依赖、prowlarr 中更新索引器等。虽然可以通过本地电脑共享给 NAS 使用，但某些时候很不方便，比如服务偶尔重启但本地电脑未开机等。所以决定在 NAS 中部署一下 Clash，自给自足。
@@ -41,6 +41,12 @@ Clash 配置文件则直接使用自己已有的配置，目前大部分机场�
 
 ![](https://stg.heyfe.org/images/blog-nas-docker-clash-1740150945177.png)
 
+也可直接 ssh 连接到 NAS 中，使用 `curl` 命令下载配置文件：
+
+```bash
+curl -o ./config.yaml https://xxx.com/link/xxx
+```
+
 ### Console 界面
 
 当 Docker Compose 配置和 Clash 配置文件都准备好后即可启动容器，启动完成后访问 `http://nas-ip:7888`（需要按照自己配置的端口映射） 即可看到 Clash Dashboard 界面，可以在这里进行代理切换、查看连接、规则等。
@@ -70,5 +76,5 @@ Clash 在 NAS 中部署后，即可实现 NAS 的科学上网自给自足，不�
 
 ## 引用
 
-- 所用镜像 GitHub 地址：https://github.com/LaoYutang/clash-and-dashboard
-- 核心库镜像地址：https://hub.docker.com/r/dreamacro/clash
+-   所用镜像 GitHub 地址：https://github.com/LaoYutang/clash-and-dashboard
+-   核心库镜像地址：https://hub.docker.com/r/dreamacro/clash

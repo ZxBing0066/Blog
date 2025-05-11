@@ -3,10 +3,7 @@ title: 青龙面板 - 介绍与安装
 description: 青龙是一个 `定时任务管理面板` 的开源项目，我们可以使用它来实现一些自动化的任务管理，比如自动签到等等。
 pubDate: '2023-03-19'
 heroImage: 'https://stg.heyfe.org/images/blog-qinglong-install-1740152682200.png'
-tags:
-    - 瞎折腾
-    - 青龙
-    - Docker
+tags: [Self-host, Docker, 青龙, 瞎折腾]
 ---
 
 [青龙](https://github.com/whyour/qinglong)是一个 `定时任务管理面板` 的开源项目，我们可以使用它来实现一些自动化的任务管理，比如自动签到等等。

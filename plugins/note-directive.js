@@ -9,7 +9,7 @@ export function noteDirectiveRemarkPlugin() {
     return tree => {
         visit(tree, node => {
             if (node.type === 'containerDirective' || node.type === 'leafDirective' || node.type === 'textDirective') {
-                if (node.name !== 'note' && node.name !== 'warning') return;
+                if (node.name !== 'note' && node.name !== 'warning' && node.name !== 'danger') return;
 
                 const data = node.data || (node.data = {});
                 const attributes = node.attributes || {};

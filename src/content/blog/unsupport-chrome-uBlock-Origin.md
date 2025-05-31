@@ -3,8 +3,6 @@ title: Google 正在逐步禁用 uBlock Origin 插件
 pubDate: '2025-03-04'
 heroImage: >-
     https://stg.heyfe.org/images/blog-unsupport-chrome-uBlock-Origin-1741054993098.png
-
-
 tags:
     - Chrome
     - 动向

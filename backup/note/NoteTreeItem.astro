@@ -1,0 +1,113 @@
+---
+interface Props {
+    node: {
+        name: string;
+        path?: string;
+        children?: any[]; // 这里可以更精确地定义为 NoteTree[]
+    };
+    level: number;
+}
+
+const { node, level } = Astro.props;
+const hasChildren = node.children && node.children.length > 0;
+---
+
+<div class="note-tree-item">
+    <div class="flex items-center py-1" style={`padding-left: ${level * 12}px`}>
+        {
+            node.path ? (
+                <a
+                    href={node.path}
+                    class="flex-1 truncate rounded px-2 py-1 text-sm text-gray-600 hover:bg-gray-100 hover:text-primary"
+                    data-note-link
+                >
+                    {node.name}
+                </a>
+            ) : (
+                <span class="flex-1 truncate px-2 py-1 text-sm font-medium text-gray-700">{node.name}</span>
+            )
+        }
+        {
+            hasChildren ? (
+                <button class="toggle-button mr-1 flex h-5 w-5 items-center justify-center rounded hover:bg-gray-100">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-4 w-4 text-gray-500 transition-transform duration-200"
+                        viewBox="0 0 24 24"
+                        stroke-width="2"
+                        stroke="currentColor"
+                        fill="none"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    >
+                        <path d="M9 6l6 6l-6 6" />
+                    </svg>
+                </button>
+            ) : (
+                <div class="mr-1 h-5 w-5" />
+            )
+        }
+    </div>
+
+    {
+        hasChildren && (
+            <div class="children hidden">
+                {node.children?.map((child) => (
+                    <Astro.self node={child} level={level + 1} />
+                ))}
+            </div>
+        )
+    }
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Toggle folder expand/collapse
+        const toggleButtons = document.querySelectorAll('.toggle-button');
+        toggleButtons.forEach((button) => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+
+                const item = button.closest('.note-tree-item');
+                const children = item.querySelector('.children');
+                const icon = button.querySelector('svg');
+
+                if (children.classList.contains('hidden')) {
+                    children.classList.remove('hidden');
+                    icon.classList.add('rotate-90');
+                } else {
+                    children.classList.add('hidden');
+                    icon.classList.remove('rotate-90');
+                }
+            });
+        });
+
+        // Highlight current page and expand parent folders
+        const currentPath = window.location.pathname;
+        const links = document.querySelectorAll('[data-note-link]');
+
+        links.forEach((link) => {
+            if (link.getAttribute('href') === currentPath) {
+                link.classList.add('bg-primary/10', 'text-primary', 'font-medium');
+
+                // Expand parent folders
+                let parent = link.closest('.note-tree-item').parentElement;
+                while (parent && parent.classList.contains('children')) {
+                    parent.classList.remove('hidden');
+                    const parentButton = parent.parentElement.querySelector('.toggle-button svg');
+                    if (parentButton) {
+                        parentButton.classList.add('rotate-90');
+                    }
+                    parent = parent.parentElement.parentElement;
+                }
+            }
+        });
+    });
+</script>
+
+<style>
+    .rotate-90 {
+        transform: rotate(90deg);
+    }
+</style>

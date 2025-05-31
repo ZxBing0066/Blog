@@ -1,0 +1,12 @@
+{
+    "name": "HeyFE",
+    "version": "1.0.0",
+    "description": "HeyFE DevTools Configuration",
+    "devtools": {
+        "preferences": {
+            "customEmulatedDevices": [],
+            "showRulers": true,
+            "showPaintRects": false
+        }
+    }
+} 

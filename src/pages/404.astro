@@ -1,0 +1,32 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="404 - 页面未找到 | 嘿壳">
+    <div class="flex min-h-screen flex-col items-center justify-center bg-gradient-to-br from-me-background to-note-background p-4">
+        <div class="text-center">
+            <h1 class="mb-6 animate-pulse font-pixel text-9xl text-white">404</h1>
+            <p class="mb-8 max-w-lg text-2xl text-white">哎呀，看起来你迷路了。这个页面不存在或者已经被移动到了其他地方。</p>
+            <div class="space-y-4">
+                <a href="/" class="inline-block rounded-lg bg-primary px-6 py-3 text-white transition-colors hover:bg-primary-600"> 返回首页 </a>
+                <div class="mt-8 flex justify-center space-x-6">
+                    <a href="/me" class="text-me-accent hover:underline">介绍</a>
+                    <a href="/blog" class="text-blog-accent hover:underline">博客</a>
+                    <a href="/project" class="text-project-accent hover:underline">实践</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 一个像素风格的迷路小人 -->
+        <div class="relative mt-12">
+            <div class="h-16 w-16 overflow-hidden rounded-lg bg-white/20 p-2 backdrop-blur-sm">
+                <div class="absolute left-[18px] top-4 h-4 w-4 bg-white"></div>
+                <div class="absolute right-[18px] top-4 h-4 w-4 bg-white"></div>
+                <div class="absolute left-[16px] top-10 h-2 w-6 bg-red-500"></div>
+                <div class="absolute bottom-3 left-4 h-3 w-8 bg-yellow-400"></div>
+            </div>
+            <!-- 问号 -->
+            <div class="absolute -right-2 -top-6 animate-bounce font-pixel text-2xl text-white">?</div>
+        </div>
+    </div>
+</Layout>

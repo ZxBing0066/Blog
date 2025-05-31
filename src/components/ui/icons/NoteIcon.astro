@@ -1,0 +1,61 @@
+---
+import BaseIcon from './BaseIcon.astro';
+---
+
+<BaseIcon>
+    <svg viewBox="0 0 100 100" class="h-full w-full">
+        <!-- 书本SVG - 增强版 -->
+        <rect
+            class="svg-element"
+            x="20"
+            y="25"
+            width="60"
+            height="50"
+            rx="3"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-dasharray="220"
+            stroke-dashoffset="220"></rect>
+        <path
+            class="svg-element"
+            d="M50,25 C50,25 50,75 50,75"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-dasharray="50"
+            stroke-dashoffset="50"></path>
+        <!-- 左页内容：更加美观的线条 -->
+        <path
+            class="svg-element svg-special-element"
+            d="M30,35 L40,35 M30,45 L40,45 M30,55 L40,55 M30,65 L40,65"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-dasharray="40"
+            stroke-dashoffset="40"></path>
+        <!-- 右页内容：更加美观的线条 -->
+        <path
+            class="svg-element svg-special-element"
+            d="M60,35 L70,35 M60,45 L70,45 M60,55 L70,55 M60,65 L70,65"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-dasharray="40"
+            stroke-dashoffset="40"></path>
+        <!-- 添加书签效果 -->
+        <path
+            class="svg-element svg-fill-element"
+            d="M72,30 L78,30 L78,45 L75,42 L72,45 Z"
+            fill="currentColor"
+            stroke="currentColor"
+            stroke-width="0.5"
+            opacity="0"></path>
+    </svg>
+</BaseIcon>
+

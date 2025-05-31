@@ -1,0 +1,95 @@
+<ul class="social-media-list m-0">
+    <li>
+        <a href="https://github.com/ZxBing0066" target="_blank" rel="noopener noreferrer nofollow">
+            <img src="/github.svg" alt="github" />
+        </a>
+    </li>
+    <!-- <li>
+        <a href="https://juejin.cn/user/219558054997710" target="_blank" rel="noopener noreferrer nofollow">
+            <img src="/blog/juejin.png" alt="juejin" />
+        </a>
+    </li> -->
+    <li class="popup">
+        <a>
+            <img src="/blog/weixin.png" alt="weixin" />
+        </a>
+        <div class="popover">
+            <div class="arrow"></div>
+            <div class="content">
+                <img src="/blog/weixin-qrcode.jpg" alt="" />
+            </div>
+        </div>
+    </li>
+    <li>
+        <a href="https://www.zhihu.com/people/ZxBing0066" target="_blank" rel="noopener noreferrer nofollow">
+            <img src="/blog/zhihu.svg" alt="zhihu" />
+        </a>
+    </li>
+    <!-- <li>
+        <a href="https://segmentfault.com/u/zxbing0066" target="_blank" rel="noopener noreferrer nofollow">
+            <img src="/blog/segmentfault.png" alt="segmentfault" />
+        </a>
+    </li> -->
+</ul>
+
+<style>
+    .social-media-list {
+        list-style: none;
+        display: flex;
+        gap: 1rem;
+        padding: 0;
+        li {
+            display: flex;
+            padding: 0;
+            transition: transform 0.3s;
+            a {
+                display: flex;
+                padding: 0.4em;
+                > img {
+                    height: 1.5rem;
+                }
+            }
+            &:not(.popup):hover {
+                transform: scale(1.2) rotate(5deg);
+            }
+        }
+    }
+
+    .popup {
+        position: relative;
+    }
+
+    .popup .popover {
+        display: none;
+        position: absolute;
+        top: 100%;
+        width: 10rem;
+        height: 10rem;
+        justify-content: center;
+        align-items: center;
+        transform: translate(-50%, 0);
+        margin-left: 50%;
+        z-index: 10;
+        background: white;
+        border: 1px solid var(--color-border);
+    }
+    .popup .arrow {
+        width: 0.4375rem;
+        height: 0.4375rem;
+        transform: rotate(45deg);
+        position: absolute;
+        border-top-left-radius: 0rem;
+        top: -0.21875rem;
+        border-bottom-color: transparent;
+        border-right-color: transparent;
+        background-color: inherit;
+        border: 0.0625rem solid var(--color-border);
+    }
+    .popup .content {
+        z-index: 1;
+        display: flex;
+    }
+    .popup:hover .popover {
+        display: flex;
+    }
+</style>

@@ -3,8 +3,8 @@ title: Shadowsocks 搭建
 description: 如何在 Microsoft Azure 上搭建 Shadowsocks
 pubDate: '2014-12-06'
 tags:
-  - shadowsocks
-  - proxy
+    - shadowsocks
+    - proxy
 ---
 
 > 这两天疯狂的找翻 X 工具,各种插件、VPN 等,最终决定搭个 shadowsocks.(主要是朋友搞了半年的免费`Microsoft Azure`帐号)

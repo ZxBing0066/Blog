@@ -1,0 +1,57 @@
+---
+const trips = [
+    {
+        period: '2025 - 至今',
+        title: 'Senior Software Engineer',
+        company: '某独角兽外企',
+        description: '前端开发，Electron，React，Node.js，Remix。',
+    },
+    {
+        period: '2023 - 2025',
+        title: 'Senior Software Engineer',
+        company: '某百强外企',
+        description: '前端开发，React，Lambda，Node.js。',
+    },
+    {
+        period: '2015 - 2022',
+        title: '前端开发工程师',
+        company: '某中型互联网公司',
+        description: '前端开发，全栈独立项目开发，Hybrid，React，React Native，Angular，组件开发，性能优化，架构设计，微前端，PHP，Python，Node.js。',
+    },
+    {
+        period: '2014 - 2015',
+        title: 'Hybrid 开发工程师',
+        company: '某大型互联网公司',
+        description: '前端开发，移动端 Hybrid 开发，Backbone，RequireJS。',
+    },
+    {
+        period: '2012 - 2014',
+        title: '前端开发工程师',
+        company: '某小型创业公司',
+        description: '前端开发，安卓开发。',
+    },
+];
+---
+
+<!-- 人生路线图 -->
+<section class="mx-auto max-w-4xl">
+    <h2 class="text-me-primary mb-12 text-center text-3xl font-bold">工作经历</h2>
+    <div class="relative space-y-12">
+        <div class="from-me-primary via-me-primary/50 to-me-primary/20 absolute left-8 top-0 h-full w-px bg-gradient-to-b"></div>
+        {
+            trips.map((item) => (
+                <div class="group relative pl-16">
+                    <div class="bg-me-primary ring-me-primary/30 absolute left-6 top-3 z-10 h-4 w-4 rounded-full ring-4 transition-all duration-300 group-hover:scale-125" />
+                    <div class="rounded-xl bg-white p-6 shadow-lg transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-xl">
+                        <div class="text-me-primary mb-2 flex justify-between text-lg font-bold">
+                            <span class="text-gray-500">{item.period}</span>
+                            <span class="text-gray-500">{item.company}</span>
+                        </div>
+                        <h3 class="mb-3 text-xl font-semibold text-gray-800">{item.title}</h3>
+                        <p class="text-gray-600">{item.description}</p>
+                    </div>
+                </div>
+            ))
+        }
+    </div>
+</section>

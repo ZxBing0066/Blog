@@ -1,0 +1,44 @@
+---
+const skills = [
+    { name: 'JavaScript', level: '精通', category: '语言' },
+    { name: 'TypeScript', level: '精通', category: '语言' },
+    { name: 'React', level: '精通', category: '框架' },
+    { name: 'Vue', level: '熟练', category: '框架' },
+    { name: 'Next.js', level: '精通', category: '框架' },
+    { name: 'Node.js', level: '熟练', category: '后端' },
+    { name: 'Java', level: '熟练', category: '后端' },
+    { name: 'Webpack', level: '精通', category: '工具' },
+    { name: 'Vite', level: '熟练', category: '工具' },
+];
+---
+
+<!-- 技能展示 -->
+<section class="mb-16">
+    <!-- <h2 class="text-me-primary mb-12 text-center text-3xl font-bold">技能树</h2> -->
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+        {
+            Array.from(new Set(skills.map((s) => s.category))).map((category) => (
+                <div class="group relative overflow-hidden rounded-xl bg-white p-6 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+                    <div class="bg-me-primary/10 absolute -right-12 -top-12 h-32 w-32 rounded-full transition-transform duration-300 group-hover:scale-150" />
+                    <h3 class="text-me-primary relative mb-4 text-xl font-bold">{category}</h3>
+                    <div class="relative space-y-3">
+                        {skills
+                            .filter((s) => s.category === category)
+                            .map((skill) => (
+                                <div class="flex items-center gap-3">
+                                    <div class="h-2 flex-1 overflow-hidden rounded-full bg-gray-200">
+                                        <div
+                                            class={`h-full rounded-full transition-all duration-1000 group-hover:w-full ${
+                                                skill.level === '精通' ? 'bg-me-primary w-full' : 'bg-me-primary/60 w-4/5'
+                                            }`}
+                                        />
+                                    </div>
+                                    <span class="w-[5em] text-right text-sm text-gray-600">{skill.name}</span>
+                                </div>
+                            ))}
+                    </div>
+                </div>
+            ))
+        }
+    </div>
+</section>

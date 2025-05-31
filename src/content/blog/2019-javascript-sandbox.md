@@ -234,7 +234,7 @@ console.log('outterVariable' in global);
 
 ## 举个 🌰
 
-想看 DEMO 效果的可以直接看这里： [![Edit quirky-microservice-8oqog](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/quirky-microservice-8oqog?fontsize=14&hidenavigation=1&theme=dark)
+想看 DEMO 效果的可以直接看这里： [![Edit quirky-microservice-8oqog](https://codesandbox.io/static/note/play-codesandbox.svg)](https://codesandbox.io/s/quirky-microservice-8oqog?fontsize=14&hidenavigation=1&theme=dark)
 
 效果基本如期，其中还有一些比较细节实现，有兴趣的可以关注下最终实现库，源码不到 100 行 [![](https://stg.heyfe.org/images/github-star.jpg)](https://github.com/ZxBing0066/z-sandbox)
 

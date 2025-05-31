@@ -1,0 +1,28 @@
+---
+import '@src/styles/global.css';
+
+import ModuleLayout from './ModuleLayout.astro';
+
+interface Props {
+    title?: string;
+    description?: string;
+    themeClass?: string;
+    backButton?: {
+        text: string;
+        href: string;
+    };
+}
+
+const {
+    title = '嘿壳 | 博客',
+    description = '嘿壳的个人博客，记录生活、技术、学习等内容',
+    themeClass = 'bg-blog-background/5 font-blog',
+    backButton,
+} = Astro.props;
+---
+
+<ModuleLayout title={title} description={description} themeClass={themeClass} theme="blog" moduleName="博客" backButton={backButton}>
+    <main class="container mx-auto flex w-full flex-1 flex-col items-center px-4 py-12">
+        <slot />
+    </main>
+</ModuleLayout>

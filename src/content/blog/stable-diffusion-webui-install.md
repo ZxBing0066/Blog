@@ -76,7 +76,7 @@ git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui
 
 如果想用 Nginx 反代 WebUI，需要注意：WebUI 里面用到 websocket，所以反代也需要考虑到，不然 WebUI 中发出的 ws 请求 `/queue/join` 会一直报错，下面放一下我的反代的配置：
 
-```conf
+```txt
 server {
     listen 80;
     listen [::]:80;
@@ -110,7 +110,7 @@ server {
 
 使用上述配置还需要在 nginx.conf 中的 http 模块中添加上如下声明，不然会报错：
 
-```conf
+```txt
 map $http_upgrade $connection_upgrade {
     default upgrade;
     ''      close;

@@ -1,47 +1,24 @@
 ---
-import { getCollection } from 'astro:content';
-import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import BlogList from '../components/BlogList.astro';
-import AboutCard from '../components/AboutCard.astro';
-
-// 获取所有博客文章并按发布日期排序
-const posts = (await getCollection('blog'))
-    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-    .filter(post => !post.data.ignoreInList);
+import ModuleCard from '@src/components/ui/ModuleCard.astro';
+import { modules, type ModuleKey } from '@src/config';
+import Layout from '@src/layouts/Layout.astro';
 ---
 
-<Layout title='嘿嘿的博客' description='分享前端技术和个人思考'>
-    <div class='theme'>
-        <Header />
-        <main class='main'>
-            <div class='home'>
-                <div class='container'>
-                    <AboutCard />
-                    <BlogList posts={posts} />
-                </div>
-            </div>
-        </main>
-        <Footer />
+<Layout title="嘿壳 | HeyFe - 个人网站">
+    <div class="flex h-screen w-screen flex-col overflow-hidden md:flex-row portrait:flex-row portrait:flex-col" id="layout-container">
+        {
+            modules.map((module) => (
+                <ModuleCard
+                    emoji={module.emoji}
+                    character={module.character}
+                    title={module.title}
+                    description={module.desc}
+                    href={`/${module.key}`}
+                    theme={module.key as ModuleKey}
+                >
+                    <module.icon />
+                </ModuleCard>
+            ))
+        }
     </div>
 </Layout>
-
-<style>
-    .home {
-        display: flex;
-        padding: 2rem 2rem 0;
-        max-width: 1000px;
-        overflow: hidden;
-        margin: 0 auto;
-        line-height: 1.8;
-
-        .container {
-            width: 100%;
-        }
-
-        @media (max-width: 1000px) {
-            padding: 0;
-        }
-    }
-</style>

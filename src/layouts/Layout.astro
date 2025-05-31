@@ -1,21 +1,85 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
+import '../styles/global.css';
 
 interface Props {
-    title: string;
-    description: string;
+    title?: string;
+    description?: string;
+    themeClass?: string;
+    image?: string;
 }
 
-const { title, description } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname.replace(/\.html$/, ''), Astro.site);
+
+const {
+    title = '嘿壳 | HeyFe - 个人网站',
+    description = '嘿壳的个人网站：包含博客、笔记、项目和演示等内容',
+    themeClass = '',
+    image = '/avatar.webp',
+} = Astro.props;
 ---
 
 <!doctype html>
-<html lang='zh-CN'>
+<html lang="zh-CN">
     <head>
-        <BaseHead title={title} description={description} />
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="sitemap" href="/sitemap-index.xml" />
+        <link rel="alternate" type="application/rss+xml" title={title} href={new URL('blog/rss.xml', Astro.site)} />
+
+        <!-- Pace -->
+        <script src="https://cdn.jsdelivr.net/npm/pace-js@latest/pace.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@latest/pace-theme-default.min.css" />
+
+        <!-- Canonical URL -->
+        <link rel="canonical" href={canonicalURL} />
+
+        <!-- Primary Meta Tags -->
+        <title>{title}</title>
+        <meta name="title" content={title} />
+        <meta name="description" content={description} />
+
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={Astro.url} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={new URL(image, Astro.url)} />
+
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={Astro.url} />
+        <meta property="twitter:title" content={title} />
+        <meta property="twitter:description" content={description} />
+        <meta property="twitter:image" content={new URL(image, Astro.url)} />
+        <meta property="twitter:site" content={Astro.site} />
+
+        <!-- Google Analytics -->
+        <script is:inline src="https://www.googletagmanager.com/gtag/js?id=G-NF9S8YGKXK"></script>
+        <script is:inline>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+            gtag('config', 'G-NF9S8YGKXK');
+        </script>
+
+        <!-- Google Ads -->
+        <script
+            async
+            is:inline
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1906392499705020"
+            crossorigin="anonymous"></script>
+
+        <!-- ahrefs analytics -->
+        <script src="https://analytics.ahrefs.com/analytics.js" data-key="sxaSZsMWdcVI01Tx3geUoA" async></script>
+
+        <!-- prefetch fonts -->
+        <link rel="preload" href="/fonts/XingShuFont.otf" as="font" type="font/opentype" crossorigin />
+        <link rel="preload" href="/fonts/PixelFont.ttf" as="font" type="font/truetype" crossorigin />
     </head>
-    <body>
+    <body class={themeClass}>
         <slot />
     </body>
 </html>
-

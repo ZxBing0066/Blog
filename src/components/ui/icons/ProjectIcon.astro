@@ -1,0 +1,68 @@
+---
+// Project icon SVG component
+import BaseIcon from './BaseIcon.astro';
+---
+
+<BaseIcon>
+    <svg viewBox="0 0 100 100" class="h-full w-full">
+        <!-- 电脑SVG - 增强版 -->
+        <rect
+            class="svg-element"
+            x="20"
+            y="25"
+            width="60"
+            height="40"
+            rx="3"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-dasharray="200"
+            stroke-dashoffset="200"></rect>
+        <!-- 屏幕部分 -->
+        <rect
+            class="svg-element"
+            x="25"
+            y="30"
+            width="50"
+            height="30"
+            rx="1"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-dasharray="160"
+            stroke-dashoffset="160"></rect>
+        <!-- 底座部分 -->
+        <path
+            class="svg-element"
+            d="M40,75 L60,75 M45,65 L55,65 M50,65 L50,75"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-dasharray="40"
+            stroke-dashoffset="40"></path>
+        <!-- 添加代码符号 -->
+        <path
+            class="svg-element svg-special-element"
+            d="M35,40 L30,45 L35,50 M45,40 L50,45 L45,50"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-dasharray="24"
+            stroke-dashoffset="24"></path>
+        <!-- 添加光标闪烁效果 -->
+        <rect
+            class="svg-element svg-fill-element svg-blink-element"
+            x="60"
+            y="42"
+            width="2"
+            height="8"
+            fill="currentColor"
+            opacity="0"></rect>
+    </svg>
+</BaseIcon> 

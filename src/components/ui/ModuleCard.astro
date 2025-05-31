@@ -1,0 +1,89 @@
+---
+// Module card component for homepage
+interface Props {
+    emoji: string;
+    character: string;
+    title: string;
+    description: string;
+    href: string;
+    theme: 'me' | 'blog' | 'project';
+}
+
+const { emoji, character, title, description, href, theme } = Astro.props;
+---
+
+<a href={href} class="module-container perspective-1000 flex-1 cursor-pointer font-chinese">
+    <div class="module-card preserve-3d group relative h-full w-full transform-gpu transition-all duration-500">
+        <div
+            class={`module-front backface-hidden absolute inset-0 flex flex-col items-center justify-center bg-${theme}-background text-${theme}-text`}
+        >
+            <div class="flex items-center justify-center portrait:flex-row landscape:flex-col">
+                <div class="emoji text-3xl md:text-4xl">{emoji}</div>
+                <div class="single-character font-xingshu text-6xl font-bold md:text-8xl portrait:ml-8 landscape:mt-8">{character}</div>
+            </div>
+        </div>
+        <div
+            class={`module-back rotateY-180 backface-hidden absolute inset-0 flex transform-gpu flex-col items-center justify-center bg-${theme}-primary text-white`}
+        >
+            <div class="svg-container mb-6 h-24 w-24 opacity-80">
+                <slot />
+            </div>
+            <p class="mb-2 text-3xl font-bold">{title}</p>
+            <p class="max-w-xs text-center text-xl">{description}</p>
+        </div>
+    </div>
+</a>
+
+<style>
+    /* 翻转卡片效果 */
+    .perspective-1000 {
+        perspective: 1000px;
+    }
+
+    .preserve-3d {
+        transform-style: preserve-3d;
+    }
+
+    .backface-hidden {
+        backface-visibility: hidden;
+    }
+
+    .rotateY-180 {
+        transform: rotateY(180deg);
+    }
+
+    /* 悬停时卡片翻转 */
+    .module-container:hover .module-card {
+        transform: rotateY(180deg);
+    }
+
+    /* 模块容器样式 */
+    .module-container {
+        transition: all 0.5s ease;
+    }
+
+    .module-container:hover {
+        flex: 1.5;
+        z-index: 10;
+    }
+
+    /* 模块正面样式增强 */
+    .module-front .single-character {
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+        line-height: 1.3;
+        width: 1em;
+        height: 1em;
+        text-align: center;
+    }
+
+    .module-container:hover .module-front .single-character {
+        transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+        .module-container:hover {
+            flex: 2;
+        }
+    }
+</style>

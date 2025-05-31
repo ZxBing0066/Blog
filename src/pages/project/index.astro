@@ -1,0 +1,140 @@
+---
+import Giscus from '@src/components/blog/Giscus.astro';
+import { projects } from '@src/content/projects';
+import ModuleLayout from '@src/layouts/ModuleLayout.astro';
+import { Star } from 'lucide-react';
+
+// 按照 star 数量（>=50 优先）从大到小和创建时间从新到旧排序
+const myProjects = projects
+    .filter((project) => !project.hide)
+    .sort((a, b) => {
+        // const aStars = a.stars || 0;
+        // const bStars = b.stars || 0;
+        // // star 数量高于 50 的采用 star 权重，优先于时间权重
+        // if (aStars >= 50 || bStars >= 50) {
+        //     return bStars - aStars;
+        // }
+        // 其他情况按时间排序
+        return new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime();
+    });
+
+// 格式化日期函数
+const formatDate = (date: string | Date) => {
+    const d = new Date(date);
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+};
+
+// 获取所有标签
+const allTags = Array.from(new Set(myProjects.flatMap((p) => p.tags || []).filter(Boolean)));
+---
+
+<ModuleLayout title="嘿壳 | 实践" themeClass="bg-project-background/5 font-project" theme="project" moduleName="实践">
+    <main class="container mx-auto flex w-full flex-1 flex-col items-center px-4 py-12">
+        <!-- 标题区域 -->
+        <div class="mb-16 text-center">
+            <h1 class="text-project-primary mb-4 font-pixel text-5xl font-bold md:text-7xl">实践</h1>
+            <p class="mx-auto max-w-3xl text-xl text-gray-700 md:text-2xl">项目、实验、创意和演示</p>
+        </div>
+
+        <!-- 项目分类标签 -->
+        <div class="mb-16 flex flex-wrap justify-center gap-3">
+            {allTags.map((tag) => <span class="rounded-full bg-white px-4 py-2 text-sm text-gray-600 shadow-sm">{tag}</span>)}
+        </div>
+
+        <!-- 项目网格 -->
+        <div class="mx-auto grid max-w-7xl grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {
+                myProjects.map((project) => (
+                    <div class="bg-project-primary/90 group relative overflow-hidden rounded-lg transition-all hover:scale-105 hover:shadow-xl hover:shadow-project-primary/20">
+                        {/* Star count badge */}
+                        {(project.stars || 0) >= 10 && (
+                            <div class="absolute left-4 top-4 z-20 flex items-center gap-1 rounded-full bg-white/90 px-3 py-1 text-project-primary backdrop-blur-sm">
+                                <Star className="h-4 w-4" />
+                                <span class="text-sm font-medium">{project.stars}</span>
+                            </div>
+                        )}
+
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-60 transition-opacity group-hover:opacity-80" />
+                        <div class="relative flex h-full flex-col p-6">
+                            <div class="flex justify-end">
+                                <div class="flex flex-wrap gap-2">
+                                    {project.tags?.map((tag) => (
+                                        <span class="text-project-primary rounded bg-white px-2 py-1 font-pixel text-xs font-bold">{tag}</span>
+                                    ))}
+                                </div>
+                            </div>
+                            <h2 class="mb-2 text-2xl font-bold text-white">{project.name}</h2>
+                            <p class="mb-4 line-clamp-2 flex-1 text-white/90">{project.description}</p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex gap-2">
+                                    {project.link && (
+                                        <a
+                                            href={project.link}
+                                            target="_blank"
+                                            class="text-project-primary rounded bg-white px-4 py-1.5 text-sm font-medium transition-colors hover:bg-gray-100"
+                                            title={`${project.name} - ${project.description}`}
+                                        >
+                                            查看网站
+                                        </a>
+                                    )}
+                                    {project.repo && !project.private && (
+                                        <a
+                                            href={project.repo}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            class="rounded border border-white/60 px-4 py-1.5 text-sm text-white transition-colors hover:bg-white/10"
+                                        >
+                                            查看代码
+                                        </a>
+                                    )}
+                                </div>
+                                <span class="text-sm text-white/80">{project.createdAt ? formatDate(project.createdAt) : 'N/A'}</span>
+                            </div>
+                        </div>
+                    </div>
+                ))
+            }
+        </div>
+
+        <!-- 创意实验室 -->
+        <section class="mx-auto mt-20 max-w-4xl rounded-xl bg-white p-8 shadow-md">
+            <h2 class="text-project-primary mb-6 font-pixel text-3xl font-bold">创意实验室</h2>
+            <p class="mb-8 text-lg text-gray-700">
+                这里是我的技术实验场，用于测试新想法、尝试新技术和构建原型。如果你有任何建议或合作想法，欢迎联系我！
+            </p>
+
+            <div class="mb-8 flex flex-wrap gap-4">
+                <div class="flex items-center gap-2">
+                    <div class="h-3 w-3 animate-pulse rounded-full bg-green-400"></div>
+                    <span class="text-gray-700">正在进行: Free Tools 迭代</span>
+                </div>
+                <!-- <div class="flex items-center gap-2">
+                    <div class="h-3 w-3 rounded-full bg-yellow-400"></div>
+                    <span class="text-gray-700">计划中: WebAssembly实验</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <div class="h-3 w-3 rounded-full bg-purple-400"></div>
+                    <span class="text-gray-700">构思中: AR Web体验</span>
+                </div> -->
+            </div>
+
+            <!-- <a
+                href="/contact"
+                class="inline-block rounded-full bg-project-primary px-6 py-3 font-medium text-white transition-colors hover:bg-project-primary/80"
+            >
+                分享你的想法
+            </a> -->
+        </section>
+        <Giscus />
+    </main>
+</ModuleLayout>
+
+<style>
+    /* For the line-clamp-2 to work if @tailwindcss/line-clamp is not used or for fallback */
+    .line-clamp-2 {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+    }
+</style>

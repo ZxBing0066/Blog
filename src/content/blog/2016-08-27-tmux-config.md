@@ -13,9 +13,9 @@ tags:
 
 ### 配置文件修改
 
--   修改默认前置快捷键
+- 修改默认前置快捷键
 
-    ```conf
+    ```txt
     # remap prefix from 'C-b' to 'C-a'
     unbind C-b # 解绑C-b
     set-option -g prefix C-a # 设置前置快捷键为C-a
@@ -24,35 +24,35 @@ tags:
 
     > TODO 实践了一下发现这块挺奇怪,第三句完全不起作用,一二两句可以生效,但是不写第一句好像也会被解绑,有时又会两个一起生效.待有空研究一下...
 
--   快速重载配置文件
+- 快速重载配置文件
 
-    ```conf
+    ```txt
     # reload config file (change file location to your the tmux.conf you want to use)
     bind r source-file ~/.tmux.conf \; display-message "config reloaded"
     ```
 
     配置后可实现`r`键直接从文件中刷新配置.并显示提示信息.
 
--   开启鼠标模式
+- 开启鼠标模式
 
-    ```conf
+    ```txt
     set -g mouse on
     ```
 
     配置后可以使用鼠标来完成 window,pane 的切换,拖拽选择内容,修改 pane 大小等功能. 上面是`tmux2.1`后的配置,`2.1`之前如何配置可以看参考文献中的地址或者自行搜索.
 
--   关闭自动重命名窗口
+- 关闭自动重命名窗口
 
-    ```conf
+    ```txt
     # don't rename windows automatically
     set-option -g allow-rename off
     ```
 
     配置后可以防止窗口在执行命令是被自动重命名
 
--   样式修改
+- 样式修改
 
-    ```conf
+    ```txt
     ######################
     ### DESIGN CHANGES ###
     ######################

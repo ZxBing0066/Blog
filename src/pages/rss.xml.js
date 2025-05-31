@@ -1,16 +1,15 @@
 import rss from '@astrojs/rss';
 import { getCollection } from 'astro:content';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 
 export async function GET(context) {
     const posts = await getCollection('blog');
     return rss({
-        title: SITE_TITLE,
-        description: SITE_DESCRIPTION,
+        title: '嘿壳 | 博客',
+        description: '嘿壳的个人博客',
         site: context.site,
-        items: posts.map(post => ({
+        items: posts.map((post) => ({
             ...post.data,
-            link: `/blog/${post.id}/`
-        }))
+            link: `/blog/${post.id}/`,
+        })),
     });
 }

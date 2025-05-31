@@ -2,6 +2,7 @@
 title: 利用 Cloudflare 和 Gmail 实现域名邮箱
 description: 记录下如何利用 Cloudflare 和 Gmail 实现域名邮箱。
 pubDate: '2025-03-13'
+heroImage: 'https://stg.heyfe.org/images/blog-cloudflare-1690700083116.png'
 tags:
     - Cloudflare
 ---

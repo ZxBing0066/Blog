@@ -1,0 +1,427 @@
+---
+import { ArrowLeft } from 'lucide-react';
+
+import '@src/styles/global.css';
+
+import Layout from './Layout.astro';
+
+interface Props {
+    theme: 'me' | 'blog' | 'project';
+    moduleName?: string;
+    title?: string;
+    description?: string;
+    themeClass?: string;
+    backButton?: {
+        text: string;
+        href: string;
+    };
+}
+
+const {
+    theme,
+    moduleName = '嘿壳',
+    themeClass = '',
+    backButton,
+    ...layoutProps
+    // themeClass = 'bg-background text-text',
+} = Astro.props;
+---
+
+<Layout {...layoutProps} themeClass={`${themeClass} variable-theme-${theme}`}>
+    <div class="flex min-h-screen flex-col">
+        <!-- 头部导航 -->
+        <header class={`sticky top-0 z-10 flex items-center justify-center px-4 py-4 transition-colors duration-200 md:px-6`} data-theme={theme}>
+            <!-- 左侧返回按钮 -->
+            {
+                backButton && (
+                    <div class="absolute left-4 flex items-center md:left-6">
+                        <a href={backButton.href} class="flex items-center space-x-2 text-gray-600 transition-colors hover:text-blog-primary">
+                            <ArrowLeft size={24} />
+                            <span class="hidden md:block">{backButton.text}</span>
+                        </a>
+                    </div>
+                )
+            }
+
+            <!-- 中间导航 -->
+            <nav class="flex justify-center space-x-4 text-base md:space-x-6 md:text-xl">
+                <a href="/me" class="text-me-accent hover:font-bold hover:text-me-accent">关于</a>
+                <a href="/blog" class="text-blog-accent hover:font-bold hover:text-blog-accent">博客</a>
+                <a href="/project" class="text-project-accent hover:font-bold hover:text-project-accent">实践</a>
+            </nav>
+
+            <!-- 右侧标题 -->
+            <div class="absolute right-4 flex items-center font-pixel text-base text-primary md:right-6 md:text-xl">
+                <a href="/" class="text-primary/80 hover:text-primary">嘿壳</a>
+                <div class="group relative cursor-pointer">
+                    <div class="music-dot relative z-10 px-2 text-primary/80 transition-all duration-300 group-hover:opacity-0">·</div>
+                    <div
+                        class="music-player absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 scale-0 transition-all duration-500 group-hover:scale-100"
+                    >
+                        <div class="cd-container relative h-8 w-8 cursor-pointer">
+                            <!-- CD 底座 -->
+                            <div class="absolute inset-[-1px] rounded-full bg-gradient-to-br from-gray-700/80 to-gray-800/80 shadow-lg"></div>
+                            <!-- CD 主体 -->
+                            <div
+                                class="cd absolute inset-[1px] rounded-full bg-gradient-to-br from-gray-800 to-gray-900 shadow-lg transition-all duration-500"
+                            >
+                                <!-- CD 外圈装饰 -->
+                                <div class="absolute inset-[1.5px] rounded-full border border-primary/10 bg-gradient-to-br from-gray-700 to-gray-800">
+                                    <!-- CD 内圈纹路 -->
+                                    <div class="absolute inset-[2px] rounded-full border border-primary/5">
+                                        <div class="absolute inset-[4px] rounded-full border border-primary/5"></div>
+                                    </div>
+                                </div>
+                                <!-- CD 中心圆孔和反光效果 -->
+                                <div
+                                    class="absolute left-1/2 top-1/2 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-primary/20 to-primary/5 shadow-inner"
+                                >
+                                    <div class="absolute left-1/2 top-1/2 h-1 w-1 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/40"></div>
+                                </div>
+                                <!-- CD 表面光泽效果 -->
+                                <div
+                                    class="absolute inset-0 rounded-full bg-gradient-to-tr from-transparent via-primary/5 to-primary/10 transition-opacity duration-500"
+                                >
+                                </div>
+                                <!-- 播放时的光晕效果 -->
+                                <div class="play-glow absolute inset-[-2px] rounded-full bg-primary/0 blur-[1px] transition-all duration-500"></div>
+                            </div>
+                            <!-- 播放臂（独立于 CD 旋转） -->
+                            <div class="tonearm absolute -bottom-0.5 right-0 h-2 w-3 origin-bottom-right transition-all duration-500">
+                                <div
+                                    class="absolute bottom-0 right-[2px] h-2 w-[1px] origin-bottom rotate-[-30deg] rounded-full bg-gradient-to-t from-primary/60 to-primary/40 transition-all duration-500"
+                                >
+                                </div>
+                                <div
+                                    class="absolute bottom-[6px] right-0 h-[3px] w-[2px] origin-bottom rotate-[-30deg] rounded-sm bg-gradient-to-r from-primary/40 to-primary/20 transition-all duration-500"
+                                >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <audio id="bgMusic" src="/tian-kong-zhi-cheng.mp3" preload="auto"></audio>
+                </div>
+                <a href={`/${theme}`} class="text-primary/80 hover:text-primary">{moduleName}</a>
+            </div>
+        </header>
+
+        <slot />
+
+        <footer class="relative mt-auto border-t border-gray-100/30 bg-gradient-to-b from-transparent to-gray-900/5">
+            <div class="mx-auto max-w-7xl px-6 py-6">
+                <!-- Links Grid -->
+                <div class="grid grid-cols-2 gap-12 md:grid-cols-4 md:gap-8">
+                    <!-- 内部链接 -->
+                    <div class="flex flex-col items-center space-y-4">
+                        <h3 class="text-lg text-primary">导航</h3>
+                        <div class="flex flex-col items-center space-y-3">
+                            {
+                                [
+                                    {
+                                        text: '关于我',
+                                        href: '/me',
+                                    },
+                                    {
+                                        text: '博客文章',
+                                        href: '/blog',
+                                    },
+                                    {
+                                        text: '项目展示',
+                                        href: '/project',
+                                    },
+                                ].map((item) => (
+                                    <a href={item.href} title={item.text} class="group text-sm text-gray-400 transition-colors hover:text-primary">
+                                        <span class="relative">
+                                            {item.text}
+                                            <span class="absolute -bottom-0.5 left-0 h-px w-0 bg-primary transition-all duration-300 group-hover:w-full" />
+                                        </span>
+                                    </a>
+                                ))
+                            }
+                        </div>
+                    </div>
+
+                    <!-- 项目链接 1 -->
+                    <div class="flex flex-col items-center space-y-4">
+                        <h3 class="text-lg text-primary">开源项目</h3>
+                        <div class="flex flex-col items-center space-y-3">
+                            {
+                                [
+                                    {
+                                        text: '像素图转化器',
+                                        href: 'https://pixel.heyfe.org/',
+                                    },
+                                    {
+                                        text: '中国色彩 · 一键配色',
+                                        href: 'https://chinese-colors.heyfe.org/',
+                                    },
+                                    {
+                                        text: '微前端库',
+                                        href: 'https://github.com/ZxBing0066/rapiop',
+                                    },
+                                    {
+                                        text: '模块加载器',
+                                        href: 'https://github.com/ZxBing0066/micro-mod',
+                                    },
+                                ].map((item) => (
+                                    <a
+                                        href={item.href}
+                                        target="_blank"
+                                        title={item.text}
+                                        class="group inline-flex items-center text-sm text-gray-400 transition-colors hover:text-primary"
+                                    >
+                                        <span class="relative">
+                                            {item.text}
+                                            <span class="absolute -bottom-0.5 left-0 h-px w-0 bg-primary transition-all duration-300 group-hover:w-full" />
+                                        </span>
+                                        <svg
+                                            class="ml-1.5 h-3.5 w-3.5 opacity-50 transition-transform duration-300 group-hover:translate-x-1"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                                            />
+                                        </svg>
+                                    </a>
+                                ))
+                            }
+                        </div>
+                    </div>
+
+                    <!-- 项目链接 2 -->
+                    <div class="flex flex-col items-center space-y-4">
+                        <h3 class="text-lg text-primary">精选内容</h3>
+                        <div class="flex flex-col items-center space-y-3">
+                            {
+                                [
+                                    {
+                                        text: '图片在线压缩',
+                                        href: 'https://free-tools.app/zh/compress-image',
+                                    },
+                                    {
+                                        text: 'AI 工具导航',
+                                        href: 'https://funai.fun/',
+                                    },
+                                    {
+                                        text: 'Chrome 书签标签管理',
+                                        href: 'https://chrome.google.com/webstore/detail/tag-bookmarks/liofmdplmickalghfcokjdeohefnnofc',
+                                    },
+                                    {
+                                        text: '免费 AI 图片生成',
+                                        href: 'https://blackai.app/',
+                                    },
+                                ].map((item) => (
+                                    <a
+                                        href={item.href}
+                                        target="_blank"
+                                        title={item.text}
+                                        class="group inline-flex items-center text-sm text-gray-400 transition-colors hover:text-primary"
+                                    >
+                                        <span class="relative">
+                                            {item.text}
+                                            <span class="absolute -bottom-0.5 left-0 h-px w-0 bg-primary transition-all duration-300 group-hover:w-full" />
+                                        </span>
+                                        <svg
+                                            class="ml-1.5 h-3.5 w-3.5 opacity-50 transition-transform duration-300 group-hover:translate-x-1"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                                            />
+                                        </svg>
+                                    </a>
+                                ))
+                            }
+                        </div>
+                    </div>
+
+                    <!-- 社交媒体链接 -->
+                    <div class="flex flex-col items-center space-y-4">
+                        <h3 class="text-lg text-primary">关注我</h3>
+                        <div class="flex flex-col items-center space-y-3">
+                            <a
+                                href="https://github.com/ZxBing0066"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                title="GitHub"
+                                class="group inline-flex items-center text-sm text-gray-400 transition-colors hover:text-primary"
+                            >
+                                <svg
+                                    class="mr-2 h-4 w-4 transition-transform duration-300 group-hover:-rotate-12"
+                                    viewBox="0 0 24 24"
+                                    fill="currentColor"
+                                >
+                                    <path
+                                        d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.237 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+                                    ></path>
+                                </svg>
+                                <span class="relative">
+                                    GitHub
+                                    <span class="absolute -bottom-0.5 left-0 h-px w-0 bg-primary transition-all duration-300 group-hover:w-full"
+                                    ></span>
+                                </span>
+                            </a>
+                            <a
+                                href="/blog/rss.xml"
+                                target="_blank"
+                                title="RSS"
+                                class="group inline-flex items-center text-sm text-gray-400 transition-colors hover:text-primary"
+                            >
+                                <svg
+                                    class="mr-2 h-4 w-4 transition-transform duration-300 group-hover:-rotate-12"
+                                    viewBox="0 0 24 24"
+                                    fill="currentColor"
+                                >
+                                    <path
+                                        d="M19.199 24C19.199 13.467 10.533 4.8 0 4.8V0c13.165 0 24 10.835 24 24h-4.801zM3.291 17.415c1.814 0 3.293 1.479 3.293 3.295 0 1.813-1.485 3.29-3.301 3.29C1.47 24 0 22.526 0 20.71s1.475-3.294 3.291-3.295zM15.909 24h-4.665c0-6.169-5.075-11.245-11.244-11.245V8.09c8.727 0 15.909 7.184 15.909 15.91z"
+                                    ></path>
+                                </svg>
+                                <span class="relative">
+                                    RSS
+                                    <span class="absolute -bottom-0.5 left-0 h-px w-0 bg-primary transition-all duration-300 group-hover:w-full"
+                                    ></span>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Bar -->
+                <div
+                    class="mt-6 flex flex-col items-center justify-between space-y-2 border-t border-gray-100/20 pt-8 text-sm text-gray-400 md:flex-row md:space-y-0"
+                >
+                    <p class="text-center">© 2025 嘿壳. All rights reserved.</p>
+                    <div class="flex space-x-8">
+                        {
+                            [
+                                {
+                                    text: '版权声明',
+                                    href: '/copyright',
+                                },
+                                {
+                                    text: '隐私政策',
+                                    href: '/privacy',
+                                },
+                                {
+                                    text: '使用条款',
+                                    href: '/terms',
+                                },
+                            ].map((item) => (
+                                <a
+                                    href={item.href}
+                                    title={item.text}
+                                    target="_blank"
+                                    class="group relative text-gray-400 transition-colors hover:text-primary"
+                                >
+                                    <span class="relative">
+                                        {item.text}
+                                        <span class="absolute -bottom-0.5 left-0 h-px w-0 bg-primary transition-all duration-300 group-hover:w-full" />
+                                    </span>
+                                </a>
+                            ))
+                        }
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</Layout>
+
+<style>
+    .cd-container.playing .cd {
+        animation: spin 3s linear infinite;
+    }
+    .cd-container.playing .play-glow {
+        animation: glow 2s ease-in-out infinite;
+        background: radial-gradient(circle at center, var(--theme-primary) / 30% 0%, transparent 70%);
+    }
+    .cd-container.playing .tonearm {
+        transform: rotate(25deg) translateY(-1px);
+    }
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+    @keyframes glow {
+        0%,
+        100% {
+            opacity: 0.3;
+            transform: scale(1);
+        }
+        50% {
+            opacity: 0.5;
+            transform: scale(1.05);
+        }
+    }
+</style>
+
+<script>
+    let isPlaying = false;
+    const container = document.querySelector('.cd-container');
+    const audio = document.querySelector('#bgMusic') as HTMLAudioElement;
+
+    if (container && audio) {
+        container.addEventListener('click', () => {
+            if (isPlaying) {
+                audio.pause();
+                container.classList.remove('playing');
+            } else {
+                audio.play();
+                container.classList.add('playing');
+            }
+            isPlaying = !isPlaying;
+        });
+
+        // 当音频播放结束时重置状态
+        audio.addEventListener('ended', () => {
+            isPlaying = false;
+            container.classList.remove('playing');
+        });
+
+        // 处理页面失焦时的动画
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden && isPlaying) {
+                container.classList.remove('playing');
+                audio.pause();
+                isPlaying = false;
+            }
+        });
+    }
+</script>
+
+<script>
+    const updateHeaderBackground = () => {
+        const header = document.querySelector('header');
+        if (!header) return;
+
+        const theme = header.getAttribute('data-theme');
+
+        if (window.scrollY <= 0) {
+            // 在顶部时，移除背景
+            header.classList.remove(`bg-${theme}-background/10`, 'backdrop-blur-sm');
+        } else {
+            // 向下滚动时，添加背景
+            header.classList.add(`bg-${theme}-background/10`, 'backdrop-blur-sm');
+        }
+    };
+
+    // 初始化时调用一次
+    updateHeaderBackground();
+
+    // 添加滚动监听
+    window.addEventListener('scroll', updateHeaderBackground, { passive: true });
+</script>

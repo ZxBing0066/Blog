@@ -1,92 +1,45 @@
 ---
-// Table of Contents component
-interface TocItem {
-    text: string;
-    slug: string;
-    depth: number;
-}
-
 interface Props {
-    headings: TocItem[];
+    headings: {
+        depth: number;
+        slug: string;
+        text: string;
+    }[];
 }
 
 const { headings } = Astro.props;
-
-// 如果没有标题，则不显示目录
-if (!headings || headings.length === 0) {
-    return null;
-}
 ---
 
-<div class='toc'>
-    <div class='toc-title'>目录</div>
-    {
-        headings.map(item => (
-            <div class={`title level-${item.depth}`}>
-                <a href={`#${item.slug}`}>{item.text}</a>
-            </div>
-        ))
-    }
-</div>
+{
+    headings && headings.length > 0 && (
+        <nav class="space-y-1">
+            <div class="mb-4 text-lg font-bold text-gray-900">目录</div>
+            {headings.map((heading) => (
+                <a
+                    href={`#${heading.slug}`}
+                    class={`block rounded-lg px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-primary ${
+                        heading.depth > 2 ? 'ml-' + (heading.depth - 2) * 3 : ''
+                    }`}
+                >
+                    {heading.text}
+                </a>
+            ))}
+        </nav>
+    )
+}
 
-<style>
-    .toc {
-        position: sticky;
-        top: 6rem;
-        width: 250px;
-        margin-left: 2rem;
-        padding-left: 1rem;
-        border-left: 1px solid var(--color-border);
-        font-size: 0.9rem;
-        max-height: calc(100vh - 8rem);
-        overflow-y: auto;
-        align-self: flex-start;
-        flex-shrink: 0;
-    }
+<script>
+    // 处理目录点击
+    document.querySelectorAll('nav a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = anchor.getAttribute('href')?.slice(1);
+            if (!targetId) return;
 
-    .toc-title {
-        font-weight: 600;
-        margin-bottom: 0.8rem;
-        color: var(--color-text);
-    }
+            const targetElement = document.getElementById(targetId);
+            if (!targetElement) return;
 
-    .title {
-        margin-bottom: 0.5rem;
-        line-height: 1.3;
-    }
-
-    .title a {
-        color: var(--color-text-secondary);
-        text-decoration: none;
-        transition: color 0.2s ease;
-        display: block;
-    }
-
-    .title a:hover {
-        color: var(--color-primary);
-    }
-
-    .level-2 {
-        margin-left: 0;
-    }
-
-    .level-3 {
-        margin-left: 1rem;
-    }
-
-    .level-4 {
-        margin-left: 2rem;
-    }
-
-    .level-5,
-    .level-6 {
-        margin-left: 3rem;
-    }
-
-    @media (max-width: 1024px) {
-        .toc {
-            display: none;
-        }
-    }
-</style>
-
+            targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+    });
+</script> 

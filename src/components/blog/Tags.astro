@@ -1,0 +1,49 @@
+---
+interface Props {
+    tags: string[] | string;
+}
+
+const { tags } = Astro.props;
+const tagsArray = Array.isArray(tags) ? tags : tags ? tags.split(/[\s,]+/) : [];
+
+if (!tagsArray.length) {
+    return null;
+}
+---
+
+<div class="tags">
+    {
+        tagsArray.map((tag) => (
+            <a class="tag" href={`/blog/tags/${tag.toLowerCase()}`}>
+                {tag}
+            </a>
+        ))
+    }
+</div>
+
+<style>
+    .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        text-transform: uppercase;
+    }
+
+    .tag {
+        display: inline-block;
+        padding: 0.2rem 0.6rem;
+        background-color: var(--color-background);
+        border-radius: 4px;
+        font-size: 0.85rem;
+        color: var(--color-secondary);
+        transition: all 0.2s ease;
+        font-weight: 700;
+    }
+
+    .tag:hover {
+        background-color: var(--color-primary);
+        color: white;
+        text-decoration: none;
+    }
+</style>
+

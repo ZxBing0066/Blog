@@ -1,5 +1,5 @@
 ---
-title: 将 Cursor 重置为 VSCode 风格
+title: 将 Cursor 工具侧边栏重置为 VSCode 风格
 description: 鉴于看到一些关于 Cursor UI 太难适应的吐槽，这里提供一个将 Cursor UI 重制为 VSCode 默认风格的方法
 pubDate: 2025-04-13
 tags: [Cursor, VSCode]

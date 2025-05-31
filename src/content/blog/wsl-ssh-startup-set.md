@@ -81,7 +81,7 @@ sudo vim  /etc/sudoers
 
 打开开机启动文件夹后，在其中创建一个 `startubuntu.vbs` 的脚本文件。开机启动文件夹中的内容会在 windows 启动后自动执行。然后将以下内容添加到脚本中：
 
-```vbscript
+```vb
 Set ws = WScript.CreateObject("WScript.Shell")
 ws.run "wsl -d Ubuntu-22.04 -u root /usr/sbin/service ssh --full-restart", vbhide
 ```

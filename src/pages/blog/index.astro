@@ -1,0 +1,42 @@
+---
+import AboutCard from '@src/components/blog/AboutCard.astro';
+import BlogList from '@src/components/blog/BlogList.astro';
+import BlogLayout from '@src/layouts/BlogLayout.astro';
+import { getCollection } from 'astro:content';
+
+// 预计阅读时间：假设每分钟250字，给出大致阅读时间
+function getReadingTime(content: string) {
+    const wordsPerMinute = 250;
+    const wordCount = content.length;
+    const readingTime = Math.ceil(wordCount / wordsPerMinute);
+    return `${Math.max(1, readingTime)}分钟阅读`;
+}
+
+// 获取所有非草稿状态的博客文章
+const allBlogPosts = (
+    await getCollection('blog', ({ data }) => {
+        return !data.draft && !data.ignoreInList;
+    })
+).map((post) => ({
+    ...post,
+    data: {
+        ...post.data,
+        pubDate: new Date(post.data.pubDate),
+        readingTime: getReadingTime(post.body || ''),
+    },
+}));
+
+// 按发布日期降序排序
+const sortedPosts = allBlogPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BlogLayout>
+    <!-- 标题区域
+    <div class="mb-16 text-center">
+        <h1 class="my-2 text-5xl font-bold text-blog-primary md:my-4 md:text-7xl">我的博客</h1>
+        <p class="mx-auto max-w-3xl text-xl text-gray-700 md:text-2xl">分享前端技术、开发心得和学习经验</p>
+    </div> -->
+
+    <AboutCard />
+    <BlogList posts={sortedPosts} />
+</BlogLayout>

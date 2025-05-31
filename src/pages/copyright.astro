@@ -1,0 +1,49 @@
+---
+import MeLayout from '@src/layouts/MeLayout.astro';
+---
+
+<MeLayout
+    title="嘿壳 | 版权声明"
+    description="版权声明 - 嘿壳"
+    backButton={{
+        text: '返回',
+        href: '/me'
+    }}
+>
+    <div class="prose prose-neutral dark:prose-invert max-w-2xl">
+        <h1 class="text-3xl font-bold mb-8">版权声明</h1>
+        
+        <section class="mb-6">
+            <h2 class="text-xl font-semibold mb-4">1. 内容版权</h2>
+            <p>本网站所有原创内容（包括但不限于文章、图片、视频等）的版权均属于网站所有者。未经明确书面许可，任何单位或个人不得以任何方式或理由对本网站的内容进行复制、修改、传播或用于商业用途。</p>
+        </section>
+
+        <section class="mb-6">
+            <h2 class="text-xl font-semibold mb-4">2. 合理使用</h2>
+            <p>在遵守相关法律法规的前提下，用户可以合理使用本网站内容，但必须注明出处并提供本网站链接。合理使用的范围包括：</p>
+            <ul>
+                <li>个人学习和研究</li>
+                <li>新闻报道</li>
+                <li>评论和批评</li>
+                <li>其他法律允许的非商业用途</li>
+            </ul>
+        </section>
+
+        <section class="mb-6">
+            <h2 class="text-xl font-semibold mb-4">3. 第三方内容</h2>
+            <p>本网站可能包含第三方内容，这些内容的版权归其原作者所有。我们会尽可能标注内容来源，如有侵权，请及时联系我们删除。</p>
+        </section>
+
+        <section class="mb-6">
+            <h2 class="text-xl font-semibold mb-4">4. 责任声明</h2>
+            <p>本网站会尽最大努力确保内容的准确性和完整性，但不对因内容错误或遗漏导致的任何损失承担责任。</p>
+        </section>
+
+        <section class="mb-6">
+            <h2 class="text-xl font-semibold mb-4">5. 版权保护</h2>
+            <p>我们重视知识产权保护，如发现任何侵犯版权的行为，我们将采取适当的法律行动维护自身权益。</p>
+        </section>
+
+        <p class="text-sm text-gray-500 mt-8">最后更新时间：{new Date().toLocaleDateString()}</p>
+    </div>
+</MeLayout> 

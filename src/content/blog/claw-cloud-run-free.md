@@ -1,7 +1,7 @@
 ---
 title: Claw Cloud Run 免费部署云服务
 description: Claw Cloud Run 提供了永久免费的云服务部署额度，介绍下注册流程，免费策略，以及如何部署、使用等。
-pubDate: 2025-04-22
+pubDate: '2025-04-22'
 heroImage: https://stg.heyfe.org/images/97813945ef783d1f5be26be544772915a00e026d7be2acbf26d8268a0538dd67.jpg
 tags: ['白嫖', '云计算', '部署']
 ---

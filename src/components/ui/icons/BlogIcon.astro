@@ -1,0 +1,50 @@
+---
+// Blog icon SVG component
+import BaseIcon from './BaseIcon.astro';
+---
+
+<BaseIcon>
+    <svg viewBox="0 0 100 100" class="h-full w-full">
+        <!-- 笔SVG - 增强版 -->
+        <path
+            class="svg-element"
+            d="M50,20 L30,80 L50,70 L70,80 Z"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-dasharray="180"
+            stroke-dashoffset="180"></path>
+        <path
+            class="svg-element"
+            d="M45,75 L55,75"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-dasharray="10"
+            stroke-dashoffset="10"></path>
+        <path
+            class="svg-element"
+            d="M50,70 L50,20"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-dasharray="50"
+            stroke-dashoffset="50"></path>
+        <!-- 添加笔尖 -->
+        <circle class="svg-element svg-fill-element" cx="50" cy="20" r="3" fill="currentColor" opacity="0"></circle>
+        <!-- 添加笔的墨水滴落效果 -->
+        <path
+            class="svg-element svg-special-element"
+            d="M48,28 Q50,32 52,28"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-dasharray="8"
+            stroke-dashoffset="8"></path>
+    </svg>
+</BaseIcon> 

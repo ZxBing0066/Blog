@@ -1,0 +1,56 @@
+---
+// About icon SVG component
+import BaseIcon from './BaseIcon.astro';
+---
+
+<BaseIcon>
+    <svg viewBox="0 0 100 100" class="h-full w-full">
+        <!-- 头像SVG - 增强版 -->
+        <circle
+            class="svg-element"
+            cx="50"
+            cy="36"
+            r="20"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-dasharray="126"
+            stroke-dashoffset="126"></circle>
+        <!-- 身体部分 - 按照图片样式 -->
+        <path
+            class="svg-element"
+            d="M30,56 L30,85 L70,85 L70,56"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-dasharray="120"
+            stroke-dashoffset="120"></path>
+        <!-- 衬衫领口 -->
+        <path
+            class="svg-element"
+            d="M30,56 L40,66 L50,56 L60,66 L70,56"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-dasharray="60"
+            stroke-dashoffset="60"></path>
+        <!-- 添加小点表示眼睛 -->
+        <circle class="svg-element svg-fill-element" cx="43" cy="36" r="3" fill="currentColor" opacity="0"></circle>
+        <circle class="svg-element svg-fill-element" cx="57" cy="36" r="3" fill="currentColor" opacity="0"></circle>
+        <!-- 添加底部细节 -->
+        <path
+            class="svg-element"
+            d="M40,85 L40,95 M60,85 L60,95"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-dasharray="20"
+            stroke-dashoffset="20"></path>
+    </svg>
+</BaseIcon> 

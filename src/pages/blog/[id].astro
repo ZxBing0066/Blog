@@ -1,0 +1,146 @@
+---
+import Giscus from '@src/components/blog/Giscus.astro';
+import Tags from '@src/components/blog/Tags.astro';
+import TOC from '@src/components/blog/TOC.astro';
+import BlogLayout from '@src/layouts/BlogLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+// 获取动态路由参数
+export async function getStaticPaths() {
+    const blogEntries = await getCollection('blog', ({ data }) => {
+        return !data.draft;
+    });
+
+    return blogEntries.map((entry) => ({
+        params: { id: entry.id },
+        props: { entry },
+    }));
+}
+
+const { entry } = Astro.props;
+const { Content, headings } = await render(entry);
+
+// 格式化日期
+function formatDate(date: Date) {
+    return date.toISOString().split('T')[0];
+}
+
+// 上一篇和下一篇文章
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const currentIndex = sortedPosts.findIndex((post) => post.id === entry.id);
+const prevPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null;
+const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
+---
+
+<BlogLayout title={`${entry.data.title} | 嘿壳`} backButton={{ text: '返回列表', href: '/blog' }}>
+    <div class="mx-auto flex flex-col">
+        <div class="flex">
+            <article class="mx-auto max-w-3xl">
+                <!-- 文章主图 -->
+                <div class="mb-10 overflow-hidden rounded-xl">
+                    <img src={entry.data.heroImage} alt={entry.data.title} class="h-auto w-full object-cover" />
+                </div>
+
+                <!-- 文章头部信息 -->
+                <div class="mb-10 text-center">
+                    <h1 class="mb-4 text-4xl font-bold text-primary md:text-5xl">
+                        {entry.data.title}
+                    </h1>
+                    <div class="flex flex-wrap items-center justify-center gap-2 text-gray-600">
+                        <time datetime={entry.data.pubDate.toISOString()} class="text-primary">
+                            {formatDate(entry.data.pubDate)}
+                        </time>
+                        {
+                            entry.data.updatedDate && (
+                                <>
+                                    <span>•</span>
+                                    <span>更新于 {formatDate(entry.data.updatedDate)}</span>
+                                </>
+                            )
+                        }
+                        {
+                            entry.data.tags && entry.data.tags.length > 0 && (
+                                <>
+                                    <span>•</span>
+                                    <Tags tags={entry.data.tags} />
+                                </>
+                            )
+                        }
+                    </div>
+                </div>
+
+                <!-- 文章正文 -->
+                <div class="prose prose-lg prose-headings:text-primary prose-a:text-primary mx-auto max-w-none">
+                    <Content />
+                </div>
+            </article>
+            <TOC headings={headings} />
+        </div>
+
+        <!-- 上一篇/下一篇 -->
+        <div class="my-10 grid w-full grid-cols-1 gap-6 border-t border-gray-200 pt-10 md:grid-cols-2">
+            {
+                prevPost && (
+                    <a
+                        href={`/blog/${prevPost.id}`}
+                        class="group flex flex-col space-y-2 rounded-lg border border-gray-200 bg-white p-6 transition-all hover:border-primary/50 hover:shadow-md"
+                    >
+                        <div class="text-sm text-gray-500">上一篇</div>
+                        <h3 class="text-xl font-semibold text-gray-800 group-hover:text-primary">{prevPost.data.title}</h3>
+                    </a>
+                )
+            }
+            {
+                nextPost && (
+                    <a
+                        href={`/blog/${nextPost.id}`}
+                        class="group flex flex-col space-y-2 rounded-lg border border-gray-200 bg-white p-6 transition-all hover:border-primary/50 hover:shadow-md"
+                    >
+                        <div class="text-sm text-gray-500">下一篇</div>
+                        <h3 class="text-xl font-semibold text-gray-800 group-hover:text-primary">{nextPost.data.title}</h3>
+                    </a>
+                )
+            }
+        </div>
+        <Giscus />
+    </div>
+</BlogLayout>
+
+<style>
+    /* 设置Markdown内容样式 */
+    .prose img {
+        border-radius: 0.5rem;
+        margin: 2rem auto;
+    }
+
+    .prose code {
+        background-color: rgba(var(--color-primary), 0.1);
+        border-radius: 0.25rem;
+        padding: 0.125rem 0.25rem;
+        color: rgb(var(--color-primary));
+    }
+
+    .prose pre code {
+        background-color: transparent;
+        color: inherit;
+        padding: 0;
+    }
+
+    .prose a {
+        text-decoration: none;
+        border-bottom: 1px solid rgba(var(--color-primary), 0.3);
+        transition: border-color 0.2s;
+    }
+
+    .prose a:hover {
+        border-color: rgba(var(--color-primary), 1);
+    }
+
+    .prose blockquote {
+        border-left-color: rgba(var(--color-primary), 0.5);
+        background-color: rgba(var(--color-primary), 0.05);
+        padding: 1rem 1.5rem;
+        border-radius: 0.25rem;
+    }
+</style>

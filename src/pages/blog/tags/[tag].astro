@@ -1,0 +1,33 @@
+---
+import BlogList from '@src/components/blog/BlogList.astro';
+import BlogLayout from '@src/layouts/BlogLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+    const posts = await getCollection('blog');
+
+    // 获取所有唯一标签
+    const tags = [...new Set(posts.flatMap((post) => post.data.tags || []))];
+
+    // 为每个标签创建路径
+    return tags.map((tag) => {
+        const filteredPosts = posts.filter(
+            (post) => post.data.tags?.map((t) => t.toLowerCase()).includes(tag.toLowerCase()) && !post.data.ignoreInList && !post.data.draft,
+        );
+        return {
+            params: { tag: tag.toLowerCase() },
+            props: { tag, posts: filteredPosts },
+        };
+    });
+}
+
+const { tag, posts } = Astro.props;
+---
+
+<BlogLayout backButton={{ text: '返回列表', href: '/blog' }}>
+    <div class="text-center">
+        <h1>标签: <span class="highlight">{tag}</span></h1>
+        <p>共有 {posts.length} 篇文章</p>
+    </div>
+    <BlogList posts={posts} />
+</BlogLayout>

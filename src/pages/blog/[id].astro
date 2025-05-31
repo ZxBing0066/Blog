@@ -33,7 +33,7 @@ const prevPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentInde
 const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
 ---
 
-<BlogLayout title={`${entry.data.title} | 嘿壳`} backButton={{ text: '返回列表', href: '/blog' }}>
+<BlogLayout title={entry.data.title} description={entry.data.description} backButton={{ text: '返回列表', href: '/blog' }}>
     <div class="mx-auto flex flex-col">
         <div class="flex">
             <article class="mx-auto max-w-3xl">

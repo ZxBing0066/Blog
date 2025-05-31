@@ -92,7 +92,7 @@ $ nohup node bin/ssserver &
 
 `shadowsocks-gui for Windows`: 下载完毕后解压直接打开如图,然后输入你的服务器公网地址、端口号、密码以及本地端口号即可.
 
-![gui](http://zxspace.qiniudn.com/blog/2014-12-6-img-0.png)
+![gui](/blog/2014-12-6-img-0.png)
 
 `shadowsocks-nodejs client`: 下载还是和上面的`git`下载`shadowsocks`一样:
 

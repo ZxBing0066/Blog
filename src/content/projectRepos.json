@@ -81,7 +81,7 @@
     "full_name": "ZxBing0066/micro-mod",
     "html_url": "https://github.com/ZxBing0066/micro-mod",
     "description": "微前端的核心 - 微模块，支持各种格式的模块加载，方便控制加载流、依赖控制等",
-    "homepage": "http://legacy.heyfe.org/micro-mod/",
+    "homepage": "https://legacy.heyfe.org/micro-mod/",
     "topics": [
       "library",
       "micro-module",
@@ -1327,7 +1327,7 @@
     "full_name": "ZxBing0066/recodo",
     "html_url": "https://github.com/ZxBing0066/recodo",
     "description": "Component docs system for React",
-    "homepage": "http://legacy.heyfe.org/recodo/",
+    "homepage": "https://legacy.heyfe.org/recodo/",
     "topics": [
       "library"
     ],

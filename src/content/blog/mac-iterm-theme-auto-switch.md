@@ -5,7 +5,7 @@ pubDate: '2022-05-22'
 tags: []
 ---
 
-前情提要：[VSCode 如何根据系统主题自动更换主题](./2022-vscode-auto-theme.md)
+前情提要：[VSCode 如何根据系统主题自动更换主题](./2022-vscode-auto-theme)
 
 最近在 VPS 上折腾点东西，所以会频繁使用 iTerm2，白天再见果然暗色主题太吃力，所以找了找有没有办法让 iTerm2 自动切换主题。
 

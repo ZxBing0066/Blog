@@ -9,7 +9,7 @@ tags:
     - WSL
 ---
 
-工作中习惯使用 Mac 进行开发，而公司代码由于限制只能保存在 Windows 中，故而在使用 Mac 开发时需要远程到 Windows 中进行开发。为此使用 [VSCode SSH Remote](./vscode-remote-ssh.md) 到 Windows 中进行开发。然而由于 Windows 的开发环境与 Mac 相差甚远，为了方便决定通过 VSCode SSH Remote 到 Windows 中的 WSL 进行开发。开发时又遇上 cypress 无法启动的问题，故有了此系列文章。
+工作中习惯使用 Mac 进行开发，而公司代码由于限制只能保存在 Windows 中，故而在使用 Mac 开发时需要远程到 Windows 中进行开发。为此使用 [VSCode SSH Remote](./vscode-remote-ssh) 到 Windows 中进行开发。然而由于 Windows 的开发环境与 Mac 相差甚远，为了方便决定通过 VSCode SSH Remote 到 Windows 中的 WSL 进行开发。开发时又遇上 cypress 无法启动的问题，故有了此系列文章。
 
 ## 目标
 
@@ -30,25 +30,25 @@ tags:
 
 配置 SSH 主要包含在 WSL 中安装 SSH 和配置开机启动、防火墙等。
 
-有需要的可在 [WSL SSH 设置和开机启动](./wsl-ssh-startup-set.md) 中查看。
+有需要的可在 [WSL SSH 设置和开机启动](./wsl-ssh-startup-set) 中查看。
 
 ### WSL 升级
 
 由于部分 Windows 版本问题，默认安装的 WSL 版本为 1，而 1 由于 chrome 不支持的原因，所以无法启动 cypress，因此需要升级为 WSL 2。
 
-有需要的可在 [WSL 从 1 升级为 2](./wsl-upgrade.md) 中查看。
+有需要的可在 [WSL 从 1 升级为 2](./wsl-upgrade) 中查看。
 
 ### 配置 WSL GUI
 
 由于 cypress 依赖于浏览器，而浏览器依赖于 GUI，所以要想让 cypress 跑起来，需要先配置好 WSL 的 GUI 环境。
 
-有需要的可在 [WSL 展示 Linux GUI - VcXsrv](./wsl-vcxsrv.md) 中查看。
+有需要的可在 [WSL 展示 Linux GUI - VcXsrv](./wsl-vcxsrv) 中查看。
 
 ### 安装 Chrome
 
 配置完 GUI 后需要安装 Chrome。
 
-可参考 [WSL 中安装 google-chrome](./wsl-chrome.md)。
+可参考 [WSL 中安装 google-chrome](./wsl-chrome)。
 
 ## 效果
 

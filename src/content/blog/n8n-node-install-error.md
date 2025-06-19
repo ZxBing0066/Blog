@@ -6,7 +6,7 @@ heroImage: https://stg.heyfe.org/images/4b5e4e0be3d904dc71db13d39f8cdfc757d7dabf
 tags: [n8n, FAQ]
 ---
 
-今天重启 n8n 后，发现安装的 `n8n-nodes-wechat-offiaccount` 节点莫名实效了，提示重新安装，然而按照提示重新安装又出现如下报错：
+今天重启 n8n 后，发现安装的 `n8n-nodes-wechat-offiaccount` 节点莫名失效了，提示重新安装，然而按照提示重新安装又出现如下报错：
 
 ```txt
 The specified package could not be loaded Cause: Class could not be found. Please check if the class is named correctly.

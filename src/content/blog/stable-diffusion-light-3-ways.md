@@ -3,9 +3,11 @@ title: 在 Stable Diffusion 中控制光线的三种方式
 description: >-
     这是一片译文，主要讲解了在 Stable Diffusion 中如何通过提示词、Regional Prompter 插件以及 ControlNet 来进行光线的控制以增强图片的效果。
 
+
 pubDate: '2023-08-14'
 heroImage: >-
     https://stg.heyfe.org/images/blog-stable-diffusion-light-3-ways-1692021833858.jpeg
+
 
 tags:
     - AI绘画
@@ -21,9 +23,9 @@ tags:
 
 在本文中，你将了解通过以下方法来控制光线：
 
--   光线提示词
--   区域光线控制
--   ControlNet img2img
+- 光线提示词
+- 区域光线控制
+- ControlNet img2img
 
 ## 软件
 
@@ -35,15 +37,19 @@ tags:
 
 我将使用以下基本提示和负面提示来说明效果。
 
-> fashion photography, a woman
+```txt
+fashion photography, a woman
+```
 
-> disfigured, ugly, bad, immature, cartoon, anime, 3d, painting, b&w, nsfw
+```txt
+disfigured, ugly, bad, immature, cartoon, anime, 3d, painting, b&w, nsfw
+```
 
--   Model: [DreamShaper v6](https://civitai.com/models/4384/dreamshaper) (c249d7853b)
--   Width: 512
--   Height: 768
--   CFG scale: 7
--   Seed: 94858136 – 94858143
+- Model: [DreamShaper v6](https://civitai.com/models/4384/dreamshaper) (c249d7853b)
+- Width: 512
+- Height: 768
+- CFG scale: 7
+- Seed: 94858136 – 94858143
 
 使用基本提示生成的示例图像。它们的光线充足，外形美观，但照明效果并不有趣。
 
@@ -101,8 +107,8 @@ tags:
 
 提示：
 
--   如果未看到效果，请增加提示词的权重。
--   这些光线提示词并不总是有效的。尝试一次生成几张图像进行测试。
+- 如果未看到效果，请增加提示词的权重。
+- 这些光线提示词并不总是有效的。尝试一次生成几张图像进行测试。
 
 ## 区域光线控制
 
@@ -116,10 +122,10 @@ tags:
 
 ![](https://stg.heyfe.org/images/stable-diffusion-light-3-ways-image-20.png)
 
--   **Active**: Yes
--   **Use common prompt**: Yes
--   **Split mode**: Vertical
--   **Divide Ratio**: 2,3
+- **Active**: Yes
+- **Use common prompt**: Yes
+- **Split mode**: Vertical
+- **Divide Ratio**: 2,3
 
 点击 **visualize and make template**，确认图像被分为两个垂直区域。
 
@@ -127,15 +133,19 @@ tags:
 
 输入提示：
 
-> fashion photography, a woman  
-> BREAK  
-> ( hard light:1.2), (volumetric:1.2), well-lit  
-> BREAK  
-> (dimly lit:1.4)
+```txt
+fashion photography, a woman
+BREAK
+( hard light:1.2), (volumetric:1.2), well-lit
+BREAK
+(dimly lit:1.4)
+```
 
 并使用下面的负面提示：
 
-> disfigured, ugly, bad, immature, cartoon, anime, 3d, painting, b&w, nsfw
+```txt
+disfigured, ugly, bad, immature, cartoon, anime, 3d, painting, b&w, nsfw
+```
 
 其他参数保持不变。
 
@@ -147,11 +157,13 @@ tags:
 
 现在试试交换光线分配。
 
-> fashion photography, a woman  
-> BREAK  
-> (dimly lit:1.4)  
-> BREAK  
-> ( hard light:1.2), (volumetric:1.2), well-lit
+```txt
+fashion photography, a woman
+BREAK
+(dimly lit:1.4)
+BREAK
+( hard light:1.2), (volumetric:1.2), well-lit
+```
 
 ![](https://stg.heyfe.org/images/stable-diffusion-light-3-ways-image-24.png)
 
@@ -161,8 +173,8 @@ tags:
 
 提示：
 
--   如果未看到效果，请调整提示词的权重。
--   区域提示并不总是百分之百有效。生成多一些的图片，并挑选出最好的结果。
+- 如果未看到效果，请调整提示词的权重。
+- 区域提示并不总是百分之百有效。生成多一些的图片，并挑选出最好的结果。
 
 ## 使用 ControlNet 控制光照
 
@@ -194,13 +206,13 @@ tags:
 
 使用以下设置。
 
--   **Enable**: Yes
--   **Pixel Perfect**: Yes
--   **Allow preview**: Yes
--   **Control Type**: Depth
--   **Preprocessor**: depth_zoe
--   **Model**: control_xxxx_depth
--   **Control** **Weight**: 0.6
+- **Enable**: Yes
+- **Pixel Perfect**: Yes
+- **Allow preview**: Yes
+- **Control Type**: Depth
+- **Preprocessor**: depth_zoe
+- **Model**: control_xxxx_depth
+- **Control** **Weight**: 0.6
 
 滚动到 **img2img canvas**，删除图像。
 

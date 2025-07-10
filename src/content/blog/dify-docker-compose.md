@@ -2,6 +2,7 @@
 title: 如何部署 Dify 服务
 pubDate: '2025-02-23'
 tags: [AI, Dify, Self-host, Docker, Troubleshooting]
+heroImage: https://stg.heyfe.org/images/3b5ce4ce90f3c856725a374ed19663f0a4ed582eff63c6ede845bd844d6789ae.png
 ---
 
 Dify 是一款开源的大语言模型(LLM) 应用开发平台。可以用于构建自己的聊天助手、Agent、工作流。官方服务也是蛮好用的，不过白嫖还是存在一定的限制。为了方便使用，决定在 NAS 的 Docker 上部署一下。
@@ -64,5 +65,5 @@ Dify 服务部署起来还是比较简单的，严格按照步骤来就可以。
 
 ## 引用
 
--   Dify 官网地址：https://dify.ai/
--   Dify GitHub 地址：https://github.com/langgenius/dify
+- Dify 官网地址：https://dify.ai/
+- Dify GitHub 地址：https://github.com/langgenius/dify

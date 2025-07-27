@@ -70,11 +70,23 @@ mode: rule
 
 然后重启容器检查，如果重启后开关正常打开，这表示配置生效。
 
+### 外部控制
+
+![编辑外部控制设置弹窗](https://stg.heyfe.org/images/503299638f6d0e53adf0699b5fecb095e077e1d61ceafc39d1174a32023ebf22.png)
+
+如遇到启动后不停的弹窗 `编辑外部控制设置`，大概率是因为你的 `config.yaml` 中没有设置 `external-controller`，可以在 `config.yaml` 中添加以下配置：
+
+```yaml
+external-controller: '0.0.0.0:9090'
+```
+
+然后重启容器即可。
+
 ## 结语
 
 Clash 在 NAS 中部署后，即可实现 NAS 的科学上网自给自足，不用再依赖其他设备。而且 NAS 作为长期开机设备，也可以作为一个稳定的代理设备，方便其他局域网设备使用，比如 Switch 等。
 
 ## 引用
 
--   所用镜像 GitHub 地址：https://github.com/LaoYutang/clash-and-dashboard
--   核心库镜像地址：https://hub.docker.com/r/dreamacro/clash
+- 所用镜像 GitHub 地址：https://github.com/LaoYutang/clash-and-dashboard
+- 核心库镜像地址：https://hub.docker.com/r/dreamacro/clash

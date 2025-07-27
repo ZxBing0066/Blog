@@ -1,9 +1,11 @@
 ---
+title: 博客样式测试
+description: 为了测试博客样式而创建的文档
+pubDate: 2022-10-12
+heroImage: https://stg.heyfe.org/images/blog-next.js-1690694536769.webp
 tags: [blog]
 ignoreInList: true
 ---
-
-# Elements
 
 # H1 Heading
 
@@ -29,9 +31,9 @@ Ordered list example:
 
 Unordered list example:
 
--   List item
--   List item
--   List item
+- List item
+- List item
+- List item
 
 ---
 
@@ -48,8 +50,7 @@ Unordered list example:
 
 ## Quotes
 
-> The longer I live, the more I realize that I am never wrong about anything, and that all the pains I have so humbly
-> taken to verify my notions have only wasted my time!
+> The longer I live, the more I realize that I am never wrong about anything, and that all the pains I have so humbly taken to verify my notions have only wasted my time!
 >
 > <cite>– George Bernard Shaw</cite>
 
@@ -67,8 +68,23 @@ const foo = (): void => {
 
 ## Images
 
-![demo](https://picsum.photos/2000/1000)
+![demo](https://picsum.photos/seed/1/2000/1000)
+
+![demo](https://picsum.photos/seed/2/2000/1000)
+
+![demo](https://picsum.photos/seed/3/2000/1000)
+
+![demo](https://picsum.photos/seed/4/2000/1000)
+
+![demo](https://picsum.photos/seed/5/2000/1000)
+
+![demo](https://picsum.photos/seed/6/2000/1000)
 
 ## iframe 嵌入
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/xisN1iPO03A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<!-- <a href="https://cdn.photoswipe.com/photoswipe-demo-images/photos/2/img-2500.jpg"
+    data-pswp-width="1669"
+    data-pswp-height="2500"
+    target="_blank"> <img src="https://cdn.photoswipe.com/photoswipe-demo-images/photos/2/img-200.jpg" alt="" /> </a> -->

@@ -1,0 +1,61 @@
+---
+import Socials from '@src/components/Socials.astro';
+import Avatar from './Avatar.astro';
+---
+
+<div class='about-card'>
+    <div class='w-32 h-32'>
+        <Avatar class='avatar shake-crazy' />
+    </div>
+    <div class='mt-6 introduce text-center'>
+        <div class='mb-3 text-3xl font-bold text-primary'>嘿壳</div>
+        <div class='text-md text-gray-500'>专业的键盘敲击员</div>
+    </div>
+    <div class='announce my-2 text-lg text-gray-600 font-chinese'>
+        <span class='announce-text'></span>
+        <span class='cursor'>|</span>
+    </div>
+    <div class='flex justify-center mt-2'>
+        <Socials />
+    </div>
+</div>
+
+<style>
+    .about-card {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        .cursor {
+            display: inline-block;
+            margin-left: 4px;
+            user-select: none;
+            animation: blink 1s infinite;
+        }
+        .announce {
+            font-family: Xingkai SC;
+            color: var(--color-text-tip);
+        }
+    }
+</style>
+
+<script>
+    import { getAnnounce } from '@src/components/announces.ts';
+
+    const announceText = document.querySelector('.announce-text');
+    if (announceText) {
+        announceText.textContent = getAnnounce();
+    }
+</script>
+
+<script>
+    import { projects } from '@src/content/projects';
+
+    const links = projects.map(project => project.link || project.repo).filter(Boolean);
+    document.querySelector('.avatar')?.addEventListener('click', () => {
+        if (links.length > 0) {
+            const randomLink = links[Math.floor(Math.random() * links.length)];
+            window.open(randomLink, '_blank');
+        }
+    });
+</script>

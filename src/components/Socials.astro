@@ -1,7 +1,15 @@
-<ul class="social-media-list m-0">
+---
+export interface Props {
+    short?: boolean;
+}
+
+const { short = false } = Astro.props;
+---
+
+<ul class='social-media-list m-0' data-short={short}>
     <li>
-        <a href="https://github.com/ZxBing0066" target="_blank" rel="noopener noreferrer nofollow">
-            <img src="/github.svg" alt="github" />
+        <a href='https://github.com/ZxBing0066' target='_blank' rel='noopener noreferrer nofollow'>
+            <img src='/github.svg' alt='github' />
         </a>
     </li>
     <!-- <li>
@@ -9,22 +17,32 @@
             <img src="/blog/juejin.png" alt="juejin" />
         </a>
     </li> -->
-    <li class="popup">
-        <a>
-            <img src="/weixin.png" alt="weixin" />
-        </a>
-        <div class="popover">
-            <div class="arrow"></div>
-            <div class="content">
-                <img src="/weixin-qrcode.jpg" alt="" />
-            </div>
-        </div>
-    </li>
-    <li>
-        <a href="https://www.zhihu.com/people/ZxBing0066" target="_blank" rel="noopener noreferrer nofollow">
-            <img src="/zhihu.svg" alt="zhihu" />
-        </a>
-    </li>
+    {
+        !short && (
+            <>
+                <li class='popup'>
+                    <a>
+                        <img src='/weixin.png' alt='weixin' />
+                    </a>
+                    <div class='popover'>
+                        <div class='arrow' />
+                        <div class='content'>
+                            <img src='/weixin-qrcode.jpg' alt='' />
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <a
+                        href='https://www.zhihu.com/people/ZxBing0066'
+                        target='_blank'
+                        rel='noopener noreferrer nofollow'
+                    >
+                        <img src='/zhihu.svg' alt='zhihu' />
+                    </a>
+                </li>
+            </>
+        )
+    }
     <!-- <li>
         <a href="https://segmentfault.com/u/zxbing0066" target="_blank" rel="noopener noreferrer nofollow">
             <img src="/blog/segmentfault.png" alt="segmentfault" />

@@ -1,7 +1,10 @@
 ---
+import { History, PencilLine } from '@lucide/astro';
+import Avatar from '@src/components/Avatar.astro';
 import Giscus from '@src/components/blog/Giscus.astro';
 import Tags from '@src/components/blog/Tags.astro';
 import TOC from '@src/components/blog/TOC.astro';
+import Socials from '@src/components/Socials.astro';
 import BlogLayout from '@src/layouts/BlogLayout.astro';
 import { getCollection, render } from 'astro:content';
 
@@ -11,9 +14,9 @@ export async function getStaticPaths() {
         return !data.draft;
     });
 
-    return blogEntries.map((entry) => ({
+    return blogEntries.map(entry => ({
         params: { id: entry.id },
-        props: { entry },
+        props: { entry }
     }));
 }
 
@@ -28,119 +31,305 @@ function formatDate(date: Date) {
 // 上一篇和下一篇文章
 const allPosts = await getCollection('blog', ({ data }) => !data.draft);
 const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-const currentIndex = sortedPosts.findIndex((post) => post.id === entry.id);
+const currentIndex = sortedPosts.findIndex(post => post.id === entry.id);
 const prevPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null;
 const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
 ---
 
-<BlogLayout title={entry.data.title} description={entry.data.description} backButton={{ text: '返回列表', href: '/blog' }}>
-    <div class="mx-auto flex flex-col">
-        <div class="flex">
-            <article class="mx-auto max-w-3xl">
-                <!-- 文章主图 -->
-                <div class="mb-10 overflow-hidden rounded-xl">
-                    <img src={entry.data.heroImage} alt={entry.data.title} class="h-auto w-full object-cover" />
+<BlogLayout
+    title={entry.data.title}
+    description={entry.data.description}
+    backButton={{ text: '返回列表', href: '/blog' }}
+>
+    <div class='container grid grid-cols-1 gap-8 lg:grid-cols-12'>
+        <main class='lg:col-span-9'>
+            <div class='relative overflow-hidden rounded-xl shadow-lg mb-8'>
+                <div class='absolute inset-0'>
+                    <img
+                        src={entry.data.heroImage || '/assets/blog-placeholder.jpg'}
+                        alt=''
+                        class='w-full h-full object-cover filter blur-lg scale-110'
+                        aria-hidden='true'
+                    />
+                    <div class='absolute inset-0 bg-blog-900/30'></div>
                 </div>
 
-                <!-- 文章头部信息 -->
-                <div class="mb-10 text-center">
-                    <h1 class="mb-4 text-4xl font-bold text-primary md:text-5xl">
+                <div class='relative flex flex-col items-center justify-center min-h-[450px] p-6 text-center'>
+                    <h1 class='text-3xl md:text-5xl font-extrabold leading-tight mb-4 text-white animate-on-load'>
                         {entry.data.title}
                     </h1>
-                    <div class="flex flex-wrap items-center justify-center gap-2 text-gray-600">
-                        <time datetime={entry.data.pubDate.toISOString()} class="text-primary">
-                            {formatDate(entry.data.pubDate)}
-                        </time>
+
+                    <div
+                        class='flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-slate-200 font-medium animate-on-load'
+                        style='animation-delay: 0.2s;'
+                    >
+                        <div class='flex items-center gap-2'>
+                            <PencilLine class='w-5 h-5' />
+                            <time class="leading-none font-bold" datetime={entry.data.pubDate.toISOString()}>
+                                {formatDate(entry.data.pubDate)}
+                            </time>
+                        </div>
                         {
                             entry.data.updatedDate && (
-                                <>
-                                    <span>•</span>
-                                    <span>更新于 {formatDate(entry.data.updatedDate)}</span>
-                                </>
-                            )
-                        }
-                        {
-                            entry.data.tags && entry.data.tags.length > 0 && (
-                                <>
-                                    <span>•</span>
-                                    <Tags tags={entry.data.tags} />
-                                </>
+                                <div class='flex items-center gap-2'>
+                                    <History class='w-5 h-5' />
+                                    <time datetime={entry.data.updatedDate.toISOString()}>
+                                        {formatDate(entry.data.updatedDate)}
+                                    </time>
+                                </div>
                             )
                         }
                     </div>
-                </div>
 
-                <!-- 文章正文 -->
-                <div class="prose prose-lg prose-headings:text-primary prose-a:text-primary mx-auto max-w-none">
+                    {
+                        entry.data.tags && entry.data.tags.length > 0 && (
+                            <div class='mt-6 animate-on-load' style='animation-delay: 0.4s;'>
+                                <Tags tags={entry.data.tags} class='hero-tags' />
+                            </div>
+                        )
+                    }
+                </div>
+            </div>
+
+            <article class='prose prose-lg prose-gray w-full max-w-none'>
+                <div class='article-content'>
                     <Content />
                 </div>
-            </article>
-            <TOC headings={headings} />
-        </div>
 
-        <!-- 上一篇/下一篇 -->
-        <div class="my-10 grid w-full grid-cols-1 gap-6 border-t border-gray-200 pt-10 md:grid-cols-2">
-            {
-                prevPost && (
-                    <a
-                        href={`/blog/${prevPost.id}`}
-                        class="group flex flex-col space-y-2 rounded-lg border border-gray-200 bg-white p-6 transition-all hover:border-primary/50 hover:shadow-md"
+                <div
+                    class='my-8 md:my-12 grid grid-cols-1 gap-3 sm:gap-4 border-t border-gray-200 pt-6 md:pt-8 sm:grid-cols-2'
+                >
+                    {
+                        prevPost && (
+                            <a
+                                href={`/blog/${prevPost.id}`}
+                                class='group flex flex-col space-y-1 sm:space-y-2 rounded-lg border border-gray-200 bg-white p-3 sm:p-4 transition-all hover:border-primary/50 hover:shadow-md'
+                            >
+                                <div class='text-xs sm:text-sm text-gray-500'>上一篇</div>
+                                <h3 class='text-sm sm:text-base font-medium text-gray-800 group-hover:text-primary line-clamp-2'>
+                                    {prevPost.data.title}
+                                </h3>
+                            </a>
+                        )
+                    }
+                    {
+                        nextPost && (
+                            <a
+                                href={`/blog/${nextPost.id}`}
+                                class='group flex flex-col space-y-1 sm:space-y-2 rounded-lg border border-gray-200 bg-white p-3 sm:p-4 transition-all hover:border-primary/50 hover:shadow-md'
+                            >
+                                <div class='text-xs sm:text-sm text-gray-500'>下一篇</div>
+                                <h3 class='text-sm sm:text-base font-medium text-gray-800 group-hover:text-primary line-clamp-2'>
+                                    {nextPost.data.title}
+                                </h3>
+                            </a>
+                        )
+                    }
+                </div>
+
+                <div class='mt-8'>
+                    <Giscus />
+                </div>
+            </article>
+        </main>
+        <aside class='sticky top-16 h-fit col-span-3 space-y-8 hidden lg:block'>
+            <!-- Author Card -->
+            <div
+                class='relative flex flex-col items-center justify-center rounded-lg border border-gray-200 bg-blog-50/20 p-4 shadow-sm text-center'
+            >
+                <!-- Avatar -->
+                <div class='h-20 w-20 flex-shrink-0'>
+                    <Avatar />
+                </div>
+
+                <!-- Author Info -->
+                <div class='mt-4'>
+                    <h3 class='text-xl font-bold text-gray-900 m-0'>嘿壳</h3>
+                    <p class='m-0 mt-1 text-sm text-gray-500'>专业的键盘敲击员</p>
+                </div>
+
+                <!-- Quote/Speech Bubble -->
+                <div class='relative mt-4 mb-4 w-full max-w-xs rounded-lg bg-indigo-50 px-4 py-2'>
+                    <div
+                        class='absolute left-1/2 top-0 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rotate-45 bg-indigo-50'
                     >
-                        <div class="text-sm text-gray-500">上一篇</div>
-                        <h3 class="text-xl font-semibold text-gray-800 group-hover:text-primary">{prevPost.data.title}</h3>
-                    </a>
+                    </div>
+                    <p class='text-sm italic text-indigo-800 m-0'>"<span class='announce-text'></span>"</p>
+                </div>
+
+                <Socials />
+            </div>
+
+            <!-- Table of Contents - Hidden on mobile, shown on tablet and desktop -->
+            {
+                headings.length > 0 && (
+                    <div class='hidden md:block rounded-lg border border-gray-200 bg-blog-20 p-4 sm:p-6 shadow-sm max-h-[50vh] overflow-y-auto'>
+                        <TOC headings={headings} />
+                    </div>
                 )
             }
-            {
-                nextPost && (
-                    <a
-                        href={`/blog/${nextPost.id}`}
-                        class="group flex flex-col space-y-2 rounded-lg border border-gray-200 bg-white p-6 transition-all hover:border-primary/50 hover:shadow-md"
-                    >
-                        <div class="text-sm text-gray-500">下一篇</div>
-                        <h3 class="text-xl font-semibold text-gray-800 group-hover:text-primary">{nextPost.data.title}</h3>
-                    </a>
-                )
-            }
-        </div>
-        <Giscus />
+        </aside>
     </div>
 </BlogLayout>
 
 <style>
-    /* 设置Markdown内容样式 */
-    .prose img {
+    /* Article Content Styles */
+    .article-content img {
         border-radius: 0.5rem;
         margin: 2rem auto;
     }
 
-    .prose code {
+    .article-content code {
         background-color: rgba(var(--color-primary), 0.1);
         border-radius: 0.25rem;
         padding: 0.125rem 0.25rem;
         color: rgb(var(--color-primary));
     }
 
-    .prose pre code {
+    .article-content pre code {
         background-color: transparent;
         color: inherit;
         padding: 0;
     }
 
-    .prose a {
+    .article-content a {
         text-decoration: none;
         border-bottom: 1px solid rgba(var(--color-primary), 0.3);
         transition: border-color 0.2s;
     }
 
-    .prose a:hover {
+    .article-content a:hover {
         border-color: rgba(var(--color-primary), 1);
     }
 
-    .prose blockquote {
+    .article-content blockquote {
         border-left-color: rgba(var(--color-primary), 0.5);
         background-color: rgba(var(--color-primary), 0.05);
         padding: 1rem 1.5rem;
         border-radius: 0.25rem;
+    }
+
+    .article-content a {
+        text-decoration: none;
+        border-bottom: 1px solid rgba(var(--color-primary), 0.3);
+        transition: border-color 0.2s;
+    }
+
+    .article-content a:hover {
+        border-color: rgba(var(--color-primary), 1);
+    }
+
+    .article-content blockquote {
+        border-left: 4px solid rgba(var(--color-primary), 0.5);
+        background-color: rgba(var(--color-primary), 0.05);
+        padding: 1rem 1.5rem;
+        border-radius: 0.25rem;
+    }
+
+    /* Mobile responsive styles */
+    @media (max-width: 1024px) {
+        .article-content img {
+            max-width: 100%;
+        }
+
+        /* Improve typography for mobile */
+        .article-content h1 {
+            font-size: 1.75rem;
+        }
+
+        .article-content h2 {
+            font-size: 1.5rem;
+        }
+
+        .article-content h3 {
+            font-size: 1.25rem;
+        }
+
+        .article-content pre {
+            max-width: 100%;
+            overflow-x: auto;
+        }
+
+        .article-content blockquote {
+            margin-left: 0;
+            margin-right: 0;
+        }
+    }
+
+    /* Small mobile devices */
+    @media (max-width: 640px) {
+        .article-content pre {
+            margin-left: -1rem;
+            margin-right: -1rem;
+            border-radius: 0;
+            padding: 1rem;
+        }
+
+        /* Adjust article padding */
+        article.prose {
+            padding: 0 0.5rem;
+        }
+    }
+</style>
+
+<script>
+    import PhotoSwipeLightbox from 'photoswipe/lightbox';
+    import 'photoswipe/style.css';
+
+    const lightbox = new PhotoSwipeLightbox({
+        gallery: '.article-content',
+        children: 'a.gallery-item',
+        pswpModule: () => import('photoswipe')
+    });
+    lightbox.init();
+</script>
+
+<script>
+    const updateImageDimensions = (image: HTMLImageElement) => {
+        const parent = image.parentElement;
+        if (image.naturalWidth && image.naturalHeight && parent?.classList.contains('gallery-item')) {
+            parent.setAttribute('data-pswp-width', image.naturalWidth.toString());
+            parent.setAttribute('data-pswp-height', image.naturalHeight.toString());
+        }
+    };
+
+    const images = document.querySelectorAll('.article-content img') as unknown as HTMLImageElement[];
+    images.forEach(img => {
+        if (img.complete) {
+            updateImageDimensions(img);
+        } else {
+            img.addEventListener('load', () => {
+                updateImageDimensions(img);
+            });
+        }
+    });
+</script>
+
+<script>
+    import { getAnnounce } from '@src/components/announces.ts';
+
+    const announceText = document.querySelector('.announce-text');
+    if (announceText) {
+        announceText.textContent = getAnnounce();
+    }
+</script>
+
+<style>
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-on-load {
+        /* 默认状态下隐藏，为动画做准备 */
+        opacity: 0;
+        /* 应用动画 */
+        animation: fadeInUp 0.6s ease-out forwards;
     }
 </style>

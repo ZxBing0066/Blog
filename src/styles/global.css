@@ -55,7 +55,6 @@
         --color-text-active: var(--color-primary);
         --color-text-primary: var(--color-primary);
         --color-text-secondary: #728197;
-        --color-background-active: #e6e6e6;
         --color-border-active: #c5d2e0;
         --color-border-primary: var(--color-primary);
         --color-shadow: rgba(24, 120, 179, 0.75);
@@ -249,6 +248,7 @@
         width: 100%;
         border-collapse: collapse;
         margin: 1.5em 0;
+        border-radius: 0.5em;
     }
 
     table th,
@@ -258,7 +258,8 @@
     }
 
     table th {
-        background-color: var(--color-background-active);
+        background-color: var(--color-primary);
+        color: white;
     }
 }
 /* 
@@ -298,8 +299,8 @@
 
     .variable-theme-blog {
         --color-text: #030d17;
-        --color-primary: #1661ab;
-        --color-secondary: rgb(38, 85, 133);
+        --color-primary: #0088ff;
+        --color-secondary: #00aaff;
         --color-border: #dcdcdc;
         --color-background: rgba(22, 97, 171, 0.02);
     }

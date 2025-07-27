@@ -1,6 +1,5 @@
 ---
 import '@src/styles/global.css';
-
 import ModuleLayout from './ModuleLayout.astro';
 
 interface Props {
@@ -13,11 +12,23 @@ interface Props {
     };
 }
 
-const { title = '嘿壳 | 关于我', description = '关于我 - 嘿壳', themeClass = 'bg-me-background/5 font-me', backButton } = Astro.props;
+const {
+    title = '嘿壳 | 关于我',
+    description = '关于我 - 嘿壳',
+    themeClass = 'bg-me-background/5 font-me',
+    backButton
+} = Astro.props;
 ---
 
-<ModuleLayout title={title} description={description} themeClass={themeClass} backButton={backButton} theme="me" moduleName="关于">
-    <main class="container mx-auto flex w-full flex-1 flex-col items-center px-4 py-12">
+<ModuleLayout
+    title={title}
+    description={description}
+    themeClass={themeClass}
+    backButton={backButton}
+    theme='me'
+    moduleName='关于'
+>
+    <main class='container mx-auto flex w-full flex-1 flex-col items-center px-4 md:px-8 py-12 bg-me-background/2'>
         <slot />
     </main>
 </ModuleLayout>

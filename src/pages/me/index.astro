@@ -2,6 +2,7 @@
 import avatar from '@src/assets/avatar.webp';
 import githubIcon from '@src/assets/github.svg';
 import placeholderScreenshot from '@src/assets/project/placeholder.png';
+import AboutCard from '@src/components/AboutCard.astro';
 import Giscus from '@src/components/blog/Giscus.astro';
 import Socials from '@src/components/Socials.astro';
 import { projects } from '@src/content/projects';
@@ -10,126 +11,110 @@ import { Image } from 'astro:assets';
 import { ExternalLink } from 'lucide-react';
 
 const favProjects = projects
-    .filter((project) => !project.hide && project.favorite)
+    .filter(project => !project.hide && project.favorite)
     .sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
 ---
 
 <MeLayout>
-    <main class="container mx-auto w-full flex-1 px-4 py-12">
-        <!-- 个人信息区域 -->
-        <div class="mb-16 flex flex-col gap-8 lg:flex-row">
-            <!-- 个人信息卡片 -->
-            <div class="w-full lg:w-1/3">
-                <div class="flex h-full flex-col rounded-xl bg-white p-8 shadow-lg">
-                    <div class="text-center">
-                        <div class="mx-auto mb-6 h-32 w-32 overflow-hidden rounded-full ring-4 ring-me-primary/20">
-                            <Image src={avatar} alt="嘿壳" class="h-full w-full object-cover" />
-                        </div>
-                        <h1 class="mb-3 text-3xl font-bold text-me-primary">嘿壳</h1>
-                        <p class="text-lg text-gray-600">一名爱瞎折腾的开发者</p>
-                    </div>
+    <AboutCard />
+    <div class='h-10'></div>
 
-                    <!-- 社交链接 -->
-                    <div class="mt-auto flex justify-center space-x-6">
-                        <Socials />
-                    </div>
+    <!-- 项目展示 -->
+    <section class='mb-16'>
+        <div class='group mb-8 flex flex-row items-center justify-between pb-4'>
+            <div class='relative'>
+                <h2
+                    class='my-0 text-center text-3xl font-bold text-me-primary transition-all duration-300 hover:text-me-primary/90'
+                >
+                    精选项目
+                </h2>
+                <div
+                    class='absolute -bottom-4 left-0 h-1 w-full bg-gradient-to-r from-me-primary via-me-primary to-me-primary/50 transition-all duration-300 group-hover:from-me-primary/50 group-hover:via-me-primary group-hover:to-me-primary'
+                >
                 </div>
             </div>
-
-            <!-- 自我介绍 -->
-            <div class="flex-1">
-                <div class="flex h-full flex-col rounded-xl bg-white p-8 shadow-lg">
-                    <h2 class="my-2 text-3xl font-bold text-me-primary">关于我</h2>
-                    <div class="space-y-6 text-lg text-gray-700">
-                        <p>你好，我是嘿壳，一名开发者。主要从事前端开发工作，对后端、移动端、客户端也略有涉猎。</p>
-                        <p>这个网站是我的个人空间，包含了我的博客文章、学习笔记、项目展示以及一些有趣的 demo 实验。</p>
-                        <p>欢迎来到这里，希望你能有所收获。</p>
-                    </div>
-                </div>
-            </div>
+            <a
+                href='/project'
+                class='relative inline-flex items-center gap-1 text-center text-me-primary transition-all duration-300
+                    before:absolute before:-bottom-2 before:left-0 before:h-0.5 before:w-full before:origin-right before:scale-x-0 before:bg-me-primary before:transition-transform before:duration-300 before:ease-in-out
+                    after:absolute after:-bottom-2 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-me-primary after:transition-transform after:duration-300 after:ease-in-out
+                    hover:text-me-primary/90 hover:before:origin-left hover:before:scale-x-50 hover:after:origin-right hover:after:scale-x-50'
+            >
+                查看更多项目
+                <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    class='h-5 w-5 transform transition-transform duration-300 group-hover:translate-x-1'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    stroke='currentColor'
+                >
+                    <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M13 7l5 5m0 0l-5 5m5-5H6'
+                    ></path>
+                </svg>
+            </a>
         </div>
+        <div class='grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3' data-projects>
+            {
+                favProjects.map(project => (
+                    <div class='group relative transform overflow-hidden rounded-xl bg-white shadow-lg transition-all duration-500 ease-in-out hover:-translate-y-2 hover:scale-105 hover:shadow-2xl'>
+                        <div class='relative h-48 overflow-hidden'>
+                            <div class='absolute inset-0 z-10 bg-gradient-to-b from-transparent via-transparent to-black/50' />
+                            <Image
+                                src={project.image || placeholderScreenshot}
+                                alt={project.name}
+                                class={`absolute inset-0 h-full w-full object-cover transition-transform duration-[2000ms] ease-linear group-hover:translate-y-[calc(-100%+192px)] ${
+                                    project.image ? 'object-top' : 'object-center'
+                                }`}
+                            />
+                        </div>
 
-        <!-- 项目展示 -->
-        <section class="mb-16">
-            <div class="group mb-8 flex flex-row items-center justify-between pb-4">
-                <div class="relative">
-                    <h2 class="my-0 text-center text-3xl font-bold text-me-primary transition-all duration-300 hover:text-me-primary/90">精选项目</h2>
-                    <div class="absolute -bottom-4 left-0 h-1 w-full bg-gradient-to-r from-me-primary via-me-primary to-me-primary/50 transition-all duration-300 group-hover:from-me-primary/50 group-hover:via-me-primary group-hover:to-me-primary"></div>
-                </div>
-                <a href="/project" 
-                    class="relative inline-flex items-center gap-1 text-center text-me-primary transition-all duration-300 
-                    before:absolute before:-bottom-2 before:left-0 before:h-0.5 before:w-full before:origin-right before:scale-x-0 before:bg-me-primary before:transition-transform before:duration-300 before:ease-in-out 
-                    after:absolute after:-bottom-2 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-me-primary after:transition-transform after:duration-300 after:ease-in-out 
-                    hover:text-me-primary/90 hover:before:origin-left hover:before:scale-x-50 hover:after:origin-right hover:after:scale-x-50">
-                    查看更多项目
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                    </svg>
-                </a>
-            </div>
-            <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3" data-projects>
-                {
-                    favProjects.map((project) => (
-                        <div class="group relative transform overflow-hidden rounded-xl bg-white shadow-lg transition-all duration-500 ease-in-out hover:-translate-y-2 hover:scale-105 hover:shadow-2xl">
-                            <div class="relative h-48 overflow-hidden">
-                                <div class="absolute inset-0 z-10 bg-gradient-to-b from-transparent via-transparent to-black/50" />
-                                <Image
-                                    src={project.image || placeholderScreenshot}
-                                    alt={project.name}
-                                    class={`absolute inset-0 h-full w-full object-cover transition-transform duration-[2000ms] ease-linear group-hover:translate-y-[calc(-100%+192px)] ${
-                                        project.image ? 'object-top' : 'object-center'
-                                    }`}
-                                />
-                            </div>
-
-                            <div class="relative p-6">
-                                <div class="absolute -bottom-8 -right-8 z-0 h-16 w-16 rounded-full bg-me-primary/5 transition-transform duration-300 group-hover:scale-[4]" />
-                                <div class="relative z-10">
-                                    <h3 class="my-2 text-xl font-bold text-me-primary">{project.name}</h3>
-                                    <p class="mb-4 line-clamp-2 text-sm text-gray-600" style={{ minHeight: '2.5rem' }}>
-                                        {project.description}
-                                    </p>
-                                    <div class="flex flex-row items-center justify-between">
-                                        <div class="flex flex-wrap gap-2">
-                                            {project.tags?.map((tag) => (
-                                                <span class="rounded-full bg-me-secondary/20 px-3 py-1 text-xs font-medium text-me-primary/80">
-                                                    {tag}
-                                                </span>
-                                            ))}
-                                        </div>
-                                        <div class="flex items-center gap-4 pt-2">
-                                            {project.repo && !project.private && (
-                                                <a
-                                                    href={project.repo}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    class="transition-transform duration-300 ease-in-out hover:scale-110"
-                                                    title={`View source code for ${project.name}`}
-                                                >
-                                                    <Image src={githubIcon} alt="GitHub" class="h-4 w-4" />
-                                                </a>
-                                            )}
-                                            {project.link && (
-                                                <a
-                                                    href={project.link}
-                                                    target="_blank"
-                                                    class="transition-transform duration-300 ease-in-out hover:scale-110"
-                                                    title={`${project.name} - ${project.description}`}
-                                                >
-                                                    <ExternalLink className="h-4 w-4" />
-                                                </a>
-                                            )}
-                                        </div>
+                        <div class='relative p-6'>
+                            <div class='absolute -bottom-8 -right-8 z-0 h-16 w-16 rounded-full bg-me-primary/5 transition-transform duration-300 group-hover:scale-[4]' />
+                            <div class='relative z-10'>
+                                <h3 class='my-2 text-xl font-bold text-me-primary'>{project.name}</h3>
+                                <p class='mb-4 line-clamp-2 text-sm text-gray-600' style={{ minHeight: '2.5rem' }}>
+                                    {project.description}
+                                </p>
+                                <div class='flex flex-row items-center justify-between'>
+                                    <div class='flex flex-wrap gap-2'>
+                                        {project.tags?.map(tag => (
+                                            <span class='rounded-full bg-me-secondary/20 px-3 py-1 text-xs font-medium text-me-primary/80'>
+                                                {tag}
+                                            </span>
+                                        ))}
+                                    </div>
+                                    <div class='flex items-center gap-4 pt-2'>
+                                        {project.repo && !project.private && (
+                                            <a
+                                                href={project.repo}
+                                                target='_blank'
+                                                rel='noopener noreferrer'
+                                                class='transition-transform duration-300 ease-in-out hover:scale-110'
+                                                title={`View source code for ${project.name}`}
+                                            >
+                                                <Image src={githubIcon} alt='GitHub' class='h-4 w-4' />
+                                            </a>
+                                        )}
+                                        {project.link && (
+                                            <a
+                                                href={project.link}
+                                                target='_blank'
+                                                class='transition-transform duration-300 ease-in-out hover:scale-110'
+                                                title={`${project.name} - ${project.description}`}
+                                            >
+                                                <ExternalLink className='h-4 w-4' />
+                                            </a>
+                                        )}
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    ))
-                }
-            </div>
-        </section>
-        <Giscus />
-    </main>
+                    </div>
+                ))
+            }
+        </div>
+    </section>
+    <Giscus />
 </MeLayout>
 
 <style>

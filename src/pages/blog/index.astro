@@ -1,5 +1,5 @@
 ---
-import AboutCard from '@src/components/blog/AboutCard.astro';
+import AboutCard from '@src/components/AboutCard.astro';
 import BlogList from '@src/components/blog/BlogList.astro';
 import BlogLayout from '@src/layouts/BlogLayout.astro';
 import { getCollection } from 'astro:content';
@@ -17,13 +17,13 @@ const allBlogPosts = (
     await getCollection('blog', ({ data }) => {
         return !data.draft && !data.ignoreInList;
     })
-).map((post) => ({
+).map(post => ({
     ...post,
     data: {
         ...post.data,
         pubDate: new Date(post.data.pubDate),
-        readingTime: getReadingTime(post.body || ''),
-    },
+        readingTime: getReadingTime(post.body || '')
+    }
 }));
 
 // 按发布日期降序排序
@@ -38,5 +38,6 @@ const sortedPosts = allBlogPosts.sort((a, b) => b.data.pubDate.valueOf() - a.dat
     </div> -->
 
     <AboutCard />
+    <div class="h-10"></div>
     <BlogList posts={sortedPosts} />
 </BlogLayout>

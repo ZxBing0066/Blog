@@ -66,11 +66,11 @@ const {
         </script>
 
         <!-- Google Ads -->
-        <script
+        <!-- <script
             async
             is:inline
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1906392499705020"
-            crossorigin="anonymous"></script>
+            crossorigin="anonymous"></script> -->
 
         <!-- ahrefs analytics -->
         <script src="https://analytics.ahrefs.com/analytics.js" data-key="sxaSZsMWdcVI01Tx3geUoA" async></script>
@@ -79,7 +79,7 @@ const {
         <link rel="preload" href="/fonts/XingShuFont.otf" as="font" type="font/opentype" crossorigin />
         <link rel="preload" href="/fonts/PixelFont.ttf" as="font" type="font/truetype" crossorigin />
     </head>
-    <body class={themeClass}>
+    <body class={`${themeClass}`}>
         <slot />
     </body>
 </html>

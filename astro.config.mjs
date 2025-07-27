@@ -9,6 +9,7 @@ import remarkDirective from 'remark-directive';
 
 import { noteDirectiveRemarkPlugin } from './plugins/note-directive';
 import { youtubeDirectiveRemarkPlugin } from './plugins/youtube-directive';
+import rehypeWrapImages from './plugins/rehype-wrap-images';
 
 // https://astro.build/config
 export default defineConfig({
@@ -16,19 +17,19 @@ export default defineConfig({
     integrations: [
         react(),
         tailwind({
-            configFile: './tailwind.config.mjs',
+            configFile: './tailwind.config.mjs'
         }),
         mdx({
             remarkPlugins: [remarkDirective, youtubeDirectiveRemarkPlugin, noteDirectiveRemarkPlugin],
-            rehypePlugins: [[rehypeExternalLinks, { target: '_blank', rel: ['nofollow'] }]],
+            rehypePlugins: [rehypeWrapImages, [rehypeExternalLinks, { target: '_blank', rel: ['nofollow'] }]]
         }),
-        sitemap(),
+        sitemap()
     ],
     build: {
-        format: 'file',
+        format: 'file'
     },
     markdown: {
         remarkPlugins: [remarkDirective, youtubeDirectiveRemarkPlugin, noteDirectiveRemarkPlugin],
-        rehypePlugins: [[rehypeExternalLinks, { target: '_blank', rel: ['nofollow'] }]],
-    },
+        rehypePlugins: [rehypeWrapImages, [rehypeExternalLinks, { target: '_blank', rel: ['nofollow'] }]]
+    }
 });
